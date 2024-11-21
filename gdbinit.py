@@ -30,7 +30,7 @@ def hash_file(file_path: str | Path) -> str:
 
 
 def run_poetry_install(
-    poetry_path: os.PathLike[str], src_root, dev: bool = False
+    poetry_path: os.PathLike[str], src_root: Path, dev: bool = False
 ) -> Tuple[str, str, int]:
     command: List[str] = [str(poetry_path), "install"]
     if dev:
