@@ -62,8 +62,7 @@ def bn_eval(expr: gdb.Value) -> int | None:
     Docs: https://api.binary.ninja/binaryninja.binaryview-module.html#binaryninja.binaryview.BinaryView.parse_expression
 
     Adds all registers in the current register set as magic variables (e.g. $rip).
-    Also adds a $piebase magic variable with the computed executable base.
-    """
+    Also adds a $piebase magic variable with the computed executable base."""
     magic_vars = {}
     for r in pwndbg.aglib.regs.current:
         v = pwndbg.aglib.regs[r]

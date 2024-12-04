@@ -73,10 +73,8 @@ def base(name_pattern: gdb.Value | str) -> int:
 
 @GdbFunction(only_when_running=True)
 def hex2ptr(hex_string: gdb.Value | str) -> int:
-    """
-    Converts a hex string to a little-endian address and returns the address.
-    Example usage: $hex2ptr("00 70 75 c1 cd ef 59 00")
-    """
+    """Converts a hex string to a little-endian address and returns the address.
+    Example usage: $hex2ptr("00 70 75 c1 cd ef 59 00")"""
     if isinstance(hex_string, gdb.Value):
         hex_string = hex_string.string()
 

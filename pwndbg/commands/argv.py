@@ -76,9 +76,7 @@ def envp(name=None):
 
 
 class argv_function(gdb.Function):
-    """
-    Evaluate argv on the supplied value.
-    """
+    """Evaluate argv on the supplied value."""
 
     def __init__(self) -> None:
         super().__init__("argv")
@@ -98,9 +96,7 @@ argv_function()
 
 
 class envp_function(gdb.Function):
-    """
-    Evaluate envp on the supplied value.
-    """
+    """Evaluate envp on the supplied value."""
 
     def __init__(self) -> None:
         super().__init__("envp")
@@ -120,9 +116,7 @@ envp_function()
 
 
 class argc_function(gdb.Function):
-    """
-    Evaluates to argc.
-    """
+    """Evaluates to argc."""
 
     def __init__(self) -> None:
         super().__init__("argc")
@@ -135,9 +129,7 @@ argc_function()
 
 
 class environ_function(gdb.Function):
-    """
-    Evaluate getenv() on the supplied value.
-    """
+    """Evaluate getenv() on the supplied value."""
 
     def __init__(self) -> None:
         super().__init__("environ")
