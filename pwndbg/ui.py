@@ -70,10 +70,12 @@ def get_window_size(target=sys.stdin):
     fallback = (int(os.environ.get("LINES", 20)), int(os.environ.get("COLUMNS", 80)))
     if not target.isatty():
         return fallback
-    rows, cols = get_cmd_window_size()
-    if rows is not None and cols is not None:
-        return rows, cols
-    elif os.environ.get("PWNDBG_IN_TEST") is not None:
+    if target == sys.stdin:
+        # We can ask the debugger for the window size
+        rows, cols = get_cmd_window_size()
+        if rows is not None and cols is not None:
+            return rows, cols
+    if os.environ.get("PWNDBG_IN_TEST") is not None:
         return fallback
     try:
         # get terminal size and force ret buffer len of 4 bytes for safe unpacking by passing equally long arg
