@@ -271,7 +271,7 @@ def fix_reraise(*a, **kw) -> str | pwndbg.dbg_mod.Value | None:
 def fix_reraise_arg(arg) -> pwndbg.dbg_mod.Value:
     """fix_reraise wrapper for evaluating command arguments"""
     try:
-        # Will always return pwndbg.gdb_mod.Value because
+        # Will always return pwndbg.dbg_mod.Value because
         # sloppy=False (not str) and reraise=True (not None)
         fixed = fix(arg, sloppy=False, quiet=True, reraise=True)
         assert isinstance(fixed, pwndbg.dbg_mod.Value)
