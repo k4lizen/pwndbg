@@ -403,8 +403,8 @@ def mp() -> None:
     allocator = pwndbg.aglib.heap.current
     assert isinstance(allocator, GlibcMemoryAllocator)
 
-    print(message.notice("mp_ struct at: ") + message.hint(hex(allocator.mp.address)))
-    print(allocator.mp)
+    print(message.notice("mp_ struct at: ") + message.hint(hex(int(allocator.mp.address))))
+    print(allocator.mp.value_to_human_readable())
 
 
 parser = argparse.ArgumentParser(
