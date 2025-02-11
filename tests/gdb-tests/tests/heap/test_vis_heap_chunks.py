@@ -76,7 +76,9 @@ def test_vis_heap_chunk_command(start_binary):
     gdb.execute("set default-visualize-chunk-number 1")
     assert pwndbg.config.default_visualize_chunk_number == 1
     result = gdb.execute("vis_heap_chunk", to_string=True).splitlines()
-    assert result == expected
+    # No parameters were passed and top isn't reached so help text is shown
+    no_params_help = "Not all chunks were shown, see `vis --help` for more information."
+    assert result == expected + [no_params_help]
     gdb.execute(
         "set default-visualize-chunk-number %d"
         % pwndbg.config.default_visualize_chunk_number.default
