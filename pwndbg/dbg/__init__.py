@@ -1160,6 +1160,13 @@ class Debugger:
         """
         raise NotImplementedError()
 
+    def set_prompt(self) -> None:
+        """
+        Tell the debugger to refresh it's prompt.
+        (The pwndbg> and pwndbg-lldb> lines)
+        """
+        raise NotImplementedError()
+
     def set_python_diagnostics(self, enabled: bool) -> None:
         """
         Enables or disables Python diagnostic messages for this debugger.

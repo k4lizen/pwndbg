@@ -35,6 +35,7 @@ import pwndbg.commands
 import pwndbg.commands.telescope
 import pwndbg.integration
 import pwndbg.ui
+import pwndbg.dbg
 from pwndbg.aglib.arch import get_thumb_mode_string
 from pwndbg.color import ColorConfig
 from pwndbg.color import ColorParamSpec
@@ -54,8 +55,8 @@ log = logging.getLogger(__name__)
 T = TypeVar("T")
 P = ParamSpec("P")
 
-theme.add_param("backtrace-prefix", "►", "prefix for current backtrace label")
 
+theme.add_param("backtrace-prefix", "►", "prefix for current backtrace label")
 # TODO: Should namespace be "context.backtrace"?
 c = ColorConfig(
     "backtrace",
@@ -550,6 +551,15 @@ def context_expressions(target=sys.stdout, with_banner=True, width=None):
         if cmd == "execute":
             output.append(value)
 
+        new_arr = []
+
+    # gdb can output single elements with \n's
+    # we split it up here so cmd_line calculation is correct in context()
+    _output = []
+    for val in output:
+        _output.extend(val.split("\n"))
+    output = _output
+
     return banner + output if with_banner else output
 
 
@@ -611,6 +621,7 @@ parser.add_argument(
     help="Do not show the section(s) in subsequent context commands even though they might be in the 'context-sections' list.",
 )
 
+ctx_leftover_lines = 0
 
 @pwndbg.commands.ArgparsedCommand(parser, aliases=["ctx"], category=CommandCategory.CONTEXT)
 def context(subcontext=None, enabled=None) -> None:
@@ -670,13 +681,25 @@ def context(subcontext=None, enabled=None) -> None:
             with target as out:
                 res.append(pwndbg.ui.banner("", target=out, width=settings.get("width", None)))
 
+    cmd_lines = 0
     for target, lines in result.items():
         with target as out:
             if result_settings[target].get("clearing", config_clear_screen) and lines:
                 clear_screen(out)
             out.writelines(line + "\n" for line in lines)
             out.flush()
+        # Assuming the command window is always stdout
+        if isinstance(target, StdOutput):
+            cmd_lines += len(lines)
 
+    global ctx_leftover_lines
+    # I would use .get_cmd_window_size() but lldb doesn't provide it :)
+    rows, _ = pwndbg.ui.get_window_size(sys.stdout)
+    # print("rows: ", rows, " cmd_lines: ", cmd_lines)
+    oldctxll = ctx_leftover_lines
+    ctx_leftover_lines = rows - cmd_lines
+    if oldctxll != ctx_leftover_lines:
+        pwndbg.dbg.set_prompt()
 
 pwndbg.config.add_param(
     "show-compact-regs", False, "whether to show a compact register view with columns"
@@ -860,6 +883,9 @@ def get_regs(regs: List[str] = None):
         result.append(f"{m}{regname} {desc}")
     return result
 
+lines_means_lines = pwndbg.config.add_param(
+    "context-lines-means-lines", True, "make context sections always output the same number of lines"
+)
 
 disasm_lines = pwndbg.config.add_param(
     "context-disasm-lines", 10, "number of additional lines to print in the disasm context"
@@ -899,6 +925,9 @@ def context_disasm(target=sys.stdout, with_banner=True, width=None):
             use_cache=True,
         )
     )
+
+    if lines_means_lines and len(result) > disasm_lines + 1:
+        result = result[:(disasm_lines+1)]
 
     # Note: we must fetch emulate value again after disasm since
     # we check if we can actually use emulation in `can_run_first_emulate`

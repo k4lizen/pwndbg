@@ -1775,6 +1775,8 @@ class LLDB(pwndbg.dbg_mod.Debugger):
 
         load_aglib()
 
+        self.set_prompt()
+
         # Load all of our commands.
         import pwndbg.commands
 
@@ -2053,6 +2055,21 @@ class LLDB(pwndbg.dbg_mod.Debugger):
     @override
     def get_cmd_window_size(self) -> Tuple[int, int]:
         return None, None
+
+    @override
+    def set_prompt(self) -> None:
+        import pwndbg.commands.context
+
+        self.prompt = "pwndbg-lldb> "
+
+        self.prompt = M.readline_escape(M.prompt, self.prompt)
+        # self.prompt = M.prompt(self.prompt)
+
+        # Same as in gdb.. except the "addr in main()" stuff
+        if pwndbg.commands.context.ctx_leftover_lines >= 2 and not pwndbg.commands.context.config_clear_screen:
+            self.prompt += "\x01\x1b[2S\x1b[2A\x02"
+
+        # self.prompt is used by repl/
 
     def is_gdblib_available(self):
         return False

@@ -15,6 +15,7 @@ import pwndbg.gdblib.events
 import pwndbg.gdblib.functions
 import pwndbg.lib.cache
 import pwndbg.profiling
+import pwndbg.dbg.gdb
 from pwndbg.color import disable_colors
 from pwndbg.color import message
 from pwndbg.dbg import EventType
@@ -103,26 +104,12 @@ def prompt_hook(*a: Any) -> None:
     # set prompt again when alive state changes
     if last_alive_state != pwndbg.aglib.proc.alive:
         last_alive_state = pwndbg.aglib.proc.alive
-        set_prompt()
+        pwndbg.dbg.set_prompt()
 
 
 @pwndbg.dbg.event_handler(EventType.CONTINUE)
 def reset_context_shown(*a: Any) -> None:
     global context_shown
     context_shown = False
-
-
-@pwndbg.config.trigger(message.config_prompt_color, disable_colors)
-def set_prompt() -> None:
-    prompt = "pwndbg> "
-
-    if not disable_colors:
-        if pwndbg.aglib.proc.alive:
-            prompt = message.readline_escape(message.alive_prompt, prompt)
-        else:
-            prompt = message.readline_escape(message.prompt, prompt)
-
-    gdb.execute(f"set prompt {prompt}")
-
 
 gdb.prompt_hook = initial_hook

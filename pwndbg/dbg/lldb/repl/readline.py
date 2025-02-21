@@ -18,12 +18,13 @@ import lldb
 
 from pwndbg.color import message
 from pwndbg.dbg.lldb import LLDB
+import pwndbg.dbg
 
 P = ParamSpec("P")
 T = TypeVar("T")
 
 
-PROMPT = message.readline_escape(message.prompt, "pwndbg-lldb> ")
+# PROMPT = message.readline_escape(message.prompt, "pwndbg-lldb> ")
 HISTORY_FILE = os.path.expanduser("~/.pwndbg_history")
 
 complete_values = lldb.SBStringList()
@@ -71,7 +72,8 @@ def display_completions(substitutions, matches, longest_match_len):
 
         print(f"\t{match}{padding} -- {description}")
 
-    print(PROMPT, end="", flush=True)
+    print("one")
+    print(pwndbg.dbg.prompt, end="", flush=True)
     print(readline.get_line_buffer(), end="", flush=True)
 
 

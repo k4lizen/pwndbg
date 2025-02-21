@@ -154,32 +154,32 @@ install_pacman() {
     set_zigpath "$(pwd)/.zig"
 
     # add debug repo for glibc-debug if it doesn't already exist
-    if ! grep -q "\[core-debug\]" /etc/pacman.conf; then
-        cat << EOF | sudo tee -a /etc/pacman.conf
-        [core-debug]
-        Include = /etc/pacman.d/mirrorlist
-EOF
-    fi
+#     if ! grep -q "\[core-debug\]" /etc/pacman.conf; then
+#         cat << EOF | sudo tee -a /etc/pacman.conf
+#         [core-debug]
+#         Include = /etc/pacman.d/mirrorlist
+# EOF
+#     fi
 
-    if ! grep -q "\[extra-debug\]" /etc/pacman.conf; then
-        cat << EOF | sudo tee -a /etc/pacman.conf
-        [extra-debug]
-        Include = /etc/pacman.d/mirrorlist
-EOF
-    fi
+#     if ! grep -q "\[extra-debug\]" /etc/pacman.conf; then
+#         cat << EOF | sudo tee -a /etc/pacman.conf
+#         [extra-debug]
+#         Include = /etc/pacman.d/mirrorlist
+# EOF
+#     fi
 
-    if ! grep -q "\[multilib-debug\]" /etc/pacman.conf; then
-        cat << EOF | sudo tee -a /etc/pacman.conf
-        [multilib-debug]
-        Include = /etc/pacman.d/mirrorlist
-EOF
-    fi
+#     if ! grep -q "\[multilib-debug\]" /etc/pacman.conf; then
+#         cat << EOF | sudo tee -a /etc/pacman.conf
+#         [multilib-debug]
+#         Include = /etc/pacman.d/mirrorlist
+# EOF
+#     fi
 
-    sudo pacman -Syu --noconfirm || true
+    # sudo pacman -Syu --noconfirm || true
+        # glibc-debug \
     sudo pacman -S --needed --noconfirm \
         nasm \
         gcc \
-        glibc-debug \
         curl \
         wget \
         base-devel \
