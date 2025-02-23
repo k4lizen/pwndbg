@@ -1775,6 +1775,8 @@ class LLDB(pwndbg.dbg_mod.Debugger):
 
         load_aglib()
 
+        self.set_prompt()
+
         # Load all of our commands.
         import pwndbg.commands
 
@@ -2053,6 +2055,12 @@ class LLDB(pwndbg.dbg_mod.Debugger):
     @override
     def get_cmd_window_size(self) -> Tuple[int, int]:
         return None, None
+
+    @override
+    def set_prompt(self) -> None:
+        self.prompt = "pwndbg-lldb> "
+        self.prompt = M.readline_escape(M.prompt, self.prompt)
+        # self.prompt is used by repl/
 
     def is_gdblib_available(self):
         return False

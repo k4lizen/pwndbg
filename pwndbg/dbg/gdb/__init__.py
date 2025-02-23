@@ -32,6 +32,8 @@ from pwndbg.gdblib import load_gdblib
 from pwndbg.lib.arch import PWNDBG_SUPPORTED_ARCHITECTURES_TYPE
 from pwndbg.lib.memory import PAGE_MASK
 from pwndbg.lib.memory import PAGE_SIZE
+from pwndbg.color import message
+from pwndbg.color import disable_colors
 
 T = TypeVar("T")
 
@@ -1279,7 +1281,7 @@ class GDB(pwndbg.dbg_mod.Debugger):
         # this method.
         from pwndbg.gdblib import prompt
 
-        prompt.set_prompt()
+        self.set_prompt()
 
         pre_commands = """
         set confirm off
@@ -1589,6 +1591,17 @@ class GDB(pwndbg.dbg_mod.Debugger):
             height if height is None else int(height),
             width if width is None else int(width),
         )
+
+    @pwndbg.config.trigger(message.config_prompt_color, disable_colors)
+    @override
+    def set_prompt(self) -> None:
+        prompt = "pwndbg> "
+
+        if not disable_colors:
+            color = message.alive_prompt if pwndbg.aglib.proc.alive else message.prompt
+            prompt = message.readline_escape(color, prompt)
+
+        gdb.execute(f"set prompt {prompt}")
 
     @override
     def set_python_diagnostics(self, enabled: bool) -> None:

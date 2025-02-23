@@ -16,14 +16,12 @@ from typing import TypeVar
 import gnureadline as readline
 import lldb
 
-from pwndbg.color import message
 from pwndbg.dbg.lldb import LLDB
 
 P = ParamSpec("P")
 T = TypeVar("T")
 
 
-PROMPT = message.readline_escape(message.prompt, "pwndbg-lldb> ")
 HISTORY_FILE = os.path.expanduser("~/.pwndbg_history")
 
 complete_values = lldb.SBStringList()
@@ -58,7 +56,7 @@ def complete(dbg: LLDB, text: str, state: int) -> str | None:
     return None
 
 
-def display_completions(substitutions, matches, longest_match_len):
+def display_completions(dbg: LLDB, substitutions, matches, longest_match_len):
     """
     Display the completions found by `complete` in the style of LLDB.
     """
@@ -71,7 +69,7 @@ def display_completions(substitutions, matches, longest_match_len):
 
         print(f"\t{match}{padding} -- {description}")
 
-    print(PROMPT, end="", flush=True)
+    print(dbg.prompt, end="", flush=True)
     print(readline.get_line_buffer(), end="", flush=True)
 
 
@@ -103,7 +101,7 @@ def enable_readline(dbg: LLDB):
     readline.set_completer(lambda text, state: complete(dbg, text, state))
     readline.set_completer_delims("")
     readline.set_completion_display_matches_hook(None)
-    readline.set_completion_display_matches_hook(display_completions)
+    readline.set_completion_display_matches_hook(lambda subs, matches, max_match: display_completions(dbg, subs, matches, max_match))
     readline.parse_and_bind("tab: complete")
 
 
