@@ -73,31 +73,37 @@ plugins:
   #     exclude:
   #       - index.md
   #       - docs/commands/**
-  - gen-files:
-      scripts:
-        - scripts/gen_ref_pages.py
-  # - mkdocstrings:
-  #     default_handler: python
-  #     handlers:
-  #       python:
-  #         paths: []
-  #         # load_external_modules: true
-  #         options:
-  #           allow_inspection: true
-  #           show_source: false
-  #           show_bases: true
-  #           docstring_style: google
-  #           docstring_section_style: table
-  #           show_root_full_path: true
-  #           show_if_no_docstring: true
-  #           show_docstring_classes: true
-  #           show_docstring_modules: true
-  #           show_docstring_description: true
-  #           show_docstring_examples: true
-  #           show_docstring_other_parameters: true
-  #           show_docstring_parameters: true
-  #           show_docstring_return: true
-  #           show_docstring_raises: true
+  # - gen-files:
+  #     scripts:
+  #       - scripts/gen_ref_pages.py
+  # Source references in the docs
+  - mkdocs-autoapi:
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: []
+          # load_external_modules: true
+          options:
+# https://mkdocstrings.github.io/python/usage/configuration/general/
+            # Import python modules if their source can't be parsed.
+            allow_inspection: true
+            # Show the base clases of a class.
+            show_bases: true
+            # Show the source of an object.
+            show_source: true
+
+            # docstring_style: google
+            # docstring_section_style: table
+            # show_root_full_path: true
+            # show_if_no_docstring: true
+            # show_docstring_classes: true
+            # show_docstring_modules: true
+            # show_docstring_description: true
+            # show_docstring_examples: true
+            # show_docstring_other_parameters: true
+            # show_docstring_parameters: true
+            # show_docstring_return: true
   - rss:
       match_path: blog/posts/.*
       date_from_meta:

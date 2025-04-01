@@ -27,3 +27,6 @@ usage: breakrva [-h] [offset] [module]
 |Short|Long|Default|Help|
 | :--- | :--- | :--- | :--- |
 |`-h`|`--help`||show this help message and exit|
+
+
+::: pwndbg.commands.pie.breakrva
