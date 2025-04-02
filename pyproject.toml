@@ -67,7 +67,7 @@ docs = [
     "mkdocstrings",
     "mkdocstrings-python",
     "pymdown-extensions",
-    "mkdocs-autoapi",
+    "mkdocs-autoapi>=0.4.1",
 ]
 
 [tool.ruff]

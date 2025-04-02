@@ -718,15 +718,15 @@ wheels = [
 
 [[package]]
 name = "mkdocs-autoapi"
-version = "0.4.0"
+version = "0.4.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mkdocs" },
     { name = "mkdocstrings" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/02/14/aff89528cb481138c695c4b6a5e9854f5f79995fb7202fd38a8c9145ad0e/mkdocs_autoapi-0.4.0.tar.gz", hash = "sha256:409c2da8eb297ef51381b066744ac1cdf846220bcc779bdba680fbc5a080df1e", size = 21939 }
+sdist = { url = "https://files.pythonhosted.org/packages/00/22/75c85eb1129754da3d1275a599e924ee266a94c68d94db632f58e1f5897e/mkdocs_autoapi-0.4.1.tar.gz", hash = "sha256:3ea73c66361124afea8024a5cb2d681b8d88c3137b6acfed6fe31e11f7b8cf85", size = 21947 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/22/da/70e9719126c0a5da7cad0e551fb031d7705b9a81d09bc9addcfcd02ea1e7/mkdocs_autoapi-0.4.0-py3-none-any.whl", hash = "sha256:ce2b5e8b4d1df37bd1273a6bce1dded152107e2280cedbfa085cea10edf8531b", size = 24231 },
+    { url = "https://files.pythonhosted.org/packages/c9/9a/41dd5bb54cb698fa6e7e970fc224df9e53ca26ca8951f5647769ba2150cb/mkdocs_autoapi-0.4.1-py3-none-any.whl", hash = "sha256:0f6903058c1a790c6180870559ad930fea04da93961371e21ff23cd010f09c78", size = 24280 },
 ]
 
 [[package]]
@@ -1200,7 +1200,7 @@ dev = [
 docs = [
     { name = "mdutils" },
     { name = "mkdocs" },
-    { name = "mkdocs-autoapi" },
+    { name = "mkdocs-autoapi", specifier = ">=0.4.1" },
     { name = "mkdocs-autorefs", specifier = "==1.2.0" },
     { name = "mkdocs-gen-files" },
     { name = "mkdocs-material" },

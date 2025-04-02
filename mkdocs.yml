@@ -78,11 +78,13 @@ plugins:
   #       - scripts/gen_ref_pages.py
   # Source references in the docs
   - mkdocs-autoapi:
+      autoapi_keep_files: True
+      autoapi_dir: pwndbg
   - mkdocstrings:
       default_handler: python
       handlers:
         python:
-          paths: []
+          paths: [".", "pwndbg"]
           # load_external_modules: true
           options:
 # https://mkdocstrings.github.io/python/usage/configuration/general/
@@ -130,9 +132,6 @@ extra:
 extra_css:
   - stylesheets/extra.css
 
-extra_files:
-  - install.sh
-
 # Extensions
 markdown_extensions:
   - abbr
@@ -141,7 +140,6 @@ markdown_extensions:
   - def_list
   - footnotes
   - md_in_html
-  - fenced_code
   - toc:
       permalink: true
       toc_depth: "1-2"
