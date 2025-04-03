@@ -78,7 +78,7 @@ plugins:
           paths: ['pwndbg']
           options:
 # https://mkdocstrings.github.io/python/usage/configuration/general/
-              allow_inspection: true
+              allow_inspection: false
               extensions:
 # https://mkdocstrings.github.io/griffe/extensions/
                 - griffe_modernized_annotations
@@ -122,9 +122,9 @@ plugins:
               summary: true
               unwrap_annotated: true
   # Generate the whole Source page magically (hooks into mkdocstrings)
-  - api-autonav:
-      modules: ['pwndbg']
-      nav_section_title: "Source"
+  # - api-autonav:
+  #     modules: ['pwndbg']
+  #     nav_section_title: "Source"
   - rss:
       match_path: blog/posts/.*
       date_from_meta:
