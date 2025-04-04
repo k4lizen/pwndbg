@@ -11,7 +11,7 @@ repo_url: https://github.com/pwndbg/pwndbg/
 edit_uri: edit/dev/docs/
 
 theme:
-  name: material
+  name: mkdocs
 #   favicon: assets/favicon.ico
 #   logo: assets/logo.png
 #   icon:
@@ -57,10 +57,10 @@ theme:
 # # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#code-actions
 #     # Adds an edit button to every page that links to the repository.
 #     - content.action.edit
-#   palette:
-#     scheme: slate
-#     primary: black
-#     accent: purple
+  # palette:
+  #   scheme: slate
+  #   primary: black
+  #   accent: purple
 
 plugins:
   # - blog
@@ -121,7 +121,7 @@ plugins:
                 separate_signature: true
                 show_signature_annotations: true
 #               show_overloads: true
-                signature_crossrefs: true
+                # signature_crossrefs: true
 #               docstring_options:
 # # https://mkdocstrings.github.io/griffe/reference/docstrings/#google-options
 #                 ignore_init_summary: true
@@ -161,8 +161,8 @@ plugins:
 #   generator: true
 
 # extra_css:
-  # - stylesheets/extra.css
-  # - stylesheets/mkdocstrings.css
+#   - stylesheets/extra.css
+#   - stylesheets/mkdocstrings.css
   # - stylesheets/pygments.css
 
 markdown_extensions:
@@ -191,6 +191,7 @@ markdown_extensions:
   #     emoji_index: !!python/name:material.extensions.emoji.twemoji
   #     emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
+      default_lang: python
       # Perform highlighting at build time rather than client side.
       # use_pygments: true
       # # Don't annotate the used language above a code-block. In pwndbg it's obvious.
