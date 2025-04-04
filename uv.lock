@@ -1191,7 +1191,7 @@ requires-dist = [
     { name = "pwntools", specifier = ">=4.14.0,<5" },
     { name = "pycparser", specifier = "~=2.22" },
     { name = "pyelftools", specifier = ">=0.29,<0.30" },
-    { name = "pygments", specifier = ">=2.18.0,<3" },
+    { name = "pygments" },
     { name = "requests", specifier = ">=2.32.3,<3" },
     { name = "rich", specifier = ">=13.7.1,<14" },
     { name = "ropgadget", specifier = "==7.3" },

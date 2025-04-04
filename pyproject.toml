@@ -14,7 +14,7 @@ dependencies = [
     "typing-extensions>=4.12.0,<5",
     "pycparser~=2.22",
     "pyelftools>=0.29,<0.30",
-    "pygments>=2.18.0,<3",
+    "pygments",
     # Optional? only for 'ipi' command
     "ipython>=8.27.0,<9",
     # Optional? only for 'ropgadget' command
