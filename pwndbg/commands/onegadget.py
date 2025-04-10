@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawTextHelpFormatter,
     description="""Show onegadget
 
+awawawa
+
 Examples:
     onegadget
     onegadget --show-unsat
