@@ -19,6 +19,7 @@ from typing import Dict
 from mdutils.mdutils import MdUtils
 
 import pwndbg
+import re
 from pwndbg.gdblib.functions import _GdbFunction
 from scripts._gen_docs_generic import update_files_simple
 from scripts._gen_docs_generic import verify_existence
