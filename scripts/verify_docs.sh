@@ -10,7 +10,14 @@ export PWNDBG_GEN_DOC_JUST_VERIFY=1
 #     --ex "source ./scripts/_gen_function_docs.py" \
 
 
-uv run --group docs ~/opt/binutils-gdb-build/gdb/gdb --data-dir=/home/$USER/opt/binutils-gdb-build/gdb/data-directory/ -nx \
+uv run --group docs ~/opt/gdb-build/gdb/gdb \
+    --data-dir=/home/$USER/opt/gdb-build/gdb/data-directory/ -nx \
     --ex "source ./gdbinit.py" \
     --ex "maintenance set internal-error corefile yes" \
-    --ex "source ./thing.py"
+    # --ex "source ./thing.py"
+
+# uv run --group docs ~/opt/gdb-build-master/gdb/gdb \
+#     --data-dir=/home/$USER/opt/gdb-build-master/gdb/data-directory/ -nx \
+#     --ex "source ./gdbinit.py" \
+#     --ex "maintenance set internal-error corefile yes" \
+#     # --ex "source ./thing.py"
