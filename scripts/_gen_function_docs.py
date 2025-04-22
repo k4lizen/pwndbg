@@ -20,6 +20,7 @@ from mdutils.mdutils import MdUtils
 
 import pwndbg
 import re
+import os
 from pwndbg.gdblib.functions import _GdbFunction
 from scripts._gen_docs_generic import update_files_simple
 from scripts._gen_docs_generic import verify_existence
@@ -143,9 +144,14 @@ if len(sys.argv) > 1:
     print("See top of the file for usage.")
     exit(3)
 
-just_verify = False
-if os.getenv("PWNDBG_GEN_DOC_JUST_VERIFY"):
-    just_verify = True
+just_verify = True
+# if os.getenv("PWNDBG_GEN_DOC_JUST_VERIFY"):
+#     just_verify = True
+#     print("env set")
+# else:
+#     print("env nyot set")
+
+
 
 print("\n==== Function Documentation ====")
 
