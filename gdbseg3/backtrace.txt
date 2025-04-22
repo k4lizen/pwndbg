@@ -1,0 +1,75 @@
+#0  __pthread_kill_implementation (no_tid=0, signo=11, threadid=<optimized out>) at ./nptl/pthread_kill.c:44
+#1  __pthread_kill_internal (signo=11, threadid=<optimized out>) at ./nptl/pthread_kill.c:78
+#2  __GI___pthread_kill (threadid=<optimized out>, signo=signo@entry=11) at ./nptl/pthread_kill.c:89
+#3  0x00007c2de604527e in __GI_raise (sig=11) at ../sysdeps/posix/raise.c:26
+#4  0x00005e39028639bf in handle_fatal_signal (sig=11) at ../../binutils-gdb/gdb/event-top.c:939
+#5  0x00005e3902863a75 in handle_sigsegv (sig=11) at ../../binutils-gdb/gdb/event-top.c:989
+#6  <signal handler called>
+#7  0x00007c2de6af6e19 in ?? () from /lib/x86_64-linux-gnu/libpython3.12.so.1.0
+#8  0x00007c2de6af95fd in PyGILState_Ensure () from /lib/x86_64-linux-gnu/libpython3.12.so.1.0
+#9  0x00005e3902a8eae1 in gdbpy_gil::gdbpy_gil (this=0x7fff7b0ef0a4) at ../../binutils-gdb/gdb/python/python-internal.h:834
+#10 0x00005e3902adbd02 in gdbpy_check_quit_flag (extlang=0x5e3903309da0 <extension_language_python>) at ../../binutils-gdb/gdb/python/python.c:284
+#11 0x00005e390286e80f in check_quit_flag () at ../../binutils-gdb/gdb/extension.c:906
+#12 0x00005e390286e4e8 in set_active_ext_lang (now_active=0x5e3903309da0 <extension_language_python>) at ../../binutils-gdb/gdb/extension.c:825
+#13 0x00005e3902adbb44 in gdbpy_enter::gdbpy_enter (this=0x7fff7b0ef1d0, gdbarch=0x0, language=0x0) at ../../binutils-gdb/gdb/python/python.c:222
+#14 0x00005e3902ac0642 in gdbpy_tui_window_maker::~gdbpy_tui_window_maker (this=0x5e392a73a0e0, __in_chrg=<optimized out>)
+    at ../../binutils-gdb/gdb/python/py-tui.c:356
+#15 0x00005e3902ac304a in std::_Function_base::_Base_manager<gdbpy_tui_window_maker>::_M_destroy (__victim=...) at /usr/include/c++/13/bits/std_function.h:175
+#16 0x00005e3902ac2e60 in std::_Function_base::_Base_manager<gdbpy_tui_window_maker>::_M_manager (__dest=..., __source=..., __op=std::__destroy_functor)
+    at /usr/include/c++/13/bits/std_function.h:203
+#17 0x00005e3902ac2b9f in std::_Function_handler<tui_win_info* (char const*), gdbpy_tui_window_maker>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (__dest=..., __source=..., __op=std::__destroy_functor) at /usr/include/c++/13/bits/std_function.h:282
+#18 0x00005e390256a17d in std::_Function_base::~_Function_base (this=0x5e392a7e4318, __in_chrg=<optimized out>) at /usr/include/c++/13/bits/std_function.h:244
+#19 0x00005e3902ac1ab2 in std::function<tui_win_info* (char const*)>::~function() (this=0x5e392a7e4318, __in_chrg=<optimized out>)
+    at /usr/include/c++/13/bits/std_function.h:334
+#20 0x00005e3902c9421a in std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >::~pair() (this=0x5e392a7e42f8, __in_chrg=<optimized out>) at /usr/include/c++/13/bits/stl_pair.h:187
+#21 0x00005e3902c9204f in std::__new_allocator<std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true> >::destroy<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> > >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >*) (__p=0x5e392a7e42f8, this=0x5e390340cc60 <known_window_types>) at /usr/include/c++/13/bits/new_allocator.h:198
+#22 std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true> > >::destroy<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> > >(std::allocator<std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true> >&, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >*) (__p=0x5e392a7e42f8, __a=...) at /usr/include/c++/13/bits/alloc_traits.h:558
+#23 std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true> > >::_M_deallocate_node(std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true>*) (this=0x5e390340cc60 <known_window_types>, __n=0x5e392a7e42f0)
+    at /usr/include/c++/13/bits/hashtable_policy.h:2011
+#24 0x00005e3902c905f1 in std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true> > >::_M_deallocate_nodes(std::__detail::_Hash_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, true>*) (this=0x5e390340cc60 <known_window_types>,
+    __n=0x5e392a7cf8b0) at /usr/include/c++/13/bits/hashtable_policy.h:2033
+#25 0x00005e3902c8ef0e in std::_Hashtable<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> > >, std::__detail::_Select1st, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::clear() (
+    this=0x5e390340cc60 <known_window_types>) at /usr/include/c++/13/bits/hashtable.h:2524
+#26 0x00005e3902c8d3a2 in std::_Hashtable<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> > >, std::__detail::_Select1st, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true> >::~_Hashtable() (
+    this=0x5e390340cc60 <known_window_types>, __in_chrg=<optimized out>) at /usr/include/c++/13/bits/hashtable.h:1608
+#27 0x00005e3902c95764 in std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::function<tui_win_info* (char const*)>, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::function<tui_win_info* (char const*)> > > >::~unordered_map() (this=0x5e390340cc60 <known_window_types>, __in_chrg=<optimized out>) at /usr/include/c++/13/bits/unordered_map.h:109
+#28 0x00007c2de6047a76 in __run_exit_handlers (status=777, listp=<optimized out>, run_list_atexit=run_list_atexit@entry=true, run_dtors=run_dtors@entry=true)
+    at ./stdlib/exit.c:108
+#29 0x00007c2de6047bbe in __GI_exit (status=<optimized out>) at ./stdlib/exit.c:138
+#30 0x00007c2de6af6bf5 in Py_Exit () from /lib/x86_64-linux-gnu/libpython3.12.so.1.0
+#31 0x00007c2de6afdc6d in ?? () from /lib/x86_64-linux-gnu/libpython3.12.so.1.0
+#32 0x00005e3902ae026d in gdbpy_print_stack () at ../../binutils-gdb/gdb/python/python.c:1610
+#33 0x00005e3902acfbe1 in gdbpy_handle_exception () at ../../binutils-gdb/gdb/python/py-utils.c:397
+#34 0x00005e3902adea18 in gdbpy_source_script (extlang=0x5e3903309da0 <extension_language_python>, file=0x5e392a4f7e40,
+    filename=0x5e392ad2fd20 "./scripts/_gen_function_docs.py") at ../../binutils-gdb/gdb/python/python.c:1090
+#35 0x00005e39026a2726 in source_script_from_stream (stream=0x5e392a4f7e40, file=0x5e392ace8857 "./scripts/_gen_function_docs.py",
+    file_to_open=0x5e392ad2fd20 "./scripts/_gen_function_docs.py") at ../../binutils-gdb/gdb/cli/cli-cmds.c:715
+#36 0x00005e39026a28fd in source_script_with_search (file=0x5e392ace8857 "./scripts/_gen_function_docs.py", from_tty=1, search_path=0)
+    at ../../binutils-gdb/gdb/cli/cli-cmds.c:773
+#37 0x00005e39026a2aca in source_command (args=0x5e392ace8857 "./scripts/_gen_function_docs.py", from_tty=1) at ../../binutils-gdb/gdb/cli/cli-cmds.c:831
+#38 0x00005e39026ad36d in do_simple_func (args=0x5e392ace8857 "./scripts/_gen_function_docs.py", from_tty=1, c=0x5e392a34a100)
+    at ../../binutils-gdb/gdb/cli/cli-decode.c:94
+#39 0x00005e39026b33c9 in cmd_func (cmd=0x5e392a34a100, args=0x5e392ace8857 "./scripts/_gen_function_docs.py", from_tty=1)
+    at ../../binutils-gdb/gdb/cli/cli-decode.c:2741
+#40 0x00005e3902c4dd5a in execute_command (p=0x5e392ace8875 "y", from_tty=1) at ../../binutils-gdb/gdb/top.c:569
+#41 0x00005e3902862eaf in command_handler (command=0x5e392ace8850 "source ./scripts/_gen_function_docs.py") at ../../binutils-gdb/gdb/event-top.c:579
+#42 0x00005e3902863497 in command_line_handler (rl=...) at ../../binutils-gdb/gdb/event-top.c:815
+#43 0x00005e3902c7fd1b in tui_command_line_handler (rl=...) at ../../binutils-gdb/gdb/tui/tui-interp.c:106
+#44 0x00005e3902862633 in gdb_rl_callback_handler (rl=0x5e392ab93510 "source ./scripts/_gen_function_docs.py") at ../../binutils-gdb/gdb/event-top.c:271
+#45 0x00005e3902d2e12d in rl_callback_read_char () at ../../../binutils-gdb/readline/readline/callback.c:290
+#46 0x00005e3902862386 in gdb_rl_callback_read_char_wrapper_noexcept () at ../../binutils-gdb/gdb/event-top.c:196
+#47 0x00005e3902862463 in gdb_rl_callback_read_char_wrapper (client_data=0x5e392a27fc10) at ../../binutils-gdb/gdb/event-top.c:235
+#48 0x00005e3902cb328b in stdin_event_handler (error=0, client_data=0x5e392a27fc10) at ../../binutils-gdb/gdb/ui.c:154
+#49 0x00005e3902ebb7f3 in handle_file_event (file_ptr=0x5e392a4d74a0, ready_mask=1) at ../../binutils-gdb/gdbsupport/event-loop.cc:551
+#50 0x00005e3902ebbe74 in gdb_wait_for_event (block=1) at ../../binutils-gdb/gdbsupport/event-loop.cc:672
+#51 0x00005e3902ebac32 in gdb_do_one_event (mstimeout=-1) at ../../binutils-gdb/gdbsupport/event-loop.cc:263
+#52 0x00005e39029b17ba in start_event_loop () at ../../binutils-gdb/gdb/main.c:400
+#53 0x00005e39029b199a in captured_command_loop () at ../../binutils-gdb/gdb/main.c:464
+#54 0x00005e39029b35b1 in captured_main (data=0x7fff7b0eff00) at ../../binutils-gdb/gdb/main.c:1337
+#55 0x00005e39029b365b in gdb_main (args=0x7fff7b0eff00) at ../../binutils-gdb/gdb/main.c:1356
+#56 0x00005e3902513cef in main (argc=9, argv=0x7fff7b0f0048) at ../../binutils-gdb/gdb/gdb.c:38
+#57 0x00007c2de602a1ca in __libc_start_call_main (main=main@entry=0x5e3902513c39 <main(int, char**)>, argc=argc@entry=9, argv=argv@entry=0x7fff7b0f0048)
+    at ../sysdeps/nptl/libc_start_call_main.h:58
+#58 0x00007c2de602a28b in __libc_start_main_impl (main=0x5e3902513c39 <main(int, char**)>, argc=9, argv=0x7fff7b0f0048, init=<optimized out>, fini=<optimized out>,
+    rtld_fini=<optimized out>, stack_end=0x7fff7b0f0038) at ../csu/libc-start.c:360
+#59 0x00005e3902513b75 in _start ()

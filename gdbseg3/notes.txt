@@ -1,0 +1,28 @@
+to reproduce run:
+
+uv run --group docs ~/opt/binutils-gdb-build/gdb/gdb --data-dir=/home/$USER/opt/binutils-gdb-build/gdb/data-directory/ -nx \
+    --ex "source ./gdbinit.py" \
+    --ex "maintenance set internal-error corefile yes" \
+    --ex "source ./thing.py"
+
+where thing.py:
+```python
+import gdb
+exit(777)
+```
+
+
+order of events:
+
+python script exits
+libc calls __run_exit_handlers
+some stdc++ destructors (pair?) call gdbpy_tui_window_maker::~gdbpy_tui_window_maker
+which calls gdbpy_enter::gdbpy_enter
+which ends up calling gdbpy_gil::gdbpy_gil
+which in libpython calls PyGILState_Ensure ()
+which gets here:
+https://github.com/python/cpython/blob/2b47f46d7dc30d27b2486991fea4acd83553294b/Python/pystate.c#L2832
+
+and probably because runtime is null
+we get segfault on:
+mov something, [rdi + 0x60]
