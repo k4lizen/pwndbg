@@ -1281,7 +1281,7 @@ dev = [
 ]
 docs = [
     { name = "griffe-modernized-annotations" },
-    { name = "mdutils" },
+    { name = "mdutils", specifier = "==1.6.0" },
     { name = "mike" },
     { name = "mkdocs" },
     { name = "mkdocs-api-autonav" },

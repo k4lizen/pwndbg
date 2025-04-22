@@ -57,7 +57,7 @@ tests = [
     "coverage[toml]>=7.5.0,<8",
 ]
 docs = [
-    "mdutils",
+    "mdutils==1.6.0",
     "mkdocs",
     "mkdocs-gen-files",
     "mkdocs-material",
