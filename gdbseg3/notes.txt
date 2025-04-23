@@ -1,15 +1,26 @@
 to reproduce run:
 
-uv run --group docs ~/opt/binutils-gdb-build/gdb/gdb --data-dir=/home/$USER/opt/binutils-gdb-build/gdb/data-directory/ -nx \
+uv run --group docs ~/opt/binutils-gdb-build/gdb/gdb \
+    --data-dir=/home/$USER/opt/binutils-gdb-build/gdb/data-directory/ \
+    -nx \
     --ex "source ./gdbinit.py" \
+    --ex "set exception-verbose on" \
     --ex "maintenance set internal-error corefile yes" \
     --ex "source ./thing.py"
+
+it legit doesn't seem to work without:
+`set exception-verbose on`
+and god knows why.
 
 where thing.py:
 ```python
 import gdb
 exit(777)
 ```
+
+reproduced on gdb 15.1
+not reproduced on gdb master (26011e4e104437220095003933df51633c8e966b)
+python version: 3.12.3
 
 
 order of events:
