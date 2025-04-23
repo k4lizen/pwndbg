@@ -1,3 +1,11 @@
+this commit fixes it:
+dfba4847f6a
+
+however it's really only a kind of workaround patch, it is not intended to fix the
+segfault that I am observing, it's just that the code never gets to the
+weird part/state anymore.
+
+
 to reproduce run:
 
 uv run --group docs ~/opt/binutils-gdb-build/gdb/gdb \
