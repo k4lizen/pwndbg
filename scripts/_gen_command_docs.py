@@ -120,6 +120,8 @@ def convert_to_markdown(filename: str, command: CommandObj) -> str:
 
     mdFile.new_header(level=2, title="Usage")
     mdFile.insert_code(parser.format_usage(), language="bash")
+    if command.aliases:
+        mdFile.write("\n**Aliases:** " + ", ".join(command.aliases))
 
     used_actions = {}
     positionals = ["Positional Argument", "Help"]
