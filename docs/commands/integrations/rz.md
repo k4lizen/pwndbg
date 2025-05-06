@@ -16,6 +16,7 @@ Launches rizin.
 usage: rz [-h] [--no-seek] [--no-rebase] [arguments ...]
 
 ```
+**Aliases:** rizin
 ## Positional Arguments
 
 |Positional Argument|Help|

@@ -16,6 +16,7 @@ Print out ARM CPSR or xPSR register.
 usage: cpsr [-h] [cpsr_value]
 
 ```
+**Aliases:** xpsr, pstate
 ## Positional Arguments
 
 |Positional Argument|Help|

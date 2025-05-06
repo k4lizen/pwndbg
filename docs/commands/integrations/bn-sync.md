@@ -16,6 +16,7 @@ Synchronize Binary Ninja's cursor with GDB.
 usage: bn-sync [-h]
 
 ```
+**Aliases:** bns
 ## Optional Arguments
 
 |Short|Long|Help|

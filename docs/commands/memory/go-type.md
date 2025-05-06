@@ -16,6 +16,7 @@ Dumps a Go runtime reflection type at a specified address.
 usage: go-type [-h] address
 
 ```
+**Aliases:** goty
 ## Positional Arguments
 
 |Positional Argument|Help|

@@ -19,6 +19,7 @@ usage: vis-heap-chunks [-h] [--beyond_top] [--no_truncate] [--all_chunks]
                        [count] [addr]
 
 ```
+**Aliases:** vis
 ## Positional Arguments
 
 |Positional Argument|Help|

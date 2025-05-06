@@ -16,6 +16,7 @@ Breaks at the next jump instruction.
 usage: nextjmp [-h]
 
 ```
+**Aliases:** nextjump
 ## Optional Arguments
 
 |Short|Long|Help|

@@ -16,6 +16,7 @@ Search for a string in the context history and select that entry.
 usage: contextsearch [-h] needle [section]
 
 ```
+**Aliases:** ctxsearch
 ## Positional Arguments
 
 |Positional Argument|Help|

@@ -16,6 +16,7 @@ Breaks on the instruction after this one.
 usage: stepover [-h] [addr]
 
 ```
+**Aliases:** so
 ## Positional Arguments
 
 |Positional Argument|Help|

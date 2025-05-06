@@ -16,6 +16,7 @@ Dumps a Go value of a given type at a specified address.
 usage: go-dump [-h] [-x] [-f [DECIMALS]] [-d] [-p] ty address
 
 ```
+**Aliases:** god
 ## Positional Arguments
 
 |Positional Argument|Help|

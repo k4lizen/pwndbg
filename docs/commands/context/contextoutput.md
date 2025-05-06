@@ -16,6 +16,7 @@ Sets the output of a context section.
 usage: contextoutput [-h] section path clearing [banner] [width]
 
 ```
+**Aliases:** ctx-out
 ## Positional Arguments
 
 |Positional Argument|Help|

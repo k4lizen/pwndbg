@@ -16,6 +16,7 @@ Dump ROP gadgets with Jon Salwan's ROPgadget tool.
 usage: rop [-h] [--grep GREP] [--memlimit MEMLIMIT] [argument ...]
 
 ```
+**Aliases:** ropgadget
 ## Positional Arguments
 
 |Positional Argument|Help|

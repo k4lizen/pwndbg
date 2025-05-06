@@ -16,6 +16,7 @@ Select next entry in context history.
 usage: contextnext [-h] [count]
 
 ```
+**Aliases:** ctxn
 ## Positional Arguments
 
 |Positional Argument|Help|

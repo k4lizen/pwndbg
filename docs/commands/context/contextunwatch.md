@@ -16,6 +16,7 @@ Removes an expression previously added to be watched.
 usage: contextunwatch [-h] num
 
 ```
+**Aliases:** ctx-unwatch, cunwatch
 ## Positional Arguments
 
 |Positional Argument|Help|

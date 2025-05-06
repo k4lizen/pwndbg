@@ -29,6 +29,7 @@ To start the inferior without using a shell, use "set startup-with-shell off".
 usage: start [-h] [args ...]
 
 ```
+**Aliases:** main, init
 ## Positional Arguments
 
 |Positional Argument|Help|

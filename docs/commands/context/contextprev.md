@@ -16,6 +16,7 @@ Select previous entry in context history.
 usage: contextprev [-h] [count]
 
 ```
+**Aliases:** ctxp
 ## Positional Arguments
 
 |Positional Argument|Help|

@@ -16,6 +16,7 @@ Breaks at the next syscall not taking branches.
 usage: nextsyscall [-h]
 
 ```
+**Aliases:** nextsc
 ## Optional Arguments
 
 |Short|Long|Help|

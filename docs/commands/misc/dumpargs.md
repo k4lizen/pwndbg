@@ -16,6 +16,7 @@ Prints determined arguments for call instruction.
 usage: dumpargs [-h] [-f]
 
 ```
+**Aliases:** args
 ## Optional Arguments
 
 |Short|Long|Help|

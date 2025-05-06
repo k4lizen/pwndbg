@@ -16,6 +16,7 @@ Print out the current register, instruction, and stack context.
 usage: context [-h] [--on] [--off] [subcontext ...]
 
 ```
+**Aliases:** ctx
 ## Positional Arguments
 
 |Positional Argument|Help|

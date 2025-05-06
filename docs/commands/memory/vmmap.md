@@ -33,6 +33,7 @@ usage: vmmap [-h] [-w] [-x] [-A LINES_AFTER] [-B LINES_BEFORE] [-C CONTEXT]
              [gdbval_or_str]
 
 ```
+**Aliases:** lm, address, vprot, libs
 ## Positional Arguments
 
 |Positional Argument|Help|

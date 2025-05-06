@@ -16,6 +16,7 @@ Modify the flags register.
 usage: setflag [-h] flag value
 
 ```
+**Aliases:** flag
 ## Positional Arguments
 
 |Positional Argument|Help|

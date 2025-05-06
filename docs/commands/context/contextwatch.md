@@ -18,6 +18,7 @@ To remove an expression, see `cunwatch`.
 usage: contextwatch [-h] [{eval,execute}] expression
 
 ```
+**Aliases:** ctx-watch, cwatch
 ## Positional Arguments
 
 |Positional Argument|Help|

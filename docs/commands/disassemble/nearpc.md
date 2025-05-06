@@ -16,6 +16,7 @@ Disassemble near a specified address.
 usage: nearpc [-h] [-e] [pc] [lines]
 
 ```
+**Aliases:** pdisass, u
 ## Positional Arguments
 
 |Positional Argument|Help|
