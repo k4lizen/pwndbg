@@ -508,11 +508,11 @@ class PwndbgInstructionImpl(PwndbgInstruction):
     def __repr__(self) -> str:
         operands_str = " ".join([repr(op) for op in self.operands])
 
-        info = f"""{self.mnemonic} {self.op_str} at {self.address:#x} (size={self.size}) (arch: {CAPSTONE_ARCH_MAPPING_STRING.get(self.cs_insn._cs.arch,None)})
+        info = f"""{self.mnemonic} {self.op_str} at {self.address:#x} (size={self.size}) (arch: {CAPSTONE_ARCH_MAPPING_STRING.get(self.cs_insn._cs.arch, None)})
         Bytes: {pwnlib.util.fiddling.enhex(self.bytes)}
         ID: {self.id}, {self.cs_insn.insn_name()}
-        Capstone ID/Alias ID: {self.cs_insn.id} / {self.cs_insn.alias_id if self.cs_insn.is_alias else 'None'}
-        Raw asm: {'%-06s %s' % (self.mnemonic, self.op_str)}
+        Capstone ID/Alias ID: {self.cs_insn.id} / {self.cs_insn.alias_id if self.cs_insn.is_alias else "None"}
+        Raw asm: {"%-06s %s" % (self.mnemonic, self.op_str)}
         New asm: {self.asm_string}
         Next: {self.next:#x}
         Target: {hex(self.target) if self.target is not None else None}, Target string={self.target_string or ""}, const={self.target_const}

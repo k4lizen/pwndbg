@@ -80,17 +80,17 @@ def update() -> None:
     module.int64 = lookup_types("long long", "long long int", "long", "i64", "int64")
     module.signed = {1: module.int8, 2: module.int16, 4: module.int32, 8: module.int64}
 
-    module.pvoid = void.pointer()
-    module.ppvoid = pvoid.pointer()
-    module.pchar = char.pointer()
+    module.pvoid = module.void.pointer()
+    module.ppvoid = module.pvoid.pointer()
+    module.pchar = module.char.pointer()
 
-    module.ptrsize = pvoid.sizeof
+    module.ptrsize = module.pvoid.sizeof
 
-    if pvoid.sizeof == 4:
+    if module.pvoid.sizeof == 4:
         module.ptrdiff = module.uint32
         module.size_t = module.uint32
         module.ssize_t = module.int32
-    elif pvoid.sizeof == 8:
+    elif module.pvoid.sizeof == 8:
         module.ptrdiff = module.uint64
         module.size_t = module.uint64
         module.ssize_t = module.int64

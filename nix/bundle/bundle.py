@@ -9,22 +9,22 @@ from pathlib import Path
 
 
 def check_file_type(file_path: Path) -> str | None:
-    with open(str(file_path), 'rb') as f:
+    with open(str(file_path), "rb") as f:
         header = f.read(4)
 
-    if header == b'\x7fELF':
+    if header == b"\x7fELF":
         return "ELF"
-    elif header == b'\xfe\xed\xfa\xce':
+    elif header == b"\xfe\xed\xfa\xce":
         return "Mach-O 32-bit (Little Endian)"
-    elif header == b'\xfe\xed\xfa\xcf':
+    elif header == b"\xfe\xed\xfa\xcf":
         return "Mach-O 64-bit (Little Endian)"
-    elif header == b'\xce\xfa\xed\xfe':
+    elif header == b"\xce\xfa\xed\xfe":
         return "Mach-O 32-bit (Big Endian)"
-    elif header == b'\xcf\xfa\xed\xfe':
+    elif header == b"\xcf\xfa\xed\xfe":
         return "Mach-O 64-bit (Big Endian)"
-    elif header == b'\xca\xfe\xba\xbe':
+    elif header == b"\xca\xfe\xba\xbe":
         return "Mach-O Fat Binary (Universal, Little Endian)"
-    elif header == b'\xbe\xba\xfe\xca':
+    elif header == b"\xbe\xba\xfe\xca":
         return "Mach-O Fat Binary (Universal, Big Endian)"
     else:
         return None
@@ -39,8 +39,10 @@ def run(args: typing.List[str], no_error=False) -> str:
     if result.returncode != 0:
         if no_error:
             eprint(result.stderr)
-            eprint("WARNING: Command failed with return code {}: {}".format(result.returncode, args))
-            return ''
+            eprint(
+                "WARNING: Command failed with return code {}: {}".format(result.returncode, args)
+            )
+            return ""
 
         eprint(result.stderr)
         eprint("Command failed with return code {}: {}".format(result.returncode, args))
@@ -51,16 +53,16 @@ def run(args: typing.List[str], no_error=False) -> str:
 def iter_macho_deps(binary_path: Path) -> typing.Iterator[Path]:
     for line in run(["otool", "-L", str(binary_path)]).splitlines():
         line = line.strip()
-        if not line.startswith('/nix/store/'):
+        if not line.startswith("/nix/store/"):
             continue
 
-        splited = line.split(' (', 1)
+        splited = line.split(" (", 1)
         if len(splited) != 2:
             continue
 
         lib_path = Path(splited[0])
         if not lib_path.exists():
-            eprint(f'WARNING: skipping not exists file={lib_path}')
+            eprint(f"WARNING: skipping not exists file={lib_path}")
             continue
 
         yield lib_path
@@ -79,11 +81,17 @@ def iter_elf_deps(binary_path: Path) -> typing.Iterator[Path]:
     def get_needed(exe: str) -> typing.Iterable[str]:
         return stripped_strs(run(["patchelf", "--print-needed", exe]).splitlines())
 
-    def resolve_paths(needed: typing.Iterable[str], rpaths: typing.List[str]) -> typing.Iterable[str]:
-        existing_paths = lambda lib, paths: (
-            abs_path for path in paths for abs_path in [os.path.join(path, lib)]
-            if os.path.exists(abs_path)
-        )
+    def resolve_paths(
+        needed: typing.Iterable[str], rpaths: typing.List[str]
+    ) -> typing.Iterable[str]:
+        def existing_paths(lib, paths):
+            return (
+                abs_path
+                for path in paths
+                for abs_path in [os.path.join(path, lib)]
+                if os.path.exists(abs_path)
+            )
+
         for lib in needed:
             for found in [next(existing_paths(lib, rpaths), None)]:
                 if found is None:
@@ -97,18 +105,20 @@ def iter_elf_deps(binary_path: Path) -> typing.Iterator[Path]:
     rpaths_raw = [dirname] if rpaths_raw == [] else rpaths_raw
     rpaths = list(resolve_origin(dirname, rpaths_raw))
     for path in (x for x in resolve_paths(get_needed(str(binary_path)), rpaths) if x is not None):
-        if not path.startswith('/nix/store/'):
+        if not path.startswith("/nix/store/"):
             continue
         yield Path(path)
 
 
-if sys.platform == 'darwin':
+if sys.platform == "darwin":
     iter_deps = iter_macho_deps
 else:
     iter_deps = iter_elf_deps
 
 
-def iter_deps_recursive(binary_path: Path, depth: int=None, visited: typing.Set[Path]=None)  -> typing.Iterator[Path]:
+def iter_deps_recursive(
+    binary_path: Path, depth: int = None, visited: typing.Set[Path] = None
+) -> typing.Iterator[Path]:
     is_first = depth is None
     if depth is None:
         depth = 0
@@ -116,7 +126,7 @@ def iter_deps_recursive(binary_path: Path, depth: int=None, visited: typing.Set[
         visited = set()
 
     if depth > 20:
-        raise ValueError(f'depth exceeded {depth}')
+        raise ValueError(f"depth exceeded {depth}")
 
     binary_path = Path(os.path.normpath(binary_path))
     if binary_path in visited:
@@ -130,15 +140,16 @@ def iter_deps_recursive(binary_path: Path, depth: int=None, visited: typing.Set[
         yield from iter_deps_recursive(dep, depth=depth + 1, visited=visited)
 
 
-def iter_dir_recursive(dir_path: Path, depth: int = None, visited: typing.Set[Path] = None) -> typing.Iterator[
-    typing.Tuple[Path, typing.List[Path]]]:
+def iter_dir_recursive(
+    dir_path: Path, depth: int = None, visited: typing.Set[Path] = None
+) -> typing.Iterator[typing.Tuple[Path, typing.List[Path]]]:
     if depth is None:
         depth = 0
     if visited is None:
         visited = set()
 
     if depth > 20:
-        raise ValueError(f'depth exceeded {depth}')
+        raise ValueError(f"depth exceeded {depth}")
 
     if dir_path in visited:
         return
@@ -168,37 +179,46 @@ def cleanup_nixrefs(binary_path: Path):
     # Modify the binary to replace references to actual Nix store paths (e.g., /nix/store/valid-hash)
     # with invalid or placeholder paths (e.g., /nix/store/invalid-hash), ensuring the binary
     # doesn’t inadvertently depend on specific Nix store contents.
-    run(['nuke-refs', str(binary_path)])
+    run(["nuke-refs", str(binary_path)])
 
-    if sys.platform == 'darwin':
+    if sys.platform == "darwin":
         # Force an "ad-hoc" code signature on the binary (using '-' as the identity placeholder).
         # This is typically used to satisfy macOS code signing requirements without a valid signing certificate.
         # The `-f` option forces re-signing if the binary is already signed.
-        run(['codesign', '-f', '-s', '-', str(binary_path)], no_error=True)
+        run(["codesign", "-f", "-s", "-", str(binary_path)], no_error=True)
 
 
 def patch_library_macho(binary_path: Path, root_dst: Path, *, is_exe: bool):
-    lib_dir = root_dst / 'lib'
+    lib_dir = root_dst / "lib"
     if is_exe:
         # For executable files (e.g., /abs/exe/gdb), replace absolute library paths with paths relative to the executable.
         # Example: replace /abs/lib/libLLVM.dylib with @executable_path/../lib/libLLVM.dylib
         # This makes the executable locate libraries in its own relative directory structure at runtime.
-        prefix_lib = '@executable_path/'
+        prefix_lib = "@executable_path/"
     else:
         # For shared libraries (e.g., /abs/lib/python3.12/capstone/foo.dylib), replace absolute library paths with paths relative to the library.
         # Example: replace /abs/lib/libiconv.2.dylib with @loader_path/../../libiconv.2.dylib
         # This allows libraries to locate dependencies in a relative directory structure without absolute paths.
-        prefix_lib = '@loader_path/'
+        prefix_lib = "@loader_path/"
 
     # When `binary_path` is already patched. `iter_deps` should return empty list
     for src_lib_path in iter_deps(binary_path):
         dst_lib_path = lib_dir / src_lib_path.name
 
         rel_path = os.path.relpath(dst_lib_path, binary_path.parent)
-        print(f'Patching {binary_path.name}: {src_lib_path.name}->{rel_path}')
-        run(["install_name_tool", "-change", str(src_lib_path), prefix_lib + rel_path, str(binary_path)])
+        print(f"Patching {binary_path.name}: {src_lib_path.name}->{rel_path}")
+        run(
+            [
+                "install_name_tool",
+                "-change",
+                str(src_lib_path),
+                prefix_lib + rel_path,
+                str(binary_path),
+            ]
+        )
 
     cleanup_nixrefs(binary_path)
+
 
 def patch_library_elf(binary_path: Path, root_dst: Path, *, is_exe: bool):
     # Ensure that $ORIGIN resolves relative to the actual binary's resolved location,
@@ -217,11 +237,11 @@ def patch_library_elf(binary_path: Path, root_dst: Path, *, is_exe: bool):
     # To maintain compatibility and avoid such issues, symlinks should be avoided
     # in scenarios where $ORIGIN is used.
 
-    prefix_lib = '$ORIGIN/'
-    rel_path = Path(os.path.relpath(root_dst, binary_path.parent)) / 'lib'
+    prefix_lib = "$ORIGIN/"
+    rel_path = Path(os.path.relpath(root_dst, binary_path.parent)) / "lib"
     rpath = prefix_lib + str(rel_path)
 
-    print(f'Patching {binary_path.name}')
+    print(f"Patching {binary_path.name}")
 
     # When `binary_path` is already patched. `iter_deps` should return empty list
     # We need to be sure to not patch ld-loader or libc
@@ -229,15 +249,26 @@ def patch_library_elf(binary_path: Path, root_dst: Path, *, is_exe: bool):
 
     if is_rpath_patch_needed:
         if is_exe:
-            interpreter_path = Path(run(["patchelf", "--print-interpreter", str(binary_path)]).strip())
-            run(["patchelf", "--set-interpreter", interpreter_path.name, "--set-rpath", rpath, str(binary_path)])
+            interpreter_path = Path(
+                run(["patchelf", "--print-interpreter", str(binary_path)]).strip()
+            )
+            run(
+                [
+                    "patchelf",
+                    "--set-interpreter",
+                    interpreter_path.name,
+                    "--set-rpath",
+                    rpath,
+                    str(binary_path),
+                ]
+            )
         else:
             run(["patchelf", "--set-rpath", rpath, str(binary_path)])
 
     cleanup_nixrefs(binary_path)
 
 
-if sys.platform == 'darwin':
+if sys.platform == "darwin":
     patch_library = patch_library_macho
 else:
     patch_library = patch_library_elf
@@ -245,7 +276,7 @@ else:
 
 def copy_with_chmod(src: Path, dst: Path):
     if os.path.isdir(dst):
-        raise ValueError('only coping file supported ;)')
+        raise ValueError("only coping file supported ;)")
 
     if not dst.parent.exists():
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -257,7 +288,7 @@ def copy_with_chmod(src: Path, dst: Path):
 
 def symlink(target: Path | str, dst: Path):
     if os.path.isdir(dst):
-        raise ValueError('only coping file supported ;)')
+        raise ValueError("only coping file supported ;)")
 
     if not dst.parent.exists():
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -265,7 +296,9 @@ def symlink(target: Path | str, dst: Path):
     dst.symlink_to(str(target))
 
 
-def copy_with_symlink_normal(src_file_path: Path, root_dir_src: Path, root_dst_dir: Path, is_so: bool=False) -> Path | None:
+def copy_with_symlink_normal(
+    src_file_path: Path, root_dir_src: Path, root_dst_dir: Path, is_so: bool = False
+) -> Path | None:
     dst_file_path = root_dst_dir / src_file_path.relative_to(root_dir_src)
     if dst_file_path.exists():
         return dst_file_path
@@ -274,7 +307,7 @@ def copy_with_symlink_normal(src_file_path: Path, root_dir_src: Path, root_dst_d
         file_resolved = src_file_path.resolve()
         is_allowed_symlink = file_resolved.is_relative_to(root_dir_src)
 
-        if is_so and is_allowed_symlink and sys.platform != 'darwin':
+        if is_so and is_allowed_symlink and sys.platform != "darwin":
             # For .so files, symlinks are only allowed within the same directory.
             # This is because $ORIGIN in the runpath cannot resolve symlinks.
             # This issue was specifically encountered with the file:
@@ -289,21 +322,21 @@ def copy_with_symlink_normal(src_file_path: Path, root_dir_src: Path, root_dst_d
             # Allowed to create symlink, because they are under same root
 
             rel_path = os.path.relpath(file_resolved, src_file_path.parent)
-            print(f'CopyingSym {dst_file_path}->{rel_path}')
+            print(f"CopyingSym {dst_file_path}->{rel_path}")
             symlink(target=rel_path, dst=dst_file_path)
 
             new_real_dst = root_dst_dir / file_resolved.relative_to(root_dir_src)
             if new_real_dst.exists():
                 return new_real_dst
 
-            print(f'Copying {src_file_path.name} to {new_real_dst.parent}')
+            print(f"Copying {src_file_path.name} to {new_real_dst.parent}")
             copy_with_chmod(src_file_path, new_real_dst)
             return new_real_dst
         else:
             # hard copy file without symlink, because they are in different root
             pass
 
-    print(f'Copying {src_file_path.name} to {dst_file_path.parent}')
+    print(f"Copying {src_file_path.name} to {dst_file_path.parent}")
     copy_with_chmod(src_file_path, dst_file_path)
     return dst_file_path
 
@@ -317,32 +350,34 @@ def copy_with_symlink_lib(src_path: Path, dst_dir: Path) -> Path | None:
         src_resolved_lib_path = src_path.resolve()
         is_weird_symlink = src_resolved_lib_path.name == src_path.name
         if is_weird_symlink:
-            eprint(f'WARNING: Shouldn\'t happen? {src_path}->{src_resolved_lib_path}, coping file')
+            eprint(f"WARNING: Shouldn't happen? {src_path}->{src_resolved_lib_path}, coping file")
 
-            print(f'Bundling {src_path.name} to {new_file.parent}')
+            print(f"Bundling {src_path.name} to {new_file.parent}")
             copy_with_chmod(src_path, new_file)
             return new_file
 
         symlink_path = dst_dir / src_path.name
-        print(f'BundlingSym {symlink_path.name}->{src_resolved_lib_path.name} to {symlink_path.parent}')
+        print(
+            f"BundlingSym {symlink_path.name}->{src_resolved_lib_path.name} to {symlink_path.parent}"
+        )
         symlink(target=src_resolved_lib_path.name, dst=symlink_path)
 
         new_file = dst_dir / src_resolved_lib_path.name
         if new_file.exists():
             return new_file
 
-        print(f'Bundling {src_resolved_lib_path.name} to {new_file.parent}')
+        print(f"Bundling {src_resolved_lib_path.name} to {new_file.parent}")
         copy_with_chmod(src_resolved_lib_path, new_file)
         return new_file
     else:
-        print(f'Bundling {src_path.name} to {new_file.parent}')
+        print(f"Bundling {src_path.name} to {new_file.parent}")
         copy_with_chmod(src_path, new_file)
         return new_file
 
 
-def bundle_library(binary_path: Path, root_dst: Path, *, is_exe: bool, dst_path: Path=None):
-    lib_dir = root_dst / 'lib'
-    exe_dir = root_dst / 'exe'
+def bundle_library(binary_path: Path, root_dst: Path, *, is_exe: bool, dst_path: Path = None):
+    lib_dir = root_dst / "lib"
+    exe_dir = root_dst / "exe"
 
     if not binary_path.is_relative_to(root_dst):
         # coping required, because src-binary and dst-binary are in different roots
@@ -372,24 +407,30 @@ def bundle_python_venv(src_lib_dir: Path, out_lib_dir: Path, root_dst: Path):
             # - /libpython3.12.so.1.0
             # - /libpython3.12.so
             # - /libpython3.12.dylib
-            is_so = any(suffix in src_file_path.suffixes for suffix in (
-                '.so',
-                '.dylib',
-            ))
+            is_so = any(
+                suffix in src_file_path.suffixes
+                for suffix in (
+                    ".so",
+                    ".dylib",
+                )
+            )
 
             is_good_ext = src_file_path.suffix in (
-                '.py',  # python script file
-                '.pyi', '.typed',  # python types
-                '.asm',  # pwntools asm templates
+                ".py",  # python script file
+                ".pyi",
+                ".typed",  # python types
+                ".asm",  # pwntools asm templates
             )
             is_good_name = src_file_path.name in (
-                '__doc__',  # pwntools asm templates
+                "__doc__",  # pwntools asm templates
             )
 
             if not (is_so or is_good_ext or is_good_name):
                 continue
 
-            real_file = copy_with_symlink_normal(src_file_path, src_lib_dir, out_lib_dir, is_so=is_so)
+            real_file = copy_with_symlink_normal(
+                src_file_path, src_lib_dir, out_lib_dir, is_so=is_so
+            )
             if is_so and real_file:
                 bundle_binaries.add(real_file)
 
@@ -402,7 +443,7 @@ def main():
     rest_argv = sys.argv[2:]
 
     for src_path, dst_part in zip(rest_argv[::2], rest_argv[1::2]):
-        is_dir = str(dst_part).endswith('/')
+        is_dir = str(dst_part).endswith("/")
         src_path = Path(src_path)
         dst_part = Path(dst_part)
         dst_path = out / dst_part

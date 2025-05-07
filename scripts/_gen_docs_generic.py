@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import os
+from typing import Dict
+from typing import Tuple
 
 
 def get_files_in_dir(directory) -> list[str]:
@@ -14,7 +16,7 @@ def get_files_in_dir(directory) -> list[str]:
     return file_paths
 
 
-def verify_existence(filenames: list[str], base_path: str) -> (list[str], list[str]):
+def verify_existence(filenames: list[str], base_path: str) -> Tuple[list[str], list[str]]:
     current = get_files_in_dir(base_path)
     current = [base_path + x for x in current]
 

@@ -464,7 +464,9 @@ class DynamicSegment:
         if i >= count:
             raise ValueError(f"tried to read entry {i} in RELA with only {count} entries")
 
-        transform = lambda x: x
+        def transform(x):
+            return x
+
         if field == "r_sym":
             transform = self.rela_r_sym
             field = "r_info"
@@ -483,7 +485,9 @@ class DynamicSegment:
         if i >= count:
             raise ValueError(f"tried to read entry {i} in REL with only {count} entries")
 
-        transform = lambda x: x
+        def transform(x):
+            return x
+
         if field == "r_sym":
             transform = self.rel_r_sym
             field = "r_info"
@@ -502,7 +506,9 @@ class DynamicSegment:
         if i >= count:
             raise ValueError(f"tried to read entry {i} in JMPREL with only {count} entries")
 
-        transform = lambda x: x
+        def transform(x):
+            return x
+
         if field == "r_sym":
             transform = self.jmprel_r_sym
             field = "r_info"

@@ -70,7 +70,7 @@ def ensure_zig_path():
         # If ZIGPATH is not set, set it to $pwd/.zig
         # In Docker environment this should by default be set to /opt/zig
         os.environ["ZIGPATH"] = os.path.join(root_dir, ".zig")
-    print(f'ZIGPATH set to {os.environ["ZIGPATH"]}')
+    print(f"ZIGPATH set to {os.environ['ZIGPATH']}")
 
 
 def make_binaries(test_dir: str):

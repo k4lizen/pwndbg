@@ -58,7 +58,7 @@ def get_register(
 @pwndbg.aglib.proc.OnlyWhenRunning
 def get_qemu_register(name: str) -> int | None:
     out = pwndbg.dbg.selected_inferior().send_monitor("info registers")
-    match = re.search(rf'{name.split("_")[0]}=\s+([\da-fA-F]+)\s+([\da-fA-F]+)', out)
+    match = re.search(rf"{name.split('_')[0]}=\s+([\da-fA-F]+)\s+([\da-fA-F]+)", out)
 
     if match:
         base = int(match.group(1), 16)

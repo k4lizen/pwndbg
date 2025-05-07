@@ -1377,13 +1377,14 @@ class GlibcMemoryAllocator(pwndbg.aglib.heap.heap.MemoryAllocator, Generic[TheTy
         chain_size = int(pwndbg.aglib.heap.heap_chain_limit)
         corrupt_chain_size = int(pwndbg.aglib.heap.heap_corruption_check_limit)
 
-        get_chain = lambda bin, offset: pwndbg.chain.get(
-            int(bin),
-            offset=offset,
-            hard_stop=current_base,
-            limit=max(chain_size, corrupt_chain_size),
-            include_start=True,
-        )
+        def get_chain(bin, offset):
+            return pwndbg.chain.get(
+                int(bin),
+                offset=offset,
+                hard_stop=current_base,
+                limit=max(chain_size, corrupt_chain_size),
+                include_start=True,
+            )
 
         full_chain_fd = get_chain(front, fd_offset)
         full_chain_bk = get_chain(back, bk_offset)

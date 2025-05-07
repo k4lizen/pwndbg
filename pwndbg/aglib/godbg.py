@@ -540,7 +540,10 @@ def _inner_decode_runtime_type(
             ("PtrToThis", 4, 4),  # TypeOff (alias for int32)
         ]
     )
-    load = lambda off, sz: load_uint(pwndbg.aglib.memory.read(addr + off, sz))
+
+    def load(off, sz):
+        return load_uint(pwndbg.aglib.memory.read(addr + off, sz))
+
     type_start = get_type_start(addr)
     tflag = load(offsets["TFlag"], 1)
     if type_start is None:
@@ -985,7 +988,10 @@ class MapType(Type):
         word = word_size()
         offsets = self.field_offsets()
         val = pwndbg.aglib.memory.read(addr, offsets["$size"])
-        load = lambda off, sz: load_uint(val[off : off + sz])
+
+        def load(off, sz):
+            return load_uint(val[off : off + sz])
+
         num_buckets = 1 << load(offsets["B"], 1)
         num_oldbuckets = num_buckets >> 1
         oldbucket_base = load(offsets["oldbuckets"], word)

@@ -13,7 +13,9 @@ if pwndbg.dbg.is_gdblib_available():
 
 
 def translate_addr(offset, module):
-    mod_filter = lambda page: module in page.objfile
+    def mod_filter(page):
+        return module in page.objfile
+
     pages = list(filter(mod_filter, pwndbg.aglib.vmmap.get()))
 
     if not pages:

@@ -21,7 +21,7 @@ from pwndbg.lib.which import which
 
 
 def test_basic():
-    assert which("ls").endswith("/ls")
+    assert str(which("ls")).endswith("/ls")
 
 
 def test_nonexistent():

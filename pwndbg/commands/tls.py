@@ -127,7 +127,9 @@ group.add_argument(
 def threads(num_threads, respect_config) -> None:
     table = []
     headers = ["global_num", "name", "status", "pc", "symbol"]
-    bold_green = lambda text: pwndbg.color.bold(pwndbg.color.green(text))
+
+    def bold_green(text):
+        return pwndbg.color.bold(pwndbg.color.green(text))
 
     import gdb
 
