@@ -501,10 +501,14 @@ class ReallocExitBreakpoint(gdb.FinishBreakpoint):
         # Figure out what the reallocated pointer is.
         ret_ptr = int(self.return_value)
         if ret_ptr == 0:
+            # FIXME: what?
             # No change.
-            malloc = None
+            # malloc = None
+            pass
         chunk = get_chunk(ret_ptr, self.requested_size)
-        malloc = lambda: self.tracker.malloc(chunk)
+
+        def malloc():
+            return self.tracker.malloc(chunk)
 
         if not self.tracker.free(self.freed_ptr):
             # This is a chunk we'd never seen before.

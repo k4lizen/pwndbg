@@ -38,6 +38,10 @@ import pwndbg.lib.elftypes
 import pwndbg.lib.memory
 from pwndbg.color import message
 from pwndbg.dbg import EventType
+from pwndbg.lib.elftypes import Elf64_Ehdr
+from pwndbg.lib.elftypes import Elf32_Ehdr
+from pwndbg.lib.elftypes import Elf64_Phdr
+from pwndbg.lib.elftypes import Elf32_Phdr
 
 # ELF constants
 PF_X, PF_W, PF_R = 1, 2, 4
@@ -65,8 +69,8 @@ class ELFInfo(NamedTuple):
         return self.is_pic
 
 
-Ehdr = Union[pwndbg.lib.elftypes.Elf32_Ehdr, pwndbg.lib.elftypes.Elf64_Ehdr]
-Phdr = Union[pwndbg.lib.elftypes.Elf32_Phdr, pwndbg.lib.elftypes.Elf64_Phdr]
+Ehdr = Union[Elf32_Ehdr, Elf64_Ehdr]
+Phdr = Union[Elf32_Phdr, Elf64_Phdr]
 
 
 @pwndbg.dbg.event_handler(EventType.START)
@@ -81,19 +85,19 @@ def update() -> None:
         pass
 
     if pwndbg.aglib.arch.ptrsize == 4:
-        Ehdr = pwndbg.lib.elftypes.Elf32_Ehdr
-        Phdr = pwndbg.lib.elftypes.Elf32_Phdr
+        Ehdr = Elf32_Ehdr
+        Phdr = Elf32_Phdr
     else:
-        Ehdr = pwndbg.lib.elftypes.Elf64_Ehdr
-        Phdr = pwndbg.lib.elftypes.Elf64_Phdr
+        Ehdr = Elf64_Ehdr
+        Phdr = Elf64_Phdr
 
     module.__dict__.update(locals())
 
 
 T = TypeVar(
     "T",
-    Union[pwndbg.lib.elftypes.Elf32_Ehdr, pwndbg.lib.elftypes.Elf64_Ehdr],
-    Union[pwndbg.lib.elftypes.Elf32_Phdr, pwndbg.lib.elftypes.Elf64_Phdr],
+    Union[Elf32_Ehdr, Elf64_Ehdr],
+    Union[Elf32_Phdr, Elf64_Phdr],
 )
 
 

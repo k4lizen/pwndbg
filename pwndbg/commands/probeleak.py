@@ -15,12 +15,17 @@ from pwndbg.commands import CommandCategory
 
 
 def find_module(addr, max_distance):
-    mod_filter = lambda page: page.start <= addr < page.end
+    def mod_filter(page):
+        return page.start <= addr < page.end
+
     pages = list(filter(mod_filter, pwndbg.aglib.vmmap.get()))
 
     if not pages:
         if max_distance != 0:
-            mod_filter = lambda page: page.start - max_distance <= addr < page.end + max_distance
+
+            def mod_filter(page):
+                return page.start - max_distance <= addr < page.end + max_distance
+
             pages = list(filter(mod_filter, pwndbg.aglib.vmmap.get()))
 
         if not pages:

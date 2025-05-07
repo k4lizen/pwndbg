@@ -101,7 +101,7 @@ def get(
 
     if page and page.wx:
         old_color = color
-        color = lambda x: c.wx(old_color(x))
+        color = lambda x: c.wx(old_color(x))  # noqa: E731
 
     if text is None and isinstance(address, int) and address > 255:
         text = hex(int(address))

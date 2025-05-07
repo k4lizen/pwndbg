@@ -35,7 +35,7 @@ class DebugCacheDict(UserDict):  # type: ignore[type-arg]
         self.hits = 0
         self.misses = 0
         self.func = func
-        self.name = f'{func.__module__.split(".")[-1]}.{func.__name__}'
+        self.name = f"{func.__module__.split('.')[-1]}.{func.__name__}"
 
     def __getitem__(self, key: Tuple[Any, ...]) -> Any:
         if debug & DEBUG_GET and (not debug_name or debug_name in self.name):

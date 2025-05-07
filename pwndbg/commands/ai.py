@@ -271,7 +271,7 @@ def build_context_prompt_body():
 """
 
     if source:
-        prompt += f"""Here is the {'decompiled ' if decompile else ''}source code near the current instruction:
+        prompt += f"""Here is the {"decompiled " if decompile else ""}source code near the current instruction:
 
 ```
 {source}
@@ -321,7 +321,7 @@ def query_openai_chat(prompt, model="gpt-3.5-turbo", max_tokens=100, temperature
     if pwndbg.config.ai_show_usage:
         print(
             M.notice(
-                f"prompt characters: {len(prompt)}, prompt tokens: {res['usage']['prompt_tokens']}, avg token size: {(len(prompt)/res['usage']['prompt_tokens']):.2f}, completion tokens: {res['usage']['completion_tokens']}, total tokens: {res['usage']['total_tokens']}"
+                f"prompt characters: {len(prompt)}, prompt tokens: {res['usage']['prompt_tokens']}, avg token size: {(len(prompt) / res['usage']['prompt_tokens']):.2f}, completion tokens: {res['usage']['completion_tokens']}, total tokens: {res['usage']['total_tokens']}"
             )
         )
     reply = res["choices"][0]["message"]["content"]
@@ -361,7 +361,7 @@ def query_openai_completions(prompt, model="text-davinci-003", max_tokens=100, t
     if pwndbg.config.ai_show_usage:
         print(
             M.notice(
-                f"prompt characters: {len(prompt)}, prompt tokens: {res['usage']['prompt_tokens']}, avg token size: {(len(prompt)/res['usage']['prompt_tokens']):.2f}, completion tokens: {res['usage']['completion_tokens']}, total tokens: {res['usage']['total_tokens']}"
+                f"prompt characters: {len(prompt)}, prompt tokens: {res['usage']['prompt_tokens']}, avg token size: {(len(prompt) / res['usage']['prompt_tokens']):.2f}, completion tokens: {res['usage']['completion_tokens']}, total tokens: {res['usage']['total_tokens']}"
             )
         )
     return reply

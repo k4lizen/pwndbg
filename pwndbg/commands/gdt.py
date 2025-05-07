@@ -91,7 +91,8 @@ def decode_gdt_entry(value):
     # Must be set for a valid segment
     present_bit = (access_byte & (1 << 7)) >> 7
 
-    colorme = lambda label, val: (C.green if val else C.red)(label)
+    def colorme(label, val):
+        return (C.green if val else C.red)(label)
 
     access_str = "|".join(
         (

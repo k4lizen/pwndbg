@@ -128,14 +128,6 @@ pwndbg> tele '$environ("LANG")'
     return markdowned
 
 
-def check_index(scoped_params: Dict[str, list[Parameter]]):
-    assert (
-        len(scoped_params.keys()) == 3
-        and "It seems a new scope has been added, "
-        f"please update the index file ({index_path}) and bump this number accordingly."
-    )
-
-
 base_path = "docs/functions/"  # Must have trailing slash.
 index_path = base_path + "index.md"
 

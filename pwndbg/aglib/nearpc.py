@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import List
 
-from capstone import *  # noqa: F403
+from capstone import CS_OP_MEM
+from capstone import CS_AC_READ
+from capstone import CS_AC_WRITE
 
 import pwndbg
 import pwndbg.aglib.disasm.disassembly

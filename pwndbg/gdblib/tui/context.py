@@ -212,9 +212,9 @@ if hasattr(gdb, "register_window_type"):
     ]
     for section_name in sections:
         # https://github.com/python/mypy/issues/12557
-        target_func: Callable[..., gdb._Window] = (
-            lambda window, section_name=section_name: ContextTUIWindow(window, section_name)
-        )
+        def target_func(window, section_name=section_name) -> gdb._Window:
+            return ContextTUIWindow(window, section_name)
+
         gdb.register_window_type(
             "pwndbg_" + section_name,
             target_func,
