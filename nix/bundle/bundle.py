@@ -176,28 +176,32 @@ def iter_dir_recursive(
 
 
 def cleanup_nixrefs(binary_path: Path):
-    # Modify the binary to replace references to actual Nix store paths (e.g., /nix/store/valid-hash)
-    # with invalid or placeholder paths (e.g., /nix/store/invalid-hash), ensuring the binary
-    # doesn’t inadvertently depend on specific Nix store contents.
+    # Modify the binary to replace references to actual Nix store paths
+    # (e.g., /nix/store/valid-hash) with invalid or placeholder paths
+    # (e.g., /nix/store/invalid-hash), ensuring the binary doesn’t
+    # inadvertently depend on specific Nix store contents.
     run(["nuke-refs", str(binary_path)])
 
     if sys.platform == "darwin":
         # Force an "ad-hoc" code signature on the binary (using '-' as the identity placeholder).
-        # This is typically used to satisfy macOS code signing requirements without a valid signing certificate.
-        # The `-f` option forces re-signing if the binary is already signed.
+        # This is typically used to satisfy macOS code signing requirements without
+        # a valid signing certificate. The `-f` option forces re-signing if the binary
+        # is already signed.
         run(["codesign", "-f", "-s", "-", str(binary_path)], no_error=True)
 
 
 def patch_library_macho(binary_path: Path, root_dst: Path, *, is_exe: bool):
     lib_dir = root_dst / "lib"
     if is_exe:
-        # For executable files (e.g., /abs/exe/gdb), replace absolute library paths with paths relative to the executable.
+        # For executable files (e.g., /abs/exe/gdb), replace absolute library paths with
+        # paths relative to the executable.
         # Example: replace /abs/lib/libLLVM.dylib with @executable_path/../lib/libLLVM.dylib
         # This makes the executable locate libraries in its own relative directory
         # structure at runtime.
         prefix_lib = "@executable_path/"
     else:
-        # For shared libraries (e.g., /abs/lib/python3.12/capstone/foo.dylib), replace absolute library paths with paths relative to the library.
+        # For shared libraries (e.g., /abs/lib/python3.12/capstone/foo.dylib),
+        # replace absolute library paths with paths relative to the library.
         # Example: replace /abs/lib/libiconv.2.dylib with @loader_path/../../libiconv.2.dylib
         # This allows libraries to locate dependencies in a relative directory
         # structure without absolute paths.
@@ -227,7 +231,8 @@ def patch_library_elf(binary_path: Path, root_dst: Path, *, is_exe: bool):
     # not the symlink's location.
     #
     # Using symlinks can cause issues, for example:
-    # lib/python3.12/site-packages/lldb/_lldb.cpython-312-aarch64-linux-gnu.so -> ../../../liblldb.so.19.1.1
+    # lib/python3.12/site-packages/lldb/_lldb.cpython-312-aarch64-linux-gnu.so
+    #       -> ../../../liblldb.so.19.1.1
     #
     # On Linux, $ORIGIN is resolved based on the location of the symlink itself,
     # not the resolved target location of the binary. This behavior can lead to
@@ -313,7 +318,8 @@ def copy_with_symlink_normal(
             # For .so files, symlinks are only allowed within the same directory.
             # This is because $ORIGIN in the runpath cannot resolve symlinks.
             # This issue was specifically encountered with the file:
-            # lib/python3.12/site-packages/lldb/_lldb.cpython-312-aarch64-linux-gnu.so -> ../../../liblldb.so.19.1.1
+            # lib/python3.12/site-packages/lldb/_lldb.cpython-312-aarch64-linux-gnu.so
+            #      -> ../../../liblldb.so.19.1.1
             # To avoid such issues, we check if the resolved file's parent directory
             # matches the parent directory of the source file.
             if file_resolved.parent != src_file_path.parent:
@@ -360,7 +366,8 @@ def copy_with_symlink_lib(src_path: Path, dst_dir: Path) -> Path | None:
 
         symlink_path = dst_dir / src_path.name
         print(
-            f"BundlingSym {symlink_path.name}->{src_resolved_lib_path.name} to {symlink_path.parent}"
+            f"BundlingSym {symlink_path.name}->{src_resolved_lib_path.name}"
+            f" to {symlink_path.parent}"
         )
         symlink(target=src_resolved_lib_path.name, dst=symlink_path)
 
