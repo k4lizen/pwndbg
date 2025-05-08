@@ -83,12 +83,13 @@ ignore = ["E402", "F401"]
 #     "ISC",    # flake8-implicit-str-concat
 
 # default select is ["E4", "E7", "E9", "F"]
-# select = [
-#     "A",      # flake8-builtins
-#     "E",      # pycodestyle
-#     "F",      # pyflakes
-#     "W",      # pycodestyle
-#     "C4",     # flake8-comprehensions
+select = [
+    "A",      # flake8-builtins
+    "E",      # pycodestyle
+    "F",      # pyflakes
+    "W",      # pycodestyle
+    "C4",     # flake8-comprehensions
+]
 #     "SLOT",   # flake8-slots
 #     "FLY",    # flynt
 #     "PGH",    # pygrep-hooks
