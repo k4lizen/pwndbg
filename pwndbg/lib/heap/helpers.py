@@ -5,9 +5,7 @@ from typing import Generator
 import pwndbg.aglib.arch
 
 
-def find_fastbin_size(
-    mem: bytes, max_size: int, step: int
-) -> Generator[int, None, None]:
+def find_fastbin_size(mem: bytes, max_size: int, step: int) -> Generator[int, None, None]:
     psize = pwndbg.aglib.arch.ptrsize
     min_fast = 4 * psize
 

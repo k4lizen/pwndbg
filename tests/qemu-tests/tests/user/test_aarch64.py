@@ -829,43 +829,29 @@ def test_memory_read_error_handling(qemu_assembly_run):
 
     assert stack_end_addr != -1, "Failed to find a memory page followed by a gap"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(
-        stack_end_addr - 0xFF, 0xFF, partial=False
-    )
+    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFF, 0xFF, partial=False)
     assert len(result) == 0xFF, f"Expected 0xff bytes, but got {len(result)}"
 
     try:
-        pwndbg.dbg.selected_inferior().read_memory(
-            stack_end_addr - 0xFE, 0xFF, partial=False
-        )
+        pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFE, 0xFF, partial=False)
         assert False, "Expected Error due to inaccessible memory address."
     except pwndbg.dbg_mod.Error:
         pass
 
-    result = pwndbg.dbg.selected_inferior().read_memory(
-        stack_end_addr - 0xFF, 0xFF, partial=True
-    )
+    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFF, 0xFF, partial=True)
     assert len(result) == 0xFF, f"Expected 0xff bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(
-        stack_end_addr - 0x10, 0xFF, partial=True
-    )
+    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x10, 0xFF, partial=True)
     assert len(result) == 0x10, f"Expected 0x10 bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(
-        stack_end_addr - 0x2, 0xFF, partial=True
-    )
+    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x2, 0xFF, partial=True)
     assert len(result) == 0x2, f"Expected 0x2 bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(
-        stack_end_addr - 0x1, 0xFF, partial=True
-    )
+    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x1, 0xFF, partial=True)
     assert len(result) == 0x1, f"Expected 0x1 byte, but got {len(result)}"
 
     try:
-        pwndbg.dbg.selected_inferior().read_memory(
-            stack_end_addr - 0x0, 0xFF, partial=True
-        )
+        pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x0, 0xFF, partial=True)
         assert False, "Expected Error due to inaccessible memory address."
     except pwndbg.dbg_mod.Error:
         pass

@@ -28,10 +28,7 @@ parser.add_argument(
     "--length",
     metavar="length",
     type=int,
-    help=(
-        "Size of the unique subsequences (defaults to the pointer size for the current"
-        " arch)"
-    ),
+    help=("Size of the unique subsequences (defaults to the pointer size for the current" " arch)"),
 )
 
 
@@ -56,8 +53,7 @@ group.add_argument(
     nargs="?",
     default=100,
     help=(
-        "Number of characters to print from the sequence (default: print the entire"
-        " sequence)"
+        "Number of characters to print from the sequence (default: print the entire" " sequence)"
     ),
 )
 
@@ -94,15 +90,12 @@ def cyclic_cmd(alphabet, length: Optional[int], lookup, count=100, filename="") 
         hexstr = "0x" + lookup.hex()
         print(
             message.notice(
-                f"Finding cyclic pattern of {length} bytes: {str(lookup)} (hex:"
-                f" {hexstr})"
+                f"Finding cyclic pattern of {length} bytes: {str(lookup)} (hex:" f" {hexstr})"
             )
         )
 
         if any(c not in alphabet for c in lookup):
-            print(
-                message.error("Pattern contains characters not present in the alphabet")
-            )
+            print(message.error("Pattern contains characters not present in the alphabet"))
             return
 
         offset = cyclic_find(lookup, alphabet, length)

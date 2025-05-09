@@ -37,12 +37,13 @@ def get_shellcode_regs() -> ShellcodeRegs:
         raise pwndbg.dbg_mod.Error("Syscall ABI not defined for current architecture")
 
     # pickup free register what is not used for syscall abi
-    newfd_reg = next((
-        reg_name
-        for reg_name in register_set.gpr
-        if reg_name
-        not in syscall_abi.register_arguments + [syscall_abi.syscall_register]
-    ))
+    newfd_reg = next(
+        (
+            reg_name
+            for reg_name in register_set.gpr
+            if reg_name not in syscall_abi.register_arguments + [syscall_abi.syscall_register]
+        )
+    )
     assert (
         newfd_reg is not None
     ), f"architecture {pwndbg.aglib.arch.name} don't have unused register..."
@@ -67,9 +68,7 @@ def asm_replace_file(replace_fd: int, filename: str) -> Tuple[int, str]:
     open_asm = (
         shellcraft.syscall("SYS_open", regs.stack, "O_CREAT|O_RDWR", 0o666)
         if hasattr(constants, "SYS_open")
-        else shellcraft.syscall(
-            "SYS_openat", "AT_FDCWD", regs.stack, "O_CREAT|O_RDWR", 0o666
-        )
+        else shellcraft.syscall("SYS_openat", "AT_FDCWD", regs.stack, "O_CREAT|O_RDWR", 0o666)
     )
 
     dup_asm = (
@@ -79,20 +78,20 @@ def asm_replace_file(replace_fd: int, filename: str) -> Tuple[int, str]:
     )
 
     return stack_size, asm.asm(
-        "".join([
-            shellcraft.pushstr(filename, False),
-            open_asm,
-            shellcraft.mov(regs.newfd, regs.syscall_ret),
-            dup_asm,
-            shellcraft.syscall("SYS_close", regs.newfd),
-        ])
+        "".join(
+            [
+                shellcraft.pushstr(filename, False),
+                open_asm,
+                shellcraft.mov(regs.newfd, regs.syscall_ret),
+                dup_asm,
+                shellcraft.syscall("SYS_close", regs.newfd),
+            ]
+        )
     )
 
 
 def asm_replace_socket(replace_fd: int, socket_data: ParsedSocket) -> Tuple[int, str]:
-    sockdata, addr_len, _ = sockaddr(
-        socket_data.address, socket_data.port, socket_data.ip_version
-    )
+    sockdata, addr_len, _ = sockaddr(socket_data.address, socket_data.port, socket_data.ip_version)
     socktype = {"tcp": "SOCK_STREAM", "udp": "SOCK_DGRAM"}[socket_data.protocol]
     family = {"ipv4": "AF_INET", "ipv6": "AF_INET6"}[socket_data.ip_version]
 
@@ -106,21 +105,21 @@ def asm_replace_socket(replace_fd: int, socket_data: ParsedSocket) -> Tuple[int,
     )
 
     return stack_size, asm.asm(
-        "".join([
-            shellcraft.syscall("SYS_socket", family, socktype, 0),
-            shellcraft.mov(regs.newfd, regs.syscall_ret),
-            shellcraft.pushstr(sockdata, False),
-            shellcraft.syscall("SYS_connect", regs.newfd, regs.stack, addr_len),
-            dup_asm,
-            shellcraft.syscall("SYS_close", regs.newfd),
-        ])
+        "".join(
+            [
+                shellcraft.syscall("SYS_socket", family, socktype, 0),
+                shellcraft.mov(regs.newfd, regs.syscall_ret),
+                shellcraft.pushstr(sockdata, False),
+                shellcraft.syscall("SYS_connect", regs.newfd, regs.stack, addr_len),
+                dup_asm,
+                shellcraft.syscall("SYS_close", regs.newfd),
+            ]
+        )
     )
 
 
 @contextlib.asynccontextmanager
-async def exec_shellcode_with_stack(
-    ec: pwndbg.dbg_mod.ExecutionController, blob, stack_size: int
-):
+async def exec_shellcode_with_stack(ec: pwndbg.dbg_mod.ExecutionController, blob, stack_size: int):
     # This function could be improved, for example:
     # - Run the shellcode inside an emulator like Unicorn
     # - Calculate the maximum stack size the shellcode would consume dynamically.
@@ -166,10 +165,7 @@ Examples:
 
 parser.add_argument(
     "fdnum",
-    help=(
-        "File descriptor (FD) number to be replaced with the specified new socket or"
-        " file."
-    ),
+    help=("File descriptor (FD) number to be replaced with the specified new socket or" " file."),
     type=int,
 )
 
@@ -246,9 +242,7 @@ def parse_socket(url: str) -> ParsedSocket:
     if not found_ip_protocol:
         raise argparse.ArgumentTypeError("Protocol only accept: ipv4,ipv6")
 
-    return ParsedSocket(
-        selected_protocol, found_ip_protocol, address_ipv4_or_ipv6, port
-    )
+    return ParsedSocket(selected_protocol, found_ip_protocol, address_ipv4_or_ipv6, port)
 
 
 PARSED_FILE_ARG = Tuple[Optional[ParsedSocket], Optional[str]]
@@ -277,9 +271,7 @@ For sockets, the following formats are allowed:
 )
 
 
-@pwndbg.commands.Command(
-    parser, category=CommandCategory.MISC, command_name="hijack-fd"
-)
+@pwndbg.commands.Command(parser, category=CommandCategory.MISC, command_name="hijack-fd")
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.commands.OnlyWhenUserspace
 def hijack_fd(fdnum: int, newfile: PARSED_FILE_ARG) -> None:

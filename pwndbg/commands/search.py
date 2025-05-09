@@ -146,9 +146,7 @@ parser.add_argument(
 parser.add_argument(
     "-e", "--executable", action="store_true", help="Search executable segments only"
 )
-parser.add_argument(
-    "-w", "--writable", action="store_true", help="Search writable segments only"
-)
+parser.add_argument("-w", "--writable", action="store_true", help="Search writable segments only")
 parser.add_argument(
     "-s",
     "--step",

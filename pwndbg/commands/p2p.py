@@ -36,8 +36,7 @@ def address_range_explicit(section: str) -> AddrRange:
     except Exception:
         parser.error(
             '"%s" - Bad format of explicit address range!'
-            ' Expected format: "BEGIN_ADDRESS:END_ADDRESS"'
-            % pwndbg.color.red(section)
+            ' Expected format: "BEGIN_ADDRESS:END_ADDRESS"' % pwndbg.color.red(section)
         )
 
 
@@ -55,9 +54,7 @@ def address_range(section: str) -> List[AddrRange] | Tuple[int, int] | None:
     if pages:
         return [AddrRange(page.start, page.end) for page in pages]
     else:
-        parser.error(
-            f'Memory page with name "{pwndbg.color.red(section)}" does not exist!'
-        )
+        parser.error(f'Memory page with name "{pwndbg.color.red(section)}" does not exist!')
 
 
 parser = argparse.ArgumentParser(
@@ -68,9 +65,7 @@ Any chain length greater than 0 is valid.
 If only one mapping is given it just looks for any pointers in that mapping.""",
 )
 
-parser.add_argument(
-    "mapping_names", type=address_range, nargs="+", help="Mapping name "
-)
+parser.add_argument("mapping_names", type=address_range, nargs="+", help="Mapping name ")
 
 
 def maybe_points_to_ranges(ptr: int, rs: List[AddrRange]):
@@ -86,9 +81,7 @@ def maybe_points_to_ranges(ptr: int, rs: List[AddrRange]):
     return None
 
 
-def p2p_walk(
-    addr: int, ranges: List[List[AddrRange]], current_level: int
-) -> int | None:
+def p2p_walk(addr: int, ranges: List[List[AddrRange]], current_level: int) -> int | None:
     levels = len(ranges)
 
     if current_level >= levels:

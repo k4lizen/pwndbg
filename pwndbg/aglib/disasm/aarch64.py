@@ -252,9 +252,7 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
     def __init__(self, architecture) -> None:
         super().__init__(architecture)
 
-        self.annotation_handlers: Dict[
-            int, Callable[[PwndbgInstruction, Emulator], None]
-        ] = {
+        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {
             # MOV
             AARCH64_INS_MOV: self._common_move_annotator,
             AARCH64_INS_ALIAS_MOV: self._common_move_annotator,
@@ -279,17 +277,11 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
         }
 
     @override
-    def _set_annotation_string(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         # Dispatch to the correct handler
         if instruction.id in AARCH64_SINGLE_LOAD_INSTRUCTIONS:
-            target_reg_size = (
-                self._register_width(instruction, instruction.operands[0]) // 8
-            )
-            read_size = (
-                AARCH64_SINGLE_LOAD_INSTRUCTIONS[instruction.id] or target_reg_size
-            )
+            target_reg_size = self._register_width(instruction, instruction.operands[0]) // 8
+            read_size = AARCH64_SINGLE_LOAD_INSTRUCTIONS[instruction.id] or target_reg_size
 
             self._common_load_annotator(
                 instruction,
@@ -346,9 +338,7 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
         elif instruction.id in AARCH64_EMULATED_ANNOTATIONS:
             self._common_generic_register_destination(instruction, emu)
         else:
-            self.annotation_handlers.get(instruction.id, lambda *a: None)(
-                instruction, emu
-            )
+            self.annotation_handlers.get(instruction.id, lambda *a: None)(instruction, emu)
 
     def _handle_adrp(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         result_operand, right = instruction.operands
@@ -496,23 +486,17 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
             # Capstone will automatically make the shift a LSL and set the value to 3
             if op.cs_op.shift.type != 0:
                 # The form of instructions with a shift always apply the shift to a 64-bit value
-                index = AARCH64_BIT_SHIFT_MAP[op.cs_op.shift.type](
-                    index, op.cs_op.shift.value, 64
-                )
+                index = AARCH64_BIT_SHIFT_MAP[op.cs_op.shift.type](index, op.cs_op.shift.value, 64)
 
             target += index
 
         return target
 
-    def _register_width(
-        self, instruction: PwndbgInstruction, op: EnhancedOperand
-    ) -> int:
+    def _register_width(self, instruction: PwndbgInstruction, op: EnhancedOperand) -> int:
         return 32 if instruction.cs_insn.reg_name(op.reg)[0] == "w" else 64
 
     @override
-    def _parse_immediate(
-        self, instruction: PwndbgInstruction, op: EnhancedOperand, emu: Emulator
-    ):
+    def _parse_immediate(self, instruction: PwndbgInstruction, op: EnhancedOperand, emu: Emulator):
         """
         In AArch64, there can be an optional shift applied to constants, typically
         only a `LSL #12`
@@ -525,9 +509,7 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
             return None
 
         if op.cs_op.shift.type != 0:
-            target = AARCH64_BIT_SHIFT_MAP[op.cs_op.shift.type](
-                target, op.cs_op.shift.value, 64
-            )
+            target = AARCH64_BIT_SHIFT_MAP[op.cs_op.shift.type](target, op.cs_op.shift.value, 64)
 
         return target
 
@@ -562,9 +544,7 @@ class AArch64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
         )
 
         if op.cs_op.ext != 0:
-            target = AARCH64_EXTEND_MAP[op.cs_op.ext](target) & (
-                (1 << target_bit_width) - 1
-            )
+            target = AARCH64_EXTEND_MAP[op.cs_op.ext](target) & ((1 << target_bit_width) - 1)
 
         if op.cs_op.shift.type != 0:
             target = AARCH64_BIT_SHIFT_MAP.get(op.cs_op.shift.type, lambda *a: None)(

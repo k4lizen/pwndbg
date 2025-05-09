@@ -142,9 +142,7 @@ def telescope(
     separator = T.separator(offset_separator)
 
     # Allow invocation of "telescope 20" to dump 20 bytes at the stack pointer
-    if address < pwndbg.aglib.memory.MMAP_MIN_ADDR and not pwndbg.aglib.memory.peek(
-        address
-    ):
+    if address < pwndbg.aglib.memory.MMAP_MIN_ADDR and not pwndbg.aglib.memory.peek(address):
         count = address
         address = pwndbg.aglib.regs.sp
 
@@ -157,9 +155,7 @@ def telescope(
         sp = pwndbg.aglib.regs.sp
         bp = pwndbg.aglib.regs[pwndbg.aglib.regs.frame]
         if sp > bp:
-            print(
-                "Cannot display stack frame because base pointer is below stack pointer"
-            )
+            print("Cannot display stack frame because base pointer is below stack pointer")
             return
 
         for page in pwndbg.aglib.vmmap.get():
@@ -230,10 +226,7 @@ def telescope(
     # Collapse repeating values exceeding minimum delta.
     def collapse_repeating_values() -> None:
         # The first line was already printed, hence increment by 1
-        if (
-            collapse_buffer
-            and len(collapse_buffer) + 1 >= skip_repeating_values_minimum
-        ):
+        if collapse_buffer and len(collapse_buffer) + 1 >= skip_repeating_values_minimum:
             result.append(
                 T.repeating_marker(
                     "%s%s%i skipped"
@@ -256,9 +249,7 @@ def telescope(
             break
         if inverse:
             line_offset = addr - (stop + ptrsize) + (telescope.offset * ptrsize)
-            idx_offset = int((start - stop - ptrsize) / ptrsize) - (
-                i + telescope.offset
-            )
+            idx_offset = int((start - stop - ptrsize) / ptrsize) - (i + telescope.offset)
         else:
             line_offset = addr - start + (telescope.offset * ptrsize)
             idx_offset = i + telescope.offset
@@ -270,10 +261,12 @@ def telescope(
                 line_offset,
                 separator,
             )
-        ) + " ".join((
-            regs_or_frame_offset(addr, bp, regs, longest_regs),
-            pwndbg.chain.format(addr),
-        ))
+        ) + " ".join(
+            (
+                regs_or_frame_offset(addr, bp, regs, longest_regs),
+                pwndbg.chain.format(addr),
+            )
+        )
 
         # Buffer repeating values.
         if skip_repeating_values:
@@ -300,9 +293,7 @@ def telescope(
     return result
 
 
-def regs_or_frame_offset(
-    addr: int, bp: int | None, regs: Dict[int, str], longest_regs: int
-) -> str:
+def regs_or_frame_offset(addr: int, bp: int | None, regs: Dict[int, str], longest_regs: int) -> str:
     # bp only set if print_framepointer_offset=True
     if bp is None or regs[addr] or not -0xFFF <= addr - bp <= 0xFFF:
         return " " + T.register(regs[addr].ljust(longest_regs))
@@ -332,9 +323,7 @@ parser.add_argument(
     help="Show reverse stack growth",
 )
 
-parser.add_argument(
-    "count", nargs="?", default=8, type=int, help="number of element to dump"
-)
+parser.add_argument("count", nargs="?", default=8, type=int, help="number of element to dump")
 parser.add_argument(
     "offset",
     nargs="?",
@@ -363,9 +352,7 @@ parser = argparse.ArgumentParser(
         " count and offset ."
     )
 )
-parser.add_argument(
-    "count", nargs="?", default=8, type=int, help="number of element to dump"
-)
+parser.add_argument("count", nargs="?", default=8, type=int, help="number of element to dump")
 parser.add_argument(
     "offset",
     nargs="?",

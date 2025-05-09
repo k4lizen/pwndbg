@@ -175,9 +175,7 @@ Show us your Pwndbg and any other relevant versions.
 
     session_history = get_debugger_session_history()
 
-    issue_bugreport = ISSUE_TEMPLATE.format(
-        setup=setup, session_history=session_history
-    )
+    issue_bugreport = ISSUE_TEMPLATE.format(setup=setup, session_history=session_history)
     print(issue_bugreport)
 
     please_please_submit = "Please submit the bugreport generated above at "
@@ -246,8 +244,7 @@ def get_debugger_session_history():
 
         while current_command_no <= max_command_no:
             cmds = gdb.execute(
-                "show commands "
-                + str(current_command_no + (show_command_size // 2) + 1),
+                "show commands " + str(current_command_no + (show_command_size // 2) + 1),
                 to_string=True,
             ).split("\n")[:-1]
             for cmd in cmds:
@@ -260,9 +257,7 @@ def get_debugger_session_history():
                 gdb_current_session_history[cmd_no] = cmd
                 current_command_no += 1
 
-        gdb_current_session_history = (
-            v for (k, v) in sorted(gdb_current_session_history.items())
-        )
+        gdb_current_session_history = (v for (k, v) in sorted(gdb_current_session_history.items()))
         return "\n".join(gdb_current_session_history)
 
     # LLDB: TODO/FIXME: Not yet supported

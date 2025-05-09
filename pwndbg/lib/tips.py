@@ -64,10 +64,7 @@ PWNDBG_TIPS: List[str] = [
         "GDB and Pwndbg parameters can be shown or set with `show <param>` and `set"
         " <param> <value>` GDB commands"
     ),
-    (
-        "Use Pwndbg's `config` and `theme` commands to tune its configuration and theme"
-        " colors!"
-    ),
+    ("Use Pwndbg's `config` and `theme` commands to tune its configuration and theme" " colors!"),
     (
         "Pwndbg mirrors some of Windbg commands like `eq`, `ew`, `ed`, `eb`, `es`,"
         " `dq`, `dw`, `dd`, `db`, `ds` for writing and reading memory"

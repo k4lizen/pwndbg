@@ -31,9 +31,7 @@ def enhex(size, value):
 # after it's been defined in order to avoid circular import errors.
 import pwndbg.hexdump
 
-parser = argparse.ArgumentParser(
-    description="Starting at the specified address, dump N bytes."
-)
+parser = argparse.ArgumentParser(description="Starting at the specified address, dump N bytes.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
 )
@@ -56,9 +54,7 @@ def db(address, count=64):
     return dX(1, address, count, repeat=db.repeat)
 
 
-parser = argparse.ArgumentParser(
-    description="Starting at the specified address, dump N words."
-)
+parser = argparse.ArgumentParser(description="Starting at the specified address, dump N words.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
 )
@@ -81,9 +77,7 @@ def dw(address, count=32):
     return dX(2, address, count, repeat=dw.repeat)
 
 
-parser = argparse.ArgumentParser(
-    description="Starting at the specified address, dump N dwords."
-)
+parser = argparse.ArgumentParser(description="Starting at the specified address, dump N dwords.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
 )
@@ -106,9 +100,7 @@ def dd(address, count=16):
     return dX(4, address, count, repeat=dd.repeat)
 
 
-parser = argparse.ArgumentParser(
-    description="Starting at the specified address, dump N qwords."
-)
+parser = argparse.ArgumentParser(description="Starting at the specified address, dump N qwords.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
 )
@@ -131,9 +123,7 @@ def dq(address, count=8):
     return dX(8, address, count, repeat=dq.repeat)
 
 
-parser = argparse.ArgumentParser(
-    description="Starting at the specified address, hexdump."
-)
+parser = argparse.ArgumentParser(description="Starting at the specified address, hexdump.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
 )
@@ -176,9 +166,7 @@ def dX(size, address, count, to_string=False, repeat=False):
     return lines
 
 
-parser = argparse.ArgumentParser(
-    description="Write hex bytes at the specified address."
-)
+parser = argparse.ArgumentParser(description="Write hex bytes at the specified address.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to write to."
 )
@@ -194,9 +182,7 @@ def eb(address, data):
     return eX(1, address, data)
 
 
-parser = argparse.ArgumentParser(
-    description="Write hex words at the specified address."
-)
+parser = argparse.ArgumentParser(description="Write hex words at the specified address.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to write to."
 )
@@ -212,9 +198,7 @@ def ew(address, data):
     return eX(2, address, data)
 
 
-parser = argparse.ArgumentParser(
-    description="Write hex dwords at the specified address."
-)
+parser = argparse.ArgumentParser(description="Write hex dwords at the specified address.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to write to."
 )
@@ -230,9 +214,7 @@ def ed(address, data):
     return eX(4, address, data)
 
 
-parser = argparse.ArgumentParser(
-    description="Write hex qwords at the specified address."
-)
+parser = argparse.ArgumentParser(description="Write hex qwords at the specified address.")
 parser.add_argument(
     "address", type=pwndbg.commands.HexOrAddressExpr, help="The address to write to."
 )
@@ -328,12 +310,8 @@ def eX(size, address, data, hex=True) -> None:
             return
 
 
-parser = argparse.ArgumentParser(
-    description="Dump pointers and symbols at the specified address."
-)
-parser.add_argument(
-    "addr", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from."
-)
+parser = argparse.ArgumentParser(description="Dump pointers and symbols at the specified address.")
+parser.add_argument("addr", type=pwndbg.commands.HexOrAddressExpr, help="The address to dump from.")
 
 
 @pwndbg.commands.Command(
@@ -347,15 +325,9 @@ def dds(addr):
     return pwndbg.commands.telescope.telescope(addr)
 
 
-da_parser = argparse.ArgumentParser(
-    description="Dump a string at the specified address."
-)
-da_parser.add_argument(
-    "address", type=pwndbg.commands.HexOrAddressExpr, help="Address to dump"
-)
-da_parser.add_argument(
-    "max", type=int, nargs="?", default=256, help="Maximum string length"
-)
+da_parser = argparse.ArgumentParser(description="Dump a string at the specified address.")
+da_parser.add_argument("address", type=pwndbg.commands.HexOrAddressExpr, help="Address to dump")
+da_parser.add_argument("max", type=int, nargs="?", default=256, help="Maximum string length")
 
 
 @pwndbg.commands.Command(da_parser, category=CommandCategory.WINDBG)
@@ -364,15 +336,9 @@ def da(address, max) -> None:
     print("%x" % address, repr(pwndbg.aglib.strings.get(address, max)))
 
 
-ds_parser = argparse.ArgumentParser(
-    description="Dump a string at the specified address."
-)
-ds_parser.add_argument(
-    "address", type=pwndbg.commands.HexOrAddressExpr, help="Address to dump"
-)
-ds_parser.add_argument(
-    "max", type=int, nargs="?", default=256, help="Maximum string length"
-)
+ds_parser = argparse.ArgumentParser(description="Dump a string at the specified address.")
+ds_parser.add_argument("address", type=pwndbg.commands.HexOrAddressExpr, help="Address to dump")
+ds_parser.add_argument("max", type=int, nargs="?", default=256, help="Maximum string length")
 
 
 @pwndbg.commands.Command(ds_parser, category=CommandCategory.WINDBG)
@@ -405,9 +371,7 @@ if pwndbg.dbg.is_gdblib_available():
         """
         gdb.execute("info breakpoints")
 
-    parser = argparse.ArgumentParser(
-        description="Disable the breakpoint with the specified index."
-    )
+    parser = argparse.ArgumentParser(description="Disable the breakpoint with the specified index.")
     parser.add_argument(
         "which",
         nargs="?",
@@ -426,9 +390,7 @@ if pwndbg.dbg.is_gdblib_available():
         else:
             gdb.execute(f"disable breakpoints {which}")
 
-    parser = argparse.ArgumentParser(
-        description="Enable the breakpoint with the specified index."
-    )
+    parser = argparse.ArgumentParser(description="Enable the breakpoint with the specified index.")
     parser.add_argument(
         "which",
         nargs="?",
@@ -447,9 +409,7 @@ if pwndbg.dbg.is_gdblib_available():
         else:
             gdb.execute(f"enable breakpoints {which}")
 
-    parser = argparse.ArgumentParser(
-        description="Clear the breakpoint with the specified index."
-    )
+    parser = argparse.ArgumentParser(description="Clear the breakpoint with the specified index.")
     parser.add_argument(
         "which",
         nargs="?",
@@ -468,18 +428,14 @@ if pwndbg.dbg.is_gdblib_available():
         else:
             gdb.execute(f"delete breakpoints {which}")
 
-    parser = argparse.ArgumentParser(
-        description="Set a breakpoint at the specified address."
-    )
+    parser = argparse.ArgumentParser(description="Set a breakpoint at the specified address.")
     parser.add_argument("where", type=int, help="The address to break at.")
 
     @pwndbg.commands.Command(parser, category=CommandCategory.WINDBG)
     def bp(where) -> None:
         gdb.execute(f"break *{where:#x}")
 
-    @pwndbg.commands.Command(
-        "Print a backtrace (alias 'bt').", category=CommandCategory.WINDBG
-    )
+    @pwndbg.commands.Command("Print a backtrace (alias 'bt').", category=CommandCategory.WINDBG)
     @pwndbg.commands.OnlyWhenRunning
     def k() -> None:
         """
@@ -499,9 +455,7 @@ if pwndbg.dbg.is_gdblib_available():
         gdb.execute("continue")
 
 
-parser = argparse.ArgumentParser(
-    description="List the symbols nearest to the provided value."
-)
+parser = argparse.ArgumentParser(description="List the symbols nearest to the provided value.")
 parser.add_argument(
     "value", type=int, nargs="?", default=None, help="The address you want the name of."
 )

@@ -16,9 +16,7 @@ from pwndbg.color import strip
 from pwndbg.color import theme
 
 theme.add_param("banner-separator", "─", "repeated banner separator character")
-theme.add_param(
-    "banner-title-surrounding-left", "[ ", "banner title surrounding char (left side)"
-)
+theme.add_param("banner-title-surrounding-left", "[ ", "banner title surrounding char (left side)")
 theme.add_param(
     "banner-title-surrounding-right", " ]", "banner title surrounding char (right side)"
 )

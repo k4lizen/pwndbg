@@ -72,9 +72,7 @@ def instructions_and_padding(instructions: List[PwndbgInstruction]) -> List[str]
 
     current_group: List[int] = []
 
-    for i, (ins, asm) in enumerate(
-        zip(instructions, (one_instruction(i) for i in instructions))
-    ):
+    for i, (ins, asm) in enumerate(zip(instructions, (one_instruction(i) for i in instructions))):
         if ins.has_jump_target:
             sym = ins.target_string
 
@@ -86,9 +84,7 @@ def instructions_and_padding(instructions: List[PwndbgInstruction]) -> List[str]
                 current_group = []
         else:
             if ins.syscall is not None:
-                asm += (
-                    f" <{pwndbg.aglib.nearpc.c.syscall_name('SYS_' + ins.syscall_name)}>"
-                )
+                asm += f" <{pwndbg.aglib.nearpc.c.syscall_name('SYS_' + ins.syscall_name)}>"
 
             # Padding the string for a nicer output
             # This path calculates the padding for each instruction - even if there

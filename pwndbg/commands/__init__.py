@@ -105,9 +105,7 @@ class CommandFormatter(argparse.RawDescriptionHelpFormatter):
                 action.type is bool or isinstance(action.default, bool)
             ) and not action.default
             is_none = action.default is None
-            if action.default is not argparse.SUPPRESS and not (
-                is_false_bool or is_none
-            ):
+            if action.default is not argparse.SUPPRESS and not (is_false_bool or is_none):
                 defaulting_nargs = [argparse.OPTIONAL, argparse.ZERO_OR_MORE]
                 if action.option_strings or action.nargs in defaulting_nargs:
                     if action.type is str:
@@ -155,9 +153,7 @@ class CommandObj:
             # which defines it, but replace '_' with '-'.
             self.command_name = function.__name__.replace("_", "-")
 
-        assert (
-            "_" not in self.command_name and "Use '-' instead of '_' in command names."
-        )
+        assert "_" not in self.command_name and "Use '-' instead of '_' in command names."
         assert self.command_name not in command_names and "Command already exists."
         assert (
             not (
@@ -201,9 +197,7 @@ class CommandObj:
         self.handles = []
 
         # Tell the debugger about the command...
-        self.handles.append(
-            pwndbg.dbg.add_command(self.command_name, _handler, self.help_str)
-        )
+        self.handles.append(pwndbg.dbg.add_command(self.command_name, _handler, self.help_str))
         # ...and all of its aliases.
         for alias in self.aliases:
             self.handles.append(pwndbg.dbg.add_command(alias, _handler, self.help_str))
@@ -390,10 +384,7 @@ class Command:
         # If this command is not valid for this debugger, do not even
         # pass it to ComandObj to be registered with the debugger API.
         # Also make sure it raises an error if it is called from the code.
-        if (
-            self.only_debuggers is not None
-            and pwndbg.dbg.name() not in self.only_debuggers
-        ):
+        if self.only_debuggers is not None and pwndbg.dbg.name() not in self.only_debuggers:
 
             def decorator(*args, **kwargs):
                 raise InvalidDebuggerError(
@@ -402,10 +393,7 @@ class Command:
                 )
 
             return decorator  # type: ignore[return-value]
-        if (
-            self.exclude_debuggers is not None
-            and pwndbg.dbg.name() in self.exclude_debuggers
-        ):
+        if self.exclude_debuggers is not None and pwndbg.dbg.name() in self.exclude_debuggers:
 
             def decorator(*args, **kwargs):
                 raise InvalidDebuggerError(
@@ -516,9 +504,7 @@ def fix_reraise_arg(arg) -> pwndbg.dbg_mod.Value:
         assert isinstance(fixed, pwndbg.dbg_mod.Value)
         return fixed
     except pwndbg.dbg_mod.Error as dbge:
-        raise argparse.ArgumentTypeError(
-            f"debugger couldn't resolve argument '{arg}': {dbge}"
-        )
+        raise argparse.ArgumentTypeError(f"debugger couldn't resolve argument '{arg}': {dbge}")
 
 
 def fix_int(*a, **kw) -> int:
@@ -536,8 +522,7 @@ def fix_int_reraise_arg(arg) -> int:
         return int(fixed)
     except pwndbg.dbg_mod.Error as e:
         raise argparse.ArgumentTypeError(
-            f"couldn't convert '{arg}' ({fixed.type.name_to_human_readable}) to"
-            f" int: {e}"
+            f"couldn't convert '{arg}' ({fixed.type.name_to_human_readable}) to" f" int: {e}"
         )
 
 
@@ -629,8 +614,7 @@ def OnlyWhenPagingEnabled(function: Callable[P, T]) -> Callable[P, Optional[T]]:
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This command may only be run when paging is"
-                " enabled."
+                f"{func_name(function)}: This command may only be run when paging is" " enabled."
             )
             return None
 
@@ -669,10 +653,7 @@ def OnlyWithTcache(function: Callable[P, T]) -> Callable[P, Optional[T]]:
 def OnlyWhenHeapIsInitialized(function: Callable[P, T]) -> Callable[P, Optional[T]]:
     @functools.wraps(function)
     def _OnlyWhenHeapIsInitialized(*a: P.args, **kw: P.kwargs) -> Optional[T]:
-        if (
-            pwndbg.aglib.heap.current is not None
-            and pwndbg.aglib.heap.current.is_initialized()
-        ):
+        if pwndbg.aglib.heap.current is not None and pwndbg.aglib.heap.current.is_initialized():
             return function(*a, **kw)
         else:
             log.error(f"{func_name(function)}: Heap is not initialized yet.")
@@ -681,9 +662,7 @@ def OnlyWhenHeapIsInitialized(function: Callable[P, T]) -> Callable[P, Optional[
     return _OnlyWhenHeapIsInitialized
 
 
-def _try2run_heap_command(
-    function: Callable[P, T], *a: P.args, **kw: P.kwargs
-) -> T | None:
+def _try2run_heap_command(function: Callable[P, T], *a: P.args, **kw: P.kwargs) -> T | None:
     e = log.error
     w = log.warning
     # Note: We will still raise the error for developers when exception-* is set to "on"
@@ -710,10 +689,7 @@ def _try2run_heap_command(
 
         pwndbg.exception.inform_verbose_and_debug()
     except Exception as err:
-        e(
-            f"{func_name(function)}: An unknown error occurred when running this"
-            " command."
-        )
+        e(f"{func_name(function)}: An unknown error occurred when running this" " command.")
         if isinstance(pwndbg.aglib.heap.current, HeuristicHeap):
             w(
                 "Maybe you can try to determine the libc symbols addresses manually,"
@@ -722,10 +698,7 @@ def _try2run_heap_command(
                 " `global_max_fast`, `tcache` and `thread_arena` addresses."
             )
         else:
-            w(
-                "You can try `set resolve-heap-via-heuristic force` and re-run this"
-                " command.\n"
-            )
+            w("You can try `set resolve-heap-via-heuristic force` and re-run this" " command.\n")
         if pwndbg.config.exception_verbose or pwndbg.config.exception_debugger:
             raise err
 

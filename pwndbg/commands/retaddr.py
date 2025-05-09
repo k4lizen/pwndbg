@@ -36,9 +36,7 @@ def retaddr() -> None:
         sp += pwndbg.aglib.arch.ptrsize
 
 
-@pwndbg.commands.Command(
-    "Explore stack from all threads.", category=CommandCategory.STACK
-)
+@pwndbg.commands.Command("Explore stack from all threads.", category=CommandCategory.STACK)
 @pwndbg.commands.OnlyWhenRunning
 def stack_explore() -> None:
     old_value = pwndbg.config.auto_explore_stack.value

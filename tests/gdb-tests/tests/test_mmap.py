@@ -69,9 +69,7 @@ def test_mmap_executes_properly(start_binary):
 
     # Retrieve the file descriptor number and map it to memory.
     fd_num = int(gdb.newest_frame().read_var("fd"))
-    output = gdb.execute(
-        f"mmap 0x0 16 PROT_READ MAP_PRIVATE {fd_num} 0", to_string=True
-    )
+    output = gdb.execute(f"mmap 0x0 16 PROT_READ MAP_PRIVATE {fd_num} 0", to_string=True)
     assert output.startswith("mmap syscall returned ")
     ptr = int(output.split(" returned ")[1].rstrip(), 16)
     assert not is_mmap_error(ptr)
@@ -88,6 +86,4 @@ def test_mmap_executes_properly(start_binary):
 
 def test_cannot_run_mmap_when_not_running(start_binary):
     # expect error message
-    assert "mmap: The program is not being run.\n" == gdb.execute(
-        "mmap 0x0 0x1000", to_string=True
-    )
+    assert "mmap: The program is not being run.\n" == gdb.execute("mmap 0x0 0x1000", to_string=True)

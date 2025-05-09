@@ -12,9 +12,7 @@ TLS_I386_BINARY = tests.binaries.get("tls.i386.out")
 
 
 # TODO: Support other architectures
-@pytest.mark.parametrize(
-    "binary", [TLS_X86_64_BINARY, TLS_I386_BINARY], ids=["x86-64", "i386"]
-)
+@pytest.mark.parametrize("binary", [TLS_X86_64_BINARY, TLS_I386_BINARY], ids=["x86-64", "i386"])
 def test_tls_address_and_command(start_binary, binary):
     try:
         start_binary(binary)
@@ -32,27 +30,17 @@ def test_tls_address_and_command(start_binary, binary):
     output = gdb.execute("tls", to_string=True)
 
     assert f"Thread Local Storage (TLS) base: {expected_tls_address:#x}" in output
-    assert (
-        "TLS is located at:\n"
-        and f"{pwndbg.aglib.vmmap.find(expected_tls_address)}\n" in output
-    )
-    assert (
-        "Output truncated. Rerun with option -a to display the full output." in output
-    )
+    assert "TLS is located at:\n" and f"{pwndbg.aglib.vmmap.find(expected_tls_address)}\n" in output
+    assert "Output truncated. Rerun with option -a to display the full output." in output
 
     output_pthread = gdb.execute("tls --pthread-self", to_string=True)
 
-    assert (
-        f"Thread Local Storage (TLS) base: {expected_tls_address:#x}" in output_pthread
-    )
+    assert f"Thread Local Storage (TLS) base: {expected_tls_address:#x}" in output_pthread
     assert (
         "TLS is located at:"
         and f"{pwndbg.aglib.vmmap.find(expected_tls_address)}\n" in output_pthread
     )
-    assert (
-        "Output truncated. Rerun with option -a to display the full output."
-        in output_pthread
-    )
+    assert "Output truncated. Rerun with option -a to display the full output." in output_pthread
 
     # Argument `-a`
     output_all = gdb.execute("tls --all", to_string=True)
@@ -62,7 +50,4 @@ def test_tls_address_and_command(start_binary, binary):
         "TLS is located at:\n"
         and f"{pwndbg.aglib.vmmap.find(expected_tls_address)}\n" in output_all
     )
-    assert (
-        "Output truncated. Rerun with option -a to display the full output."
-        not in output_all
-    )
+    assert "Output truncated. Rerun with option -a to display the full output." not in output_all

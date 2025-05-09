@@ -258,11 +258,7 @@ def read_buildversion(addr: int) -> str:
     word = word_size()
     version_ptr = load_uint(pwndbg.aglib.memory.read(addr, word))
     version_len = load_uint(pwndbg.aglib.memory.read(addr + word, word))
-    return (
-        ""
-        if version_len == 0
-        else pwndbg.aglib.memory.read(version_ptr, version_len).decode()
-    )
+    return "" if version_len == 0 else pwndbg.aglib.memory.read(version_ptr, version_len).decode()
 
 
 @pwndbg.lib.cache.cache_until("objfile")
@@ -283,11 +279,7 @@ def get_go_version() -> Tuple[int, ...] | None:
         if elf is None:
             return None
         buildinfo = next(
-            (
-                cast(int, s["sh_addr"])
-                for s in elf.sections
-                if s["x_name"] == ".go.buildinfo"
-            ),
+            (cast(int, s["sh_addr"]) for s in elf.sections if s["x_name"] == ".go.buildinfo"),
             None,
         )
         # again, could do linear search
@@ -295,9 +287,7 @@ def get_go_version() -> Tuple[int, ...] | None:
             return None
         # check for flags & flagsVersionInl
         if (pwndbg.aglib.memory.read(buildinfo + 15, 1)[0] & 2) != 2:
-            buildversion_addr = load_uint(
-                pwndbg.aglib.memory.read(buildinfo + 16, word_size())
-            )
+            buildversion_addr = load_uint(pwndbg.aglib.memory.read(buildinfo + 16, word_size()))
             version_string = read_buildversion(buildversion_addr)
         else:
             version_string = read_varint_str(buildinfo + 32).decode()
@@ -483,9 +473,7 @@ class BackrefType(Type):
     key: int
 
     def dump(self, addr: int, fmt: FormatOpts = FormatOpts()):
-        raise NotImplementedError(
-            f"Cannot dump placeholder type {type(self).__name__}."
-        )
+        raise NotImplementedError(f"Cannot dump placeholder type {type(self).__name__}.")
 
     def size(self) -> int:
         raise NotImplementedError(
@@ -501,9 +489,7 @@ class BackrefType(Type):
             return "..."
 
 
-def decode_runtime_type(
-    addr: int, keep_backrefs: bool = False
-) -> Tuple[GoTypeMeta, Type | None]:
+def decode_runtime_type(addr: int, keep_backrefs: bool = False) -> Tuple[GoTypeMeta, Type | None]:
     """
     Decodes a runtime reflection type from memory, returning a (meta, type) tuplee.
 
@@ -564,19 +550,21 @@ def _inner_decode_runtime_type(
     if addr in cache:
         return cache[addr]
     word = word_size()
-    offsets = compute_named_offsets([
-        ("Size_", word, word),  # uintptr
-        ("PtrBytes", word, word),  # uintptr
-        ("Hash", 4, 4),  # uint32
-        ("TFlag", 1, 1),  # TFlag (alias for uint8)
-        ("Align_", 1, 1),  # uint8
-        ("FieldAlign_", 1, 1),  # uint8
-        ("Kind_", 1, 1),  # Kind (alias for uint8)
-        ("Equal", word, word),  # funcptr
-        ("GCData", word, word),  # *byte
-        ("Str", 4, 4),  # NameOff (alias for int32)
-        ("PtrToThis", 4, 4),  # TypeOff (alias for int32)
-    ])
+    offsets = compute_named_offsets(
+        [
+            ("Size_", word, word),  # uintptr
+            ("PtrBytes", word, word),  # uintptr
+            ("Hash", 4, 4),  # uint32
+            ("TFlag", 1, 1),  # TFlag (alias for uint8)
+            ("Align_", 1, 1),  # uint8
+            ("FieldAlign_", 1, 1),  # uint8
+            ("Kind_", 1, 1),  # Kind (alias for uint8)
+            ("Equal", word, word),  # funcptr
+            ("GCData", word, word),  # *byte
+            ("Str", 4, 4),  # NameOff (alias for int32)
+            ("PtrToThis", 4, 4),  # TypeOff (alias for int32)
+        ]
+    )
 
     def load(off, sz):
         return load_uint(pwndbg.aglib.memory.read(addr + off, sz))
@@ -724,17 +712,14 @@ def _inner_decode_runtime_type(
                 offset_shift = 0
             for i in range(fields_count):
                 base = fields_ptr + i * word * 3
-                bfield_name = read_type_name(
-                    load_uint(pwndbg.aglib.memory.read(base, word))
-                )
+                bfield_name = read_type_name(load_uint(pwndbg.aglib.memory.read(base, word)))
                 try:
                     field_name = bfield_name.decode()
                 except UnicodeDecodeError:
                     field_name = repr(bytes(bfield_name))
                 field_ty_ptr = load_uint(pwndbg.aglib.memory.read(base + word, word))
                 field_off = (
-                    load_uint(pwndbg.aglib.memory.read(base + word * 2, word))
-                    >> offset_shift
+                    load_uint(pwndbg.aglib.memory.read(base + word * 2, word)) >> offset_shift
                 )
                 (field_meta, field_ty) = _inner_decode_runtime_type(field_ty_ptr, cache)
                 if field_ty is None:
@@ -744,9 +729,7 @@ def _inner_decode_runtime_type(
             sz = load(offsets["Size_"], word)
             return (
                 meta,
-                StructType(
-                    meta, fields, sz, None if name.startswith("struct ") else name
-                ),
+                StructType(meta, fields, sz, None if name.startswith("struct ") else name),
             )
         else:
             # currently channels and functions are unsupported
@@ -841,9 +824,7 @@ class BasicType(Type):
                 data = b""
             else:
                 data = pwndbg.aglib.memory.read(ptr, strlen)
-            return fmt.fmt_debug(f"(str @ {ptr:#x}, len = {strlen}) ") + fmt.fmt_bytes(
-                data
-            )
+            return fmt.fmt_debug(f"(str @ {ptr:#x}, len = {strlen}) ") + fmt.fmt_bytes(data)
         raise ValueError(f"Could not dump type {ty}.")
 
     def size(self) -> int:
@@ -875,8 +856,7 @@ class BasicType(Type):
             self.sz = word_size() * 2
         else:
             raise ValueError(
-                f"Type {ty} is unknown. Use type hexdump[n] for an unknown type of"
-                " size n."
+                f"Type {ty} is unknown. Use type hexdump[n] for an unknown type of" " size n."
             )
 
 
@@ -972,9 +952,7 @@ class ArrayType(Type):
     def dump(self, addr: int, fmt: FormatOpts = FormatOpts()) -> str:
         ret = []
         for _ in range(self.count):
-            ret.append(
-                fmt.fmt_debug(f"(elem @ {addr:#x}) ") + self.inner.dump(addr, fmt)
-            )
+            ret.append(fmt.fmt_debug(f"(elem @ {addr:#x}) ") + self.inner.dump(addr, fmt))
             addr += self.inner.size()
         return f"[{fmt.fmt_elems(ret)}]"
 
@@ -1026,17 +1004,19 @@ class MapType(Type):
     @staticmethod
     def field_offsets() -> Dict[str, int]:
         word = word_size()
-        offsets = compute_named_offsets([
-            ("count", word, word),  # int
-            ("flags", 1, 1),  # uint8
-            ("B", 1, 1),  # uint8
-            ("noverflow", 2, 2),  # uint16
-            ("hash0", 4, 4),  # uint32
-            ("buckets", word, word),  # unsafe.Pointer
-            ("oldbuckets", word, word),  # unsafe.Pointer
-            ("nevacuate", word, word),  # uintptr
-            ("extra", word, word),  # *mapextra
-        ])
+        offsets = compute_named_offsets(
+            [
+                ("count", word, word),  # int
+                ("flags", 1, 1),  # uint8
+                ("B", 1, 1),  # uint8
+                ("noverflow", 2, 2),  # uint16
+                ("hash0", 4, 4),  # uint32
+                ("buckets", word, word),  # unsafe.Pointer
+                ("oldbuckets", word, word),  # unsafe.Pointer
+                ("nevacuate", word, word),  # uintptr
+                ("extra", word, word),  # *mapextra
+            ]
+        )
         return offsets
 
     def dump(self, addr: int, fmt: FormatOpts = FormatOpts()) -> str:
@@ -1056,13 +1036,13 @@ class MapType(Type):
         valsize = self.val.size()
         # technically need to worry about padding but every go arch has max
         # alignment of 8 and bucket count is 8 so padding is never actually possible
-        [tophash_start, keys_start, vals_start, overflow_start, bucket_size] = (
-            compute_offsets([
+        [tophash_start, keys_start, vals_start, overflow_start, bucket_size] = compute_offsets(
+            [
                 (bucket_count, 1),
                 (keysize * bucket_count, 1),
                 (valsize * bucket_count, 1),
                 (word, word),
-            ])
+            ]
         )
         ret = []
         for i in range(num_buckets):
@@ -1133,9 +1113,7 @@ class StructType(Type):
             if isinstance(ty, str):
                 vals.append((name, f"({ty}) @ {base:#x}"))
             else:
-                vals.append(
-                    (fmt.fmt_debug(f"(field @ {base:#x}) ") + name, ty.dump(base, fmt))
-                )
+                vals.append((fmt.fmt_debug(f"(field @ {base:#x}) ") + name, ty.dump(base, fmt)))
         body = fmt.fmt_elems(f"{name}: {val}" for (name, val) in vals)
         name = self.name or "struct"
         return f"{name} {{{body}}}"
@@ -1145,9 +1123,7 @@ class StructType(Type):
 
     def get_typename(self) -> str:
         body = ";".join(
-            f"{off}:{name}:{ty}"
-            for (name, ty, off) in self.fields
-            if not isinstance(ty, str)
+            f"{off}:{name}:{ty}" for (name, ty, off) in self.fields if not isinstance(ty, str)
         )
         return f"struct({self.sz}){{{body}}}"
 

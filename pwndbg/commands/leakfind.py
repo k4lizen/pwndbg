@@ -110,12 +110,16 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.MEMORY, examples="""
+@pwndbg.commands.Command(
+    parser,
+    category=CommandCategory.MEMORY,
+    examples="""
 pwndbg> leakfind $rsp --page_name=filename --max_offset=0x48 --max_depth=6
 This would look for any chains of leaks that point to a section in
 filename which begin near $rsp, are never 0x48 bytes further from
 a known pointer, and are a maximum length of 6.
-    """)
+    """,
+)
 @pwndbg.commands.OnlyWhenRunning
 def leakfind(
     address=None,
@@ -213,6 +217,5 @@ def leakfind(
 
     if pwndbg.aglib.qemu.is_qemu():
         print(
-            "\n[QEMU target detected - leakfind result might not be accurate; see `help"
-            " vmmap`]"
+            "\n[QEMU target detected - leakfind result might not be accurate; see `help" " vmmap`]"
         )

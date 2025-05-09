@@ -119,12 +119,14 @@ def get(
 
 
 def legend():
-    return "LEGEND: " + " | ".join((
-        c.stack("STACK"),
-        c.heap("HEAP"),
-        c.code("CODE"),
-        c.data("DATA"),
-        # WX segments will also be marked as code, so do 2 formatters here
-        c.wx(c.code("WX")),
-        c.rodata("RODATA"),
-    ))
+    return "LEGEND: " + " | ".join(
+        (
+            c.stack("STACK"),
+            c.heap("HEAP"),
+            c.code("CODE"),
+            c.data("DATA"),
+            # WX segments will also be marked as code, so do 2 formatters here
+            c.wx(c.code("WX")),
+            c.rodata("RODATA"),
+        )
+    )

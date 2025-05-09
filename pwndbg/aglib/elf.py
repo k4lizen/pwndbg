@@ -187,9 +187,7 @@ def get_containing_segments(elf_filepath: str, elf_loadaddr: int, vaddr: int):
     for seg in elf.segments:
         # disregard segments which were unable to be named by pyelftools (see #777)
         # and non-LOAD segments that are not file-backed (typically STACK)
-        if isinstance(seg["p_type"], int) or (
-            "LOAD" not in seg["p_type"] and seg["p_filesz"] == 0
-        ):
+        if isinstance(seg["p_type"], int) or ("LOAD" not in seg["p_type"] and seg["p_filesz"] == 0):
             continue
         # disregard segments not containing vaddr
         if vaddr < seg["p_vaddr"] or vaddr >= seg["x_vaddr_mem_end"]:  # type: ignore[operator]
@@ -227,11 +225,7 @@ def dump_section_by_name(
     with open(local_path, "rb") as f:
         elffile = ELFFile(f)
         section = elffile.get_section_by_name(section_name)
-        return (
-            (section["sh_addr"], section["sh_size"], section.data())
-            if section
-            else None
-        )
+        return (section["sh_addr"], section["sh_size"], section.data()) if section else None
 
 
 def dump_relocations_by_section_name(
@@ -421,9 +415,7 @@ def map(pointer: int, objfile: str = "") -> Tuple[pwndbg.lib.memory.Page, ...]:
     return map_inner(ei_class, ehdr, objfile)
 
 
-def map_inner(
-    ei_class: int, ehdr: Ehdr, objfile: str
-) -> Tuple[pwndbg.lib.memory.Page, ...]:
+def map_inner(ei_class: int, ehdr: Ehdr, objfile: str) -> Tuple[pwndbg.lib.memory.Page, ...]:
     if not ehdr:
         return ()
 
@@ -482,9 +474,7 @@ def map_inner(
     pages.sort()
     prev = pages[0]
     for page in list(pages[1:]):
-        if (prev.flags & PF_W) == (
-            page.flags & PF_W
-        ) and prev.vaddr + prev.memsz == page.vaddr:
+        if (prev.flags & PF_W) == (page.flags & PF_W) and prev.vaddr + prev.memsz == page.vaddr:
             prev.memsz += page.memsz
             pages.remove(page)
         else:

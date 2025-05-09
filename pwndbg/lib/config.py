@@ -87,9 +87,7 @@ class Parameter:
         self.help_docstring = help_docstring
         # Show the default value in the parameter help.
         # We add a trailing double space because docs are in markdown.
-        self.help_docstring += (
-            "\n\n" + HELP_DEFAULT_PREFIX + " " + self.pretty_default() + "  "
-        )
+        self.help_docstring += "\n\n" + HELP_DEFAULT_PREFIX + " " + self.pretty_default() + "  "
         # Show valid values if they aren't obvious
         if param_class == PARAM_ENUM:
             self.help_docstring += (
@@ -248,13 +246,10 @@ class Config:
             and "Parameter's set_show_doc too long, use the help_docstring parameter."
         )
         assert set_show_doc[-1] != "." and "Don't end set_show_doc with punctuation."
-        assert (
-            HELP_DEFAULT_PREFIX not in help_docstring
-            and (
-                f"Having the string '{HELP_DEFAULT_PREFIX}' in the "
-                "help_docstring messes with documentation generation. "
-                "Please remove it, it is automatically generated."
-            )
+        assert HELP_DEFAULT_PREFIX not in help_docstring and (
+            f"Having the string '{HELP_DEFAULT_PREFIX}' in the "
+            "help_docstring messes with documentation generation. "
+            "Please remove it, it is automatically generated."
         )
         assert HELP_VALID_VALUES_PREFIX not in help_docstring and (
             f"Having the string '{HELP_VALID_VALUES_PREFIX}' in the help_docstring "
@@ -287,9 +282,7 @@ class Config:
         self.params[attr_name] = p
         return p
 
-    def trigger(
-        self, *params: Parameter
-    ) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    def trigger(self, *params: Parameter) -> Callable[[Callable[..., T]], Callable[..., T]]:
         names = [p.name for p in params]
 
         def wrapper(func: Callable[..., T]) -> Callable[..., T]:

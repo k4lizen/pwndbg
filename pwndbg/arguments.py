@@ -106,8 +106,7 @@ def get(
         args = func.args
     else:
         args = (
-            pwndbg.lib.functions.Argument("int", 0, argname(i, abi))
-            for i in range(n_args_default)
+            pwndbg.lib.functions.Argument("int", 0, argname(i, abi)) for i in range(n_args_default)
         )
 
     for i, arg in enumerate(args):
@@ -146,9 +145,7 @@ def argument(n: int, abi: pwndbg.lib.abi.ABI | None = None) -> int:
 
     sp = pwndbg.aglib.regs.sp + (n * pwndbg.aglib.arch.ptrsize)
 
-    return int(
-        pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, sp)
-    )
+    return int(pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, sp))
 
 
 def arguments(abi: pwndbg.lib.abi.ABI | None = None):

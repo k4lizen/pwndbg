@@ -21,9 +21,7 @@ def xor_memory(address, key, count):
     return mem
 
 
-parser = argparse.ArgumentParser(
-    description="XOR `count` bytes at `address` with the key `key`."
-)
+parser = argparse.ArgumentParser(description="XOR `count` bytes at `address` with the key `key`.")
 parser.add_argument(
     "address",
     type=pwndbg.commands.sloppy_gdb_parse,
@@ -43,9 +41,7 @@ def xor(address, key, count) -> None:
         print(e)
 
 
-parser = argparse.ArgumentParser(
-    description="Memfrobs a region of memory (xor with '*')."
-)
+parser = argparse.ArgumentParser(description="Memfrobs a region of memory (xor with '*').")
 parser.add_argument("address", type=int, help="The address to start xoring at.")
 parser.add_argument("count", type=int, help="The number of bytes to xor.")
 

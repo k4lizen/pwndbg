@@ -146,9 +146,7 @@ class Kallsyms:
                 position -= 1
                 assert position >= 0
 
-                if self.kernel_ro_mem[position] == 0 or self.kernel_ro_mem[
-                    position
-                ] > ord("z"):
+                if self.kernel_ro_mem[position] == 0 or self.kernel_ro_mem[position] > ord("z"):
                     break
 
                 if chars_in_token >= 50 - 1:
@@ -258,10 +256,7 @@ class Kallsyms:
                 continue
 
             for i in range(1, len(entries)):
-                if (
-                    entries[i - 1] + 0x200 > entries[i]
-                    or entries[i - 1] + 0x4000 < entries[i]
-                ):
+                if entries[i - 1] + 0x200 > entries[i] or entries[i - 1] + 0x4000 < entries[i]:
                     break
             else:
                 return position
@@ -293,9 +288,7 @@ class Kallsyms:
                 qword = u64(self.kernel_ro_mem[position : position + 8])
                 if (qword >> 32) & 0xFFFFFFFF == 0 and qword > 0:
                     before_qword = u64(self.kernel_ro_mem[position - 8 : position])
-                    if (before_qword >> 48) & 0xFFFF == 0xFFFF and (
-                        before_qword & 0xFFF
-                    ) == 0:
+                    if (before_qword >> 48) & 0xFFFF == 0xFFFF and (before_qword & 0xFFF) == 0:
                         # should be kallsyms_num_syms
                         return position
 
@@ -411,9 +404,7 @@ class Kallsyms:
         if not self.is_offsets:
             return kernel_addresses
 
-        number_of_negative_items = len(
-            [offset for offset in kernel_addresses if offset < 0]
-        )
+        number_of_negative_items = len([offset for offset in kernel_addresses if offset < 0])
         abs_percpu = number_of_negative_items / len(kernel_addresses) >= 0.5
 
         for idx, offset in enumerate(kernel_addresses):
@@ -487,8 +478,7 @@ class Kallsyms:
         while position + 1 < len(self.kernel_ro_mem):
             if (
                 self.kernel_ro_mem[position] < 2
-                or chr(self.kernel_ro_mem[position + 1]).lower()
-                not in "abdrtvwginpcsu-?"
+                or chr(self.kernel_ro_mem[position + 1]).lower() not in "abdrtvwginpcsu-?"
             ):
                 break
 
@@ -526,10 +516,7 @@ class Kallsyms:
         # while position + 1 < len(self.kernel_img) and self.kernel_img[position + 1] == 0:
         #     position += 1
 
-        while (
-            position + 1 < len(self.kernel_ro_mem)
-            and self.kernel_ro_mem[position + 1] == 0
-        ):
+        while position + 1 < len(self.kernel_ro_mem) and self.kernel_ro_mem[position + 1] == 0:
             position += 1
 
         for null_separated_bytes_chunks in range(20):

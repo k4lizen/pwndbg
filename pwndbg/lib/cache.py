@@ -98,9 +98,7 @@ _ALL_CACHE_UNTIL_EVENTS: Dict[str, _CacheUntilEvent] = {
 _ALL_CACHE_EVENT_NAMES = tuple(_ALL_CACHE_UNTIL_EVENTS.keys())
 
 
-def connect_clear_caching_events(
-    event_dicts: Dict[str, Tuple[Any, ...]], **kwargs: Any
-) -> None:
+def connect_clear_caching_events(event_dicts: Dict[str, Tuple[Any, ...]], **kwargs: Any) -> None:
     """
     Connect given debugger event hooks to correspoonding _CacheUntilEvent
     instances
@@ -148,9 +146,7 @@ def cache_until(*event_names: str) -> Callable[[Callable[P, T]], Callable[P, T]]
 
         @wraps(func)
         def decorator(*a: P.args, **kw: P.kwargs) -> T:
-            if IS_CACHING and not any(
-                (IS_CACHING_DISABLED_FOR[e] for e in event_names)
-            ):
+            if IS_CACHING and not any((IS_CACHING_DISABLED_FOR[e] for e in event_names)):
                 key: Tuple[Any, ...] = (a, _KWARGS_SEPARATOR, *kw.items())
 
                 # Check if the value is in the cache; if we have a cache miss,

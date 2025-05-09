@@ -55,8 +55,7 @@ def get_config_parameters(scope: Scope, filter_pattern: str):
         values = [
             v
             for v in values
-            if filter_pattern in v.name.lower()
-            or filter_pattern in v.set_show_doc.lower()
+            if filter_pattern in v.name.lower() or filter_pattern in v.set_show_doc.lower()
         ]
 
     return values
@@ -72,9 +71,7 @@ parser.add_argument(
 )
 
 
-def display_config(
-    filter_pattern: str, scope: Scope, has_file_command: bool = True
-) -> None:
+def display_config(filter_pattern: str, scope: Scope, has_file_command: bool = True) -> None:
     values = get_config_parameters(scope, filter_pattern)
 
     if not values:
@@ -84,9 +81,7 @@ def display_config(
     longest_optname = max(map(len, (v.name for v in values)))
     longest_doc = max(map(len, (v.set_show_doc for v in values)))
 
-    header = print_row(
-        "Name", "Value", "Default", "Documentation", longest_optname, longest_doc
-    )
+    header = print_row("Name", "Value", "Default", "Documentation", longest_optname, longest_doc)
     print("-" * len(header))
 
     for v in sorted(values):
@@ -129,9 +124,7 @@ configfile_parser.add_argument(
     "--show-all", action="store_true", help="Display all configuration options."
 )
 
-parser = argparse.ArgumentParser(
-    description="Shows pwndbg-specific theme configuration."
-)
+parser = argparse.ArgumentParser(description="Shows pwndbg-specific theme configuration.")
 parser.add_argument(
     "filter_pattern",
     type=str,

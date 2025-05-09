@@ -97,9 +97,7 @@ status.add_argument(
 status.set_defaults(mode="status")
 
 
-@pwndbg.commands.Command(
-    parser, category=CommandCategory.LINUX, command_name="track-got"
-)
+@pwndbg.commands.Command(parser, category=CommandCategory.LINUX, command_name="track-got")
 @pwndbg.commands.OnlyWhenRunning
 def track_got(mode=None, soname=None, writable=False, fnname=None, address=None):
     if mode == "enable":
@@ -112,8 +110,7 @@ def track_got(mode=None, soname=None, writable=False, fnname=None, address=None)
         # Disable the tracker.
         if not pwndbg.gdblib.got.GOT_TRACKING:
             print(
-                "GOT tracking is already disabled. Did you mean to enable it with"
-                " `track-got`?"
+                "GOT tracking is already disabled. Did you mean to enable it with" " `track-got`?"
             )
             return
         pwndbg.gdblib.got.disable_got_call_tracking()
@@ -124,9 +121,7 @@ def track_got(mode=None, soname=None, writable=False, fnname=None, address=None)
         # Delegate to the status function.
         got_tracking_status(address=address)
     else:
-        raise AssertionError(
-            f"track-got must never have invalid mode '{mode}'. this is a bug"
-        )
+        raise AssertionError(f"track-got must never have invalid mode '{mode}'. this is a bug")
 
 
 def got_report(soname=".*", writable=False, fnname=".*") -> None:
@@ -207,13 +202,8 @@ def got_tracking_status(address) -> None:
     result = pwndbg.gdblib.got.tracked_entry_by_address(address)
     if result is None:
         print(message.error(f"No entry at address {address:#x}"))
-        print(
-            "Hint: This command expects the address of the entry in the GOT. So,"
-            " consider"
-        )
-        print(
-            "using the address from the 'Address in GOT' column of the `track-got info`"
-        )
+        print("Hint: This command expects the address of the entry in the GOT. So," " consider")
+        print("using the address from the 'Address in GOT' column of the `track-got info`")
         print("command.")
         return
 

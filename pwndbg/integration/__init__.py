@@ -152,8 +152,7 @@ def switch_providers():
     else:
         print(
             message.warn(
-                f"Invalid provider {provider_name.value!r} specified. Disabling"
-                " integration."
+                f"Invalid provider {provider_name.value!r} specified. Disabling" " integration."
             )
         )
         provider_name.revert_default()

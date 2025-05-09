@@ -25,9 +25,7 @@ def get_got_entry(local_path: str) -> Dict[RelocationType, List[str]]:
     cmd = get_got_entry.cmd + ["--relocs", "--wide", local_path]
     readelf_out = pwndbg.wrappers.call_cmd(cmd)
 
-    entries: Dict[RelocationType, List[str]] = {
-        category: [] for category in RelocationType
-    }
+    entries: Dict[RelocationType, List[str]] = {category: [] for category in RelocationType}
     for line in readelf_out.splitlines():
         if not line or not line[0].isdigit() or " " not in line:
             continue

@@ -38,13 +38,9 @@ from pwndbg.color import message
 from pwndbg.dbg import EventType
 from pwndbg.lib.functions import Function
 
-ida_rpc_host = pwndbg.config.add_param(
-    "ida-rpc-host", "127.0.0.1", "ida xmlrpc server address"
-)
+ida_rpc_host = pwndbg.config.add_param("ida-rpc-host", "127.0.0.1", "ida xmlrpc server address")
 ida_rpc_port = pwndbg.config.add_param("ida-rpc-port", 31337, "ida xmlrpc server port")
-ida_timeout = pwndbg.config.add_param(
-    "ida-timeout", 2, "time to wait for ida xmlrpc in seconds"
-)
+ida_timeout = pwndbg.config.add_param("ida-timeout", 2, "time to wait for ida xmlrpc in seconds")
 
 
 _ida: xmlrpc.client.ServerProxy | None = None
@@ -61,9 +57,7 @@ T = TypeVar("T")
 
 
 @pwndbg.decorators.only_after_first_prompt()
-@pwndbg.config.trigger(
-    ida_rpc_host, ida_rpc_port, pwndbg.integration.provider_name, ida_timeout
-)
+@pwndbg.config.trigger(ida_rpc_host, ida_rpc_port, pwndbg.integration.provider_name, ida_timeout)
 def init_ida_rpc_client() -> None:
     global _ida, _ida_last_exception, _ida_last_connection_check
 
@@ -85,9 +79,7 @@ def init_ida_rpc_client() -> None:
     exception = None  # (type, value, traceback)
     try:
         _ida.here()
-        print(
-            message.success(f"Pwndbg successfully connected to Ida Pro xmlrpc: {addr}")
-        )
+        print(message.success(f"Pwndbg successfully connected to Ida Pro xmlrpc: {addr}"))
         idc._update()
     except TimeoutError:
         exception = sys.exc_info()
@@ -105,18 +97,14 @@ def init_ida_rpc_client() -> None:
             not isinstance(_ida_last_exception, exception[0])
             or _ida_last_exception.args != exception[1].args
         ):
-            if (
-                hasattr(pwndbg.config, "exception_verbose")
-                and pwndbg.config.exception_verbose
-            ):
+            if hasattr(pwndbg.config, "exception_verbose") and pwndbg.config.exception_verbose:
                 print(message.error("[!] Ida Pro xmlrpc error"))
                 traceback.print_exception(*exception)
             else:
                 exc_type, exc_value, _ = exception
                 print(
                     message.error(
-                        f"Failed to connect to IDA Pro ({exc_type.__qualname__}:"
-                        f" {exc_value})"
+                        f"Failed to connect to IDA Pro ({exc_type.__qualname__}:" f" {exc_value})"
                     )
                 )
                 if exc_type is socket.timeout:

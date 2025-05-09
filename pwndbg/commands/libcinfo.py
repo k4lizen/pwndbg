@@ -15,10 +15,7 @@ def libcinfo():
     if glibc_version:
         glibc_version = ".".join(map(str, glibc_version))
         print(f"libc version: {glibc_version}")
-        print(
-            "libc source link:"
-            f" https://ftp.gnu.org/gnu/libc/glibc-{glibc_version}.tar.gz"
-        )
+        print("libc source link:" f" https://ftp.gnu.org/gnu/libc/glibc-{glibc_version}.tar.gz")
         return
 
     print("Could not determine libc version.")

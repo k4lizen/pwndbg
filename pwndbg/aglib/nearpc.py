@@ -38,23 +38,15 @@ c = ColorConfig(
         ColorParamSpec("symbol", "normal", "color for nearpc command (symbol)"),
         ColorParamSpec("address", "normal", "color for nearpc command (address)"),
         ColorParamSpec("prefix", "none", "color for nearpc command (prefix marker)"),
-        ColorParamSpec(
-            "breakpoint", "red", "color for nearpc command (breakpoint marker)"
-        ),
-        ColorParamSpec(
-            "syscall-name", "red", "color for nearpc command (resolved syscall name)"
-        ),
-        ColorParamSpec(
-            "argument", "bold", "color for nearpc command (target argument)"
-        ),
+        ColorParamSpec("breakpoint", "red", "color for nearpc command (breakpoint marker)"),
+        ColorParamSpec("syscall-name", "red", "color for nearpc command (resolved syscall name)"),
+        ColorParamSpec("argument", "bold", "color for nearpc command (target argument)"),
         ColorParamSpec(
             "integration-comments",
             "bold",
             "color for nearpc command (integration comments)",
         ),
-        ColorParamSpec(
-            "branch-marker", "normal", "color for nearpc command (branch marker line)"
-        ),
+        ColorParamSpec("branch-marker", "normal", "color for nearpc command (branch marker line)"),
     ],
 )
 
@@ -69,12 +61,8 @@ nearpc_branch_marker_contiguous = pwndbg.color.theme.add_param(
     " ",
     "contiguous branch marker line for nearpc command",
 )
-pwndbg.color.theme.add_param(
-    "highlight-pc", True, "whether to highlight the current instruction"
-)
-pwndbg.color.theme.add_param(
-    "highlight-breakpoints", True, "whether to highlight breakpoints"
-)
+pwndbg.color.theme.add_param("highlight-pc", True, "whether to highlight the current instruction")
+pwndbg.color.theme.add_param("highlight-breakpoints", True, "whether to highlight breakpoints")
 pwndbg.color.theme.add_param("nearpc-prefix", "►", "prefix marker for nearpc command")
 pwndbg.color.theme.add_param(
     "nearpc-breakpoint-prefix", "b+", "breakpoint marker for nearpc command"
@@ -130,11 +118,7 @@ def nearpc(
     result: List[str] = []
 
     if pc is not None:
-        pc = (
-            pwndbg.dbg.selected_inferior()
-            .create_value(pc)
-            .cast(pwndbg.aglib.typeinfo.pvoid)
-        )
+        pc = pwndbg.dbg.selected_inferior().create_value(pc).cast(pwndbg.aglib.typeinfo.pvoid)
 
     # Fix the case where we only have one argument, and
     # it's a small value.
@@ -192,9 +176,7 @@ def nearpc(
     symbols = [pwndbg.aglib.symbol.resolve_addr(i.address) for i in instructions]
     addresses: List[str] = ["%#x" % i.address for i in instructions]
 
-    nearpc.next_pc = (
-        instructions[-1].address + instructions[-1].size if instructions else 0
-    )
+    nearpc.next_pc = instructions[-1].address + instructions[-1].size if instructions else 0
 
     # Format the symbol name for each instruction
     symbols = [f"<{sym}> " if sym else "" for sym in symbols]
@@ -368,10 +350,7 @@ def nearpc(
             # Pull comments from integration if possible
             result += [
                 " "
-                * (
-                    len(pwndbg.color.unstylize(line))
-                    - len(pwndbg.color.unstylize(asm).lstrip())
-                )
+                * (len(pwndbg.color.unstylize(line)) - len(pwndbg.color.unstylize(asm).lstrip()))
                 + c.integration_comments(x)
                 for x in pwndbg.integration.provider.get_comment_lines(instr.address)
             ]
@@ -379,9 +358,7 @@ def nearpc(
         # For Comment Function
         try:
             line += " " * 10 + C.comment(
-                pwndbg.commands.comments.file_lists[pwndbg.aglib.proc.exe][
-                    hex(instr.address)
-                ]
+                pwndbg.commands.comments.file_lists[pwndbg.aglib.proc.exe][hex(instr.address)]
             )
         except Exception:
             pass
@@ -392,8 +369,7 @@ def nearpc(
         # determine the number of arguments.
         if show_args:
             result.extend(
-                "%8s%s" % ("", arg)
-                for arg in pwndbg.arguments.format_args(instruction=instr)
+                "%8s%s" % ("", arg) for arg in pwndbg.arguments.format_args(instruction=instr)
             )
 
         # If this instruction deserves a down arrow to indicate a taken branch

@@ -54,9 +54,7 @@ def killthreads(thread_ids: List[int] | None = None, all: bool = False) -> None:
             for thread_id in thread_ids:
                 if thread_id not in available_thread_ids:
                     print(
-                        message.error(
-                            f"Thread ID {thread_id} does not exist, see `info threads`"
-                        )
+                        message.error(f"Thread ID {thread_id} does not exist, see `info threads`")
                     )
                     return
         for thread_id in thread_ids:

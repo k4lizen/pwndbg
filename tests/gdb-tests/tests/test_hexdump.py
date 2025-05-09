@@ -143,8 +143,7 @@ def test_hexdump_limit_check(start_binary):
     new_limit_mb = 15
     count_over_default_under_new = (default_limit_mb + 1) * 1024 * 1024
     print(
-        f"Setting limit to {new_limit_mb} MB and testing count"
-        f" {count_over_default_under_new}"
+        f"Setting limit to {new_limit_mb} MB and testing count" f" {count_over_default_under_new}"
     )
     gdb.execute(f"set hexdump-limit-mb {new_limit_mb}")
     try:

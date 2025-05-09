@@ -45,10 +45,7 @@ def helper_test_dump(start_binary, filename):
     )
     gdb.execute("continue")
     third = gdb.execute("go-dump -f 1 any &x", to_string=True)
-    assert (
-        third.strip()
-        == """([3]complex64) [(1.1 + 2.2i), (-2.5 - 5.0i), (4.2 - 2.1i)]"""
-    )
+    assert third.strip() == """([3]complex64) [(1.1 + 2.2i), (-2.5 - 5.0i), (4.2 - 2.1i)]"""
 
 
 def test_go_dumping_x64(start_binary):

@@ -106,9 +106,7 @@ def get_openai_api_key():
         return pwndbg.config.ai_openai_api_key.value
     key = os.environ.get("OPENAI_API_KEY", "")
     if key:
-        print(
-            M.warn("Setting OpenAI API key from OPENAI_API_KEY environment variable.")
-        )
+        print(M.warn("Setting OpenAI API key from OPENAI_API_KEY environment variable."))
         pwndbg.config.ai_openai_api_key.value = key
         return key
     else:
@@ -120,11 +118,7 @@ def get_anthropic_api_key():
         return pwndbg.config.ai_anthropic_api_key.value
     key = os.environ.get("ANTHROPIC_API_KEY", "")
     if key:
-        print(
-            M.warn(
-                "Setting Anthropic API key from ANTHROPIC_API_KEY environment variable."
-            )
-        )
+        print(M.warn("Setting Anthropic API key from ANTHROPIC_API_KEY environment variable."))
         pwndbg.config.ai_anthropic_api_key.value = key
         return key
     else:
@@ -136,9 +130,7 @@ def get_ollama_endpoint():
         return pwndbg.config.ai_ollama_endpoint.value
     endpoint = os.environ.get("OLLAMA_ENDPOINT", "")
     if endpoint:
-        print(
-            M.warn("Setting Ollama Endpoint from OLLAMA_ENDPOINT environment variable.")
-        )
+        print(M.warn("Setting Ollama Endpoint from OLLAMA_ENDPOINT environment variable."))
         pwndbg.config.ai_ollama_endpoint.value = endpoint
         return endpoint
     else:
@@ -203,9 +195,7 @@ def build_context_prompt_body():
     regs = "\n".join(regs_rows)
     flags = None
     try:
-        flags = gdb.execute(
-            "info registers eflags", to_string=True
-        )  # arch neutral would be nice
+        flags = gdb.execute("info registers eflags", to_string=True)  # arch neutral would be nice
     except Exception:
         pass
     if flags:
@@ -303,8 +293,7 @@ def build_context_prompt_body():
 
 def build_command_prompt_body(command):
     prompt = (
-        f"Running the command `{command}` in the GDB "
-        "debugger yields the following output:\n"
+        f"Running the command `{command}` in the GDB " "debugger yields the following output:\n"
     )
     output = gdb.execute(command, to_string=True)
     print(output)
@@ -355,9 +344,7 @@ def query_openai_chat(prompt, model="gpt-3.5-turbo", max_tokens=100, temperature
     return reply
 
 
-def query_openai_completions(
-    prompt, model="text-davinci-003", max_tokens=100, temperature=0.0
-):
+def query_openai_completions(prompt, model="text-davinci-003", max_tokens=100, temperature=0.0):
     if verbosity > 0:
         print(
             M.notice(
@@ -482,12 +469,8 @@ parser = argparse.ArgumentParser(
     description="Ask GPT-3 a question about the current debugging context."
 )
 parser.add_argument("question", nargs="*", type=str, help="The question to ask.")
-parser.add_argument(
-    "-M", "--model", default=None, type=str, help="The OpenAI model to use."
-)
-parser.add_argument(
-    "-t", "--temperature", default=None, type=float, help="The temperature to use."
-)
+parser.add_argument("-M", "--model", default=None, type=str, help="The OpenAI model to use.")
+parser.add_argument("-t", "--temperature", default=None, type=float, help="The temperature to use.")
 parser.add_argument(
     "-m",
     "--max-tokens",
@@ -495,12 +478,8 @@ parser.add_argument(
     type=int,
     help="The maximum number of tokens to generate.",
 )
-parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Print the prompt and response."
-)
-parser.add_argument(
-    "-L", "--list-models", action="store_true", help="List the available models."
-)
+parser.add_argument("-v", "--verbose", action="store_true", help="Print the prompt and response.")
+parser.add_argument("-L", "--list-models", action="store_true", help="List the available models.")
 parser.add_argument(
     "-c",
     "--command",
@@ -511,12 +490,8 @@ parser.add_argument(
 
 
 # @pwndbg.commands.OnlyWhenRunning
-@pwndbg.commands.Command(
-    parser, command_name="ai", category=CommandCategory.INTEGRATIONS
-)
-def ai(
-    question, model, temperature, max_tokens, verbose, list_models=False, command=None
-) -> None:
+@pwndbg.commands.Command(parser, command_name="ai", category=CommandCategory.INTEGRATIONS)
+def ai(question, model, temperature, max_tokens, verbose, list_models=False, command=None) -> None:
     # print the arguments
     global last_question, last_answer, last_pc, last_command, verbosity
     ai_openai_api_key = get_openai_api_key()
@@ -565,9 +540,7 @@ def ai(
 
     prompt = build_prompt(question, command)
     try:
-        res = query(
-            prompt, model=model, max_tokens=max_tokens, temperature=temperature
-        ).strip()
+        res = query(prompt, model=model, max_tokens=max_tokens, temperature=temperature).strip()
     except Exception as e:
         print(M.error(f"Error querying OpenAI: {e}"))
         return

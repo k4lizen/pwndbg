@@ -76,9 +76,7 @@ pwndbg.config.add_param(
 
 # Effects future instructions, as past ones have already been cached and
 # reflect the process state at the time
-pwndbg.config.add_param(
-    "disasm-telescope-depth", 3, "depth of telescope for disasm annotations"
-)
+pwndbg.config.add_param("disasm-telescope-depth", 3, "depth of telescope for disasm annotations")
 
 # In disasm view, long telescoped strings might cause lines wraps
 pwndbg.config.add_param(
@@ -163,9 +161,7 @@ class DisassemblyAssistant:
 
         # Return a string corresponding to operand. Used to reduce code duplication while printing
         # REG type wil return register name, "RAX"
-        self.op_names: Dict[
-            int, Callable[[PwndbgInstruction, EnhancedOperand], str | None]
-        ] = {
+        self.op_names: Dict[int, Callable[[PwndbgInstruction, EnhancedOperand], str | None]] = {
             CS_OP_IMM: self._immediate_string,
             CS_OP_REG: self._register_string,
             CS_OP_MEM: self._memory_string,
@@ -234,9 +230,7 @@ class DisassemblyAssistant:
             emu = jump_emu = None
 
             if DEBUG_ENHANCEMENT:
-                print(
-                    "Turned off emulation - not emulating certain type of instruction"
-                )
+                print("Turned off emulation - not emulating certain type of instruction")
 
         # This function will .single_step the emulation
         if not self._enhance_operands(instruction, emu, jump_emu):
@@ -278,9 +272,7 @@ class DisassemblyAssistant:
         return None
 
     # Subclasses for specific architecture should override this
-    def _set_annotation_string(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         """
         The goal of this function is to set the `annotation` field of the
         instruction,
@@ -327,9 +319,7 @@ class DisassemblyAssistant:
         # Set before_value, symbol, and str
         for op in instruction.operands:
             # Retrieve the value, either an immediate, from a register, or from memory
-            op.before_value = self.op_handlers.get(op.type, lambda *a: None)(
-                instruction, op, emu
-            )
+            op.before_value = self.op_handlers.get(op.type, lambda *a: None)(instruction, op, emu)
             if op.before_value is not None:
                 # Don't mask immediates - some computations depend on their signed values
                 if op.type is not CS_OP_IMM:
@@ -564,9 +554,7 @@ class DisassemblyAssistant:
 
     # Dispatch to the appropriate format handler. Pass the list returned by
     # `telescope()` to this function
-    def _telescope_format_list(
-        self, addresses: List[int], limit: int, emu: Emulator
-    ) -> str:
+    def _telescope_format_list(self, addresses: List[int], limit: int, emu: Emulator) -> str:
         # It is assumed proper checks have been made BEFORE calling this
         # function so that pwndbg.chain.format  will return values accurate
         # to the program state at the time of instruction executing.
@@ -629,9 +617,7 @@ class DisassemblyAssistant:
         if syscall_arch is None:
             return None
 
-        instruction.syscall = self._read_register_name(
-            instruction, syscall_register, emu
-        )
+        instruction.syscall = self._read_register_name(instruction, syscall_register, emu)
         if instruction.syscall is not None:
             instruction.syscall_name = (
                 DisassemblyAssistant._syscall_name(instruction.syscall, syscall_arch)
@@ -648,9 +634,7 @@ class DisassemblyAssistant:
             return (None, None)
         return (pwndbg.aglib.arch.name, pwndbg.aglib.arch.syscall_abi.syscall_register)
 
-    def _enhance_conditional(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _enhance_conditional(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         """
         Sets the `condition` of the instruction
 
@@ -667,9 +651,7 @@ class DisassemblyAssistant:
         instruction.condition = self._condition(instruction, emu)
 
     # Subclasses should override
-    def _condition(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> InstructionCondition:
+    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
         return InstructionCondition.UNDETERMINED
 
     def _enhance_next(
@@ -705,8 +687,7 @@ class DisassemblyAssistant:
         # checks to override the emulator
 
         if not instruction.call_like and (
-            instruction.condition == InstructionCondition.TRUE
-            or instruction.is_unconditional_jump
+            instruction.condition == InstructionCondition.TRUE or instruction.is_unconditional_jump
         ):
             # Don't allow call instructions - we want the actual "nexti" address
             # If condition is true, then this might be a conditional jump
@@ -722,10 +703,7 @@ class DisassemblyAssistant:
             # 1. Only use it to determine non-call's (`nexti` should step over calls)
             # 2. Make sure we haven't manually set .condition to False (which should
             # override the emulators prediction)
-            if (
-                not instruction.call_like
-                and instruction.condition != InstructionCondition.FALSE
-            ):
+            if not instruction.call_like and instruction.condition != InstructionCondition.FALSE:
                 next_addr = jump_emu.pc
 
         # Handle edge case - if the target happens to be the next address
@@ -749,9 +727,7 @@ class DisassemblyAssistant:
 
         if instruction.has_jump_target and instruction.target >= 0:
             # Only bother doing the symbol lookup if this is a jump
-            instruction.target_string = MemoryColor.get_address_or_symbol(
-                instruction.target
-            )
+            instruction.target_string = MemoryColor.get_address_or_symbol(instruction.target)
 
         if (
             instruction.operands
@@ -798,9 +774,7 @@ class DisassemblyAssistant:
             # Reversed order, just because through observation the immediates and
             # labels are often farther right
             for op in reversed(instruction.operands):
-                resolved_addr = self._resolve_used_value(
-                    op.before_value, instruction, op, emu
-                )
+                resolved_addr = self._resolve_used_value(op.before_value, instruction, op, emu)
                 if resolved_addr:
                     resolved_addr &= pwndbg.aglib.arch.ptrmask
                     if op.symbol:
@@ -837,9 +811,7 @@ class DisassemblyAssistant:
 
         return "%#x" % value
 
-    def _register_string(
-        self, instruction: PwndbgInstruction, operand: EnhancedOperand
-    ):
+    def _register_string(self, instruction: PwndbgInstruction, operand: EnhancedOperand):
         """
         Return colorized register string
         """
@@ -925,9 +897,7 @@ class DisassemblyAssistant:
                 if (l_value := left.before_value_resolved) is not None and (
                     r_value := right.before_value_resolved
                 ) is not None:
-                    print_left, print_right = pwndbg.enhance.format_small_int_pair(
-                        l_value, r_value
-                    )
+                    print_left, print_right = pwndbg.enhance.format_small_int_pair(l_value, r_value)
                     # Ex: "0x7f - 0x12" or "0xdffffdea + 0x8"
                     instruction.annotation = (
                         f"{print_left} {char_to_separate_operands} {print_right}"
@@ -939,9 +909,7 @@ class DisassemblyAssistant:
                 emu_eflags = emu.read_register(flags_register_name)
                 eflags_formatted = C.format_flags(emu_eflags, eflags_bits)
 
-                display_result = register_assign(
-                    FLAG_REG_NAME_DISPLAY, eflags_formatted
-                )
+                display_result = register_assign(FLAG_REG_NAME_DISPLAY, eflags_formatted)
 
                 if instruction.annotation is None:
                     # First part of this function usually sets .annotation to a string.
@@ -1014,16 +982,12 @@ class DisassemblyAssistant:
                 # the instruction executes
                 telescope_print = None
             else:
-                if (
-                    signed
-                    and read_size != target_size
-                    and len(telescope_addresses) == 2
-                ):
+                if signed and read_size != target_size and len(telescope_addresses) == 2:
                     # We sign extend the value, then convert it back to the unsigned bit
                     # representation
-                    final_value = bit_math.to_signed(
-                        telescope_addresses[1], read_size * 8
-                    ) & ((1 << (target_size * 8)) - 1)
+                    final_value = bit_math.to_signed(telescope_addresses[1], read_size * 8) & (
+                        (1 << (target_size * 8)) - 1
+                    )
                     # If it's a signed read that required extension, it will just be a number
                     # with no special symbol/color needed
                     telescope_print = hex(final_value)
@@ -1036,9 +1000,7 @@ class DisassemblyAssistant:
             instruction.annotation = f"{dest_str}, {source_str}"
 
             if telescope_print is not None:
-                instruction.annotation = register_assign(
-                    instruction.annotation, telescope_print
-                )
+                instruction.annotation = register_assign(instruction.annotation, telescope_print)
 
     def _common_store_annotator(
         self,
@@ -1111,9 +1073,7 @@ class DisassemblyAssistant:
 
                 instruction.annotation = register_assign(
                     left.str,
-                    self._telescope_format_list(
-                        telescope_addresses, TELESCOPE_DEPTH, emu
-                    ),
+                    self._telescope_format_list(telescope_addresses, TELESCOPE_DEPTH, emu),
                 )
 
     def _common_binary_op_annotator(
@@ -1130,9 +1090,7 @@ class DisassemblyAssistant:
         math_string = None
 
         if op_one is not None and op_two is not None:
-            print_left, print_right = pwndbg.enhance.format_small_int_pair(
-                op_one, op_two
-            )
+            print_left, print_right = pwndbg.enhance.format_small_int_pair(op_one, op_two)
 
             math_string = f"{print_left} {char_to_separate_operands} {print_right}"
 

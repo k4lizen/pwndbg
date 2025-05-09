@@ -65,9 +65,7 @@ def rz(arguments, no_seek=False, no_rebase=False) -> None:
 parser = argparse.ArgumentParser(
     description="Execute stateful rizin commands through rzpipe.",
 )
-parser.add_argument(
-    "arguments", nargs="+", type=str, help="Arguments to pass to rzpipe"
-)
+parser.add_argument("arguments", nargs="+", type=str, help="Arguments to pass to rzpipe")
 
 
 @pwndbg.commands.Command(

@@ -19,9 +19,7 @@ parser.add_argument(
     action="store_true",
     help="Do not set the base address for PIE according to the current mapping",
 )
-parser.add_argument(
-    "arguments", nargs="*", type=str, help="Arguments to pass to radare"
-)
+parser.add_argument("arguments", nargs="*", type=str, help="Arguments to pass to radare")
 
 
 @pwndbg.commands.Command(
@@ -69,9 +67,7 @@ def r2(arguments, no_seek=False, no_rebase=False) -> None:
 parser = argparse.ArgumentParser(
     description="Execute stateful radare2 commands through r2pipe.",
 )
-parser.add_argument(
-    "arguments", nargs="+", type=str, help="Arguments to pass to r2pipe"
-)
+parser.add_argument("arguments", nargs="+", type=str, help="Arguments to pass to r2pipe")
 
 
 @pwndbg.commands.Command(

@@ -62,9 +62,7 @@ async def _nextret(ec: pwndbg.dbg_mod.ExecutionController):
         pwndbg.commands.context.context()
 
 
-@pwndbg.commands.Command(
-    "Breaks at next return-like instruction.", category=CommandCategory.NEXT
-)
+@pwndbg.commands.Command("Breaks at next return-like instruction.", category=CommandCategory.NEXT)
 @pwndbg.commands.OnlyWhenRunning
 def nextret() -> None:
     """Breaks at next return-like instruction"""
@@ -114,12 +112,8 @@ def nextproginstr() -> None:
     pwndbg.dbg.selected_inferior().dispatch_execution_controller(_nextproginstr)
 
 
-parser = argparse.ArgumentParser(
-    description="Breaks on the instruction after this one."
-)
-parser.add_argument(
-    "addr", type=int, default=None, nargs="?", help="The address to break after."
-)
+parser = argparse.ArgumentParser(description="Breaks on the instruction after this one.")
+parser.add_argument("addr", type=int, default=None, nargs="?", help="The address to break after.")
 
 
 @pwndbg.commands.Command(parser, aliases=["so"], category=CommandCategory.NEXT)
@@ -168,9 +162,7 @@ async def _stepsyscall(ec: pwndbg.dbg_mod.ExecutionController):
 
     while (
         pwndbg.aglib.proc.alive
-        and not (
-            await pwndbg.aglib.next.break_next_interrupt(ec, honor_current_branch=True)
-        )
+        and not (await pwndbg.aglib.next.break_next_interrupt(ec, honor_current_branch=True))
         and (await pwndbg.aglib.next.break_next_branch(ec, including_current=True))
     ):
         # Here we are e.g. on a CALL instruction (temporarily breakpointed by `break_next_branch`)

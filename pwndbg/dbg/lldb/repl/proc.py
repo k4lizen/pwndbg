@@ -85,9 +85,7 @@ class ProcessDriver:
         """
         Whether there's an active process in this driver.
         """
-        return (
-            self.process is not None and self.process.GetState() != lldb.eStateConnected
-        )
+        return self.process is not None and self.process.GetState() != lldb.eStateConnected
 
     def has_connection(self) -> bool:
         """
@@ -214,10 +212,7 @@ class ProcessDriver:
                         expected = True
                         break
 
-                    if (
-                        new_state == lldb.eStateRunning
-                        or new_state == lldb.eStateStepping
-                    ):
+                    if new_state == lldb.eStateRunning or new_state == lldb.eStateStepping:
                         running = True
                         # Start the I/O driver here if its start got deferred
                         # because of `only_if_started` being set.
@@ -233,10 +228,7 @@ class ProcessDriver:
                         # Nothing else for us to do here. Clear our internal
                         # references to the process, fire the exit event, and leave.
                         if self.debug:
-                            print(
-                                "[-] ProcessDriver: Process exited with state"
-                                f" {new_state}"
-                            )
+                            print("[-] ProcessDriver: Process exited with state" f" {new_state}")
                         self.process = None
                         self.listener = None
 
@@ -264,14 +256,10 @@ class ProcessDriver:
         """
         Runs the given LLDB command and ataches I/O if necessary.
         """
-        assert (
-            self.has_process()
-        ), "called run_lldb_command() on a driver with no process"
+        assert self.has_process(), "called run_lldb_command() on a driver with no process"
 
         ret = lldb.SBCommandReturnObject()
-        self.process.GetTarget().GetDebugger().GetCommandInterpreter().HandleCommand(
-            command, ret
-        )
+        self.process.GetTarget().GetDebugger().GetCommandInterpreter().HandleCommand(command, ret)
 
         if ret.IsValid():
             # LLDB can give us strings that may fail to encode.
@@ -358,9 +346,7 @@ class ProcessDriver:
                 # should consider letting the caller pick which thread they want
                 # the step to happen in?
                 thread = self.process.GetSelectedThread()
-                assert (
-                    thread is not None
-                ), "Tried to single step, but no thread is selected?"
+                assert thread is not None, "Tried to single step, but no thread is selected?"
 
                 e = lldb.SBError()
                 thread.StepInstruction(False, e)
@@ -404,14 +390,12 @@ class ProcessDriver:
                         # [3]: https://discourse.llvm.org/t/sbthread-isstopped-always-returns-false-on-linux/36944/5
 
                         bpwp_id = None
-                        if (
-                            thread.GetStopReason() == lldb.eStopReasonBreakpoint
-                            and isinstance(stop, lldb.SBBreakpoint)
+                        if thread.GetStopReason() == lldb.eStopReasonBreakpoint and isinstance(
+                            stop, lldb.SBBreakpoint
                         ):
                             bpwp_id = thread.GetStopReasonDataAtIndex(0)
-                        elif (
-                            thread.GetStopReason() == lldb.eStopReasonWatchpoint
-                            and isinstance(stop, lldb.SBWatchpoint)
+                        elif thread.GetStopReason() == lldb.eStopReasonWatchpoint and isinstance(
+                            stop, lldb.SBWatchpoint
                         ):
                             bpwp_id = thread.GetStopReasonDataAtIndex(0)
 
@@ -521,9 +505,7 @@ class ProcessDriver:
 
         return error
 
-    def attach(
-        self, target: lldb.SBTarget, io: IODriver, info: lldb.SBAttachInfo
-    ) -> lldb.SBError:
+    def attach(self, target: lldb.SBTarget, io: IODriver, info: lldb.SBAttachInfo) -> lldb.SBError:
         """
         Attach to a process and handles startup events. Always stops on first
         opportunity, and returns immediately after the process has stopped.
@@ -568,9 +550,7 @@ class ProcessDriver:
 
         return error
 
-    def connect(
-        self, target: lldb.SBTarget, io: IODriver, url: str, plugin: str
-    ) -> lldb.SBError:
+    def connect(self, target: lldb.SBTarget, io: IODriver, url: str, plugin: str) -> lldb.SBError:
         """
         Connects to a remote proces with the given URL using the plugin with the
         given name. This might cause the process to launch in some implementations,
@@ -580,9 +560,7 @@ class ProcessDriver:
         Fires the created() event if a process is automatically attached to
         or launched when a connection succeeds.
         """
-        assert (
-            not self.has_connection()
-        ), "called connect() on a driver with an active connection"
+        assert not self.has_connection(), "called connect() on a driver with an active connection"
         stdin, stdout, stderr = io.stdio()
         error = lldb.SBError()
         self.listener = lldb.SBListener("pwndbg.dbg.lldb.repl.proc.ProcessDriver")

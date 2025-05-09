@@ -32,9 +32,7 @@ parser.add_argument(
     help="Try to get the address of TLS by calling pthread_self().",
 )
 
-parser.add_argument(
-    "-a", "--all", action="store_true", help="Do not truncate the dump output."
-)
+parser.add_argument("-a", "--all", action="store_true", help="Do not truncate the dump output.")
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.LINUX)
@@ -77,8 +75,7 @@ def tls(pthread_self=False, all: bool = False) -> None:
                     print(message.notice("\t[...]"))
                     print(
                         message.hint(
-                            "Output truncated. Rerun with option -a to display the full"
-                            " output."
+                            "Output truncated. Rerun with option -a to display the full" " output."
                         )
                     )
                 # In case there is a tcbhead_t but there is no __glibc_unused2
@@ -88,8 +85,7 @@ def tls(pthread_self=False, all: bool = False) -> None:
                     print(message.notice("\t[...]"))
                     print(
                         message.hint(
-                            "Output truncated. Rerun with option -a to display the full"
-                            " output."
+                            "Output truncated. Rerun with option -a to display the full" " output."
                         )
                     )
         return

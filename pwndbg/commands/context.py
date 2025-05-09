@@ -180,8 +180,7 @@ output_settings: DefaultDict[str, Dict[str, Any]] = defaultdict(dict)
 @pwndbg.config.trigger(config_context_sections)
 def validate_context_sections() -> None:
     valid_values = [
-        context.__name__.replace("context_", "")
-        for context in context_sections.values()
+        context.__name__.replace("context_", "") for context in context_sections.values()
     ]
 
     # If someone tries to set an empty string, we let to do that informing about possible values
@@ -196,8 +195,7 @@ def validate_context_sections() -> None:
         config_context_sections.value = ""
         print(
             message.warn(
-                "Sections set to be empty. FYI valid values are:"
-                f" {', '.join(valid_values)}"
+                "Sections set to be empty. FYI valid values are:" f" {', '.join(valid_values)}"
             )
         )
         return
@@ -206,15 +204,10 @@ def validate_context_sections() -> None:
         if section not in valid_values:
             print(
                 message.warn(
-                    f"Invalid section: {section}, valid values:"
-                    f" {', '.join(valid_values)}"
+                    f"Invalid section: {section}, valid values:" f" {', '.join(valid_values)}"
                 )
             )
-            print(
-                message.warn(
-                    "(setting none of them like '' will make sections not appear)"
-                )
-            )
+            print(message.warn("(setting none of them like '' will make sections not appear)"))
             config_context_sections.revert_default()
             return
 
@@ -340,12 +333,14 @@ def contextoutput(section, path, clearing, banner="both", width: int = None):
         raise argparse.ArgumentError(banner_arg, f"banner can not be '{banner}'")
 
     outputs[section] = path
-    output_settings[section].update({
-        "clearing": clearing,
-        "width": width,
-        "banner_top": banner in ("both", "top"),
-        "banner_bottom": banner in ("both", "bottom"),
-    })
+    output_settings[section].update(
+        {
+            "clearing": clearing,
+            "width": width,
+            "banner_top": banner in ("both", "top"),
+            "banner_bottom": banner in ("both", "bottom"),
+        }
+    )
 
 
 def resetcontextoutput(section):
@@ -374,9 +369,7 @@ def history_size_changed() -> None:
         context_history.clear()
     else:
         for section in context_history:
-            context_history[section] = context_history[section][
-                -int(context_history_size) :
-            ]
+            context_history[section] = context_history[section][-int(context_history_size) :]
 
 
 def serve_context_history(function: Callable[P, List[str]]) -> Callable[P, List[str]]:
@@ -416,9 +409,7 @@ def serve_context_history(function: Callable[P, List[str]]) -> Callable[P, List[
             selected_history_index = len(context_history[section_name]) - 1
 
         # Truncate the history to the configured size
-        context_history[section_name] = context_history[section_name][
-            -int(context_history_size) :
-        ]
+        context_history[section_name] = context_history[section_name][-int(context_history_size) :]
         history = context_history[section_name]
 
         if selected_history_index is None:
@@ -446,9 +437,7 @@ def history_handle_unchanged_contents() -> None:
             ] + history
 
 
-parser = argparse.ArgumentParser(
-    description="Select previous entry in context history."
-)
+parser = argparse.ArgumentParser(description="Select previous entry in context history.")
 parser.add_argument(
     "count",
     type=int,
@@ -515,9 +504,7 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(
-    parser, aliases=["ctxsearch"], category=CommandCategory.CONTEXT
-)
+@pwndbg.commands.Command(parser, aliases=["ctxsearch"], category=CommandCategory.CONTEXT)
 def contextsearch(needle, section) -> None:
     if not section:
         sections = context_history.keys()
@@ -530,9 +517,7 @@ def contextsearch(needle, section) -> None:
     matches: List[Tuple[str, int]] = []
     for section in sections:
         for i, entry in enumerate(context_history[section]):
-            if not any(m[1] == i for m in matches) and any(
-                needle in line for line in entry
-            ):
+            if not any(m[1] == i for m in matches) and any(needle in line for line in entry):
                 matches.append((section, i))
     matches.sort(key=lambda m: m[1], reverse=True)
 
@@ -551,11 +536,7 @@ def contextsearch(needle, section) -> None:
                 break
         else:
             next_match = matches[0]
-            print(
-                message.warn(
-                    "No more matches before the current entry. Starting from the top."
-                )
-            )
+            print(message.warn("No more matches before the current entry. Starting from the top."))
 
     selected_history_index = next_match[1]
     print(
@@ -593,9 +574,7 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(
-    parser, aliases=["ctx-watch", "cwatch"], category=CommandCategory.CONTEXT
-)
+@pwndbg.commands.Command(parser, aliases=["ctx-watch", "cwatch"], category=CommandCategory.CONTEXT)
 def contextwatch(expression, cmd) -> None:
     expressions.append((expression, cmd))
 
@@ -603,9 +582,7 @@ def contextwatch(expression, cmd) -> None:
 parser = argparse.ArgumentParser(
     description="Removes an expression previously added to be watched."
 )
-parser.add_argument(
-    "num", type=int, help="The expression number to be removed from context"
-)
+parser.add_argument("num", type=int, help="The expression number to be removed from context")
 
 
 @pwndbg.commands.Command(
@@ -674,9 +651,7 @@ def context_ghidra(target=sys.stdout, with_banner=True, width=None):
     never or only show the context if no source is available.
     """
     banner = (
-        [pwndbg.ui.banner("ghidra decompile", target=target, width=width)]
-        if with_banner
-        else []
+        [pwndbg.ui.banner("ghidra decompile", target=target, width=width)] if with_banner else []
     )
 
     if config_context_ghidra == "never":
@@ -737,9 +712,7 @@ def context(subcontext=None, enabled=None) -> None:
     'ghidra', 'args', 'threads', 'heap_tracker', 'expressions', and/or 'last_signal'.
     """
     # Allow to view history after the program has exited
-    if not pwndbg.aglib.proc.alive and (
-        context_history_size <= 0 or not context_history
-    ):
+    if not pwndbg.aglib.proc.alive and (context_history_size <= 0 or not context_history):
         log.error("context: The program is not being run.")
         return None
 
@@ -756,12 +729,8 @@ def context(subcontext=None, enabled=None) -> None:
             sections.append(("legend", lambda *args, **kwargs: [M.legend()]))
         else:
             longest_history = max(len(h) for h in context_history.values())
-            history_status = (
-                f" (history {selected_history_index + 1}/{longest_history})"
-            )
-            sections.append(
-                ("legend", lambda *args, **kwargs: [M.legend() + history_status])
-            )
+            history_status = f" (history {selected_history_index + 1}/{longest_history})"
+            sections.append(("legend", lambda *args, **kwargs: [M.legend() + history_status]))
 
     sections += [(arg, context_sections.get(arg[0], None)) for arg in args]
 
@@ -791,9 +760,7 @@ def context(subcontext=None, enabled=None) -> None:
         settings = result_settings[target]
         if len(res) > 0 and settings.get("banner_bottom", True):
             with target as out:
-                res.append(
-                    pwndbg.ui.banner("", target=out, width=settings.get("width", None))
-                )
+                res.append(pwndbg.ui.banner("", target=out, width=settings.get("width", None)))
 
     cmd_lines = 0
     for target, lines in result.items():
@@ -830,9 +797,7 @@ pwndbg.config.add_param(
     2,
     "the number of columns (0 for dynamic number of columns)",
 )
-pwndbg.config.add_param(
-    "show-compact-regs-min-width", 20, "the minimum width of each column"
-)
+pwndbg.config.add_param("show-compact-regs-min-width", 20, "the minimum width of each column")
 pwndbg.config.add_param(
     "show-compact-regs-separation", 4, "the number of spaces separating columns"
 )
@@ -939,12 +904,8 @@ def context_heap_tracker(target=sys.stdout, with_banner=True, width=None):
     return banner + info if with_banner else info
 
 
-parser = argparse.ArgumentParser(
-    description="Print out all registers and enhance the information."
-)
-parser.add_argument(
-    "regs", nargs="*", type=str, default=None, help="Registers to be shown"
-)
+parser = argparse.ArgumentParser(description="Print out all registers and enhance the information.")
+parser.add_argument("regs", nargs="*", type=str, default=None, help="Registers to be shown")
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.CONTEXT)
@@ -955,9 +916,7 @@ def regs(regs=[]) -> None:
 
 
 pwndbg.config.add_param("show-flags", False, "whether to show flags registers")
-pwndbg.config.add_param(
-    "show-retaddr-reg", True, "whether to show return address register"
-)
+pwndbg.config.add_param("show-retaddr-reg", True, "whether to show return address register")
 
 
 def get_regs(regs: List[str] = None):
@@ -998,11 +957,7 @@ def get_regs(regs: List[str] = None):
 
         # Show a dot next to the register if it changed
         change_marker = f"{C.config_register_changed_marker}"
-        m = (
-            " " * len(change_marker)
-            if reg not in changed
-            else C.register_changed(change_marker)
-        )
+        m = " " * len(change_marker) if reg not in changed else C.register_changed(change_marker)
 
         bit_flags = None
         if reg in pwndbg.aglib.regs.flags:
@@ -1047,9 +1002,7 @@ def context_disasm(target=sys.stdout, with_banner=True, width=None):
     syntax = pwndbg.aglib.disasm.disassembly.CapstoneSyntax[flavor]
 
     # Get the Capstone object to set disassembly syntax
-    cs = next(
-        iter(pwndbg.aglib.disasm.disassembly.get_disassembler.cache.values()), None
-    )
+    cs = next(iter(pwndbg.aglib.disasm.disassembly.get_disassembler.cache.values()), None)
 
     # The `None` case happens when the cache was not filled yet (see e.g. #881)
     if cs is not None and cs.syntax != syntax:
@@ -1072,9 +1025,7 @@ def context_disasm(target=sys.stdout, with_banner=True, width=None):
             pwndbg.aglib.arch.name, thumb_mode_str, pwndbg.config.emulate
         )
     else:
-        info = " / {} / set emulate {}".format(
-            pwndbg.aglib.arch.name, pwndbg.config.emulate
-        )
+        info = " / {} / set emulate {}".format(pwndbg.aglib.arch.name, pwndbg.config.emulate)
     banner = [pwndbg.ui.banner("disasm", target=target, width=width, extra=info)]
 
     # If we didn't disassemble backward, try to make sure
@@ -1085,9 +1036,7 @@ def context_disasm(target=sys.stdout, with_banner=True, width=None):
     return banner + result if with_banner else result
 
 
-theme.add_param(
-    "highlight-source", True, "whether to highlight the closest source line"
-)
+theme.add_param("highlight-source", True, "whether to highlight the closest source line")
 source_disasm_lines = pwndbg.config.add_param(
     "context-code-lines",
     10,
@@ -1186,23 +1135,17 @@ def context_code(target=sys.stdout, with_banner=True, width=None):
     # Try getting source from files
     if formatted_source:
         bannerline = (
-            [pwndbg.ui.banner("Source (code)", target=target, width=width)]
-            if with_banner
-            else []
+            [pwndbg.ui.banner("Source (code)", target=target, width=width)] if with_banner else []
         )
         return bannerline + [f"In file: {filename}:{line}"] + formatted_source
 
     if should_decompile:
         # Will be None if decompilation fails
-        code = pwndbg.integration.provider.decompile(
-            pwndbg.aglib.regs.pc, int(source_disasm_lines)
-        )
+        code = pwndbg.integration.provider.decompile(pwndbg.aglib.regs.pc, int(source_disasm_lines))
 
         if code:
             bannerline = (
-                [pwndbg.ui.banner("Decomp", target=target, width=width)]
-                if with_banner
-                else []
+                [pwndbg.ui.banner("Decomp", target=target, width=width)] if with_banner else []
             )
             return bannerline + code
         else:
@@ -1216,9 +1159,7 @@ stack_lines = pwndbg.config.add_param(
 
 @serve_context_history
 def context_stack(target=sys.stdout, with_banner=True, width=None):
-    result = (
-        [pwndbg.ui.banner("stack", target=target, width=width)] if with_banner else []
-    )
+    result = [pwndbg.ui.banner("stack", target=target, width=width)] if with_banner else []
     telescope = pwndbg.commands.telescope.telescope(
         pwndbg.aglib.regs.sp, to_string=True, count=stack_lines
     )
@@ -1273,9 +1214,7 @@ def context_backtrace(with_banner=True, target=sys.stdout, width=None):
         symbol = c.symbol(pwndbg.aglib.symbol.resolve_addr(int(frame.pc())))
         if symbol:
             addrsz = f"{addrsz} {symbol}"
-        result.append(
-            f"{prefix} {c.frame_label(f'{backtrace_frame_label}{i}')} {addrsz}"
-        )
+        result.append(f"{prefix} {c.frame_label(f'{backtrace_frame_label}{i}')} {addrsz}")
 
         if frame == oldest_frame:
             break
@@ -1350,11 +1289,7 @@ def context_threads(with_banner=True, target=sys.stdout, width=None):
         return []
 
     out = (
-        [
-            pwndbg.ui.banner(
-                f"threads ({len(all_threads)} total)", target=target, width=width
-            )
-        ]
+        [pwndbg.ui.banner(f"threads ({len(all_threads)} total)", target=target, width=width)]
         if with_banner
         else []
     )
@@ -1432,9 +1367,7 @@ def save_signal(signal) -> None:
                 msg += f" (current pc: {pwndbg.aglib.regs.pc:#x})"
             else:
                 try:
-                    si_addr = gdb.parse_and_eval(
-                        "$_siginfo._sifields._sigfault.si_addr"
-                    )
+                    si_addr = gdb.parse_and_eval("$_siginfo._sifields._sigfault.si_addr")
                     msg += f" (fault address {int(si_addr):#x})"
                 except gdb.error:
                     pass
@@ -1494,9 +1427,7 @@ def _is_rr_present() -> bool:
 
     # this is ugly but I couldn't find a better way to do it
     # feel free to refactor it
-    globals_list_literal_str = gdb.execute(
-        "python print(list(globals().keys()))", to_string=True
-    )
+    globals_list_literal_str = gdb.execute("python print(list(globals().keys()))", to_string=True)
     interpreter_globals = ast.literal_eval(globals_list_literal_str)
 
     return "RRCmd" in interpreter_globals and "RRWhere" in interpreter_globals

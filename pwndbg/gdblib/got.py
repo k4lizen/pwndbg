@@ -196,9 +196,7 @@ class TrapAllocator:
                 "SYS_munmap", block, size, disable_breakpoints=True
             )
             if result != 0:
-                raise RuntimeError(
-                    f"SYS_munmap({block:#x}, {size:#x}) failed ({result:#x})"
-                )
+                raise RuntimeError(f"SYS_munmap({block:#x}, {size:#x}) failed ({result:#x})")
         self._reset()
 
 
@@ -376,9 +374,7 @@ def _update_watchpoints() -> None:
             name = pwndbg.aglib.proc.exe
 
         try:
-            dynamic = pwndbg.aglib.dynamic.DynamicSegment(
-                obj.dynamic(), obj.load_bias()
-            )
+            dynamic = pwndbg.aglib.dynamic.DynamicSegment(obj.dynamic(), obj.load_bias())
         except RuntimeError as e:
             print(message.warn(f"object {name} has invalid DYNAMIC section: {e}"))
             continue
@@ -472,19 +468,14 @@ def enable_got_call_tracking(disable_hardware_whatchpoints=True) -> None:
     # [1]: https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html
     if disable_hardware_whatchpoints:
         gdb.execute("set can-use-hw-watchpoints 0")
-        print(
-            "Hardware watchpoints have been disabled. Please do not turn them back on"
-            " until"
-        )
+        print("Hardware watchpoints have been disabled. Please do not turn them back on" " until")
         print("GOT tracking is disabled, as it may lead to unexpected silent errors.")
         print()
         print("They may be re-enabled with `set can-use-hw-watchpoints 1`")
         print()
     else:
         print(
-            message.warn(
-                "Hardware watchpoints have not been disabled, silent errors may happen."
-            )
+            message.warn("Hardware watchpoints have not been disabled, silent errors may happen.")
         )
         print()
 
@@ -496,9 +487,7 @@ def enable_got_call_tracking(disable_hardware_whatchpoints=True) -> None:
     _update_watchpoints()
 
     print("Enabled GOT tracking. Calls across dynamic library boundaries are now")
-    print(
-        "instumented, and the number of calls and stack traces for every call will be"
-    )
+    print("instumented, and the number of calls and stack traces for every call will be")
     print("collected. You may check the current call information by using the")
     print("`track-got info` and `track-got query` commands. Run this command again to")
     print("diasble tracking.")

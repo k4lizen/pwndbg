@@ -32,10 +32,7 @@ def test_windbg_dX_commands(start_binary):
 
         # With an invalid/unmapped address
         cmd = cmd_prefix + " 0"
-        assert (
-            gdb.execute(cmd, to_string=True)
-            == "Could not access the provided address\n"
-        )
+        assert gdb.execute(cmd, to_string=True) == "Could not access the provided address\n"
 
     #################################################
     #### dq command tests
@@ -46,11 +43,7 @@ def test_windbg_dX_commands(start_binary):
     dq3 = gdb.execute(f"dq {data_addr}", to_string=True)
     dq4 = gdb.execute(f"dq {data_addr.replace('0x', '')}", to_string=True)
     assert (
-        dq1
-        == dq2
-        == dq3
-        == dq4
-        == "0000000000400081     0000000000000000 0000000000000001\n"
+        dq1 == dq2 == dq3 == dq4 == "0000000000400081     0000000000000000 0000000000000001\n"
         "0000000000400091     0000000100000002 0001000200030004\n"
         "00000000004000a1     0102030405060708 1122334455667788\n"
         "00000000004000b1     0123456789abcdef 0000000000000000\n"
@@ -67,10 +60,7 @@ def test_windbg_dX_commands(start_binary):
         == "0000000000400081     0000000000000000 0000000000000001\n"
     )
 
-    assert (
-        gdb.execute("dq data 1", to_string=True)
-        == "0000000000400081     0000000000000000\n"
-    )
+    assert gdb.execute("dq data 1", to_string=True) == "0000000000400081     0000000000000000\n"
     assert (
         gdb.execute("dq data 3", to_string=True)
         == "0000000000400081     0000000000000000 0000000000000001\n"
@@ -106,11 +96,7 @@ def test_windbg_dX_commands(start_binary):
     dd3 = gdb.execute(f"dd {data_addr}", to_string=True)
     dd4 = gdb.execute(f"dd {data_addr.replace('0x', '')}", to_string=True)
     assert (
-        dd1
-        == dd2
-        == dd3
-        == dd4
-        == "0000000000400081     00000000 00000000 00000001 00000000\n"
+        dd1 == dd2 == dd3 == dd4 == "0000000000400081     00000000 00000000 00000001 00000000\n"
         "0000000000400091     00000002 00000001 00030004 00010002\n"
         "00000000004000a1     05060708 01020304 55667788 11223344\n"
         "00000000004000b1     89abcdef 01234567 00000000 00000000\n"
@@ -134,11 +120,7 @@ def test_windbg_dX_commands(start_binary):
     dw3 = gdb.execute(f"dw {data_addr}", to_string=True)
     dw4 = gdb.execute(f"dw {data_addr.replace('0x', '')}", to_string=True)
     assert (
-        dw1
-        == dw2
-        == dw3
-        == dw4
-        == "0000000000400081     0000 0000 0000 0000 0001 0000 0000 0000\n"
+        dw1 == dw2 == dw3 == dw4 == "0000000000400081     0000 0000 0000 0000 0001 0000 0000 0000\n"
         "0000000000400091     0002 0000 0001 0000 0004 0003 0002 0001\n"
         "00000000004000a1     0708 0506 0304 0102 7788 5566 3344 1122\n"
         "00000000004000b1     cdef 89ab 4567 0123 0000 0000 0000 0000\n"
@@ -151,13 +133,11 @@ def test_windbg_dX_commands(start_binary):
     )
 
     assert (
-        gdb.execute("dw data 8/2", to_string=True)
-        == "0000000000400081     0000 0000 0000 0000\n"
+        gdb.execute("dw data 8/2", to_string=True) == "0000000000400081     0000 0000 0000 0000\n"
     )
 
     assert (
-        gdb.execute("dw data $eax", to_string=True)
-        == "0000000000400081     0000 0000 0000 0000\n"
+        gdb.execute("dw data $eax", to_string=True) == "0000000000400081     0000 0000 0000 0000\n"
     )
 
     #################################################
@@ -184,10 +164,7 @@ def test_windbg_dX_commands(start_binary):
         == "0000000000400081     00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00\n"
         "0000000000400091     02 00 00 00 01 00 00 00 04 00 03 00 02 00 01\n"
     )
-    assert (
-        gdb.execute("db data $ax", to_string=True)
-        == "0000000000400081     00 00 00 00\n"
-    )
+    assert gdb.execute("db data $ax", to_string=True) == "0000000000400081     00 00 00 00\n"
 
     #################################################
     #### dc command tests
@@ -228,8 +205,7 @@ def test_windbg_dX_commands(start_binary):
 
     # Check output for a string longer than (the default) maxlen of 256
     assert (
-        gdb.execute("ds long_str", to_string=True)
-        == "4000eb 'long string: "
+        gdb.execute("ds long_str", to_string=True) == "4000eb 'long string: "
         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...'\n"
     )
 
@@ -276,15 +252,11 @@ def test_windbg_eX_commands(start_binary):
 
         # With no data arguments provided
         cmd = cmd_prefix + " 0"
-        assert (
-            gdb.execute(cmd, to_string=True) == "Cannot write empty data into memory.\n"
-        )
+        assert gdb.execute(cmd, to_string=True) == "Cannot write empty data into memory.\n"
 
         # With invalid/unmapped address 0
         cmd = cmd_prefix + " 0 1122"
-        assert (
-            gdb.execute(cmd, to_string=True) == "Cannot access memory at address 0x0\n"
-        )
+        assert gdb.execute(cmd, to_string=True) == "Cannot access memory at address 0x0\n"
 
         # With invalid data which can't be parsed as hex
         cmd = cmd_prefix + " 0 x"
@@ -301,14 +273,10 @@ def test_windbg_eX_commands(start_binary):
     assert "0x00000000cafebabe" in gdb.execute("x/xg $sp", to_string=True)
 
     assert gdb.execute("eq $sp 0xbabe 0xcafe", to_string=True) == ""
-    assert "0x000000000000babe\t0x000000000000cafe" in gdb.execute(
-        "x/2xg $sp", to_string=True
-    )
+    assert "0x000000000000babe\t0x000000000000cafe" in gdb.execute("x/2xg $sp", to_string=True)
 
     assert gdb.execute("eq $sp cafe000000000000 babe000000000000", to_string=True) == ""
-    assert "0xcafe000000000000\t0xbabe000000000000" in gdb.execute(
-        "x/2xg $sp", to_string=True
-    )
+    assert "0xcafe000000000000\t0xbabe000000000000" in gdb.execute("x/2xg $sp", to_string=True)
 
     # TODO/FIXME: implement tests for others (ed, ew, eb etc)
 
@@ -329,10 +297,7 @@ def test_windbg_eX_commands(start_binary):
     assert gdb_result[1] == "(Made 1 writes to memory; skipping further writes)"
 
     # Check if the write actually occurred
-    assert (
-        pwndbg.aglib.memory.read(stack_last_qword_ea, 8)
-        == b"\xef\xbe\xad\xde\xbe\xba\xfe\xca"
-    )
+    assert pwndbg.aglib.memory.read(stack_last_qword_ea, 8) == b"\xef\xbe\xad\xde\xbe\xba\xfe\xca"
 
 
 def test_windbg_commands_x86(start_binary):
@@ -353,14 +318,10 @@ def test_windbg_commands_x86(start_binary):
     #################################################
     db = gdb.execute("db $esp", to_string=True).splitlines()
     assert db == [
-        "%x     31 32 33 34 35 36 37 38 39 30 61 62 63 64 65 66"
-        % pwndbg.aglib.regs.esp,
-        "%x     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
-        % (pwndbg.aglib.regs.esp + 16),
-        "%x     00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f"
-        % (pwndbg.aglib.regs.esp + 32),
-        "%x     5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a"
-        % (pwndbg.aglib.regs.esp + 48),
+        "%x     31 32 33 34 35 36 37 38 39 30 61 62 63 64 65 66" % pwndbg.aglib.regs.esp,
+        "%x     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" % (pwndbg.aglib.regs.esp + 16),
+        "%x     00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f" % (pwndbg.aglib.regs.esp + 32),
+        "%x     5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a 5a" % (pwndbg.aglib.regs.esp + 48),
     ]
 
     dw = gdb.execute("dw $esp", to_string=True).splitlines()
@@ -400,7 +361,4 @@ def test_windbg_commands_x86(start_binary):
     assert pwndbg.aglib.memory.read(pwndbg.aglib.regs.esp, 4) == b"\x52" * 4
 
     gdb.execute("eq $esp 1122334455667788")
-    assert (
-        pwndbg.aglib.memory.read(pwndbg.aglib.regs.esp, 8)
-        == b"\x88\x77\x66\x55\x44\x33\x22\x11"
-    )
+    assert pwndbg.aglib.memory.read(pwndbg.aglib.regs.esp, 8) == b"\x88\x77\x66\x55\x44\x33\x22\x11"

@@ -184,9 +184,7 @@ parser.add_argument(
     dest="count",
     type=int,
     default=None,
-    help=(
-        "The number of elements to display. Defaults to the value of dereference-limit."
-    ),
+    help=("The number of elements to display. Defaults to the value of dereference-limit."),
 )
 
 
@@ -390,9 +388,7 @@ def plist(
         addresses = pwndbg.chain.get(int(first.address), limit=1, offset=offset0)
         if len(addresses) > 1 and total >= 3:
             addresses.extend(
-                pwndbg.chain.get(
-                    addresses[1], offset=offset1, include_start=False, limit=total - 2
-                )
+                pwndbg.chain.get(addresses[1], offset=offset1, include_start=False, limit=total - 2)
             )
     else:
         addresses = [int(first.address)]
@@ -415,25 +411,15 @@ def plist(
                 target_type = field_type
                 target_address = address + field_offset
 
-            value = pwndbg.aglib.memory.get_typed_pointer_value(
-                target_type, target_address
-            )
+            value = pwndbg.aglib.memory.get_typed_pointer_value(target_type, target_address)
 
             symbol = pwndbg.aglib.symbol.resolve_addr(target_address)
             symbol = f"<{symbol}>" if symbol else ""
 
             print(f"{target_address:#x} {symbol}: {value.value_to_human_readable()}")
         except pwndbg.dbg_mod.Error as e:
-            print(
-                message.error(
-                    f"Cannot dereference {address:#x} for list link #{i + 1}: {e}"
-                )
-            )
-            print(
-                message.error(
-                    "Is the linked list corrupted or is the sentinel value wrong?"
-                )
-            )
+            print(message.error(f"Cannot dereference {address:#x} for list link #{i + 1}: {e}"))
+            print(message.error("Is the linked list corrupted or is the sentinel value wrong?"))
             return
 
 

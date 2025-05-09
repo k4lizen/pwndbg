@@ -84,9 +84,7 @@ def next_matching_until_branch(address=None, mnemonic=None, op_str=None):
     ins = pwndbg.aglib.disasm.disassembly.one(address)
     while ins:
         # Check whether or not the mnemonic matches if it was specified
-        mnemonic_match = (
-            ins.mnemonic.casefold() == mnemonic.casefold() if mnemonic else True
-        )
+        mnemonic_match = ins.mnemonic.casefold() == mnemonic.casefold() if mnemonic else True
 
         # Check whether or not the operands match if they were specified
         op_str_match = True
@@ -98,9 +96,7 @@ def next_matching_until_branch(address=None, mnemonic=None, op_str=None):
             if isinstance(op_str, str):
                 op_str = "".join(op_str.split()).casefold()
             elif isinstance(op_str, list):
-                op_str = "".join(
-                    chain.from_iterable(op.split() for op in op_str)
-                ).casefold()
+                op_str = "".join(chain.from_iterable(op.split() for op in op_str)).casefold()
             else:
                 raise ValueError("op_str value is of an unsupported type")
             op_str_match = ops == op_str
@@ -219,9 +215,7 @@ async def break_on_next_matching_instruction(
                 # Only set breakpoints at a different PC location, otherwise we
                 # will continue until we hit a breakpoint that's not related to
                 # this opeeration, or the program halts.
-                with proc.break_at(
-                    BreakpointLocation(ins.address), internal=True
-                ) as bp:
+                with proc.break_at(BreakpointLocation(ins.address), internal=True) as bp:
                     await ec.cont(bp)
                 return ins
             else:
@@ -234,9 +228,7 @@ async def break_on_next_matching_instruction(
             if nb is not None:
                 if nb.address != pwndbg.aglib.regs.pc:
                     # Stop right at the next branch instruction.
-                    with proc.break_at(
-                        BreakpointLocation(nb.address), internal=True
-                    ) as bp:
+                    with proc.break_at(BreakpointLocation(nb.address), internal=True) as bp:
                         await ec.cont(bp)
                 else:
                     # Nudge execution so we take the branch we're on top of.
@@ -261,19 +253,13 @@ async def break_on_program_code(ec: pwndbg.dbg_mod.ExecutionController) -> bool:
     """
     exe = pwndbg.aglib.proc.exe
     binary_exec_page_ranges = tuple(
-        (p.start, p.end)
-        for p in pwndbg.aglib.vmmap.get()
-        if p.objfile == exe and p.execute
+        (p.start, p.end) for p in pwndbg.aglib.vmmap.get() if p.objfile == exe and p.execute
     )
 
     pc = pwndbg.aglib.regs.pc
     for start, end in binary_exec_page_ranges:
         if start <= pc < end:
-            print(
-                message.error(
-                    "The pc is already at the binary objfile code. Not stepping."
-                )
-            )
+            print(message.error("The pc is already at the binary objfile code. Not stepping."))
             return False
 
     proc = pwndbg.aglib.proc

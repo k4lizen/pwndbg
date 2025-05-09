@@ -32,9 +32,7 @@ def read(addr: int, count: int, partial: bool = False) -> bytearray:
         `bytearray` The memory at the specified address,
         or ``None``.
     """
-    return pwndbg.dbg.selected_inferior().read_memory(
-        address=addr, size=count, partial=partial
-    )
+    return pwndbg.dbg.selected_inferior().read_memory(address=addr, size=count, partial=partial)
 
 
 def readtype(type: pwndbg.dbg_mod.Type, addr: int) -> int:
@@ -65,9 +63,7 @@ def write(addr: int, data: str | bytes | bytearray) -> None:
     if isinstance(data, str):
         data = bytes(data, "utf8")
 
-    pwndbg.dbg.selected_inferior().write_memory(
-        address=addr, data=bytearray(data), partial=False
-    )
+    pwndbg.dbg.selected_inferior().write_memory(address=addr, data=bytearray(data), partial=False)
 
 
 def peek(address: int) -> bytearray | None:
@@ -366,9 +362,7 @@ def fetch_struct_as_dictionary(
     exclude_fields: Set[str] | None = None,
 ) -> GdbDict:
     fetched_struct = get_typed_pointer_value("struct " + struct_name, struct_address)
-    return pack_struct_into_dictionary(
-        fetched_struct, include_only_fields, exclude_fields
-    )
+    return pack_struct_into_dictionary(fetched_struct, include_only_fields, exclude_fields)
 
 
 def pack_struct_into_dictionary(
@@ -414,12 +408,8 @@ def convert_pwndbg_value_to_python_value(
     raise NotImplementedError
 
 
-def resolve_renamed_struct_field(
-    struct_name: str, possible_field_names: Set[str]
-) -> str:
-    struct_types = pwndbg.dbg.selected_inferior().types_with_name(
-        f"struct {struct_name}"
-    )
+def resolve_renamed_struct_field(struct_name: str, possible_field_names: Set[str]) -> str:
+    struct_types = pwndbg.dbg.selected_inferior().types_with_name(f"struct {struct_name}")
     if len(struct_types) == 0:
         raise pwndbg.dbg_mod.Error(f"could not find type 'struct {struct_name}'")
     struct_type = struct_types[0]

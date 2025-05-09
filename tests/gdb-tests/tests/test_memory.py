@@ -23,23 +23,17 @@ def test_memory_read_write(start_binary):
     # Testing write(addr, str)
     val = "X" * 50
     pwndbg.aglib.memory.write(stack_addr, val)
-    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 1) == bytearray(
-        b"X" * 50 + b"\x00"
-    )
+    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 1) == bytearray(b"X" * 50 + b"\x00")
 
     # Testing write(addr, bytearray)
     val = bytearray("Y" * 10, "utf8")
     pwndbg.aglib.memory.write(stack_addr, val)
-    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 4) == val + bytearray(
-        b"XXXX"
-    )
+    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 4) == val + bytearray(b"XXXX")
 
     # Testing write(addr, bytes)
     val = bytes("Z" * 8, "utf8")
     pwndbg.aglib.memory.write(stack_addr, val)
-    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 4) == bytearray(
-        "Z" * 8 + "YYXX", "utf8"
-    )
+    assert pwndbg.aglib.memory.read(stack_addr, len(val) + 4) == bytearray("Z" * 8 + "YYXX", "utf8")
 
 
 def test_memory_peek_poke(start_binary):
@@ -113,9 +107,7 @@ def test_fetch_struct_as_dictionary(start_binary):
     struct_address = pwndbg.aglib.symbol.lookup_symbol_addr("outer")
     assert struct_address is not None
 
-    result = pwndbg.aglib.memory.fetch_struct_as_dictionary(
-        "outer_struct", struct_address
-    )
+    result = pwndbg.aglib.memory.fetch_struct_as_dictionary("outer_struct", struct_address)
 
     assert result == expected_result
 

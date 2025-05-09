@@ -48,14 +48,10 @@ class Loong64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
     def __init__(self, architecture) -> None:
         super().__init__(architecture)
 
-        self.annotation_handlers: Dict[
-            int, Callable[[PwndbgInstruction, Emulator], None]
-        ] = {}
+        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {}
 
     @override
-    def _condition(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> InstructionCondition:
+    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
         if len(instruction.operands) == 0:
             return InstructionCondition.UNDETERMINED
 
@@ -73,9 +69,7 @@ class Loong64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
             # https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#_beqz_bnez
             return InstructionCondition.UNDETERMINED
 
-        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(
-            resolved_operands
-        )
+        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(resolved_operands)
 
         if conditional is None:
             return InstructionCondition.UNDETERMINED

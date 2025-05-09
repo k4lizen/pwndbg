@@ -8,9 +8,7 @@ import pwndbg.color.message as M
 import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(
-    description="Spray memory with cyclic() generated values"
-)
+parser = argparse.ArgumentParser(description="Spray memory with cyclic() generated values")
 parser.add_argument("addr", help="Address to spray")
 parser.add_argument(
     "length",
@@ -59,9 +57,7 @@ def spray(addr, length, value, only_funcptrs) -> None:
 
     if value:
         if value.startswith("0x"):
-            value_bytes = int(value, 16).to_bytes(
-                (len(value[2:]) + 1) // 2, byteorder="big"
-            )
+            value_bytes = int(value, 16).to_bytes((len(value[2:]) + 1) // 2, byteorder="big")
         else:
             value_bytes = bytes(value, "utf-8")
 

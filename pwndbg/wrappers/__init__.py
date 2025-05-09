@@ -18,9 +18,7 @@ T = TypeVar("T")
 
 class OnlyWithCommand:
     def __init__(self, *commands: str | List[str]) -> None:
-        self.all_cmds: List[str] = [
-            cmd[0] if isinstance(cmd, list) else cmd for cmd in commands
-        ]
+        self.all_cmds: List[str] = [cmd[0] if isinstance(cmd, list) else cmd for cmd in commands]
         for command in commands:
             self.cmd: List[str] = command if isinstance(command, list) else [command]
             self.cmd_path: str | None = which(self.cmd[0])
@@ -36,9 +34,7 @@ class OnlyWithCommand:
             if self.cmd_path:
                 return function(*a, **kw)
             else:
-                raise OSError(
-                    f"Could not find command(s) {', '.join(self.all_cmds)} in $PATH"
-                )
+                raise OSError(f"Could not find command(s) {', '.join(self.all_cmds)} in $PATH")
 
         return _OnlyWithCommand
 

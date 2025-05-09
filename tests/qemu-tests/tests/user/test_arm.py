@@ -371,8 +371,7 @@ def test_arm_mode_banner(qemu_assembly_run):
     out = gdb.execute("context disasm", to_string=True).split("\n")
 
     assert (
-        out[1]
-        == "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        out[1] == "──────────────────[ DISASM / arm / arm mode / set emulate on"
         " ]──────────────────"
     )
 
@@ -381,8 +380,7 @@ def test_arm_mode_banner(qemu_assembly_run):
     out = gdb.execute("context disasm", to_string=True).split("\n")
 
     assert (
-        out[1]
-        == "─────────────────[ DISASM / arm / thumb mode / set emulate on"
+        out[1] == "─────────────────[ DISASM / arm / thumb mode / set emulate on"
         " ]─────────────────"
     )
 

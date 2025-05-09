@@ -10,9 +10,7 @@ import pwndbg.commands.telescope
 from pwndbg.commands import CommandCategory
 
 
-@pwndbg.commands.Command(
-    "Prints out the number of arguments.", category=CommandCategory.LINUX
-)
+@pwndbg.commands.Command("Prints out the number of arguments.", category=CommandCategory.LINUX)
 @pwndbg.commands.OnlyWhenRunning
 def argc() -> None:
     print(pwndbg.aglib.argv.argc())
@@ -41,9 +39,7 @@ def argv(i: int = None) -> None:
     pwndbg.commands.telescope.telescope(start, n)
 
 
-parser = argparse.ArgumentParser(
-    description="Prints out the contents of the environment."
-)
+parser = argparse.ArgumentParser(description="Prints out the contents of the environment.")
 parser.add_argument(
     "name",
     nargs="?",
@@ -53,9 +49,7 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(
-    parser, aliases=["env", "environ"], category=CommandCategory.LINUX
-)
+@pwndbg.commands.Command(parser, aliases=["env", "environ"], category=CommandCategory.LINUX)
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.commands.OnlyWhenUserspace
 def envp(name: str = None):

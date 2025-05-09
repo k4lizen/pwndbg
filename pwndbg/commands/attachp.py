@@ -54,15 +54,9 @@ Original GDB attach command help:
 )
 
 
-parser.add_argument(
-    "--no-truncate", action="store_true", help="dont truncate command args"
-)
-parser.add_argument(
-    "--retry", action="store_true", help="retry until a target is found"
-)
-parser.add_argument(
-    "--user", type=str, default=None, help="username or uid to filter by"
-)
+parser.add_argument("--no-truncate", action="store_true", help="dont truncate command args")
+parser.add_argument("--retry", action="store_true", help="retry until a target is found")
+parser.add_argument("--user", type=str, default=None, help="username or uid to filter by")
 parser.add_argument(
     "-e",
     "--exact",
@@ -101,9 +95,7 @@ def find_pids(target, user, exact, all):
         print(message.error("Error: did not find `ps` command"))
         return
     except CalledProcessError:
-        print(
-            message.error(f"The `{' '.join(ps_cmd)}` command returned non-zero status")
-        )
+        print(message.error(f"The `{' '.join(ps_cmd)}` command returned non-zero status"))
         return
 
     pids_exact_match_cmd = []
@@ -151,8 +143,7 @@ def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
         if bin_path is None:
             print(
                 message.error(
-                    "No target name/pid/cmdline provided and no binary loaded in the"
-                    " debugger"
+                    "No target name/pid/cmdline provided and no binary loaded in the" " debugger"
                 )
             )
             print(message.error("(could not find the process name to attach to)"))
@@ -199,23 +190,24 @@ def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
                 method = pwndbg.config.attachp_resolution_method
 
                 try:
-                    ps_output = check_output([
-                        "ps",
-                        "--no-headers",
-                        "-ww",
-                        "-p",
-                        ",".join(pids),
-                        "-o",
-                        "pid,ruser,etime,args",
-                        "--sort",
-                        "+lstart",
-                    ]).decode()
+                    ps_output = check_output(
+                        [
+                            "ps",
+                            "--no-headers",
+                            "-ww",
+                            "-p",
+                            ",".join(pids),
+                            "-o",
+                            "pid,ruser,etime,args",
+                            "--sort",
+                            "+lstart",
+                        ]
+                    ).decode()
                 except FileNotFoundError:
                     print(message.error("Error: did not find `ps` command"))
                     print(
                         message.warn(
-                            "Use `attach <pid>` instead (found pids:"
-                            f" {', '.join(pids)})"
+                            "Use `attach <pid>` instead (found pids:" f" {', '.join(pids)})"
                         )
                     )
                     return
@@ -223,8 +215,7 @@ def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
                     print(message.error("Error: failed to get process details"))
                     print(
                         message.warn(
-                            "Use `attach <pid>` instead (found pids:"
-                            f" {', '.join(pids)})"
+                            "Use `attach <pid>` instead (found pids:" f" {', '.join(pids)})"
                         )
                     )
                     return
@@ -251,13 +242,9 @@ def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
                     )
 
                     # calculate max_col_widths to fit window width
-                    test_table = tabulate(
-                        proc_infos, headers=headers, showindex=showindex
-                    )
+                    test_table = tabulate(proc_infos, headers=headers, showindex=showindex)
                     table_orig_width = len(test_table.splitlines()[1])
-                    max_command_width = max(
-                        len(command) for _, _, _, command in proc_infos
-                    )
+                    max_command_width = max(len(command) for _, _, _, command in proc_infos)
                     max_col_widths = max(
                         max_command_width - (table_orig_width - get_window_size()[1]),
                         10,
@@ -281,9 +268,7 @@ def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
                         return
                     elif method == _ASK:
                         while True:
-                            msg = message.notice(
-                                f"which process to attach?(1-{len(proc_infos)}) "
-                            )
+                            msg = message.notice(f"which process to attach?(1-{len(proc_infos)}) ")
                             try:
                                 inp = input(msg).strip()
                             except EOFError:

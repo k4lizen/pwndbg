@@ -20,9 +20,7 @@ from pwndbg.commands import CommandCategory
 patches: Dict[int, Tuple[bytearray, bytearray]] = {}
 
 
-parser = argparse.ArgumentParser(
-    description="Patches given instruction with given code or bytes."
-)
+parser = argparse.ArgumentParser(description="Patches given instruction with given code or bytes.")
 parser.add_argument("address", type=int, help="The address to patch")
 parser.add_argument("ins", type=str, help="instruction[s]")
 parser.add_argument("-q", "--quiet", action="store_true", help="don't print anything")

@@ -160,9 +160,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
 
         self.flags_reg = flags_reg
 
-        self.annotation_handlers: Dict[
-            int, Callable[[PwndbgInstruction, Emulator], None]
-        ] = {
+        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {
             # MOV
             ARM_INS_MOV: self._common_move_annotator,
             ARM_INS_MOVW: self._common_move_annotator,
@@ -181,9 +179,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         }
 
     @override
-    def _set_annotation_string(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         if instruction.id in ARM_SINGLE_LOAD_INSTRUCTIONS:
             read_size = ARM_SINGLE_LOAD_INSTRUCTIONS[instruction.id]
             self._common_load_annotator(
@@ -244,9 +240,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
                     ARM_SHIFT_INSTRUCTIONS[instruction.id],
                 )
         else:
-            self.annotation_handlers.get(instruction.id, lambda *a: None)(
-                instruction, emu
-            )
+            self.annotation_handlers.get(instruction.id, lambda *a: None)(instruction, emu)
 
     @override
     def _prepare(
@@ -264,9 +258,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             emu.valid = False
 
     @override
-    def _condition(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> InstructionCondition:
+    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
         if ARM_GRP_JUMP in instruction.groups:
             if instruction.id in ARM_CAN_WRITE_TO_PC_INSTRUCTIONS:
                 # Since Capstone V6, instructions that write to the PC are given the jump group.
@@ -330,10 +322,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             # This means we have to clear the least significant bit of the target.
             target = target & ~1
 
-            if (
-                pwndbg.aglib.arch.name == "armcm"
-                and target & 0xFF00_0000 == 0xFF00_0000
-            ):
+            if pwndbg.aglib.arch.name == "armcm" and target & 0xFF00_0000 == 0xFF00_0000:
                 # If the top 8-bits of the return address are 0xFF, this indicates
                 # we are returning from an exception, where the return address has
                 # been saved onto the stack
@@ -343,9 +332,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         return target
 
     # Currently not used
-    def _memory_string_old(
-        self, instruction: PwndbgInstruction, op: EnhancedOperand
-    ) -> str:
+    def _memory_string_old(self, instruction: PwndbgInstruction, op: EnhancedOperand) -> str:
         parts = []
 
         if op.mem.base != 0:
@@ -361,9 +348,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
 
         return f"[{(', '.join(parts))}]"
 
-    def read_thumb_bit(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> int | None:
+    def read_thumb_bit(self, instruction: PwndbgInstruction, emu: Emulator) -> int | None:
         return 1 if instruction.cs_insn._cs._mode & CS_MODE_THUMB else 0
 
     @override
@@ -378,9 +363,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         # the value it takes on is `pc_at_instruction + 8`. In Thumb mode, you
         # only add 4 to the instruction address.
         if operand_id == ARM_REG_PC:
-            return instruction.address + (
-                4 if self.read_thumb_bit(instruction, emu) else 8
-            )
+            return instruction.address + (4 if self.read_thumb_bit(instruction, emu) else 8)
 
         return super()._read_register(instruction, operand_id, emu)
 
@@ -435,9 +418,7 @@ class ArmDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
 
             # Optionally apply shift to the index register
             if op.cs_op.shift.type != 0:
-                index = ARM_BIT_SHIFT_MAP[op.cs_op.shift.type](
-                    index, op.cs_op.shift.value, 32
-                )
+                index = ARM_BIT_SHIFT_MAP[op.cs_op.shift.type](index, op.cs_op.shift.value, 32)
 
             target += index * op.mem.scale
 

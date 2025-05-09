@@ -124,9 +124,7 @@ class Lambda:
         return str_repr
 
     def __repr__(self) -> str:
-        return (
-            f"<Lambda obj={self.obj}, immi={self.immi}, deref_count={self.deref_count}>"
-        )
+        return f"<Lambda obj={self.obj}, immi={self.immi}, deref_count={self.deref_count}>"
 
     @property
     def gdb_expr(self) -> str:
@@ -148,9 +146,7 @@ class Lambda:
 
                 bits = pwndbg.aglib.arch.ptrsize * 8
                 if XMM_SHIFT in obj:
-                    obj = obj.replace(
-                        XMM_SHIFT + str(bits), f".v{128 // bits}_int{bits}[1]"
-                    )
+                    obj = obj.replace(XMM_SHIFT + str(bits), f".v{128 // bits}_int{bits}[1]")
                 else:
                     obj += f".v{128 // bits}_int{bits}[0]"
             obj = f"(unsigned long)(${obj})"
@@ -160,9 +156,7 @@ class Lambda:
             raise ValueError(f"Unsupported obj: {obj}")
         str_repr = ""
         if self.deref_count > 0:
-            str_repr += (
-                f"{'*' * self.deref_count}(unsigned long{'*' * self.deref_count})"
-            )
+            str_repr += f"{'*' * self.deref_count}(unsigned long{'*' * self.deref_count})"
         str_repr += "("
         str_repr += obj
         str_repr += f"{self.immi:+#x}" if self.immi != 0 else ""
@@ -283,9 +277,7 @@ def run_onegadget() -> str:
     """
     Run onegadget and return the output
     """
-    libc_path = pwndbg.aglib.file.get_file(
-        pwndbg.glibc.get_libc_filename_from_info_sharedlibrary()
-    )
+    libc_path = pwndbg.aglib.file.get_file(pwndbg.glibc.get_libc_filename_from_info_sharedlibrary())
     # We need cache because onegadget might be slow
     cache_file = os.path.join(ONEGADGET_CACHEDIR, compute_file_hash(libc_path))
     if os.path.exists(cache_file):
@@ -293,9 +285,7 @@ def run_onegadget() -> str:
         with open(cache_file) as f:
             return f.read()
     # Cache miss
-    output = subprocess.check_output(
-        ["one_gadget", "--level=100", libc_path], text=True
-    )
+    output = subprocess.check_output(["one_gadget", "--level=100", libc_path], text=True)
     with open(cache_file, "w") as f:
         f.write(output)
     return output
@@ -366,9 +356,7 @@ def check_stack_argv(expr: str) -> Tuple[CheckSatResult, str]:
             return UNSAT, output_msg
         if result == 0:
             if n > 1 and "-c" in exprs[n - 1]:
-                output_msg += (
-                    f"argv[{n}] = {color_str} = NULL, {color_str} can't be NULL"
-                )
+                output_msg += f"argv[{n}] = {color_str} = NULL, {color_str} can't be NULL"
                 output_msg += f'because argv[{n - 1}] = "-c"\n'
                 return UNSAT, output_msg
             else:
@@ -379,19 +367,15 @@ def check_stack_argv(expr: str) -> Tuple[CheckSatResult, str]:
         page = pwndbg.aglib.vmmap.find(result)
         if page is None or not page.read:
             output_msg += (
-                f"argv[{n}] = {color_str} = {result:#x}, {color_str} is not a valid"
-                " address\n"
+                f"argv[{n}] = {color_str} = {result:#x}, {color_str} is not a valid" " address\n"
             )
             return UNSAT, output_msg
         if n > 0:
             output_msg += f"argv[{n}] = {color_str} = "
-            output_msg += (
-                f"{result:#x} -> {bytes(pwndbg.aglib.memory.string(result))!r}\n"
-            )
+            output_msg += f"{result:#x} -> {bytes(pwndbg.aglib.memory.string(result))!r}\n"
         else:
             output_msg += (
-                f"argv[{n}] = {color_str} = {result:#x}, {color_str} is a readable"
-                " address\n"
+                f"argv[{n}] = {color_str} = {result:#x}, {color_str} is a readable" " address\n"
             )
         n += 1
 
@@ -408,9 +392,7 @@ def check_non_stack_argv(expr: str) -> Tuple[CheckSatResult, str]:
         # We don't have to print the error message here, it should be printed already
         return UNSAT, f"{err} while parsing {color_str}\n"
 
-    output_msg += (
-        f"Assume argv = {color_str} = {argv:#x}, checking the content of argv\n"
-    )
+    output_msg += f"Assume argv = {color_str} = {argv:#x}, checking the content of argv\n"
 
     n = 0
     while True:
@@ -418,9 +400,7 @@ def check_non_stack_argv(expr: str) -> Tuple[CheckSatResult, str]:
             argv_n = pwndbg.aglib.memory.pvoid(argv + n * pwndbg.aglib.arch.ptrsize)
         except pwndbg.dbg_mod.Error:
             output_msg += f"&argv[{n}] = {argv + n * pwndbg.aglib.arch.ptrsize:#x}"
-            output_msg += (
-                f", {argv + n * pwndbg.aglib.arch.ptrsize:#x} is a invalid address\n"
-            )
+            output_msg += f", {argv + n * pwndbg.aglib.arch.ptrsize:#x} is a invalid address\n"
             return UNSAT, output_msg
         if argv_n == 0:
             if n > 1:
@@ -435,8 +415,7 @@ def check_non_stack_argv(expr: str) -> Tuple[CheckSatResult, str]:
             output_msg += f"argv[{n}] = {argv_n:#x}, {argv_n:#x} is a invalid address\n"
             return UNSAT, output_msg
         output_msg += (
-            f"argv[{n}] = {argv_n:#x} ->"
-            f" {bytes(pwndbg.aglib.memory.string(argv_n))!r}\n"
+            f"argv[{n}] = {argv_n:#x} ->" f" {bytes(pwndbg.aglib.memory.string(argv_n))!r}\n"
         )
         n += 1
 
@@ -465,9 +444,7 @@ def check_envp(expr: str) -> Tuple[bool, str]:
         # we don't have to print the error message here, it should be printed already
         return False, f"{err} while parsing {color_str}\n"
 
-    output_msg += (
-        f"Assume envp = {color_str} = {envp:#x}, checking the content of envp\n"
-    )
+    output_msg += f"Assume envp = {color_str} = {envp:#x}, checking the content of envp\n"
 
     # we need to make sure envp[0] is a valid pointer
     # until envp[n] is NULL
@@ -477,9 +454,7 @@ def check_envp(expr: str) -> Tuple[bool, str]:
             envp_n = pwndbg.aglib.memory.pvoid(envp + n * pwndbg.aglib.arch.ptrsize)
         except pwndbg.dbg_mod.Error:
             output_msg += f"&envp[{n}] = {envp + n * pwndbg.aglib.arch.ptrsize:#x},"
-            output_msg += (
-                f" {envp + n * pwndbg.aglib.arch.ptrsize:#x} is a invalid address\n"
-            )
+            output_msg += f" {envp + n * pwndbg.aglib.arch.ptrsize:#x} is a invalid address\n"
             return False, output_msg
         if envp_n == 0:
             output_msg += f"envp[{n}] is NULL, {color_str} is a valid envp\n"
@@ -516,8 +491,7 @@ def check_constraint(constraint: str) -> Tuple[CheckSatResult, str]:
         if err is None:
             passed = result == 0
             output_msg += (
-                f"{color_str} = {result:#x},"
-                f" {color_str} {'==' if passed else '!='} NULL\n"
+                f"{color_str} = {result:#x}," f" {color_str} {'==' if passed else '!='} NULL\n"
             )
         else:
             output_msg += f"{err} while parsing {color_str}\n"
@@ -559,13 +533,9 @@ def check_constraint(constraint: str) -> Tuple[CheckSatResult, str]:
         expr = VALID_POSIX_SPAWN_FILE_ACTIONS_PATTERN.match(constraint).group(1)
         result, color_str, err = parse_expression(expr)
         if err is None:
-            assert isinstance(
-                result, int
-            )  # somehow mypy is complaining without this :/
+            assert isinstance(result, int)  # somehow mypy is complaining without this :/
             passed = result <= 0
-            output_msg += (
-                f"{color_str} = {result:#x}, {color_str} {'<=' if passed else '>'} 0\n"
-            )
+            output_msg += f"{color_str} = {result:#x}, {color_str} {'<=' if passed else '>'} 0\n"
         else:
             output_msg += f"{err} while parsing {color_str}\n"
     elif IS_ALIGNED_PATTERN.match(constraint):
@@ -573,9 +543,7 @@ def check_constraint(constraint: str) -> Tuple[CheckSatResult, str]:
         value = int(value, 0)
         result, color_str, err = parse_expression(expr)
         if err is None:
-            assert isinstance(
-                result, int
-            )  # somehow mypy is complaining without this :/
+            assert isinstance(result, int)  # somehow mypy is complaining without this :/
             passed = result & 0xF == value
             output_msg += f"{color_str} = {result:#x}, {color_str} & 0xf"
             output_msg += f" {'==' if passed else '!='} {value:#x}\n"
@@ -611,9 +579,7 @@ def check_gadget(
     # First line is offset of the gadget and C pseudo code
     offset, pseudo_code = lines[0].split(maxsplit=1)
     offset = int(offset, 16)
-    output_msg = (
-        colorize_integer(hex(offset)) + " " + colorize_psuedo_code(pseudo_code) + "\n"
-    )
+    output_msg = colorize_integer(hex(offset)) + " " + colorize_psuedo_code(pseudo_code) + "\n"
     verbose_msg = ""
     # From third line, there're the constraints
     is_valid_gadget = SAT
@@ -637,9 +603,7 @@ def check_gadget(
 
     if verbose:
         output_msg += verbose_msg
-    output_msg += (
-        tabulate(result_list, headers=["Result", "Constraint"], tablefmt="grid") + "\n"
-    )
+    output_msg += tabulate(result_list, headers=["Result", "Constraint"], tablefmt="grid") + "\n"
 
     if is_valid_gadget == SAT:
         print(output_msg)
@@ -661,9 +625,7 @@ def find_gadgets(
     gadgets = run_onegadget().split("\n\n")
     gadgets_count = {SAT: 0, UNSAT: 0, UNKNOWN: 0}
     for gadget in gadgets:
-        result = check_gadget(
-            gadget, show_unsat=show_unsat, no_unknown=no_unknown, verbose=verbose
-        )
+        result = check_gadget(gadget, show_unsat=show_unsat, no_unknown=no_unknown, verbose=verbose)
         gadgets_count[result] += 1
 
     return gadgets_count

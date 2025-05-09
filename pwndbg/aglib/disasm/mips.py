@@ -89,24 +89,12 @@ CONDITION_RESOLVERS: Dict[int, Callable[[List[int]], bool]] = {
     MIPS_INS_BNEZ: lambda ops: ops[0] != 0,
     MIPS_INS_BEQ: lambda ops: ops[0] == ops[1],
     MIPS_INS_BNE: lambda ops: ops[0] != ops[1],
-    MIPS_INS_BGEZ: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) >= 0
-    ),
-    MIPS_INS_BGEZAL: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) >= 0
-    ),
-    MIPS_INS_BGTZ: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) > 0
-    ),
-    MIPS_INS_BLEZ: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) <= 0
-    ),
-    MIPS_INS_BLTZAL: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) < 0
-    ),
-    MIPS_INS_BLTZ: (
-        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) < 0
-    ),
+    MIPS_INS_BGEZ: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) >= 0),
+    MIPS_INS_BGEZAL: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) >= 0),
+    MIPS_INS_BGTZ: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) > 0),
+    MIPS_INS_BLEZ: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) <= 0),
+    MIPS_INS_BLTZAL: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) < 0),
+    MIPS_INS_BLTZ: (lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8) < 0),
 }
 
 CONDITION_RESOLVERS[MIPS_INS_ALIAS_BEQZ] = CONDITION_RESOLVERS[MIPS_INS_BEQZ]
@@ -197,9 +185,7 @@ class MipsDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
     def __init__(self, architecture) -> None:
         super().__init__(architecture)
 
-        self.annotation_handlers: Dict[
-            int, Callable[[PwndbgInstruction, Emulator], None]
-        ] = {
+        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {
             # MOVE
             MIPS_INS_MOVE: self._common_move_annotator,
             MIPS_INS_ALIAS_MOVE: self._common_move_annotator,
@@ -210,9 +196,7 @@ class MipsDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         }
 
     @override
-    def _set_annotation_string(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         if instruction.id in MIPS_LOAD_INSTRUCTIONS:
             read_size = MIPS_LOAD_INSTRUCTIONS[instruction.id]
 
@@ -247,9 +231,7 @@ class MipsDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         elif instruction.id in MIPS_SIMPLE_DESTINATION_INSTRUCTIONS:
             self._common_generic_register_destination(instruction, emu)
         else:
-            self.annotation_handlers.get(instruction.id, lambda *a: None)(
-                instruction, emu
-            )
+            self.annotation_handlers.get(instruction.id, lambda *a: None)(instruction, emu)
 
     def _lui_annotator(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         result_operand, right = instruction.operands
@@ -263,9 +245,7 @@ class MipsDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             )
 
     @override
-    def _condition(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> InstructionCondition:
+    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
         if len(instruction.operands) == 0:
             return InstructionCondition.UNDETERMINED
 
@@ -283,9 +263,7 @@ class MipsDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             # https://www.doc.ic.ac.uk/lab/secondyear/spim/node16.html
             return InstructionCondition.UNDETERMINED
 
-        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(
-            resolved_operands
-        )
+        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(resolved_operands)
 
         if conditional is None:
             return InstructionCondition.UNDETERMINED

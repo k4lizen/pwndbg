@@ -255,9 +255,7 @@ class PwndbgInstructionImpl(PwndbgInstruction):
         if self.cs_insn._cs.syntax == CS_OPT_SYNTAX_ATT:
             self.cs_insn.operands.reverse()
 
-        self.operands: List[EnhancedOperand] = [
-            EnhancedOperand(op) for op in self.cs_insn.operands
-        ]
+        self.operands: List[EnhancedOperand] = [EnhancedOperand(op) for op in self.cs_insn.operands]
 
         # ***********
         # The following member variables are set during instruction enhancement
@@ -580,9 +578,7 @@ class PwndbgInstructionImpl(PwndbgInstruction):
         # Hacky, but this is just for debugging
         if hasattr(self.cs_insn, "cc"):
             info += f"\n\tARM condition code: {self.cs_insn.cc}"
-            info += (
-                f"\n\tThumb mode: {1 if self.cs_insn._cs._mode & CS_MODE_THUMB else 0}"
-            )
+            info += f"\n\tThumb mode: {1 if self.cs_insn._cs._mode & CS_MODE_THUMB else 0}"
 
         return info
 

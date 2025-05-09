@@ -15,9 +15,7 @@ parser.add_argument(
     type=str,
     help="Address to write comments",
 )
-parser.add_argument(
-    "comment", type=str, default=None, help="The text you want to comment"
-)
+parser.add_argument("comment", type=str, default=None, help="The text you want to comment")
 
 file_lists: Dict[str, Dict[str, str]] = {}  # This saves all comments.
 

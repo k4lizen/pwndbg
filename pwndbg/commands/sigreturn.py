@@ -28,9 +28,7 @@ from pwndbg.lib.regs import i386
 # defined in CONFIG_X86_64 struct rt_sigframe (Linux Kernel
 # /arch/x86/include/asm/sigframe.h)
 SIGRETURN_FRAME_LAYOUTS: Dict[str, List[Tuple[int, str]]] = {
-    "x86-64": sorted(
-        [(-8, "&pretcode")] + list(pwnlib.rop.srop.registers["amd64"].items())
-    ),
+    "x86-64": sorted([(-8, "&pretcode")] + list(pwnlib.rop.srop.registers["amd64"].items())),
     "i386": sorted(pwnlib.rop.srop.registers["i386"].items()),
     "aarch64": sorted(pwnlib.rop.srop.registers["aarch64"].items()),
     "arm": sorted(pwnlib.rop.srop.registers["arm"].items()),
@@ -45,9 +43,7 @@ SIGRETURN_CORE_REGISTER: Dict[str, Set[str]] = {
 }
 
 
-parser = argparse.ArgumentParser(
-    description="Display the SigreturnFrame at the specific address"
-)
+parser = argparse.ArgumentParser(description="Display the SigreturnFrame at the specific address")
 
 parser.add_argument(
     "address",

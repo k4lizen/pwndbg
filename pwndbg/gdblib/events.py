@@ -144,7 +144,8 @@ def _detect_deadlock():
         return
 
     print(message.error("DEADLOCK DETECTED..."))
-    print(message.error(f"""The deadlock issue is likely caused by using 'commands[\\n]{
+    print(
+        message.error(f"""The deadlock issue is likely caused by using 'commands[\\n]{
                 message.hint("continue")
             }[\\n]end'.
 
@@ -172,13 +173,12 @@ To address this, you have three options:
                 message.hint("continue")
             }' as is.
    However, this setting may cause pwndbg or gdb.execute to behave asynchronously/unpredictably.
-"""))
+""")
+    )
     sys.exit(1)
 
 
-def wrap_safe_event_handler(
-    event_handler: Callable[P, T], event_type: Any
-) -> Callable[P, T]:
+def wrap_safe_event_handler(event_handler: Callable[P, T], event_type: Any) -> Callable[P, T]:
     """
     Wraps an event handler to ensure it is only executed when the event is safe.
     Invalid events are queued and executed later when safe.

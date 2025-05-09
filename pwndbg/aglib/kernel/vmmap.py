@@ -72,9 +72,7 @@ class QemuMachine(Machine):
         # We add a chardev file backend (we dont add a fronted, so it doesn't affect
         # the guest). We can then look through proc to find which process has the file
         # open. This approach is agnostic to namespaces (pid, network and mount).
-        chardev_id = (
-            "gdb-pt-dump" + "-" + "".join(random.choices(string.ascii_letters, k=16))
-        )
+        chardev_id = "gdb-pt-dump" + "-" + "".join(random.choices(string.ascii_letters, k=16))
         with tempfile.NamedTemporaryFile() as tmpf:
             pwndbg.dbg.selected_inferior().send_monitor(
                 f"chardev-add file,id={chardev_id},path={tmpf.name}"
@@ -88,9 +86,7 @@ class QemuMachine(Machine):
         return int(pid_found, 10)
 
     def read_physical_memory(self, physical_address: int, length: int) -> bytes:
-        res = pwndbg.dbg.selected_inferior().send_monitor(
-            f"gpa2hva {hex(physical_address)}"
-        )
+        res = pwndbg.dbg.selected_inferior().send_monitor(f"gpa2hva {hex(physical_address)}")
 
         # It's not possible to pread large sizes, so let's break the request
         # into a few smaller ones.

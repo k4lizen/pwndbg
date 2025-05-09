@@ -58,9 +58,7 @@ def resolve_addr(address: int) -> str:
     # This sucks, but there's not a GDB API for this.
     # Workaround for a bug with Rust language, see #2094
     try:
-        result = gdb.execute(
-            f"info symbol 0x{address:x}", to_string=True, from_tty=False
-        )
+        result = gdb.execute(f"info symbol 0x{address:x}", to_string=True, from_tty=False)
     except gdb.error:
         return ""
 
@@ -99,9 +97,7 @@ def _global_static_symbol_to_address(
         # gdb.lookup_static_symbol Search order:
         # - global static in your module
         # - global static in other module
-        symbol_obj = (obj or gdb).lookup_static_symbol(
-            name, domain=DOMAIN_MAPPING[domain]
-        )
+        symbol_obj = (obj or gdb).lookup_static_symbol(name, domain=DOMAIN_MAPPING[domain])
         if symbol_obj and domain.validate(symbol_obj):
             return symbol_obj.value().address
     except gdb.error:
@@ -116,9 +112,7 @@ def _global_exported_symbol_to_address(
         # gdb.lookup_global_symbol Search order:
         # - global in your module
         # - global in other module
-        symbol_obj = (obj or gdb).lookup_global_symbol(
-            name, domain=DOMAIN_MAPPING[domain]
-        )
+        symbol_obj = (obj or gdb).lookup_global_symbol(name, domain=DOMAIN_MAPPING[domain])
         if symbol_obj and domain.validate(symbol_obj):
             return symbol_obj.value().address
     except gdb.error:
@@ -145,9 +139,7 @@ def _frame_any_symbol_to_address(name: str, domain: Domain) -> gdb.Value | None:
     return None
 
 
-def _fallback_any_symbol_to_address(
-    name: str, global_only: bool = False
-) -> gdb.Value | None:
+def _fallback_any_symbol_to_address(name: str, global_only: bool = False) -> gdb.Value | None:
     try:
         # Unfortunately, `gdb.lookup_symbol` does not seem to handle all
         # symbols, so we need to fallback to using `gdb.parse_and_eval`. See
@@ -168,9 +160,7 @@ def _fallback_any_symbol_to_address(
 
         # global_context is only supported in GDB14+
         if gdb_version[0] >= 14:
-            return gdb.parse_and_eval(
-                f"&'{sanitized_symbol_name}'", global_context=global_only
-            )  # type: ignore[call-arg]
+            return gdb.parse_and_eval(f"&'{sanitized_symbol_name}'", global_context=global_only)  # type: ignore[call-arg]
 
         return gdb.parse_and_eval(f"&'{sanitized_symbol_name}'")
     except gdb.error:

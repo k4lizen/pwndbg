@@ -25,9 +25,7 @@ fieldvaluec = C.yellow
 typenamec = C.red
 
 
-def for_each_transaction(
-    addr: pwndbg.dbg_mod.Value, field: str
-) -> Iterator[pwndbg.dbg_mod.Value]:
+def for_each_transaction(addr: pwndbg.dbg_mod.Value, field: str) -> Iterator[pwndbg.dbg_mod.Value]:
     typename = "struct binder_transaction"
     addr_int = int(addr)
     while addr_int != 0:
@@ -88,9 +86,7 @@ def for_each_hlist_entry(
 class BinderVisitor:
     def __init__(self, procs_addr):
         self.indent = IndentContextManager()
-        self.addr = pwndbg.aglib.memory.get_typed_pointer_value(
-            "struct hlist_head", procs_addr
-        )
+        self.addr = pwndbg.aglib.memory.get_typed_pointer_value("struct hlist_head", procs_addr)
 
     def _format_indent(self, text: str) -> str:
         return "    " * self.indent.indent + text
@@ -141,9 +137,7 @@ class BinderVisitor:
                     if only_heading:
                         value = value.strip()
                     else:
-                        value = "\n" + "\n".join(
-                            ["    " + line for line in value.split("\n")]
-                        )
+                        value = "\n" + "\n".join(["    " + line for line in value.split("\n")])
                 else:
                     print(f"Warning: no formatter for pointer type {typename}")
             elif t.code in (
@@ -176,9 +170,7 @@ class BinderVisitor:
 
         return self._format_indent(output)
 
-    def format_rb_tree(
-        self, field: str, value: pwndbg.dbg_mod.Value
-    ) -> Tuple[str, int]:
+    def format_rb_tree(self, field: str, value: pwndbg.dbg_mod.Value) -> Tuple[str, int]:
         res = []
 
         node_type = node_types[field]
@@ -273,9 +265,7 @@ class BinderVisitor:
 
         return "\n".join(res)
 
-    def format_thread(
-        self, thread: pwndbg.dbg_mod.Value, only_heading: bool = False
-    ) -> str:
+    def format_thread(self, thread: pwndbg.dbg_mod.Value, only_heading: bool = False) -> str:
         res = []
         res.append(
             self._format_heading(
@@ -300,9 +290,7 @@ class BinderVisitor:
 
             # We need to print this separately since we wanted print the entire
             # object and not just the heading
-            res.append(
-                self._format_fields(thread, ["transaction_stack"], only_heading=False)
-            )
+            res.append(self._format_fields(thread, ["transaction_stack"], only_heading=False))
 
         return "\n".join(res)
 
@@ -322,11 +310,7 @@ class BinderVisitor:
             return "\n".join(res)
 
         with self.indent:
-            res.append(
-                self._format_fields(
-                    transaction, ["lock", "to_proc", "from", "to_thread"]
-                )
-            )
+            res.append(self._format_fields(transaction, ["lock", "to_proc", "from", "to_thread"]))
 
             if int(transaction["from_parent"]) == 0:
                 res.append(self._format_field("from_parent", "NULL"))
@@ -343,9 +327,7 @@ class BinderVisitor:
             else:
                 res.append(self._format_field("to_parent"))
                 with self.indent:
-                    for transaction in for_each_transaction(
-                        transaction["to_parent"], "to_parent"
-                    ):
+                    for transaction in for_each_transaction(transaction["to_parent"], "to_parent"):
                         res.append(self.format_transaction(transaction))
 
         return "\n".join(res)
@@ -423,9 +405,7 @@ class BinderVisitor:
         locked = val & 0xFF
         pending = val >> 8
 
-        return self._format_heading(
-            "", f"LOCKED: {locked} PENDING: {pending}", int(lock.address)
-        )
+        return self._format_heading("", f"LOCKED: {locked} PENDING: {pending}", int(lock.address))
 
 
 parser = argparse.ArgumentParser(description="Show Android Binder information")

@@ -105,8 +105,7 @@ def print_guard(page: Page) -> None:
 def print_gap(current: Page, last_map: Page):
     print(
         red(
-            " - " * int(51 / 3)
-            + f" {'GAP':>9} "
+            " - " * int(51 / 3) + f" {'GAP':>9} "
             f"{hex(current.start - last_map.end):>{2 + 2 * pwndbg.aglib.arch.ptrsize}}"
         )
     )
@@ -191,12 +190,8 @@ parser.add_argument(
     default=None,
     help="Address or module name filter",
 )
-parser.add_argument(
-    "-w", "--writable", action="store_true", help="Display writable maps only"
-)
-parser.add_argument(
-    "-x", "--executable", action="store_true", help="Display executable maps only"
-)
+parser.add_argument("-w", "--writable", action="store_true", help="Display writable maps only")
+parser.add_argument("-x", "--executable", action="store_true", help="Display executable maps only")
 parser.add_argument(
     "-A",
     "--lines-after",
@@ -265,8 +260,7 @@ def vmmap(
                 # Guard index, and only insert the page if it is not displayed yet
                 if (
                     matched_index - before_index >= 0
-                    and total_pages[matched_index - before_index]
-                    not in pages_to_display
+                    and total_pages[matched_index - before_index] not in pages_to_display
                 ):
                     pages_to_display.append(total_pages[matched_index - before_index])
 
@@ -357,9 +351,7 @@ def vmmap_add(start: int, size: int, flags: str, offset: int) -> None:
     print("%r added" % page)
 
 
-parser = argparse.ArgumentParser(
-    description="Explore a page, trying to guess permissions."
-)
+parser = argparse.ArgumentParser(description="Explore a page, trying to guess permissions.")
 parser.add_argument(
     "address",
     type=pwndbg.commands.sloppy_gdb_parse,
@@ -398,9 +390,7 @@ def vmmap_clear() -> None:
     pwndbg.aglib.vmmap_custom.clear_custom_page()
 
 
-parser = argparse.ArgumentParser(
-    description="Load virtual memory map pages from ELF file."
-)
+parser = argparse.ArgumentParser(description="Load virtual memory map pages from ELF file.")
 parser.add_argument(
     "filename",
     nargs="?",

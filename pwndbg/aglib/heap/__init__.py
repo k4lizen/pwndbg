@@ -36,17 +36,13 @@ def add_heap_param(
 
 main_arena = add_heap_param("main-arena", "0", "the address of main_arena")
 
-thread_arena = add_heap_param(
-    "thread-arena", "0", "the address pointed by thread_arena"
-)
+thread_arena = add_heap_param("thread-arena", "0", "the address pointed by thread_arena")
 
 mp_ = add_heap_param("mp", "0", "the address of mp_")
 
 tcache = add_heap_param("tcache", "0", "the address pointed by tcache")
 
-global_max_fast = add_heap_param(
-    "global-max-fast", "0", "the address of global_max_fast"
-)
+global_max_fast = add_heap_param("global-max-fast", "0", "the address of global_max_fast")
 
 symbol_list = [main_arena, thread_arena, mp_, tcache, global_max_fast]
 
@@ -121,7 +117,8 @@ environment variable manually like this:
 ```bash
 export DEBUGINFOD_URLS=https://debuginfod.archlinux.org
 ```
-""" + extra_hint_for_gdb,
+"""
+    + extra_hint_for_gdb,
     param_class=pwndbg.lib.config.PARAM_ENUM,
     enum_sequence=["auto", "force", "never"],
 )
@@ -150,11 +147,7 @@ def resolve_heap(is_first_run: bool = False) -> None:
     global current
     if resolve_heap_via_heuristic == "force":
         current = pwndbg.aglib.heap.ptmalloc.HeuristicHeap()
-        if (
-            not is_first_run
-            and pwndbg.aglib.proc.alive
-            and current.libc_has_debug_syms()
-        ):
+        if not is_first_run and pwndbg.aglib.proc.alive and current.libc_has_debug_syms():
             print(
                 message.warn(
                     "You are going to resolve the heap via heuristic even though you"

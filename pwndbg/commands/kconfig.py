@@ -11,9 +11,7 @@ parser = argparse.ArgumentParser(
     description="Outputs the kernel config (requires CONFIG_IKCONFIG)."
 )
 
-parser.add_argument(
-    "config_name", nargs="?", type=str, help="A config name to search for"
-)
+parser.add_argument("config_name", nargs="?", type=str, help="A config name to search for")
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.KERNEL)

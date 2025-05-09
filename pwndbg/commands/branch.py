@@ -20,9 +20,7 @@ class BreakOnConditionalBranch(pwndbg.gdblib.bpoint.Breakpoint):
     """
 
     def __init__(self, instruction: PwndbgInstruction, taken: bool) -> None:
-        super().__init__(
-            "*%#x" % instruction.address, type=gdb.BP_BREAKPOINT, internal=False
-        )
+        super().__init__("*%#x" % instruction.address, type=gdb.BP_BREAKPOINT, internal=False)
         self.instruction = instruction
         self.taken = taken
 
@@ -30,9 +28,7 @@ class BreakOnConditionalBranch(pwndbg.gdblib.bpoint.Breakpoint):
         # We need to re-run the enhancement process, since now the PC == instruction.address,
         # where previously it was not. The enhancement process will figure out if all the conditions
         # this branch requires in order to be taken have been met.
-        assistant = (
-            pwndbg.aglib.disasm.disassembly.get_disassembly_assistant_for_current_arch()
-        )
+        assistant = pwndbg.aglib.disasm.disassembly.get_disassembly_assistant_for_current_arch()
         assistant.enhance(self.instruction)
         condition_met = self.instruction.is_conditional_jump_taken
 
@@ -47,9 +43,7 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(
-    parser, command_name="break-if-taken", category=CommandCategory.BREAKPOINT
-)
+@pwndbg.commands.Command(parser, command_name="break-if-taken", category=CommandCategory.BREAKPOINT)
 @pwndbg.commands.OnlyWhenRunning
 def break_if_taken(branch) -> None:
     install_breakpoint(branch, taken=True)
@@ -113,8 +107,7 @@ def install_breakpoint(branch, taken: bool) -> None:
     if not pwndbg.aglib.disasm.disassembly.arch_has_disassembly_assistant():
         print(
             message.error(
-                "The current architecture is not supported for breaking on conditional"
-                " branches"
+                "The current architecture is not supported for breaking on conditional" " branches"
             )
         )
         return

@@ -138,9 +138,7 @@ class WatchpointLocation:
         self.address = address
         self.size = size
 
-        assert (
-            watch_read or watch_write
-        ), "Watchpoints must watch at least one of reads or writes"
+        assert watch_read or watch_write, "Watchpoints must watch at least one of reads or writes"
 
         self.watch_read = watch_read
         self.watch_write = watch_write
@@ -196,9 +194,7 @@ class Frame:
         """
         raise NotImplementedError()
 
-    def evaluate_expression(
-        self, expression: str, lock_scheduler: bool = False
-    ) -> Value:
+    def evaluate_expression(self, expression: str, lock_scheduler: bool = False) -> Value:
         """
         Evaluate the given expression in the context of this frame, and
         return a `Value`.
@@ -1094,9 +1090,7 @@ class Debugger:
         """
         raise NotImplementedError()
 
-    def event_handler(
-        self, ty: EventType
-    ) -> Callable[[Callable[..., T]], Callable[..., T]]:
+    def event_handler(self, ty: EventType) -> Callable[[Callable[..., T]], Callable[..., T]]:
         """
         Sets up the given function to be called when an event of the given type
         gets fired. Returns a callable that corresponds to the wrapped function.

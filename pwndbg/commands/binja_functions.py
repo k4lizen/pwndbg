@@ -68,20 +68,14 @@ def bn_var(name_val: gdb.Value) -> int | None:
     ```
     """
     name = name_val.string()
-    conf_and_offset: Tuple[int, int] | None = (
-        pwndbg.integration.binja._bn.get_var_offset_from_sp(
-            pwndbg.integration.binja.l2r(pwndbg.aglib.regs.pc), name
-        )
+    conf_and_offset: Tuple[int, int] | None = pwndbg.integration.binja._bn.get_var_offset_from_sp(
+        pwndbg.integration.binja.l2r(pwndbg.aglib.regs.pc), name
     )
     if conf_and_offset is None:
         return None
     (conf, offset) = conf_and_offset
     if conf < 64:
-        print(
-            message.warn(
-                f"Warning: Stack offset only has {conf / 255 * 100:.2f}% confidence"
-            )
-        )
+        print(message.warn(f"Warning: Stack offset only has {conf / 255 * 100:.2f}% confidence"))
     return pwndbg.aglib.regs.sp + offset
 
 

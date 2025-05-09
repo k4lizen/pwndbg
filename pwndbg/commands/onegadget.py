@@ -18,27 +18,17 @@ Uses the onegadget tool by david942j.
 """,
 )
 
-parser.add_argument(
-    "--show-unsat", help="Show unsatisfiable gadgets.", action="store_true"
-)
-parser.add_argument(
-    "--no-unknown", help="Do not show unknown gadgets.", action="store_true"
-)
+parser.add_argument("--show-unsat", help="Show unsatisfiable gadgets.", action="store_true")
+parser.add_argument("--no-unknown", help="Do not show unknown gadgets.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Show verbose output.", action="store_true")
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.LINUX)
 @pwndbg.aglib.proc.OnlyWithArch(["x86-64", "i386", "aarch64"])
 @pwndbg.commands.OnlyWhenRunning
-def onegadget(
-    show_unsat: bool = False, no_unknown: bool = False, verbose: bool = False
-) -> None:
+def onegadget(show_unsat: bool = False, no_unknown: bool = False, verbose: bool = False) -> None:
     if not shutil.which("one_gadget"):
-        print(
-            M.error(
-                "Could not find one_gadget. Please ensure it's installed and in $PATH."
-            )
-        )
+        print(M.error("Could not find one_gadget. Please ensure it's installed and in $PATH."))
         return
 
     path = pwndbg.glibc.get_libc_filename_from_info_sharedlibrary()

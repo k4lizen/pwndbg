@@ -339,8 +339,7 @@ def make_pty() -> Tuple[str, int] | None:
         # The name of the terminal device is nonsensical to us, so we can't use
         # this PTY. Warn the user that getting the PTY has failed.
         print(
-            f"warning: cannot interpret ptsname {name} as a string. not using a"
-            " pseudo-terminal"
+            f"warning: cannot interpret ptsname {name} as a string. not using a" " pseudo-terminal"
         )
         return None
 

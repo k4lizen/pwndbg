@@ -192,9 +192,7 @@ class Process:
         fds = {}
 
         for i in range(self.fdsize):
-            link = pwndbg.aglib.file.readlink(
-                "/proc/%i/fd/%i" % (pwndbg.aglib.proc.pid, i)
-            )
+            link = pwndbg.aglib.file.readlink("/proc/%i/fd/%i" % (pwndbg.aglib.proc.pid, i))
 
             if link:
                 fds[i] = link
@@ -228,9 +226,7 @@ class Process:
         return tuple(result)
 
 
-@pwndbg.commands.Command(
-    "Gets the pid.", aliases=["getpid"], category=CommandCategory.PROCESS
-)
+@pwndbg.commands.Command("Gets the pid.", aliases=["getpid"], category=CommandCategory.PROCESS)
 @pwndbg.commands.OnlyWhenRunning
 def pid() -> None:
     print(pwndbg.aglib.proc.pid)

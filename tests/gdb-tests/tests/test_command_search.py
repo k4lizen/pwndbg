@@ -22,9 +22,7 @@ def test_command_search_literal(start_binary):
 
     # Perform three equivalent searches, and chop off the first line of verbosity.
     result0 = gdb.execute("search -t bytes Hello!", to_string=True).splitlines()[1:]
-    result1 = gdb.execute(
-        "search -t bytes -x 48656c6c6f21", to_string=True
-    ).splitlines()[1:]
+    result1 = gdb.execute("search -t bytes -x 48656c6c6f21", to_string=True).splitlines()[1:]
     result2 = gdb.execute("search -t string Hello!", to_string=True).splitlines()[1:]
 
     assert result0 == result1
@@ -77,9 +75,7 @@ def test_command_search_limit_multiple_pages(start_binary):
     assert result_count == total_entries
 
     search_limit = 2
-    result_str = gdb.execute(
-        f"search -8 {SEARCH_PATTERN2} -l {search_limit}", to_string=True
-    )
+    result_str = gdb.execute(f"search -8 {SEARCH_PATTERN2} -l {search_limit}", to_string=True)
     result_count = len(list(filter(filter_results, result_str.splitlines())))
     assert result_count == search_limit
 
@@ -94,9 +90,7 @@ def test_command_search_alignment(start_binary):
     gdb.execute("run")
 
     alignment = 8
-    result_str = gdb.execute(
-        f"search --dword {SEARCH_PATTERN} -a {alignment} -w", to_string=True
-    )
+    result_str = gdb.execute(f"search --dword {SEARCH_PATTERN} -a {alignment} -w", to_string=True)
     for line in result_str.split("\n"):
         if line.startswith("[anon_"):
             result_address = line.split(" ")[1]
@@ -113,9 +107,7 @@ def test_command_search_step(start_binary):
     gdb.execute("run")
 
     step = 0x1000
-    result_str = gdb.execute(
-        f"search --dword {SEARCH_PATTERN} -s {step} -w", to_string=True
-    )
+    result_str = gdb.execute(f"search --dword {SEARCH_PATTERN} -s {step} -w", to_string=True)
     result_count = 0
     for line in result_str.split("\n"):
         if line.startswith("[anon_"):
@@ -224,9 +216,7 @@ def test_command_search_asm(start_binary):
     gdb.execute("break break_here")
     gdb.execute("run")
 
-    result_str = gdb.execute(
-        'search --asm "add rax, rdx" search_memory', to_string=True
-    )
+    result_str = gdb.execute('search --asm "add rax, rdx" search_memory', to_string=True)
     result_count = 0
     for line in result_str.split("\n"):
         if line.startswith("search_memory"):
@@ -243,9 +233,7 @@ def test_command_set_breakpoint_search_asm(start_binary):
     gdb.execute("break break_here")
     gdb.execute("run")
 
-    result_str = gdb.execute(
-        'search --asmbp "add rax, rdx" search_memory', to_string=True
-    )
+    result_str = gdb.execute('search --asmbp "add rax, rdx" search_memory', to_string=True)
     result_count = 0
     for line in result_str.split("\n"):
         if line.startswith("Breakpoint"):

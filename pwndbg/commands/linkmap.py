@@ -25,12 +25,14 @@ def linkmap() -> None:
                 is_first = False
                 name += f", likely {pwndbg.aglib.proc.exe}"
             name += ">"
-        rows.append([
-            f"{obj.link_map_address:#x}",
-            name,
-            f"{obj.load_bias():#x}",
-            f"{obj.dynamic():#x}",
-        ])
+        rows.append(
+            [
+                f"{obj.link_map_address:#x}",
+                name,
+                f"{obj.load_bias():#x}",
+                f"{obj.dynamic():#x}",
+            ]
+        )
 
     col_max = [0, 0, 0, 0]
     for i in range(len(rows)):

@@ -83,15 +83,10 @@ parser.add_argument(
 
 @pwndbg.commands.Command(parser, category=CommandCategory.MEMORY)
 @pwndbg.commands.OnlyWhenRunning
-def dump_register_frame(
-    frame_type: str, address: int = None, print_address=False
-) -> None:
+def dump_register_frame(frame_type: str, address: int = None, print_address=False) -> None:
     register_frame = VALID_FRAME_TYPES.get(frame_type)
     if register_frame is None:
-        print(
-            f"Invalid frame type: {frame_type} (valid:"
-            f" {','.join(VALID_FRAME_TYPES.keys())})"
-        )
+        print(f"Invalid frame type: {frame_type} (valid:" f" {','.join(VALID_FRAME_TYPES.keys())})")
         return
 
     print_saved_register_frame(register_frame, address, print_address)

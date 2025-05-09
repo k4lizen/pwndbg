@@ -67,9 +67,7 @@ class Page:
     - A path to a file, such as `/usr/lib/libc.so.6`
     """
 
-    def __init__(
-        self, start: int, size: int, flags: int, offset: int, objfile: str = ""
-    ) -> None:
+    def __init__(self, start: int, size: int, flags: int, offset: int, objfile: str = "") -> None:
         self.vaddr = start
         self.memsz = size
         self.flags = flags
@@ -133,12 +131,14 @@ class Page:
     @property
     def permstr(self) -> str:
         flags = self.flags
-        return "".join([
-            "r" if flags & os.R_OK else "-",
-            "w" if flags & os.W_OK else "-",
-            "x" if flags & os.X_OK else "-",
-            "p",
-        ])
+        return "".join(
+            [
+                "r" if flags & os.R_OK else "-",
+                "w" if flags & os.W_OK else "-",
+                "x" if flags & os.X_OK else "-",
+                "p",
+            ]
+        )
 
     def __str__(self) -> str:
         if pwndbg.config.vmmap_prefer_relpaths:

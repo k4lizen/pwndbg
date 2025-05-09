@@ -53,9 +53,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
     def __init__(self, architecture) -> None:
         super().__init__(architecture)
 
-        self.annotation_handlers: Dict[
-            int, Callable[[PwndbgInstruction, Emulator], None]
-        ] = {
+        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {
             # MOV
             X86_INS_MOV: self.handle_mov,
             X86_INS_MOVABS: self.handle_mov,
@@ -85,9 +83,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         }
 
     @override
-    def _set_annotation_string(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> None:
+    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         if instruction.id in X86_MATH_INSTRUCTIONS:
             self._common_binary_op_annotator(
                 instruction,
@@ -99,9 +95,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
                 instruction.operands[0].type == CS_OP_MEM,
             )
         else:
-            self.annotation_handlers.get(instruction.id, lambda *a: None)(
-                instruction, emu
-            )
+            self.annotation_handlers.get(instruction.id, lambda *a: None)(instruction, emu)
 
     def handle_mov(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         left, right = instruction.operands
@@ -142,9 +136,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         left, right = instruction.operands
 
         mem_operand = (
-            left
-            if left.type == CS_OP_MEM
-            else (right if right.type == CS_OP_MEM else None)
+            left if left.type == CS_OP_MEM else (right if right.type == CS_OP_MEM else None)
         )
 
         if mem_operand and mem_operand.before_value is not None:
@@ -171,18 +163,13 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             )
             instruction.annotation = register_assign(
                 left.str,
-                super()._telescope_format_list(
-                    telescope_addresses, TELESCOPE_DEPTH, emu
-                ),
+                super()._telescope_format_list(telescope_addresses, TELESCOPE_DEPTH, emu),
             )
 
     def handle_xchg(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         left, right = instruction.operands
 
-        if (
-            left.before_value_resolved is not None
-            and right.before_value_resolved is not None
-        ):
+        if left.before_value_resolved is not None and right.before_value_resolved is not None:
             # Display the exchanged values. Doing it this way (instead of using .after_value)
             # allows this to work without emulation
             # Don't telescope here for the sake of screen space
@@ -275,9 +262,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             return super()._resolve_used_value(value, instruction, operand, emu)
 
     @override
-    def _read_register(
-        self, instruction: PwndbgInstruction, operand_id: int, emu: Emulator
-    ):
+    def _read_register(self, instruction: PwndbgInstruction, operand_id: int, emu: Emulator):
         # operand_id is the ID internal to Capstone
 
         if operand_id == X86_REG_RIP:
@@ -288,9 +273,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             return super()._read_register(instruction, operand_id, emu)
 
     @override
-    def _parse_memory(
-        self, instruction: PwndbgInstruction, op: EnhancedOperand, emu: Emulator
-    ):
+    def _parse_memory(self, instruction: PwndbgInstruction, op: EnhancedOperand, emu: Emulator):
         # Get memory address (Ex: lea    rax, [rip + 0xd55], this would return
         # $rip+0xd55. Does not dereference)
         if op.mem.segment != 0:
@@ -340,15 +323,11 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
 
         if pwndbg.aglib.memory.peek(address):
             return int(
-                pwndbg.aglib.memory.get_typed_pointer_value(
-                    pwndbg.aglib.typeinfo.ppvoid, address
-                )
+                pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, address)
             )
 
     @override
-    def _condition(
-        self, instruction: PwndbgInstruction, emu: Emulator
-    ) -> InstructionCondition:
+    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
         # JMP is unconditional
         if instruction.id in (X86_INS_JMP, X86_INS_RET, X86_INS_CALL):
             return InstructionCondition.UNDETERMINED
@@ -406,11 +385,7 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         if conditional is None:
             return InstructionCondition.UNDETERMINED
 
-        return (
-            InstructionCondition.TRUE
-            if bool(conditional)
-            else InstructionCondition.FALSE
-        )
+        return InstructionCondition.TRUE if bool(conditional) else InstructionCondition.FALSE
 
     @override
     def _get_syscall_arch_info(self, instruction: PwndbgInstruction) -> Tuple[str, str]:

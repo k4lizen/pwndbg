@@ -242,9 +242,7 @@ def netlink(data: str) -> List[Netlink]:
 
         n = Netlink()
         n.eth = int(fields[1])
-        n.portid = int(
-            fields[2]
-        )  # 'Pid' in Netlink context refers to Port ID, not Process ID
+        n.portid = int(fields[2])  # 'Pid' in Netlink context refers to Port ID, not Process ID
         n.inode = int(fields[9])
         result.append(n)
 

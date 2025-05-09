@@ -421,18 +421,14 @@ class Emulator:
                 chain[-2], code=True, enhance_string_len=enhance_string_len
             )
         else:
-            enhanced = pwndbg.chain.c.contiguous_marker(
-                f"{pwndbg.chain.config_contiguous}"
-            )
+            enhanced = pwndbg.chain.c.contiguous_marker(f"{pwndbg.chain.config_contiguous}")
 
         if len(chain) == 1:
             return enhanced
 
         return arrow_right.join(rest) + arrow_left + enhanced
 
-    def telescope_enhance(
-        self, value: int, code: bool = True, enhance_string_len: int = None
-    ):
+    def telescope_enhance(self, value: int, code: bool = True, enhance_string_len: int = None):
         # Near identical to pwndbg.enhance.enhance, just read from emulator memory
 
         # Determine if its on a page - we do this in the real processes memory
@@ -466,9 +462,7 @@ class Emulator:
 
         # szval = pwndbg.aglib.strings.get(value) or None
         # Read from emulator memory
-        szval = self.memory_read_string(
-            value, max_string_len=enhance_string_len, max_read=None
-        )
+        szval = self.memory_read_string(value, max_string_len=enhance_string_len, max_read=None)
         szval0 = szval
         if szval:
             szval = E.string(repr(szval))
@@ -485,9 +479,7 @@ class Emulator:
         read_value = self.read_memory(value, pwndbg.aglib.arch.ptrsize)
         if read_value is not None:
             # intval = pwndbg.aglib.arch.unpack(read_value)
-            intval = pwndbg.aglib.arch.unpack_size(
-                read_value, pwndbg.aglib.arch.ptrsize
-            )
+            intval = pwndbg.aglib.arch.unpack_size(read_value, pwndbg.aglib.arch.ptrsize)
         else:
             # This occurs when Unicorn fails to read the memory - which it shouldn't, as the
             # read_memory call will map the pages necessary, and this function assumes
@@ -540,14 +532,10 @@ class Emulator:
         if len(retval_final) == 1:
             return retval_final[0]
 
-        return retval_final[0] + E.comment(
-            color.strip(f" /* {'; '.join(retval_final[1:])} */")
-        )
+        return retval_final[0] + E.comment(color.strip(f" /* {'; '.join(retval_final[1:])} */"))
 
     # Return None if cannot find str
-    def memory_read_string(
-        self, address: int, max_string_len=None, max_read=None
-    ) -> str | None:
+    def memory_read_string(self, address: int, max_string_len=None, max_read=None) -> str | None:
         if max_string_len is None:
             max_string_len = pwndbg.aglib.strings.length
 
@@ -580,9 +568,7 @@ class Emulator:
         if reg:
             return self.uc.reg_read(reg)
 
-        raise AttributeError(
-            f"AttributeError: {self!r} object has no attribute {name!r}"
-        )
+        raise AttributeError(f"AttributeError: {self!r} object has no attribute {name!r}")
 
     def update_pc(self, pc=None) -> None:
         if pc is None:
@@ -624,11 +610,7 @@ class Emulator:
             )
 
         elif arch in ("arm", "aarch64"):
-            mode |= (
-                U.UC_MODE_THUMB
-                if (pwndbg.aglib.regs.cpsr & (1 << 5))
-                else U.UC_MODE_ARM
-            )
+            mode |= U.UC_MODE_THUMB if (pwndbg.aglib.regs.cpsr & (1 << 5)) else U.UC_MODE_ARM
 
         elif (
             arch == "mips"
@@ -682,9 +664,7 @@ class Emulator:
 
         return True
 
-    def hook_mem_invalid(
-        self, uc, access, address, size: int, value, user_data
-    ) -> bool:
+    def hook_mem_invalid(self, uc, access, address, size: int, value, user_data) -> bool:
         debug(
             DEBUG_MEM_MAP,
             "# Invalid access at %#x, attempting to map the page",
@@ -830,9 +810,7 @@ class Emulator:
         # We're done emulating
         return self._prev, self._curr
 
-    def until_jump_hook_code(
-        self, _uc, address, instruction_size: int, _user_data
-    ) -> None:
+    def until_jump_hook_code(self, _uc, address, instruction_size: int, _user_data) -> None:
         # We have not emulated any instructions yet.
         if self._prev is None:
             pass
@@ -941,17 +919,13 @@ class Emulator:
 
     # Whenever Unicorn is "about to execute" an instruction, this hook is called
     # https://github.com/unicorn-engine/unicorn/issues/1434
-    def single_step_hook_code(
-        self, _uc, address: int, instruction_size: int, _user_data
-    ) -> None:
+    def single_step_hook_code(self, _uc, address: int, instruction_size: int, _user_data) -> None:
         # For whatever reason, the hook will hit twice on
         # unicorn >= 1.0.2rc4, but not on unicorn-1.0.2rc1~unicorn-1.0.2rc3,
         # So we use a counter to ensure the code run only once
         if self.single_step_hook_hit_count == 0:
             debug(DEBUG_EXECUTING, "# single_step: %#-8x", address)
-            self.last_single_step_result = InstructionExecutedResult(
-                address, instruction_size
-            )
+            self.last_single_step_result = InstructionExecutedResult(address, instruction_size)
             self.single_step_hook_hit_count += 1
 
     # For debugging

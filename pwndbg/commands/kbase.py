@@ -15,9 +15,7 @@ if pwndbg.dbg.is_gdblib_available():
 
 parser = argparse.ArgumentParser(description="Finds the kernel virtual base address.")
 
-parser.add_argument(
-    "-r", "--rebase", action="store_true", help="rebase loaded symbol file"
-)
+parser.add_argument("-r", "--rebase", action="store_true", help="rebase loaded symbol file")
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.KERNEL)

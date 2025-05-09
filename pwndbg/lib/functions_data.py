@@ -232,9 +232,7 @@ _functions = {
         name="ASN1_INTEGER_get",
         args=[Argument(type="ASN1_INTEGER", derefcnt=1, name="a")],
     ),
-    "ASN1_INTEGER_new": Function(
-        type="ASN1_INTEGER", derefcnt=1, name="ASN1_INTEGER_new", args=[]
-    ),
+    "ASN1_INTEGER_new": Function(type="ASN1_INTEGER", derefcnt=1, name="ASN1_INTEGER_new", args=[]),
     "ASN1_INTEGER_set": Function(
         type="int",
         derefcnt=0,
@@ -259,9 +257,7 @@ _functions = {
         name="ASN1_NULL_free",
         args=[Argument(type="ASN1_NULL", derefcnt=1, name="a")],
     ),
-    "ASN1_NULL_new": Function(
-        type="ASN1_NULL", derefcnt=1, name="ASN1_NULL_new", args=[]
-    ),
+    "ASN1_NULL_new": Function(type="ASN1_NULL", derefcnt=1, name="ASN1_NULL_new", args=[]),
     "ASN1_OBJECT_create": Function(
         type="ASN1_OBJECT",
         derefcnt=1,
@@ -280,9 +276,7 @@ _functions = {
         name="ASN1_OBJECT_free",
         args=[Argument(type="ASN1_OBJECT", derefcnt=1, name="a")],
     ),
-    "ASN1_OBJECT_new": Function(
-        type="ASN1_OBJECT", derefcnt=1, name="ASN1_OBJECT_new", args=[]
-    ),
+    "ASN1_OBJECT_new": Function(type="ASN1_OBJECT", derefcnt=1, name="ASN1_OBJECT_new", args=[]),
     "ASN1_OCTET_STRING_cmp": Function(
         type="int",
         derefcnt=0,
@@ -353,9 +347,7 @@ _functions = {
         name="ASN1_PCTX_get_str_flags",
         args=[Argument(type="ASN1_PCTX", derefcnt=1, name="p")],
     ),
-    "ASN1_PCTX_new": Function(
-        type="ASN1_PCTX", derefcnt=1, name="ASN1_PCTX_new", args=[]
-    ),
+    "ASN1_PCTX_new": Function(type="ASN1_PCTX", derefcnt=1, name="ASN1_PCTX_new", args=[]),
     "ASN1_PCTX_set_cert_flags": Function(
         type="void",
         derefcnt=0,
@@ -506,9 +498,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="n"),
         ],
     ),
-    "ASN1_STRING_new": Function(
-        type="ASN1_STRING", derefcnt=1, name="ASN1_STRING_new", args=[]
-    ),
+    "ASN1_STRING_new": Function(type="ASN1_STRING", derefcnt=1, name="ASN1_STRING_new", args=[]),
     "ASN1_STRING_print": Function(
         type="int",
         derefcnt=0,
@@ -635,9 +625,7 @@ _functions = {
         name="ASN1_TIME_free",
         args=[Argument(type="ASN1_TIME", derefcnt=1, name="a")],
     ),
-    "ASN1_TIME_new": Function(
-        type="ASN1_TIME", derefcnt=1, name="ASN1_TIME_new", args=[]
-    ),
+    "ASN1_TIME_new": Function(type="ASN1_TIME", derefcnt=1, name="ASN1_TIME_new", args=[]),
     "ASN1_TIME_print": Function(
         type="int",
         derefcnt=0,
@@ -716,9 +704,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="max_len"),
         ],
     ),
-    "ASN1_TYPE_new": Function(
-        type="ASN1_TYPE", derefcnt=1, name="ASN1_TYPE_new", args=[]
-    ),
+    "ASN1_TYPE_new": Function(type="ASN1_TYPE", derefcnt=1, name="ASN1_TYPE_new", args=[]),
     "ASN1_TYPE_set": Function(
         type="void",
         derefcnt=0,
@@ -810,9 +796,7 @@ _functions = {
         name="ASN1_UTCTIME_free",
         args=[Argument(type="ASN1_UTCTIME", derefcnt=1, name="a")],
     ),
-    "ASN1_UTCTIME_new": Function(
-        type="ASN1_UTCTIME", derefcnt=1, name="ASN1_UTCTIME_new", args=[]
-    ),
+    "ASN1_UTCTIME_new": Function(type="ASN1_UTCTIME", derefcnt=1, name="ASN1_UTCTIME_new", args=[]),
     "ASN1_UTCTIME_print": Function(
         type="int",
         derefcnt=0,
@@ -858,9 +842,7 @@ _functions = {
     "ASN1_VISIBLESTRING_new": Function(
         type="ASN1_VISIBLESTRING", derefcnt=1, name="ASN1_VISIBLESTRING_new", args=[]
     ),
-    "ASN1_add_oid_module": Function(
-        type="void", derefcnt=0, name="ASN1_add_oid_module", args=[]
-    ),
+    "ASN1_add_oid_module": Function(type="void", derefcnt=0, name="ASN1_add_oid_module", args=[]),
     "ASN1_bn_print": Function(
         type="int",
         derefcnt=0,
@@ -1524,23 +1506,13 @@ _functions = {
         args=[Argument(type="BIO", derefcnt=1, name="in")],
     ),
     "BIO_f_asn1": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_asn1", args=[]),
-    "BIO_f_base64": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_f_base64", args=[]
-    ),
-    "BIO_f_buffer": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_f_buffer", args=[]
-    ),
-    "BIO_f_cipher": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_f_cipher", args=[]
-    ),
+    "BIO_f_base64": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_base64", args=[]),
+    "BIO_f_buffer": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_buffer", args=[]),
+    "BIO_f_cipher": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_cipher", args=[]),
     "BIO_f_md": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_md", args=[]),
-    "BIO_f_nbio_test": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_f_nbio_test", args=[]
-    ),
+    "BIO_f_nbio_test": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_nbio_test", args=[]),
     "BIO_f_null": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_null", args=[]),
-    "BIO_f_reliable": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_f_reliable", args=[]
-    ),
+    "BIO_f_reliable": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_reliable", args=[]),
     "BIO_f_ssl": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_ssl", args=[]),
     "BIO_fd_non_fatal_error": Function(
         type="int",
@@ -1932,24 +1904,16 @@ _functions = {
             Argument(type="int", derefcnt=0, name="len"),
         ],
     ),
-    "BIO_s_accept": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_s_accept", args=[]
-    ),
+    "BIO_s_accept": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_accept", args=[]),
     "BIO_s_bio": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_bio", args=[]),
-    "BIO_s_connect": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_s_connect", args=[]
-    ),
-    "BIO_s_datagram": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_s_datagram", args=[]
-    ),
+    "BIO_s_connect": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_connect", args=[]),
+    "BIO_s_datagram": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_datagram", args=[]),
     "BIO_s_fd": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_fd", args=[]),
     "BIO_s_file": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_file", args=[]),
     "BIO_s_log": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_log", args=[]),
     "BIO_s_mem": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_mem", args=[]),
     "BIO_s_null": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_null", args=[]),
-    "BIO_s_socket": Function(
-        type="BIO_METHOD", derefcnt=1, name="BIO_s_socket", args=[]
-    ),
+    "BIO_s_socket": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_socket", args=[]),
     "BIO_set": Function(
         type="int",
         derefcnt=0,
@@ -2028,9 +1992,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="vararg"),
         ],
     ),
-    "BIO_sock_cleanup": Function(
-        type="void", derefcnt=0, name="BIO_sock_cleanup", args=[]
-    ),
+    "BIO_sock_cleanup": Function(type="void", derefcnt=0, name="BIO_sock_cleanup", args=[]),
     "BIO_sock_error": Function(
         type="int",
         derefcnt=0,
@@ -2517,9 +2479,7 @@ _functions = {
         name="BN_MONT_CTX_init",
         args=[Argument(type="BN_MONT_CTX", derefcnt=1, name="ctx")],
     ),
-    "BN_MONT_CTX_new": Function(
-        type="BN_MONT_CTX", derefcnt=1, name="BN_MONT_CTX_new", args=[]
-    ),
+    "BN_MONT_CTX_new": Function(type="BN_MONT_CTX", derefcnt=1, name="BN_MONT_CTX_new", args=[]),
     "BN_MONT_CTX_set": Function(
         type="int",
         derefcnt=0,
@@ -2553,9 +2513,7 @@ _functions = {
         name="BN_RECP_CTX_init",
         args=[Argument(type="BN_RECP_CTX", derefcnt=1, name="recp")],
     ),
-    "BN_RECP_CTX_new": Function(
-        type="BN_RECP_CTX", derefcnt=1, name="BN_RECP_CTX_new", args=[]
-    ),
+    "BN_RECP_CTX_new": Function(type="BN_RECP_CTX", derefcnt=1, name="BN_RECP_CTX_new", args=[]),
     "BN_RECP_CTX_set": Function(
         type="int",
         derefcnt=0,
@@ -3686,9 +3644,7 @@ _functions = {
     ),
     "COMP_rle": Function(type="COMP_METHOD", derefcnt=1, name="COMP_rle", args=[]),
     "COMP_zlib": Function(type="COMP_METHOD", derefcnt=1, name="COMP_zlib", args=[]),
-    "COMP_zlib_cleanup": Function(
-        type="void", derefcnt=0, name="COMP_zlib_cleanup", args=[]
-    ),
+    "COMP_zlib_cleanup": Function(type="void", derefcnt=0, name="COMP_zlib_cleanup", args=[]),
     "CRYPTO_EX_dup": Function(
         type="int",
         derefcnt=0,
@@ -4097,12 +4053,8 @@ _functions = {
             Argument(type="CRYPTO_EX_DATA", derefcnt=1, name="ad"),
         ],
     ),
-    "CRYPTO_num_locks": Function(
-        type="int", derefcnt=0, name="CRYPTO_num_locks", args=[]
-    ),
-    "CRYPTO_pop_info": Function(
-        type="int", derefcnt=0, name="CRYPTO_pop_info", args=[]
-    ),
+    "CRYPTO_num_locks": Function(type="int", derefcnt=0, name="CRYPTO_num_locks", args=[]),
+    "CRYPTO_pop_info": Function(type="int", derefcnt=0, name="CRYPTO_pop_info", args=[]),
     "CRYPTO_push_info_": Function(
         type="int",
         derefcnt=0,
@@ -4160,11 +4112,7 @@ _functions = {
         type="void",
         derefcnt=0,
         name="CRYPTO_set_dynlock_create_callback",
-        args=[
-            Argument(
-                type="CRYPTO_dynlock_value", derefcnt=1, name="dyn_create_function"
-            )
-        ],
+        args=[Argument(type="CRYPTO_dynlock_value", derefcnt=1, name="dyn_create_function")],
     ),
     "CRYPTO_set_dynlock_destroy_callback": Function(
         type="void",
@@ -4272,9 +4220,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="line"),
         ],
     ),
-    "CRYPTO_thread_id": Function(
-        type="unsigned", derefcnt=0, name="CRYPTO_thread_id", args=[]
-    ),
+    "CRYPTO_thread_id": Function(type="unsigned", derefcnt=0, name="CRYPTO_thread_id", args=[]),
     "DH_OpenSSL": Function(type="DH_METHOD", derefcnt=1, name="DH_OpenSSL", args=[]),
     "DH_check": Function(
         type="int",
@@ -4446,9 +4392,7 @@ _functions = {
         name="DISPLAYTEXT_free",
         args=[Argument(type="ASN1_STRING", derefcnt=1, name="a")],
     ),
-    "DISPLAYTEXT_new": Function(
-        type="ASN1_STRING", derefcnt=1, name="DISPLAYTEXT_new", args=[]
-    ),
+    "DISPLAYTEXT_new": Function(type="ASN1_STRING", derefcnt=1, name="DISPLAYTEXT_new", args=[]),
     "DSA_OpenSSL": Function(type="DSA_METHOD", derefcnt=1, name="DSA_OpenSSL", args=[]),
     "DSA_SIG_free": Function(
         type="void",
@@ -4676,15 +4620,11 @@ _functions = {
     "DTLSv1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="DTLSv1_client_method", args=[]
     ),
-    "DTLSv1_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="DTLSv1_method", args=[]
-    ),
+    "DTLSv1_method": Function(type="SSL_METHOD", derefcnt=1, name="DTLSv1_method", args=[]),
     "DTLSv1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="DTLSv1_server_method", args=[]
     ),
-    "ECDH_OpenSSL": Function(
-        type="ECDH_METHOD", derefcnt=1, name="ECDH_OpenSSL", args=[]
-    ),
+    "ECDH_OpenSSL": Function(type="ECDH_METHOD", derefcnt=1, name="ECDH_OpenSSL", args=[]),
     "ECDH_compute_key": Function(
         type="int",
         derefcnt=0,
@@ -4746,18 +4686,14 @@ _functions = {
             Argument(type="ECDH_METHOD", derefcnt=1, name="arg1"),
         ],
     ),
-    "ECDSA_OpenSSL": Function(
-        type="ECDSA_METHOD", derefcnt=1, name="ECDSA_OpenSSL", args=[]
-    ),
+    "ECDSA_OpenSSL": Function(type="ECDSA_METHOD", derefcnt=1, name="ECDSA_OpenSSL", args=[]),
     "ECDSA_SIG_free": Function(
         type="void",
         derefcnt=0,
         name="ECDSA_SIG_free",
         args=[Argument(type="ECDSA_SIG", derefcnt=1, name="sig")],
     ),
-    "ECDSA_SIG_new": Function(
-        type="ECDSA_SIG", derefcnt=1, name="ECDSA_SIG_new", args=[]
-    ),
+    "ECDSA_SIG_new": Function(type="ECDSA_SIG", derefcnt=1, name="ECDSA_SIG_new", args=[]),
     "ECDSA_do_sign": Function(
         type="ECDSA_SIG",
         derefcnt=1,
@@ -5815,54 +5751,32 @@ _functions = {
     "ERR_load_ASN1_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ASN1_strings", args=[]
     ),
-    "ERR_load_BIO_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_BIO_strings", args=[]
-    ),
-    "ERR_load_BN_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_BN_strings", args=[]
-    ),
-    "ERR_load_BUF_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_BUF_strings", args=[]
-    ),
+    "ERR_load_BIO_strings": Function(type="void", derefcnt=0, name="ERR_load_BIO_strings", args=[]),
+    "ERR_load_BN_strings": Function(type="void", derefcnt=0, name="ERR_load_BN_strings", args=[]),
+    "ERR_load_BUF_strings": Function(type="void", derefcnt=0, name="ERR_load_BUF_strings", args=[]),
     "ERR_load_COMP_strings": Function(
         type="void", derefcnt=0, name="ERR_load_COMP_strings", args=[]
     ),
     "ERR_load_CRYPTO_strings": Function(
         type="void", derefcnt=0, name="ERR_load_CRYPTO_strings", args=[]
     ),
-    "ERR_load_DH_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_DH_strings", args=[]
-    ),
-    "ERR_load_DSA_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_DSA_strings", args=[]
-    ),
+    "ERR_load_DH_strings": Function(type="void", derefcnt=0, name="ERR_load_DH_strings", args=[]),
+    "ERR_load_DSA_strings": Function(type="void", derefcnt=0, name="ERR_load_DSA_strings", args=[]),
     "ERR_load_ECDH_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ECDH_strings", args=[]
     ),
     "ERR_load_ECDSA_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ECDSA_strings", args=[]
     ),
-    "ERR_load_EC_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_EC_strings", args=[]
-    ),
-    "ERR_load_EVP_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_EVP_strings", args=[]
-    ),
-    "ERR_load_OBJ_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_OBJ_strings", args=[]
-    ),
-    "ERR_load_PEM_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_PEM_strings", args=[]
-    ),
+    "ERR_load_EC_strings": Function(type="void", derefcnt=0, name="ERR_load_EC_strings", args=[]),
+    "ERR_load_EVP_strings": Function(type="void", derefcnt=0, name="ERR_load_EVP_strings", args=[]),
+    "ERR_load_OBJ_strings": Function(type="void", derefcnt=0, name="ERR_load_OBJ_strings", args=[]),
+    "ERR_load_PEM_strings": Function(type="void", derefcnt=0, name="ERR_load_PEM_strings", args=[]),
     "ERR_load_PKCS7_strings": Function(
         type="void", derefcnt=0, name="ERR_load_PKCS7_strings", args=[]
     ),
-    "ERR_load_RSA_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_RSA_strings", args=[]
-    ),
-    "ERR_load_SSL_strings": Function(
-        type="void", derefcnt=0, name="ERR_load_SSL_strings", args=[]
-    ),
+    "ERR_load_RSA_strings": Function(type="void", derefcnt=0, name="ERR_load_RSA_strings", args=[]),
+    "ERR_load_SSL_strings": Function(type="void", derefcnt=0, name="ERR_load_SSL_strings", args=[]),
     "ERR_load_X509_strings": Function(
         type="void", derefcnt=0, name="ERR_load_X509_strings", args=[]
     ),
@@ -6510,9 +6424,7 @@ _functions = {
             Argument(type="EVP_MD_CTX", derefcnt=1, name="in"),
         ],
     ),
-    "EVP_MD_CTX_create": Function(
-        type="EVP_MD_CTX", derefcnt=1, name="EVP_MD_CTX_create", args=[]
-    ),
+    "EVP_MD_CTX_create": Function(type="EVP_MD_CTX", derefcnt=1, name="EVP_MD_CTX_create", args=[]),
     "EVP_MD_CTX_destroy": Function(
         type="void",
         derefcnt=0,
@@ -6670,9 +6582,7 @@ _functions = {
             Argument(type="EVP_PBE_KEYGEN", derefcnt=1, name="keygen"),
         ],
     ),
-    "EVP_PBE_cleanup": Function(
-        type="void", derefcnt=0, name="EVP_PBE_cleanup", args=[]
-    ),
+    "EVP_PBE_cleanup": Function(type="void", derefcnt=0, name="EVP_PBE_cleanup", args=[]),
     "EVP_PBE_find": Function(
         type="int",
         derefcnt=0,
@@ -7704,9 +7614,7 @@ _functions = {
             Argument(type="EVP_PKEY", derefcnt=1, name="pkey"),
         ],
     ),
-    "EVP_add_alg_module": Function(
-        type="void", derefcnt=0, name="EVP_add_alg_module", args=[]
-    ),
+    "EVP_add_alg_module": Function(type="void", derefcnt=0, name="EVP_add_alg_module", args=[]),
     "EVP_add_cipher": Function(
         type="int",
         derefcnt=0,
@@ -7719,103 +7627,49 @@ _functions = {
         name="EVP_add_digest",
         args=[Argument(type="EVP_MD", derefcnt=1, name="digest")],
     ),
-    "EVP_aes_128_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc", args=[]
-    ),
+    "EVP_aes_128_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc", args=[]),
     "EVP_aes_128_cbc_hmac_sha1": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc_hmac_sha1", args=[]
     ),
-    "EVP_aes_128_ccm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ccm", args=[]
-    ),
-    "EVP_aes_128_cfb1": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb1", args=[]
-    ),
+    "EVP_aes_128_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ccm", args=[]),
+    "EVP_aes_128_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb1", args=[]),
     "EVP_aes_128_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb128", args=[]
     ),
-    "EVP_aes_128_cfb8": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb8", args=[]
-    ),
-    "EVP_aes_128_ctr": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ctr", args=[]
-    ),
-    "EVP_aes_128_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ecb", args=[]
-    ),
-    "EVP_aes_128_gcm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_gcm", args=[]
-    ),
-    "EVP_aes_128_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ofb", args=[]
-    ),
-    "EVP_aes_128_xts": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_xts", args=[]
-    ),
-    "EVP_aes_192_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cbc", args=[]
-    ),
-    "EVP_aes_192_ccm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ccm", args=[]
-    ),
-    "EVP_aes_192_cfb1": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb1", args=[]
-    ),
+    "EVP_aes_128_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb8", args=[]),
+    "EVP_aes_128_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ctr", args=[]),
+    "EVP_aes_128_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ecb", args=[]),
+    "EVP_aes_128_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_gcm", args=[]),
+    "EVP_aes_128_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ofb", args=[]),
+    "EVP_aes_128_xts": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_xts", args=[]),
+    "EVP_aes_192_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cbc", args=[]),
+    "EVP_aes_192_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ccm", args=[]),
+    "EVP_aes_192_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb1", args=[]),
     "EVP_aes_192_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb128", args=[]
     ),
-    "EVP_aes_192_cfb8": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb8", args=[]
-    ),
-    "EVP_aes_192_ctr": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ctr", args=[]
-    ),
-    "EVP_aes_192_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ecb", args=[]
-    ),
-    "EVP_aes_192_gcm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_gcm", args=[]
-    ),
-    "EVP_aes_192_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ofb", args=[]
-    ),
-    "EVP_aes_256_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc", args=[]
-    ),
+    "EVP_aes_192_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb8", args=[]),
+    "EVP_aes_192_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ctr", args=[]),
+    "EVP_aes_192_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ecb", args=[]),
+    "EVP_aes_192_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_gcm", args=[]),
+    "EVP_aes_192_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ofb", args=[]),
+    "EVP_aes_256_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc", args=[]),
     "EVP_aes_256_cbc_hmac_sha1": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc_hmac_sha1", args=[]
     ),
-    "EVP_aes_256_ccm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ccm", args=[]
-    ),
-    "EVP_aes_256_cfb1": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb1", args=[]
-    ),
+    "EVP_aes_256_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ccm", args=[]),
+    "EVP_aes_256_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb1", args=[]),
     "EVP_aes_256_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb128", args=[]
     ),
-    "EVP_aes_256_cfb8": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb8", args=[]
-    ),
-    "EVP_aes_256_ctr": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ctr", args=[]
-    ),
-    "EVP_aes_256_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ecb", args=[]
-    ),
-    "EVP_aes_256_gcm": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_gcm", args=[]
-    ),
-    "EVP_aes_256_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ofb", args=[]
-    ),
-    "EVP_aes_256_xts": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_xts", args=[]
-    ),
+    "EVP_aes_256_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb8", args=[]),
+    "EVP_aes_256_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ctr", args=[]),
+    "EVP_aes_256_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ecb", args=[]),
+    "EVP_aes_256_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_gcm", args=[]),
+    "EVP_aes_256_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ofb", args=[]),
+    "EVP_aes_256_xts": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_xts", args=[]),
     "EVP_bf_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cbc", args=[]),
-    "EVP_bf_cfb64": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cfb64", args=[]
-    ),
+    "EVP_bf_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cfb64", args=[]),
     "EVP_bf_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_ecb", args=[]),
     "EVP_bf_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_ofb", args=[]),
     "EVP_camellia_128_cbc": Function(
@@ -7872,74 +7726,36 @@ _functions = {
     "EVP_camellia_256_ofb": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_camellia_256_ofb", args=[]
     ),
-    "EVP_cast5_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cbc", args=[]
-    ),
-    "EVP_cast5_cfb64": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cfb64", args=[]
-    ),
-    "EVP_cast5_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ecb", args=[]
-    ),
-    "EVP_cast5_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ofb", args=[]
-    ),
+    "EVP_cast5_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cbc", args=[]),
+    "EVP_cast5_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cfb64", args=[]),
+    "EVP_cast5_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ecb", args=[]),
+    "EVP_cast5_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ofb", args=[]),
     "EVP_cleanup": Function(type="void", derefcnt=0, name="EVP_cleanup", args=[]),
     "EVP_des_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cbc", args=[]),
-    "EVP_des_cfb1": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb1", args=[]
-    ),
-    "EVP_des_cfb64": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb64", args=[]
-    ),
-    "EVP_des_cfb8": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb8", args=[]
-    ),
+    "EVP_des_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb1", args=[]),
+    "EVP_des_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb64", args=[]),
+    "EVP_des_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb8", args=[]),
     "EVP_des_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ecb", args=[]),
     "EVP_des_ede": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede", args=[]),
-    "EVP_des_ede3": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3", args=[]
-    ),
-    "EVP_des_ede3_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cbc", args=[]
-    ),
-    "EVP_des_ede3_cfb1": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb1", args=[]
-    ),
+    "EVP_des_ede3": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3", args=[]),
+    "EVP_des_ede3_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cbc", args=[]),
+    "EVP_des_ede3_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb1", args=[]),
     "EVP_des_ede3_cfb64": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb64", args=[]
     ),
-    "EVP_des_ede3_cfb8": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb8", args=[]
-    ),
-    "EVP_des_ede3_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ecb", args=[]
-    ),
-    "EVP_des_ede3_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ofb", args=[]
-    ),
-    "EVP_des_ede_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cbc", args=[]
-    ),
-    "EVP_des_ede_cfb64": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cfb64", args=[]
-    ),
-    "EVP_des_ede_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ecb", args=[]
-    ),
-    "EVP_des_ede_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ofb", args=[]
-    ),
+    "EVP_des_ede3_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb8", args=[]),
+    "EVP_des_ede3_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ecb", args=[]),
+    "EVP_des_ede3_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ofb", args=[]),
+    "EVP_des_ede_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cbc", args=[]),
+    "EVP_des_ede_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cfb64", args=[]),
+    "EVP_des_ede_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ecb", args=[]),
+    "EVP_des_ede_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ofb", args=[]),
     "EVP_des_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ofb", args=[]),
-    "EVP_desx_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_desx_cbc", args=[]
-    ),
+    "EVP_desx_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_desx_cbc", args=[]),
     "EVP_dss": Function(type="EVP_MD", derefcnt=1, name="EVP_dss", args=[]),
     "EVP_dss1": Function(type="EVP_MD", derefcnt=1, name="EVP_dss1", args=[]),
     "EVP_ecdsa": Function(type="EVP_MD", derefcnt=1, name="EVP_ecdsa", args=[]),
-    "EVP_enc_null": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_enc_null", args=[]
-    ),
+    "EVP_enc_null": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_enc_null", args=[]),
     "EVP_get_cipherbyname": Function(
         type="EVP_CIPHER",
         derefcnt=1,
@@ -7952,29 +7768,19 @@ _functions = {
         name="EVP_get_digestbyname",
         args=[Argument(type="char", derefcnt=1, name="name")],
     ),
-    "EVP_get_pw_prompt": Function(
-        type="char", derefcnt=1, name="EVP_get_pw_prompt", args=[]
-    ),
+    "EVP_get_pw_prompt": Function(type="char", derefcnt=1, name="EVP_get_pw_prompt", args=[]),
     "EVP_md4": Function(type="EVP_MD", derefcnt=1, name="EVP_md4", args=[]),
     "EVP_md5": Function(type="EVP_MD", derefcnt=1, name="EVP_md5", args=[]),
     "EVP_md_null": Function(type="EVP_MD", derefcnt=1, name="EVP_md_null", args=[]),
-    "EVP_rc2_40_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_40_cbc", args=[]
-    ),
-    "EVP_rc2_64_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_64_cbc", args=[]
-    ),
+    "EVP_rc2_40_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_40_cbc", args=[]),
+    "EVP_rc2_64_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_64_cbc", args=[]),
     "EVP_rc2_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cbc", args=[]),
-    "EVP_rc2_cfb64": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cfb64", args=[]
-    ),
+    "EVP_rc2_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cfb64", args=[]),
     "EVP_rc2_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_ecb", args=[]),
     "EVP_rc2_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_ofb", args=[]),
     "EVP_rc4": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4", args=[]),
     "EVP_rc4_40": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_40", args=[]),
-    "EVP_rc4_hmac_md5": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_hmac_md5", args=[]
-    ),
+    "EVP_rc4_hmac_md5": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_hmac_md5", args=[]),
     "EVP_read_pw_string": Function(
         type="int",
         derefcnt=0,
@@ -7999,18 +7805,10 @@ _functions = {
         ],
     ),
     "EVP_ripemd160": Function(type="EVP_MD", derefcnt=1, name="EVP_ripemd160", args=[]),
-    "EVP_seed_cbc": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cbc", args=[]
-    ),
-    "EVP_seed_cfb128": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cfb128", args=[]
-    ),
-    "EVP_seed_ecb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ecb", args=[]
-    ),
-    "EVP_seed_ofb": Function(
-        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ofb", args=[]
-    ),
+    "EVP_seed_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cbc", args=[]),
+    "EVP_seed_cfb128": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cfb128", args=[]),
+    "EVP_seed_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ecb", args=[]),
+    "EVP_seed_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ofb", args=[]),
     "EVP_set_pw_prompt": Function(
         type="void",
         derefcnt=0,
@@ -8637,12 +8435,8 @@ _functions = {
         type="unsigned", derefcnt=1, name="OPENSSL_ia32cap_loc", args=[]
     ),
     "OPENSSL_init": Function(type="void", derefcnt=0, name="OPENSSL_init", args=[]),
-    "OPENSSL_isservice": Function(
-        type="int", derefcnt=0, name="OPENSSL_isservice", args=[]
-    ),
-    "OPENSSL_issetugid": Function(
-        type="int", derefcnt=0, name="OPENSSL_issetugid", args=[]
-    ),
+    "OPENSSL_isservice": Function(type="int", derefcnt=0, name="OPENSSL_isservice", args=[]),
+    "OPENSSL_issetugid": Function(type="int", derefcnt=0, name="OPENSSL_issetugid", args=[]),
     "OpenSSLDie": Function(
         type="void",
         derefcnt=0,
@@ -8665,9 +8459,7 @@ _functions = {
         name="PBE2PARAM_free",
         args=[Argument(type="PBE2PARAM", derefcnt=1, name="a")],
     ),
-    "PBE2PARAM_new": Function(
-        type="PBE2PARAM", derefcnt=1, name="PBE2PARAM_new", args=[]
-    ),
+    "PBE2PARAM_new": Function(type="PBE2PARAM", derefcnt=1, name="PBE2PARAM_new", args=[]),
     "PBEPARAM_free": Function(
         type="void",
         derefcnt=0,
@@ -8681,9 +8473,7 @@ _functions = {
         name="PBKDF2PARAM_free",
         args=[Argument(type="PBKDF2PARAM", derefcnt=1, name="a")],
     ),
-    "PBKDF2PARAM_new": Function(
-        type="PBKDF2PARAM", derefcnt=1, name="PBKDF2PARAM_new", args=[]
-    ),
+    "PBKDF2PARAM_new": Function(type="PBKDF2PARAM", derefcnt=1, name="PBKDF2PARAM_new", args=[]),
     "PEM_ASN1_read": Function(
         type="void",
         derefcnt=1,
@@ -10133,9 +9923,7 @@ _functions = {
         name="PKCS7_DIGEST_free",
         args=[Argument(type="PKCS7_DIGEST", derefcnt=1, name="a")],
     ),
-    "PKCS7_DIGEST_new": Function(
-        type="PKCS7_DIGEST", derefcnt=1, name="PKCS7_DIGEST_new", args=[]
-    ),
+    "PKCS7_DIGEST_new": Function(type="PKCS7_DIGEST", derefcnt=1, name="PKCS7_DIGEST_new", args=[]),
     "PKCS7_ENCRYPT_free": Function(
         type="void",
         derefcnt=0,
@@ -10219,9 +10007,7 @@ _functions = {
         name="PKCS7_SIGNED_free",
         args=[Argument(type="PKCS7_SIGNED", derefcnt=1, name="a")],
     ),
-    "PKCS7_SIGNED_new": Function(
-        type="PKCS7_SIGNED", derefcnt=1, name="PKCS7_SIGNED_new", args=[]
-    ),
+    "PKCS7_SIGNED_new": Function(type="PKCS7_SIGNED", derefcnt=1, name="PKCS7_SIGNED_new", args=[]),
     "PKCS7_SIGNER_INFO_free": Function(
         type="void",
         derefcnt=0,
@@ -10752,9 +10538,7 @@ _functions = {
         name="RSAPublicKey_dup",
         args=[Argument(type="RSA", derefcnt=1, name="rsa")],
     ),
-    "RSA_PKCS1_SSLeay": Function(
-        type="RSA_METHOD", derefcnt=1, name="RSA_PKCS1_SSLeay", args=[]
-    ),
+    "RSA_PKCS1_SSLeay": Function(type="RSA_METHOD", derefcnt=1, name="RSA_PKCS1_SSLeay", args=[]),
     "RSA_PSS_PARAMS_free": Function(
         type="void",
         derefcnt=0,
@@ -10868,9 +10652,7 @@ _functions = {
         name="RSA_new_method",
         args=[Argument(type="ENGINE", derefcnt=1, name="engine")],
     ),
-    "RSA_null_method": Function(
-        type="RSA_METHOD", derefcnt=1, name="RSA_null_method", args=[]
-    ),
+    "RSA_null_method": Function(type="RSA_METHOD", derefcnt=1, name="RSA_null_method", args=[]),
     "RSA_padding_add_PKCS1_OAEP": Function(
         type="int",
         derefcnt=0,
@@ -12381,9 +12163,7 @@ _functions = {
         name="SSL_SESSION_get_timeout",
         args=[Argument(type="SSL_SESSION", derefcnt=1, name="s")],
     ),
-    "SSL_SESSION_new": Function(
-        type="SSL_SESSION", derefcnt=1, name="SSL_SESSION_new", args=[]
-    ),
+    "SSL_SESSION_new": Function(type="SSL_SESSION", derefcnt=1, name="SSL_SESSION_new", args=[]),
     "SSL_SESSION_print": Function(
         type="int",
         derefcnt=0,
@@ -12924,9 +12704,7 @@ _functions = {
             Argument(type="unsigned", derefcnt=0, name="id_len"),
         ],
     ),
-    "SSL_library_init": Function(
-        type="int", derefcnt=0, name="SSL_library_init", args=[]
-    ),
+    "SSL_library_init": Function(type="int", derefcnt=0, name="SSL_library_init", args=[]),
     "SSL_load_client_CA_file": Function(
         type="stack_st_X509_NAME",
         derefcnt=1,
@@ -13526,18 +13304,14 @@ _functions = {
     "SSLv23_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv23_client_method", args=[]
     ),
-    "SSLv23_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="SSLv23_method", args=[]
-    ),
+    "SSLv23_method": Function(type="SSL_METHOD", derefcnt=1, name="SSLv23_method", args=[]),
     "SSLv23_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv23_server_method", args=[]
     ),
     "SSLv3_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv3_client_method", args=[]
     ),
-    "SSLv3_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="SSLv3_method", args=[]
-    ),
+    "SSLv3_method": Function(type="SSL_METHOD", derefcnt=1, name="SSLv3_method", args=[]),
     "SSLv3_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv3_server_method", args=[]
     ),
@@ -13554,27 +13328,21 @@ _functions = {
     "TLSv1_1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_1_client_method", args=[]
     ),
-    "TLSv1_1_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="TLSv1_1_method", args=[]
-    ),
+    "TLSv1_1_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_1_method", args=[]),
     "TLSv1_1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_1_server_method", args=[]
     ),
     "TLSv1_2_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_2_client_method", args=[]
     ),
-    "TLSv1_2_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="TLSv1_2_method", args=[]
-    ),
+    "TLSv1_2_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_2_method", args=[]),
     "TLSv1_2_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_2_server_method", args=[]
     ),
     "TLSv1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_client_method", args=[]
     ),
-    "TLSv1_method": Function(
-        type="SSL_METHOD", derefcnt=1, name="TLSv1_method", args=[]
-    ),
+    "TLSv1_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_method", args=[]),
     "TLSv1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_server_method", args=[]
     ),
@@ -13630,9 +13398,7 @@ _functions = {
             Argument(type="X509_ALGOR", derefcnt=1, name="algor"),
         ],
     ),
-    "X509_ALGOR_new": Function(
-        type="X509_ALGOR", derefcnt=1, name="X509_ALGOR_new", args=[]
-    ),
+    "X509_ALGOR_new": Function(type="X509_ALGOR", derefcnt=1, name="X509_ALGOR_new", args=[]),
     "X509_ALGOR_set0": Function(
         type="int",
         derefcnt=0,
@@ -13800,9 +13566,7 @@ _functions = {
         name="X509_CINF_free",
         args=[Argument(type="X509_CINF", derefcnt=1, name="a")],
     ),
-    "X509_CINF_new": Function(
-        type="X509_CINF", derefcnt=1, name="X509_CINF_new", args=[]
-    ),
+    "X509_CINF_new": Function(type="X509_CINF", derefcnt=1, name="X509_CINF_new", args=[]),
     "X509_CRL_INFO_free": Function(
         type="void",
         derefcnt=0,
@@ -14184,9 +13948,7 @@ _functions = {
         name="X509_INFO_free",
         args=[Argument(type="X509_INFO", derefcnt=1, name="a")],
     ),
-    "X509_INFO_new": Function(
-        type="X509_INFO", derefcnt=1, name="X509_INFO_new", args=[]
-    ),
+    "X509_INFO_new": Function(type="X509_INFO", derefcnt=1, name="X509_INFO_new", args=[]),
     "X509_LOOKUP_by_alias": Function(
         type="int",
         derefcnt=0,
@@ -14522,9 +14284,7 @@ _functions = {
         name="X509_NAME_hash_old",
         args=[Argument(type="X509_NAME", derefcnt=1, name="x")],
     ),
-    "X509_NAME_new": Function(
-        type="X509_NAME", derefcnt=1, name="X509_NAME_new", args=[]
-    ),
+    "X509_NAME_new": Function(type="X509_NAME", derefcnt=1, name="X509_NAME_new", args=[]),
     "X509_NAME_oneline": Function(
         type="char",
         derefcnt=1,
@@ -14623,9 +14383,7 @@ _functions = {
         name="X509_PKEY_free",
         args=[Argument(type="X509_PKEY", derefcnt=1, name="a")],
     ),
-    "X509_PKEY_new": Function(
-        type="X509_PKEY", derefcnt=1, name="X509_PKEY_new", args=[]
-    ),
+    "X509_PKEY_new": Function(type="X509_PKEY", derefcnt=1, name="X509_PKEY_new", args=[]),
     "X509_PUBKEY_free": Function(
         type="void",
         derefcnt=0,
@@ -14650,9 +14408,7 @@ _functions = {
             Argument(type="X509_PUBKEY", derefcnt=1, name="pub"),
         ],
     ),
-    "X509_PUBKEY_new": Function(
-        type="X509_PUBKEY", derefcnt=1, name="X509_PUBKEY_new", args=[]
-    ),
+    "X509_PUBKEY_new": Function(type="X509_PUBKEY", derefcnt=1, name="X509_PUBKEY_new", args=[]),
     "X509_PUBKEY_set": Function(
         type="int",
         derefcnt=0,
@@ -15039,9 +14795,7 @@ _functions = {
             Argument(type="int", derefcnt=1, name="idx"),
         ],
     ),
-    "X509_REVOKED_new": Function(
-        type="X509_REVOKED", derefcnt=1, name="X509_REVOKED_new", args=[]
-    ),
+    "X509_REVOKED_new": Function(type="X509_REVOKED", derefcnt=1, name="X509_REVOKED_new", args=[]),
     "X509_REVOKED_set_revocationDate": Function(
         type="int",
         derefcnt=0,
@@ -15401,9 +15155,7 @@ _functions = {
             Argument(type="char", derefcnt=1, name="dir"),
         ],
     ),
-    "X509_STORE_new": Function(
-        type="X509_STORE", derefcnt=1, name="X509_STORE_new", args=[]
-    ),
+    "X509_STORE_new": Function(type="X509_STORE", derefcnt=1, name="X509_STORE_new", args=[]),
     "X509_STORE_set1_param": Function(
         type="int",
         derefcnt=0,
@@ -15477,9 +15229,7 @@ _functions = {
             Argument(type="void", derefcnt=1, name="arg2"),
         ],
     ),
-    "X509_TRUST_cleanup": Function(
-        type="void", derefcnt=0, name="X509_TRUST_cleanup", args=[]
-    ),
+    "X509_TRUST_cleanup": Function(type="void", derefcnt=0, name="X509_TRUST_cleanup", args=[]),
     "X509_TRUST_get0": Function(
         type="X509_TRUST",
         derefcnt=1,
@@ -15498,9 +15248,7 @@ _functions = {
         name="X509_TRUST_get_by_id",
         args=[Argument(type="int", derefcnt=0, name="id")],
     ),
-    "X509_TRUST_get_count": Function(
-        type="int", derefcnt=0, name="X509_TRUST_get_count", args=[]
-    ),
+    "X509_TRUST_get_count": Function(type="int", derefcnt=0, name="X509_TRUST_get_count", args=[]),
     "X509_TRUST_get_flags": Function(
         type="int",
         derefcnt=0,
@@ -16766,9 +16514,7 @@ _functions = {
             Argument(type="char", derefcnt=1, name="expbuf"),
         ],
     ),
-    "after_morecore_hook": Function(
-        type="void", derefcnt=0, name="after_morecore_hook", args=[]
-    ),
+    "after_morecore_hook": Function(type="void", derefcnt=0, name="after_morecore_hook", args=[]),
     "aio_cancel": Function(
         type="int",
         derefcnt=0,
@@ -18909,12 +18655,8 @@ _functions = {
     "ctype_get_mb_cur_max": Function(
         type="size_t", derefcnt=0, name="ctype_get_mb_cur_max", args=[]
     ),
-    "ctype_tolower_loc": Function(
-        type="int32_t", derefcnt=2, name="ctype_tolower_loc", args=[]
-    ),
-    "ctype_toupper_loc": Function(
-        type="int32_t", derefcnt=2, name="ctype_toupper_loc", args=[]
-    ),
+    "ctype_tolower_loc": Function(type="int32_t", derefcnt=2, name="ctype_tolower_loc", args=[]),
+    "ctype_toupper_loc": Function(type="int32_t", derefcnt=2, name="ctype_toupper_loc", args=[]),
     "cuserid": Function(
         type="char",
         derefcnt=1,
@@ -20979,9 +20721,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="vararg"),
         ],
     ),
-    "error_print_progname": Function(
-        type="void", derefcnt=0, name="error_print_progname", args=[]
-    ),
+    "error_print_progname": Function(type="void", derefcnt=0, name="error_print_progname", args=[]),
     "errx": Function(
         type="void",
         derefcnt=0,
@@ -22984,9 +22724,7 @@ _functions = {
         name="get_cipher_by_char",
         args=[Argument(type="unsigned", derefcnt=1, name="ptr")],
     ),
-    "get_crc_table": Function(
-        type="z_crc_t", derefcnt=1, name="get_crc_table", args=[]
-    ),
+    "get_crc_table": Function(type="z_crc_t", derefcnt=1, name="get_crc_table", args=[]),
     "get_crl": Function(
         type="int",
         derefcnt=0,
@@ -22997,9 +22735,7 @@ _functions = {
             Argument(type="X509", derefcnt=1, name="x"),
         ],
     ),
-    "get_current_dir_name": Function(
-        type="char", derefcnt=1, name="get_current_dir_name", args=[]
-    ),
+    "get_current_dir_name": Function(type="char", derefcnt=1, name="get_current_dir_name", args=[]),
     "get_issuer": Function(
         type="int",
         derefcnt=0,
@@ -23141,9 +22877,7 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getchar": Function(type="int", derefcnt=0, name="getchar", args=[]),
-    "getchar_unlocked": Function(
-        type="int", derefcnt=0, name="getchar_unlocked", args=[]
-    ),
+    "getchar_unlocked": Function(type="int", derefcnt=0, name="getchar_unlocked", args=[]),
     "getcontext": Function(
         type="int",
         derefcnt=0,
@@ -24180,9 +23914,7 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getwchar": Function(type="wint_t", derefcnt=0, name="getwchar", args=[]),
-    "getwchar_unlocked": Function(
-        type="wint_t", derefcnt=0, name="getwchar_unlocked", args=[]
-    ),
+    "getwchar_unlocked": Function(type="wint_t", derefcnt=0, name="getwchar_unlocked", args=[]),
     "getwd": Function(
         type="char",
         derefcnt=1,
@@ -24579,9 +24311,7 @@ _functions = {
             Argument(type="unsigned", derefcnt=0, name="len"),
         ],
     ),
-    "h_errno_location": Function(
-        type="int", derefcnt=1, name="h_errno_location", args=[]
-    ),
+    "h_errno_location": Function(type="int", derefcnt=1, name="h_errno_location", args=[]),
     "handshake_func": Function(
         type="int",
         derefcnt=0,
@@ -28787,9 +28517,7 @@ _functions = {
     "lzma_version_number": Function(
         type="uint32_t", derefcnt=0, name="lzma_version_number", args=[]
     ),
-    "lzma_version_string": Function(
-        type="char", derefcnt=1, name="lzma_version_string", args=[]
-    ),
+    "lzma_version_string": Function(type="char", derefcnt=1, name="lzma_version_string", args=[]),
     "lzma_vli_decode": Function(
         type="lzma_ret",
         derefcnt=0,
@@ -28848,12 +28576,8 @@ _functions = {
         name="malloc",
         args=[Argument(type="size_t", derefcnt=0, name="size")],
     ),
-    "malloc_check_init": Function(
-        type="void", derefcnt=0, name="malloc_check_init", args=[]
-    ),
-    "malloc_get_state": Function(
-        type="void", derefcnt=1, name="malloc_get_state", args=[]
-    ),
+    "malloc_check_init": Function(type="void", derefcnt=0, name="malloc_check_init", args=[]),
+    "malloc_get_state": Function(type="void", derefcnt=1, name="malloc_get_state", args=[]),
     "malloc_hook": Function(
         type="void",
         derefcnt=1,
@@ -29030,9 +28754,7 @@ _functions = {
         name="mcheck",
         args=[Argument(type="void", derefcnt=0, name="abortfunc")],
     ),
-    "mcheck_check_all": Function(
-        type="void", derefcnt=0, name="mcheck_check_all", args=[]
-    ),
+    "mcheck_check_all": Function(type="void", derefcnt=0, name="mcheck_check_all", args=[]),
     "mcheck_pedantic": Function(
         type="int",
         derefcnt=0,
@@ -30944,9 +30666,7 @@ _functions = {
         args=[
             Argument(type="pid_t", derefcnt=1, name="pid"),
             Argument(type="char", derefcnt=1, name="path"),
-            Argument(
-                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
-            ),
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
             Argument(type="posix_spawnattr_t", derefcnt=1, name="attrp"),
             Argument(type="char", derefcnt=2, name="argv"),
             Argument(type="char", derefcnt=2, name="envp"),
@@ -30957,9 +30677,7 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_addclose",
         args=[
-            Argument(
-                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
-            ),
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
             Argument(type="int", derefcnt=0, name="fd"),
         ],
     ),
@@ -30968,9 +30686,7 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_adddup2",
         args=[
-            Argument(
-                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
-            ),
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
             Argument(type="int", derefcnt=0, name="fd"),
             Argument(type="int", derefcnt=0, name="newfd"),
         ],
@@ -30980,9 +30696,7 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_addopen",
         args=[
-            Argument(
-                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
-            ),
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
             Argument(type="int", derefcnt=0, name="fd"),
             Argument(type="char", derefcnt=1, name="path"),
             Argument(type="int", derefcnt=0, name="oflag"),
@@ -30993,17 +30707,13 @@ _functions = {
         type="int",
         derefcnt=0,
         name="posix_spawn_file_actions_destroy",
-        args=[
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")
-        ],
+        args=[Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")],
     ),
     "posix_spawn_file_actions_init": Function(
         type="int",
         derefcnt=0,
         name="posix_spawn_file_actions_init",
-        args=[
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")
-        ],
+        args=[Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")],
     ),
     "posix_spawnattr_destroy": Function(
         type="int",
@@ -31132,9 +30842,7 @@ _functions = {
         args=[
             Argument(type="pid_t", derefcnt=1, name="pid"),
             Argument(type="char", derefcnt=1, name="file"),
-            Argument(
-                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
-            ),
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
             Argument(type="posix_spawnattr_t", derefcnt=1, name="attrp"),
             Argument(type="char", derefcnt=2, name="argv"),
             Argument(type="char", derefcnt=2, name="envp"),
@@ -32350,9 +32058,7 @@ _functions = {
             Argument(type="int", derefcnt=0, name="pshared"),
         ],
     ),
-    "pthread_self": Function(
-        type="pthread_t", derefcnt=0, name="pthread_self", args=[]
-    ),
+    "pthread_self": Function(type="pthread_t", derefcnt=0, name="pthread_self", args=[]),
     "pthread_setaffinity_np": Function(
         type="int",
         derefcnt=0,
@@ -32483,9 +32189,7 @@ _functions = {
         name="pthread_spin_unlock",
         args=[Argument(type="pthread_spinlock_t", derefcnt=1, name="lock")],
     ),
-    "pthread_testcancel": Function(
-        type="void", derefcnt=0, name="pthread_testcancel", args=[]
-    ),
+    "pthread_testcancel": Function(type="void", derefcnt=0, name="pthread_testcancel", args=[]),
     "pthread_timedjoin_np": Function(
         type="int",
         derefcnt=0,
@@ -39040,8 +38744,6 @@ _functions = {
         name="zError",
         args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
-    "zlibCompileFlags": Function(
-        type="uLong", derefcnt=0, name="zlibCompileFlags", args=[]
-    ),
+    "zlibCompileFlags": Function(type="uLong", derefcnt=0, name="zlibCompileFlags", args=[]),
     "zlibVersion": Function(type="char", derefcnt=1, name="zlibVersion", args=[]),
 }

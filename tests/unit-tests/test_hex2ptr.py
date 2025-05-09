@@ -12,9 +12,7 @@ def test_hex2ptr_common_valid_hex():
 
 def test_hex2ptr_common_invalid_hex():
     # Test for odd-length hex string
-    with pytest.raises(
-        ValueError, match="Hex string must contain an even number of characters."
-    ):
+    with pytest.raises(ValueError, match="Hex string must contain an even number of characters."):
         hex2ptr_common("12345")
 
     # Test for invalid hex characters

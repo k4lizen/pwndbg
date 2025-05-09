@@ -26,9 +26,7 @@ def cachedir(namespace: str | None = None) -> str:
 
     Optionally creates a sub namespace inside the pwndbg cache folder.
     """
-    cachehome = os.getenv("XDG_CACHE_HOME") or os.path.join(
-        os.getenv("HOME", ""), ".cache"
-    )
+    cachehome = os.getenv("XDG_CACHE_HOME") or os.path.join(os.getenv("HOME", ""), ".cache")
     cachedir = os.path.join(cachehome, "pwndbg")
     if namespace:
         cachedir = os.path.join(cachedir, namespace)

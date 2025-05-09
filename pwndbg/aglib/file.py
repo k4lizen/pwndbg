@@ -108,9 +108,7 @@ def get_file(path: str, try_local_path: bool = False) -> str:
             # This module originally raised this as an OSError.
             raise OSError(e)
     else:
-        raise OSError(
-            f"get_file('{local_path}') is not supported for your target", errno.ENODEV
-        )
+        raise OSError(f"get_file('{local_path}') is not supported for your target", errno.ENODEV)
 
     return local_path
 
@@ -167,9 +165,7 @@ def is_vfile_qemu_user_bug() -> bool:
     # On a fixed QEMU version, the response is `F-1,24`
     # This performs the syscall: `openat(0, "/\01*256", O_RDONLY|0x20) = -1
     # ENAMETOOLONG (File name too long)`
-    response = pwndbg.dbg.selected_inferior().send_remote(
-        "vFile:open:2f" + ("01" * 256)
-    )
+    response = pwndbg.dbg.selected_inferior().send_remote("vFile:open:2f" + ("01" * 256))
     return response == b"F-1,36"
 
 

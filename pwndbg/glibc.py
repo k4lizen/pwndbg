@@ -86,9 +86,7 @@ def _get_version() -> Tuple[int, ...] | None:
     libc_filename = get_libc_filename_from_info_sharedlibrary()
     if not libc_filename:
         return None
-    result = pwndbg.aglib.elf.dump_section_by_name(
-        libc_filename, ".rodata", try_local_path=True
-    )
+    result = pwndbg.aglib.elf.dump_section_by_name(libc_filename, ".rodata", try_local_path=True)
     if result is None:
         return None
     _, _, data = result
@@ -153,9 +151,7 @@ def dump_elf_data_section() -> Tuple[int, int, bytes] | None:
     if not libc_filename:
         # libc not loaded yet, or it's static linked
         return None
-    return pwndbg.aglib.elf.dump_section_by_name(
-        libc_filename, ".data", try_local_path=True
-    )
+    return pwndbg.aglib.elf.dump_section_by_name(libc_filename, ".data", try_local_path=True)
 
 
 @pwndbg.aglib.proc.OnlyWhenRunning

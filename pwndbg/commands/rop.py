@@ -42,13 +42,15 @@ class RawMemoryBinary(object):
         raise NotImplementedError()
 
     def getExecSections(self):
-        return [{
-            "name": "raw",
-            "offset": 0,
-            "size": len(self.__rawBinary),
-            "vaddr": self.start_addr,
-            "opcodes": bytes(self.__rawBinary),
-        }]
+        return [
+            {
+                "name": "raw",
+                "offset": 0,
+                "size": len(self.__rawBinary),
+                "vaddr": self.start_addr,
+                "opcodes": bytes(self.__rawBinary),
+            }
+        ]
 
     def getDataSections(self):
         raise NotImplementedError()
@@ -97,10 +99,7 @@ def _rop(
     # Find gadgets
     c.do_load(0, silent=True)
 
-    print(
-        "Gadgets"
-        " information\n============================================================"
-    )
+    print("Gadgets" " information\n============================================================")
     for gadget in c.gadgets():
         insts = gadget.get("gadget", "")
         if not insts:
@@ -112,11 +111,7 @@ def _rop(
                 continue
 
         vaddr = gadget["vaddr"]
-        bytesStr = (
-            " // " + binascii.hexlify(gadget["bytes"]).decode("utf8")
-            if options.dump
-            else ""
-        )
+        bytesStr = " // " + binascii.hexlify(gadget["bytes"]).decode("utf8") if options.dump else ""
         print(
             "0x{{0:0{}x}} : {{1}}{{2}}".format(pwndbg.aglib.arch.ptrsize).format(
                 vaddr, insts, bytesStr
@@ -131,9 +126,7 @@ def split_range_to_chunks(
 ) -> Iterator[Tuple[int, int, int, int]]:
     total_parts = ((range_end - range_start) + chunk_size - 1) // chunk_size
 
-    for current_part, range_start_chunk in enumerate(
-        range(range_start, range_end, chunk_size), 1
-    ):
+    for current_part, range_start_chunk in enumerate(range(range_start, range_end, chunk_size), 1):
         range_end_chunk = min(range_start_chunk + chunk_size, range_end)
         range_size = range_end_chunk - range_start_chunk
 
@@ -198,9 +191,7 @@ def iterate_over_pages(
                     page.start, page.end
                 ):
                     if progress_max > 1:
-                        print(
-                            M.hint(f"Dumping memory... {progress_cur} / {progress_max}")
-                        )
+                        print(M.hint(f"Dumping memory... {progress_cur} / {progress_max}"))
 
                     mem_data = proc.read_memory(address=start, size=size)
                     fmem.write(mem_data)
@@ -216,12 +207,8 @@ parser = argparse.ArgumentParser(
     description="Dump ROP gadgets with Jon Salwan's ROPgadget tool.",
 )
 parser.add_argument("--grep", type=str, help="String to grep the output for")
-parser.add_argument(
-    "--memlimit", type=str, default="50MB", help="String to grep the output for"
-)
-parser.add_argument(
-    "argument", nargs="*", type=str, help="Arguments to pass to ROPgadget"
-)
+parser.add_argument("--memlimit", type=str, default="50MB", help="String to grep the output for")
+parser.add_argument("argument", nargs="*", type=str, help="Arguments to pass to ROPgadget")
 
 
 @pwndbg.commands.Command(

@@ -22,9 +22,7 @@ parser.add_argument(
     type=pwndbg.commands.AddressExpr,
     help="Address to dump",
 )
-parser.add_argument(
-    "-x", "--hex", action="store_true", help="Display non-pointer integers as hex"
-)
+parser.add_argument("-x", "--hex", action="store_true", help="Display non-pointer integers as hex")
 parser.add_argument(
     "-f",
     "--decimals",
@@ -37,9 +35,7 @@ parser.add_argument(
     "-d",
     "--debug",
     action="store_true",
-    help=(
-        "Shows debug info, like addresses for slice/map elements, slice capacity, etc."
-    ),
+    help=("Shows debug info, like addresses for slice/map elements, slice capacity, etc."),
 )
 
 parser.add_argument(

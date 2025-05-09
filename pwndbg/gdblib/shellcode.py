@@ -80,9 +80,7 @@ def exec_shellcode(blob, restore_context=True, capture=None, disable_breakpoints
     """
 
     register_set = pwndbg.lib.regs.reg_sets[pwndbg.aglib.arch.name]
-    preserve_set = (
-        register_set.gpr + register_set.args + (register_set.pc, register_set.stack)
-    )
+    preserve_set = register_set.gpr + register_set.args + (register_set.pc, register_set.stack)
 
     registers = {reg: pwndbg.aglib.regs[reg] for reg in preserve_set}
     starting_address = registers[register_set.pc]

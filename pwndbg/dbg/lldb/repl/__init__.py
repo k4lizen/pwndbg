@@ -156,9 +156,7 @@ def show_greeting() -> None:
     lifetime of the program, we know exactly when the greeting needs to be shown,
     so we don't bother with any of the lifetime checks.
     """
-    hint_lines = (
-        "loaded %i pwndbg commands commands." % len(pwndbg.commands.commands),
-    )
+    hint_lines = ("loaded %i pwndbg commands commands." % len(pwndbg.commands.commands),)
 
     for line in hint_lines:
         print(message.prompt("pwndbg: ") + message.system(line))
@@ -166,9 +164,7 @@ def show_greeting() -> None:
     if show_tip:
         colored_tip = color_tip(get_tip_of_the_day())
         print(
-            message.prompt(
-                "------- tip of the day (some of these don't work in LLDB yet!)"
-            )
+            message.prompt("------- tip of the day (some of these don't work in LLDB yet!)")
             + message.system(" (disable with %s)" % message.notice("set show-tips off"))
             + message.prompt(" -------")
         )
@@ -327,9 +323,7 @@ def run(
 
             if action._capture:
                 with BytesIO() as output:
-                    should_continue = exec_repl_command(
-                        action._command, output, dbg, driver, relay
-                    )
+                    should_continue = exec_repl_command(action._command, output, dbg, driver, relay)
                     last_result = output.getvalue()
             else:
                 should_continue = exec_repl_command(
@@ -446,11 +440,7 @@ def exec_repl_command(
             # This is `process attach`.
             process_attach(driver, relay, bits[2:], dbg)
             return True
-        if (
-            len(bits) > 1
-            and bits[1].startswith("conn")
-            and "connect".startswith(bits[1])
-        ):
+        if len(bits) > 1 and bits[1].startswith("conn") and "connect".startswith(bits[1]):
             # This is `process connect`.
             process_connect(driver, relay, bits[2:], dbg)
             return True
@@ -543,15 +533,11 @@ def exec_repl_command(
             # LLDB can give us strings that may fail to encode.
             out = ret.GetOutput().strip()
             if len(out) > 0:
-                lldb_out_target.write(
-                    out.encode(sys.stdout.encoding, errors="backslashreplace")
-                )
+                lldb_out_target.write(out.encode(sys.stdout.encoding, errors="backslashreplace"))
                 lldb_out_target.write(b"\n")
             out = ret.GetError().strip()
             if len(out) > 0:
-                lldb_out_target.write(
-                    out.encode(sys.stdout.encoding, errors="backslashreplace")
-                )
+                lldb_out_target.write(out.encode(sys.stdout.encoding, errors="backslashreplace"))
                 lldb_out_target.write(b"\n")
 
     # At this point, the last command might've queued up some execution
@@ -582,9 +568,7 @@ def exec_repl_command(
     return True
 
 
-def parse(
-    args: List[str], parser: argparse.ArgumentParser, unsupported: List[str]
-) -> Any | None:
+def parse(args: List[str], parser: argparse.ArgumentParser, unsupported: List[str]) -> Any | None:
     """
     Parses a list of string arguments into an object containing the parsed
     data.
@@ -713,9 +697,7 @@ def target_create(args: List[str], dbg: LLDB) -> None:
     if args.platform == "qemu-user":
         arch = triple.split("-")[0]
         # Without setting it qemu-user don't work ;(
-        dbg._execute_lldb_command(
-            f"settings set platform.plugin.qemu-user.architecture {arch}"
-        )
+        dbg._execute_lldb_command(f"settings set platform.plugin.qemu-user.architecture {arch}")
 
     if args.platform:
         dbg.debugger.SetCurrentPlatform(args.platform)
@@ -729,17 +711,11 @@ def target_create(args: List[str], dbg: LLDB) -> None:
         args.filename, triple, args.platform, True, error
     )
     if not error.success or not target.IsValid():
-        print(
-            message.error(
-                f"could not create target for '{args.filename}': {error.description}"
-            )
-        )
+        print(message.error(f"could not create target for '{args.filename}': {error.description}"))
         return
 
     dbg.debugger.SetSelectedTarget(target)
-    print(
-        f"Current executable set to '{args.filename}' ({target.triple.split('-')[0]})"
-    )
+    print(f"Current executable set to '{args.filename}' ({target.triple.split('-')[0]})")
     return
 
 
@@ -780,9 +756,7 @@ process_launch_unsupported = [
 ]
 
 
-def process_launch(
-    driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB
-) -> None:
+def process_launch(driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB) -> None:
     """
     Launches a process with the given arguments.
     """
@@ -793,11 +767,7 @@ def process_launch(
     targets = dbg.debugger.GetNumTargets()
     assert targets < 2
     if targets == 0:
-        print(
-            message.error(
-                "error: no target, create one using the 'target create' command"
-            )
-        )
+        print(message.error("error: no target, create one using the 'target create' command"))
         return
 
     if driver.has_process():
@@ -880,11 +850,7 @@ def _attach_with_info(
     targets = dbg.debugger.GetNumTargets()
     assert targets < 2
     if targets == 0:
-        print(
-            message.error(
-                "error: no target, create one using the 'target create' command"
-            )
-        )
+        print(message.error("error: no target, create one using the 'target create' command"))
         return
 
     # TODO/FIXME: This should ask:
@@ -915,9 +881,7 @@ def _attach_with_info(
         dbg._trigger_event(EventType.STOP)
 
 
-def process_attach(
-    driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB
-) -> None:
+def process_attach(driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB) -> None:
     """
     Attaches to a process with the given arguments.
     """
@@ -944,9 +908,7 @@ def process_attach(
     _attach_with_info(driver, relay, dbg, info, cont=do_continue)
 
 
-def attach(
-    driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB
-) -> None:
+def attach(driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB) -> None:
     """
     Attaches to a process with the given name or pid based on regex match.
     Used for `_regexp-attach <pid|name>` (alias for `attach <pid|name>`)
@@ -976,9 +938,7 @@ process_connect_ap.add_argument("-p", "--plugin")
 process_connect_ap.add_argument("remoteurl")
 
 
-def process_connect(
-    driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB
-) -> None:
+def process_connect(driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB) -> None:
     """
     Connects to the given remote process.
     """
@@ -1043,11 +1003,7 @@ def process_connect(
     error = driver.connect(target, io_driver, args.remoteurl, "gdb-remote")
 
     if not error.success:
-        print(
-            message.error(
-                f"error: could not connect to remote process: {error.description}"
-            )
-        )
+        print(message.error(f"error: could not connect to remote process: {error.description}"))
         if created_target:
             # Delete the target we previously created.
             assert dbg.debugger.DeleteTarget(
@@ -1064,9 +1020,7 @@ gdb_remote_ap = argparse.ArgumentParser(add_help=False)
 gdb_remote_ap.add_argument("remoteurl")
 
 
-def gdb_remote(
-    driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB
-) -> None:
+def gdb_remote(driver: ProcessDriver, relay: EventRelay, args: List[str], dbg: LLDB) -> None:
     """
     Like `process_connect`, but more lenient with the remote URL format.
     """

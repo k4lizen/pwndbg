@@ -52,9 +52,7 @@ FMT_LITTLE_ENDIAN = {1: "B", 2: "<H", 4: "<I", 8: "<Q"}
 FMT_BIG_ENDIAN = {1: "B", 2: ">H", 4: ">I", 8: ">Q"}
 
 
-registered_architectures: Dict[
-    PWNDBG_SUPPORTED_ARCHITECTURES_TYPE, PwndbgArchitecture
-] = {}
+registered_architectures: Dict[PWNDBG_SUPPORTED_ARCHITECTURES_TYPE, PwndbgArchitecture] = {}
 
 
 def register_arch(arch: PwndbgArchitecture):
@@ -138,9 +136,7 @@ class PwndbgArchitecture(ArchDefinition):
         self.syscall_abi = SYSCALL_ABIS.get(default_abi_identifer)
         self.sigreturn_abi = SIGRETURN_ABIS.get(default_abi_identifer)
 
-        self.fmts: Dict[int, str] = (
-            FMT_LITTLE_ENDIAN if self.endian == "little" else FMT_BIG_ENDIAN
-        )
+        self.fmts: Dict[int, str] = FMT_LITTLE_ENDIAN if self.endian == "little" else FMT_BIG_ENDIAN
         self.fmt: str = self.fmts[self.ptrsize]
 
     def pack(self, integer: int) -> bytes:

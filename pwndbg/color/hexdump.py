@@ -31,9 +31,7 @@ config_highlight_group_lsb = theme.add_param(
     "hexdump-highlight-group-lsb",
     "underline",
     "highlight LSB of each group",
-    help_docstring=(
-        "Applies only if hexdump-use-big-endian actually changes byte order."
-    ),
+    help_docstring=("Applies only if hexdump-use-big-endian actually changes byte order."),
 )
 
 

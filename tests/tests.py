@@ -111,9 +111,7 @@ def get_tests_list(
         gdb_args.extend(["--init-command", gdbinit_path])
 
     env = os.environ.copy()
-    env["TESTS_PATH"] = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), test_dir_path
-    )
+    env["TESTS_PATH"] = os.path.join(os.path.dirname(os.path.realpath(__file__)), test_dir_path)
 
     result = run_gdb(gdb_path, gdb_args, env=env)
     tests_collect_output = result.stdout
@@ -227,16 +225,12 @@ def run_tests_and_print_stats(
     else:
         print("")
         print("Running tests in parallel")
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=os.cpu_count()
-        ) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
             for test in tests_list:
                 executor.submit(
                     run_test, test, args, gdb_path, gdbinit_path, reserve_port()
                 ).add_done_callback(
-                    lambda future: stats.handle_test_result(
-                        future.result(), args, test_dir_path
-                    )
+                    lambda future: stats.handle_test_result(future.result(), args, test_dir_path)
                 )
 
     end = time.time()
@@ -259,9 +253,7 @@ def run_tests_and_print_stats(
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run tests.")
-    parser.add_argument(
-        "-t", "--type", dest="type", choices=["gdb", "cross-arch"], default="gdb"
-    )
+    parser.add_argument("-t", "--type", dest="type", choices=["gdb", "cross-arch"], default="gdb")
 
     parser.add_argument(
         "-p",

@@ -60,10 +60,7 @@ def test_emulate_disasm_loop(start_binary):
             "   0x40008a <_start+10>    mov    rdi, rsp                             "
             f" RDI => {hex(pwndbg.aglib.regs.rsp)} ◂— 1"
         ),
-        (
-            "   0x40008d <_start+13>    mov    ecx, 3                               "
-            " ECX => 3"
-        ),
+        ("   0x40008d <_start+13>    mov    ecx, 3                               " " ECX => 3"),
         "   0x400092 <_start+18>    rep movsb byte ptr [rdi], byte ptr [rsi]",
         "    ↓",
         "   0x400092 <_start+18>    rep movsb byte ptr [rdi], byte ptr [rsi]",
@@ -83,10 +80,7 @@ def test_emulate_disasm_loop(start_binary):
             "RSI => 0x400094 (string) ◂— xor dword ptr [rdx], esi /* '12345' */"
         ),
         "   0x40008a <_start+10>    mov    rdi, rsp",
-        (
-            "   0x40008d <_start+13>    mov    ecx, 3                               "
-            " ECX => 3"
-        ),
+        ("   0x40008d <_start+13>    mov    ecx, 3                               " " ECX => 3"),
         "   0x400092 <_start+18>    rep movsb byte ptr [rdi], byte ptr [rsi]",
         "   0x400094 <string>       xor    dword ptr [rdx], esi",
         "   0x400096 <string+2>     xor    esi, dword ptr [rsi]",

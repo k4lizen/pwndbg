@@ -89,13 +89,10 @@ def dt(
                 if ftype.code == pwndbg.dbg_mod.TypeCode.INT:
                     extra = hex(int(obj_value))
                 elif (
-                    ftype.code
-                    in (pwndbg.dbg_mod.TypeCode.POINTER, pwndbg.dbg_mod.TypeCode.ARRAY)
+                    ftype.code in (pwndbg.dbg_mod.TypeCode.POINTER, pwndbg.dbg_mod.TypeCode.ARRAY)
                     and ftype.target() == pwndbg.aglib.typeinfo.uchar
                 ):
-                    data = pwndbg.aglib.memory.read(
-                        int(obj_value.address), ftype.sizeof
-                    )
+                    data = pwndbg.aglib.memory.read(int(obj_value.address), ftype.sizeof)
                     extra = " ".join("%02x" % b for b in data)
                 else:
                     extra = obj_value.value_to_human_readable()

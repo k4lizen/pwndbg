@@ -11,12 +11,8 @@ import pwndbg.commands
 import pwndbg.commands.telescope
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(
-    description="Prints determined arguments for call instruction."
-)
-parser.add_argument(
-    "-f", "--force", action="store_true", help="Force displaying of all arguments."
-)
+parser = argparse.ArgumentParser(description="Prints determined arguments for call instruction.")
+parser.add_argument("-f", "--force", action="store_true", help="Force displaying of all arguments.")
 
 
 @pwndbg.commands.Command(parser, aliases=["args"], category=CommandCategory.MISC)
