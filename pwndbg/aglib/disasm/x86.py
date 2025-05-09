@@ -183,7 +183,8 @@ class X86DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             left.before_value_resolved is not None
             and right.before_value_resolved is not None
         ):
-            # Display the exchanged values. Doing it this way (instead of using .after_value) allows this to work without emulation
+            # Display the exchanged values. Doing it this way (instead of using .after_value)
+            # allows this to work without emulation
             # Don't telescope here for the sake of screen space
             instruction.annotation = (
                 memory_or_register_assign(

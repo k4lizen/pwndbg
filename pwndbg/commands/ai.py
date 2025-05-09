@@ -291,7 +291,8 @@ def build_context_prompt_body():
 """
 
     if source:
-        prompt += f"""Here is the {"decompiled " if decompile else ""}source code near the current instruction:
+        prompt += f"Here is the {'decompiled ' if decompile else ''}"
+        prompt += f"""source code near the current instruction:
 
 ```
 {source}
@@ -301,7 +302,10 @@ def build_context_prompt_body():
 
 
 def build_command_prompt_body(command):
-    prompt = f"""Running the command `{command}` in the GDB debugger yields the following output:\n"""
+    prompt = (
+        f"Running the command `{command}` in the GDB "
+        "debugger yields the following output:\n"
+    )
     output = gdb.execute(command, to_string=True)
     print(output)
     prompt += f"""\n```\n{output}\n```\n\n"""
