@@ -12,7 +12,12 @@ from pwndbg.commands import CommandCategory
 parser = argparse.ArgumentParser(description="Assemble shellcode into bytes")
 
 parser.add_argument(
-    "-f", "--format", default="hex", choices=["hex", "string"], type=str, help="Output format"
+    "-f",
+    "--format",
+    default="hex",
+    choices=["hex", "string"],
+    type=str,
+    help="Output format",
 )
 
 parser.add_argument(
@@ -53,7 +58,9 @@ input_group.add_argument(
     "shellcode", default=[], nargs="*", type=str, help="Assembler code to assemble"
 )
 
-input_group.add_argument("-i", "--infile", default=None, type=str, help="Specify input file")
+input_group.add_argument(
+    "-i", "--infile", default=None, type=str, help="Specify input file"
+)
 
 
 @pwndbg.commands.Command(parser, command_name="asm", category=CommandCategory.MISC)

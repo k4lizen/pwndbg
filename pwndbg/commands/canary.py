@@ -47,9 +47,15 @@ def canary(all) -> None:
         return
 
     print(
-        message.notice("AT_RANDOM = %#x # points to (not masked) global canary value" % at_random)
+        message.notice(
+            "AT_RANDOM = %#x # points to (not masked) global canary value" % at_random
+        )
     )
-    print(message.notice("Canary    = 0x%x (may be incorrect on != glibc)" % global_canary))
+    print(
+        message.notice(
+            "Canary    = 0x%x (may be incorrect on != glibc)" % global_canary
+        )
+    )
 
     found_canaries = False
     global_canary_packed = pwndbg.aglib.arch.pack(global_canary)

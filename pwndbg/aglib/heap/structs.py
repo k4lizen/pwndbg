@@ -40,7 +40,9 @@ if pwndbg.aglib.arch.name == "i386" and GLIBC_VERSION >= (2, 26):
 else:
     # See https://elixir.bootlin.com/glibc/glibc-2.37/source/sysdeps/generic/malloc-alignment.h#L27
     long_double_alignment = pwndbg.aglib.typeinfo.lookup_types("long double").alignof
-    MALLOC_ALIGN = long_double_alignment if 2 * SIZE_SZ < long_double_alignment else 2 * SIZE_SZ
+    MALLOC_ALIGN = (
+        long_double_alignment if 2 * SIZE_SZ < long_double_alignment else 2 * SIZE_SZ
+    )
 
 MALLOC_ALIGN_MASK = MALLOC_ALIGN - 1
 MAX_FAST_SIZE = 80 * SIZE_SZ // 4
@@ -179,7 +181,9 @@ class CStruct2GDB:
             return pwndbg.aglib.memory.get_typed_pointer_value(
                 t.array(field_type._length_), field_address
             )
-        return pwndbg.aglib.memory.get_typed_pointer_value(C2GDB_MAPPING[field_type], field_address)
+        return pwndbg.aglib.memory.get_typed_pointer_value(
+            C2GDB_MAPPING[field_type], field_address
+        )
 
     @property
     def type(self):
@@ -240,7 +244,9 @@ class CStruct2GDB:
         """
         Returns a tuple of (field name, field value) pairs.
         """
-        return tuple((field[0], getattr(self, field[0])) for field in self._c_struct._fields_)
+        return tuple(
+            (field[0], getattr(self, field[0])) for field in self._c_struct._fields_
+        )
 
     @classmethod
     def has_field(self, field: str) -> bool:
@@ -981,10 +987,14 @@ DEFAULT_MP_.n_mmaps_max = DEFAULT_MMAP_MAX
 DEFAULT_MP_.mmap_threshold = DEFAULT_MMAP_THRESHOLD
 DEFAULT_MP_.trim_threshold = DEFAULT_TRIM_THRESHOLD
 DEFAULT_MP_.arena_test = 2 if pwndbg.aglib.arch.ptrsize == 4 else 8
-if (MallocPar._c_struct != c_malloc_par_2_23) and (MallocPar._c_struct != c_malloc_par_2_12):
+if (MallocPar._c_struct != c_malloc_par_2_23) and (
+    MallocPar._c_struct != c_malloc_par_2_12
+):
     # the only difference between 2.23 and the rest is the lack of tcache
     DEFAULT_MP_.tcache_count = TCACHE_FILL_COUNT
     DEFAULT_MP_.tcache_bins = TCACHE_MAX_BINS
-    DEFAULT_MP_.tcache_max_bytes = (TCACHE_MAX_BINS - 1) * MALLOC_ALIGN + MINSIZE - SIZE_SZ
+    DEFAULT_MP_.tcache_max_bytes = (
+        (TCACHE_MAX_BINS - 1) * MALLOC_ALIGN + MINSIZE - SIZE_SZ
+    )
 if MallocPar._c_struct == c_malloc_par_2_12:
     DEFAULT_MP_.pagesize = DEFAULT_PAGE_SIZE

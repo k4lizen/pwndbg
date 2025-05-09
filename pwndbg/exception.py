@@ -70,9 +70,10 @@ def inform_report_issue(exception_msg) -> None:
     """
     print(
         message.notice(
-            "If that is an issue, you can report it on https://github.com/pwndbg/pwndbg/issues\n"
-            "(Please don't forget to search if it hasn't been reported before)\n"
-            "To generate the report and open a browser, you may run "
+            "If that is an issue, you can report it on"
+            " https://github.com/pwndbg/pwndbg/issues\n(Please don't forget to search"
+            " if it hasn't been reported before)\nTo generate the report and open a"
+            " browser, you may run "
         )
         + message.hint("`bugreport --run-browser`")
         + message.notice("\nPS: Pull requests are welcome")
@@ -128,7 +129,9 @@ def handle(name="Error"):
 def set_trace() -> None:
     """Enable sane debugging in Pwndbg by switching to the "real" stdio."""
     debugger = pdb.Pdb(
-        stdin=sys.__stdin__, stdout=sys.__stdout__, skip=["pwndbg.lib.stdio", "pwndbg.exception"]
+        stdin=sys.__stdin__,
+        stdout=sys.__stdout__,
+        skip=["pwndbg.lib.stdio", "pwndbg.exception"],
     )
     debugger.set_trace()
 

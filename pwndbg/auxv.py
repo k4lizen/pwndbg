@@ -59,7 +59,10 @@ example_info_auxv_linux = """
 
 @pwndbg.lib.cache.cache_until("objfile", "start")
 def get() -> AUXV:
-    if not pwndbg.dbg.selected_inferior().is_linux() or pwndbg.aglib.qemu.is_qemu_kernel():
+    if (
+        not pwndbg.dbg.selected_inferior().is_linux()
+        or pwndbg.aglib.qemu.is_qemu_kernel()
+    ):
         return AUXV()
 
     return use_info_auxv() or procfs_auxv() or explore_stack_auxv() or AUXV()
@@ -128,11 +131,11 @@ def explore_stack_auxv() -> AUXV | None:
     if auto_explore.value == "warn":
         print(
             M.warn(
-                "Warning: All methods to detect AUXV have failed.\n"
-                "You can explore AUXV using stack exploration, but it may be very slow.\n"
-                "To explicitly explore, use the command: `auxv-explore`\n"
-                "Alternatively, enable it by default with: `set auto-explore-auxv yes`\n\n"
-                "Note: AUXV is probably not necessary for debugging firmware or embedded systems."
+                "Warning: All methods to detect AUXV have failed.\nYou can explore AUXV"
+                " using stack exploration, but it may be very slow.\nTo explicitly"
+                " explore, use the command: `auxv-explore`\nAlternatively, enable it by"
+                " default with: `set auto-explore-auxv yes`\n\nNote: AUXV is probably"
+                " not necessary for debugging firmware or embedded systems."
             )
         )
         return None
@@ -164,7 +167,11 @@ def walk_stack2(offset: int = 0) -> AUXV:
     # 5) Vacuum up between the two.
     #
     end = pwndbg.aglib.stack.find_upper_stack_boundary(sp)
-    p = pwndbg.dbg.selected_inferior().create_value(end).cast(pwndbg.aglib.typeinfo.ulong.pointer())
+    p = (
+        pwndbg.dbg.selected_inferior()
+        .create_value(end)
+        .cast(pwndbg.aglib.typeinfo.ulong.pointer())
+    )
 
     p -= offset
 

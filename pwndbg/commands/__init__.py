@@ -105,7 +105,9 @@ class CommandFormatter(argparse.RawDescriptionHelpFormatter):
                 action.type is bool or isinstance(action.default, bool)
             ) and not action.default
             is_none = action.default is None
-            if action.default is not argparse.SUPPRESS and not (is_false_bool or is_none):
+            if action.default is not argparse.SUPPRESS and not (
+                is_false_bool or is_none
+            ):
                 defaulting_nargs = [argparse.OPTIONAL, argparse.ZERO_OR_MORE]
                 if action.option_strings or action.nargs in defaulting_nargs:
                     if action.type is str:
@@ -153,7 +155,9 @@ class CommandObj:
             # which defines it, but replace '_' with '-'.
             self.command_name = function.__name__.replace("_", "-")
 
-        assert "_" not in self.command_name and "Use '-' instead of '_' in command names."
+        assert (
+            "_" not in self.command_name and "Use '-' instead of '_' in command names."
+        )
         assert self.command_name not in command_names and "Command already exists."
         assert (
             not (
@@ -197,7 +201,9 @@ class CommandObj:
         self.handles = []
 
         # Tell the debugger about the command...
-        self.handles.append(pwndbg.dbg.add_command(self.command_name, _handler, self.help_str))
+        self.handles.append(
+            pwndbg.dbg.add_command(self.command_name, _handler, self.help_str)
+        )
         # ...and all of its aliases.
         for alias in self.aliases:
             self.handles.append(pwndbg.dbg.add_command(alias, _handler, self.help_str))
@@ -384,7 +390,10 @@ class Command:
         # If this command is not valid for this debugger, do not even
         # pass it to ComandObj to be registered with the debugger API.
         # Also make sure it raises an error if it is called from the code.
-        if self.only_debuggers is not None and pwndbg.dbg.name() not in self.only_debuggers:
+        if (
+            self.only_debuggers is not None
+            and pwndbg.dbg.name() not in self.only_debuggers
+        ):
 
             def decorator(*args, **kwargs):
                 raise InvalidDebuggerError(
@@ -393,7 +402,10 @@ class Command:
                 )
 
             return decorator  # type: ignore[return-value]
-        if self.exclude_debuggers is not None and pwndbg.dbg.name() in self.exclude_debuggers:
+        if (
+            self.exclude_debuggers is not None
+            and pwndbg.dbg.name() in self.exclude_debuggers
+        ):
 
             def decorator(*args, **kwargs):
                 raise InvalidDebuggerError(
@@ -417,7 +429,10 @@ class Command:
 
 
 def fix(
-    arg: pwndbg.dbg_mod.Value | str, sloppy: bool = False, quiet: bool = True, reraise: bool = False
+    arg: pwndbg.dbg_mod.Value | str,
+    sloppy: bool = False,
+    quiet: bool = True,
+    reraise: bool = False,
 ) -> str | pwndbg.dbg_mod.Value | None:
     """Fix a single command-line argument coming from the CLI.
 
@@ -501,7 +516,9 @@ def fix_reraise_arg(arg) -> pwndbg.dbg_mod.Value:
         assert isinstance(fixed, pwndbg.dbg_mod.Value)
         return fixed
     except pwndbg.dbg_mod.Error as dbge:
-        raise argparse.ArgumentTypeError(f"debugger couldn't resolve argument '{arg}': {dbge}")
+        raise argparse.ArgumentTypeError(
+            f"debugger couldn't resolve argument '{arg}': {dbge}"
+        )
 
 
 def fix_int(*a, **kw) -> int:
@@ -519,7 +536,8 @@ def fix_int_reraise_arg(arg) -> int:
         return int(fixed)
     except pwndbg.dbg_mod.Error as e:
         raise argparse.ArgumentTypeError(
-            f"couldn't convert '{arg}' ({fixed.type.name_to_human_readable}) to int: {e}"
+            f"couldn't convert '{arg}' ({fixed.type.name_to_human_readable}) to"
+            f" int: {e}"
         )
 
 
@@ -566,7 +584,8 @@ def OnlyWhenQemuKernel(function: Callable[P, T]) -> Callable[P, Optional[T]]:
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This command may only be run when debugging the Linux kernel in QEMU."
+                f"{func_name(function)}: This command may only be run when debugging"
+                " the Linux kernel in QEMU."
             )
             return None
 
@@ -580,7 +599,8 @@ def OnlyWhenUserspace(function: Callable[P, T]) -> Callable[P, Optional[T]]:
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This command may only be run when not debugging a QEMU kernel target."
+                f"{func_name(function)}: This command may only be run when not"
+                " debugging a QEMU kernel target."
             )
             return None
 
@@ -594,7 +614,8 @@ def OnlyWithKernelDebugSyms(function: Callable[P, T]) -> Callable[P, Optional[T]
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This command may only be run when debugging a Linux kernel with debug symbols."
+                f"{func_name(function)}: This command may only be run when debugging a"
+                " Linux kernel with debug symbols."
             )
             return None
 
@@ -608,7 +629,8 @@ def OnlyWhenPagingEnabled(function: Callable[P, T]) -> Callable[P, Optional[T]]:
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This command may only be run when paging is enabled."
+                f"{func_name(function)}: This command may only be run when paging is"
+                " enabled."
             )
             return None
 
@@ -636,7 +658,8 @@ def OnlyWithTcache(function: Callable[P, T]) -> Callable[P, Optional[T]]:
             return function(*a, **kw)
         else:
             log.error(
-                f"{func_name(function)}: This version of GLIBC was not compiled with tcache support."
+                f"{func_name(function)}: This version of GLIBC was not compiled with"
+                " tcache support."
             )
             return None
 
@@ -646,7 +669,10 @@ def OnlyWithTcache(function: Callable[P, T]) -> Callable[P, Optional[T]]:
 def OnlyWhenHeapIsInitialized(function: Callable[P, T]) -> Callable[P, Optional[T]]:
     @functools.wraps(function)
     def _OnlyWhenHeapIsInitialized(*a: P.args, **kw: P.kwargs) -> Optional[T]:
-        if pwndbg.aglib.heap.current is not None and pwndbg.aglib.heap.current.is_initialized():
+        if (
+            pwndbg.aglib.heap.current is not None
+            and pwndbg.aglib.heap.current.is_initialized()
+        ):
             return function(*a, **kw)
         else:
             log.error(f"{func_name(function)}: Heap is not initialized yet.")
@@ -655,7 +681,9 @@ def OnlyWhenHeapIsInitialized(function: Callable[P, T]) -> Callable[P, Optional[
     return _OnlyWhenHeapIsInitialized
 
 
-def _try2run_heap_command(function: Callable[P, T], *a: P.args, **kw: P.kwargs) -> T | None:
+def _try2run_heap_command(
+    function: Callable[P, T], *a: P.args, **kw: P.kwargs
+) -> T | None:
     e = log.error
     w = log.warning
     # Note: We will still raise the error for developers when exception-* is set to "on"
@@ -665,30 +693,39 @@ def _try2run_heap_command(function: Callable[P, T], *a: P.args, **kw: P.kwargs) 
         e(f"{func_name(function)}: Fail to resolve the symbol: `{err.symbol}`")
         if "thread_arena" == err.symbol:
             w(
-                "You are probably debugging a multi-threaded target without debug symbols,"
-                " so we failed to determine which arena is used by the current thread.\n"
-                "To resolve this issue, you can use the `arenas` command to list all arenas,"
-                " and use `set thread-arena <addr>` to set the current thread's arena address"
-                " you think is correct.\n"
+                "You are probably debugging a multi-threaded target without debug"
+                " symbols, so we failed to determine which arena is used by the current"
+                " thread.\nTo resolve this issue, you can use the `arenas` command to"
+                " list all arenas, and use `set thread-arena <addr>` to set the current"
+                " thread's arena address you think is correct.\n"
             )
         else:
             w(
-                f"You can try to determine the libc symbols addresses manually and set them"
-                " appropriately. For this, see the `heap-config` command output and set the"
-                f" config for `{err.symbol}`."
+                "You can try to determine the libc symbols addresses manually and set"
+                " them appropriately. For this, see the `heap-config` command output"
+                f" and set the config for `{err.symbol}`."
             )
         if pwndbg.config.exception_verbose or pwndbg.config.exception_debugger:
             raise err
 
         pwndbg.exception.inform_verbose_and_debug()
     except Exception as err:
-        e(f"{func_name(function)}: An unknown error occurred when running this command.")
+        e(
+            f"{func_name(function)}: An unknown error occurred when running this"
+            " command."
+        )
         if isinstance(pwndbg.aglib.heap.current, HeuristicHeap):
             w(
-                "Maybe you can try to determine the libc symbols addresses manually, set them appropriately and re-run this command. For this, see the `heap-config` command output and set the `main_arena`, `mp_`, `global_max_fast`, `tcache` and `thread_arena` addresses."
+                "Maybe you can try to determine the libc symbols addresses manually,"
+                " set them appropriately and re-run this command. For this, see the"
+                " `heap-config` command output and set the `main_arena`, `mp_`,"
+                " `global_max_fast`, `tcache` and `thread_arena` addresses."
             )
         else:
-            w("You can try `set resolve-heap-via-heuristic force` and re-run this command.\n")
+            w(
+                "You can try `set resolve-heap-via-heuristic force` and re-run this"
+                " command.\n"
+            )
         if pwndbg.config.exception_verbose or pwndbg.config.exception_debugger:
             raise err
 
@@ -726,46 +763,60 @@ def OnlyWithResolvedHeapSyms(function: Callable[P, T]) -> Callable[P, T | None]:
                 if heuristic_heap.can_be_resolved():
                     pwndbg.aglib.heap.current = heuristic_heap
                     w(
-                        "pwndbg will try to resolve the heap symbols via heuristic now since we cannot resolve the heap via the debug symbols.\n"
-                        "This might not work in all cases. Use `help set resolve-heap-via-heuristic` for more details.\n"
+                        "pwndbg will try to resolve the heap symbols via heuristic now"
+                        " since we cannot resolve the heap via the debug symbols.\nThis"
+                        " might not work in all cases. Use `help set"
+                        " resolve-heap-via-heuristic` for more details.\n"
                     )
                     return _try2run_heap_command(function, *a, **kw)
                 elif static:
                     e(
-                        "Can't find GLIBC version required for this command to work since this is a statically linked binary"
+                        "Can't find GLIBC version required for this command to work"
+                        " since this is a statically linked binary"
                     )
                     w(
-                        "Please set the GLIBC version you think the target binary was compiled (using `set glibc <version>` command; e.g. 2.32) and re-run this command."
+                        "Please set the GLIBC version you think the target binary was"
+                        " compiled (using `set glibc <version>` command; e.g. 2.32) and"
+                        " re-run this command."
                     )
                 else:
                     e(
-                        "Can't find GLIBC version required for this command to work, maybe is because GLIBC is not loaded yet."
+                        "Can't find GLIBC version required for this command to work,"
+                        " maybe is because GLIBC is not loaded yet."
                     )
                     w(
-                        "If you believe the GLIBC is loaded or this is a statically linked binary. "
-                        "Please set the GLIBC version you think the target binary was compiled (using `set glibc <version>` command; e.g. 2.32) and re-run this command"
+                        "If you believe the GLIBC is loaded or this is a statically"
+                        " linked binary. Please set the GLIBC version you think the"
+                        " target binary was compiled (using `set glibc <version>`"
+                        " command; e.g. 2.32) and re-run this command"
                     )
             elif (
                 isinstance(pwndbg.aglib.heap.current, DebugSymsHeap)
                 and pwndbg.config.resolve_heap_via_heuristic == "force"
             ):
                 e(
-                    "You are forcing to resolve the heap symbols via heuristic, but we cannot resolve the heap via the debug symbols."
+                    "You are forcing to resolve the heap symbols via heuristic, but we"
+                    " cannot resolve the heap via the debug symbols."
                 )
                 w("Use `set resolve-heap-via-heuristic auto` and re-run this command.")
             elif pwndbg.glibc.get_version() is None:
                 if static:
                     e("Can't resolve the heap since the GLIBC version is not set.")
                     w(
-                        "Please set the GLIBC version you think the target binary was compiled (using `set glibc <version>` command; e.g. 2.32) and re-run this command."
+                        "Please set the GLIBC version you think the target binary was"
+                        " compiled (using `set glibc <version>` command; e.g. 2.32) and"
+                        " re-run this command."
                     )
                 else:
                     e(
-                        "Can't find GLIBC version required for this command to work, maybe is because GLIBC is not loaded yet."
+                        "Can't find GLIBC version required for this command to work,"
+                        " maybe is because GLIBC is not loaded yet."
                     )
                     w(
-                        "If you believe the GLIBC is loaded or this is a statically linked binary. "
-                        "Please set the GLIBC version you think the target binary was compiled (using `set glibc <version>` command; e.g. 2.32) and re-run this command"
+                        "If you believe the GLIBC is loaded or this is a statically"
+                        " linked binary. Please set the GLIBC version you think the"
+                        " target binary was compiled (using `set glibc <version>`"
+                        " command; e.g. 2.32) and re-run this command"
                     )
             else:
                 # Note: Should not see this error, but just in case

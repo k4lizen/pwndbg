@@ -175,7 +175,9 @@ class ColorConfig:
         if param_name in self._params:
             return generateColorFunction(self._params[param_name])
 
-        raise AttributeError(f"ColorConfig object for {self._namespace} has no attribute '{attr}'")
+        raise AttributeError(
+            f"ColorConfig object for {self._namespace} has no attribute '{attr}'"
+        )
 
 
 def generateColorFunction(

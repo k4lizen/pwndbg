@@ -40,7 +40,10 @@ safe_lnk = pwndbg.config.add_param(
 )
 
 glibc_version = pwndbg.config.add_param(
-    "glibc", "", "glibc version for heap heuristics resolution (e.g. 2.31)", scope=Scope.heap
+    "glibc",
+    "",
+    "glibc version for heap heuristics resolution (e.g. 2.31)",
+    scope=Scope.heap,
 )
 
 
@@ -53,7 +56,7 @@ def set_glibc_version() -> None:
     print(
         message.warn(
             f"Invalid GLIBC version: `{glibc_version.value}`,"
-            f" you should provide something like: 2.31 or 2.34"
+            " you should provide something like: 2.31 or 2.34"
         )
     )
     glibc_version.revert_default()
@@ -83,7 +86,9 @@ def _get_version() -> Tuple[int, ...] | None:
     libc_filename = get_libc_filename_from_info_sharedlibrary()
     if not libc_filename:
         return None
-    result = pwndbg.aglib.elf.dump_section_by_name(libc_filename, ".rodata", try_local_path=True)
+    result = pwndbg.aglib.elf.dump_section_by_name(
+        libc_filename, ".rodata", try_local_path=True
+    )
     if result is None:
         return None
     _, _, data = result
@@ -127,8 +132,8 @@ def get_libc_filename_from_info_sharedlibrary() -> str | None:
             # Some common libc names: libc-2.36.so, libc6_2.36-0ubuntu4_amd64.so, libc.so
             possible_libc_path.append(
                 path
-            # We don't return it, maybe there is a libc.so.6 and this match is just a
-            # false positive.
+                # We don't return it, maybe there is a libc.so.6 and this match is just a
+                # false positive.
             )
     # TODO: This might fail if user use LD_PRELOAD to load libc with a weird name
     # or there are multiple shared libraries match the pattern.
@@ -148,12 +153,16 @@ def dump_elf_data_section() -> Tuple[int, int, bytes] | None:
     if not libc_filename:
         # libc not loaded yet, or it's static linked
         return None
-    return pwndbg.aglib.elf.dump_section_by_name(libc_filename, ".data", try_local_path=True)
+    return pwndbg.aglib.elf.dump_section_by_name(
+        libc_filename, ".data", try_local_path=True
+    )
 
 
 @pwndbg.aglib.proc.OnlyWhenRunning
 @pwndbg.lib.cache.cache_until("start", "objfile")
-def dump_relocations_by_section_name(section_name: str) -> Tuple[Relocation, ...] | None:
+def dump_relocations_by_section_name(
+    section_name: str,
+) -> Tuple[Relocation, ...] | None:
     """
     Dump relocations of a section by section name of libc ELF file
     """

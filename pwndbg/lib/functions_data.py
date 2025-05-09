@@ -155,7 +155,10 @@ _functions = {
         args=[Argument(type="ASN1_GENERALIZEDTIME", derefcnt=1, name="a")],
     ),
     "ASN1_GENERALIZEDTIME_new": Function(
-        type="ASN1_GENERALIZEDTIME", derefcnt=1, name="ASN1_GENERALIZEDTIME_new", args=[]
+        type="ASN1_GENERALIZEDTIME",
+        derefcnt=1,
+        name="ASN1_GENERALIZEDTIME_new",
+        args=[],
     ),
     "ASN1_GENERALIZEDTIME_print": Function(
         type="int",
@@ -229,7 +232,9 @@ _functions = {
         name="ASN1_INTEGER_get",
         args=[Argument(type="ASN1_INTEGER", derefcnt=1, name="a")],
     ),
-    "ASN1_INTEGER_new": Function(type="ASN1_INTEGER", derefcnt=1, name="ASN1_INTEGER_new", args=[]),
+    "ASN1_INTEGER_new": Function(
+        type="ASN1_INTEGER", derefcnt=1, name="ASN1_INTEGER_new", args=[]
+    ),
     "ASN1_INTEGER_set": Function(
         type="int",
         derefcnt=0,
@@ -254,7 +259,9 @@ _functions = {
         name="ASN1_NULL_free",
         args=[Argument(type="ASN1_NULL", derefcnt=1, name="a")],
     ),
-    "ASN1_NULL_new": Function(type="ASN1_NULL", derefcnt=1, name="ASN1_NULL_new", args=[]),
+    "ASN1_NULL_new": Function(
+        type="ASN1_NULL", derefcnt=1, name="ASN1_NULL_new", args=[]
+    ),
     "ASN1_OBJECT_create": Function(
         type="ASN1_OBJECT",
         derefcnt=1,
@@ -273,7 +280,9 @@ _functions = {
         name="ASN1_OBJECT_free",
         args=[Argument(type="ASN1_OBJECT", derefcnt=1, name="a")],
     ),
-    "ASN1_OBJECT_new": Function(type="ASN1_OBJECT", derefcnt=1, name="ASN1_OBJECT_new", args=[]),
+    "ASN1_OBJECT_new": Function(
+        type="ASN1_OBJECT", derefcnt=1, name="ASN1_OBJECT_new", args=[]
+    ),
     "ASN1_OCTET_STRING_cmp": Function(
         type="int",
         derefcnt=0,
@@ -344,7 +353,9 @@ _functions = {
         name="ASN1_PCTX_get_str_flags",
         args=[Argument(type="ASN1_PCTX", derefcnt=1, name="p")],
     ),
-    "ASN1_PCTX_new": Function(type="ASN1_PCTX", derefcnt=1, name="ASN1_PCTX_new", args=[]),
+    "ASN1_PCTX_new": Function(
+        type="ASN1_PCTX", derefcnt=1, name="ASN1_PCTX_new", args=[]
+    ),
     "ASN1_PCTX_set_cert_flags": Function(
         type="void",
         derefcnt=0,
@@ -397,7 +408,10 @@ _functions = {
         args=[Argument(type="ASN1_PRINTABLESTRING", derefcnt=1, name="a")],
     ),
     "ASN1_PRINTABLESTRING_new": Function(
-        type="ASN1_PRINTABLESTRING", derefcnt=1, name="ASN1_PRINTABLESTRING_new", args=[]
+        type="ASN1_PRINTABLESTRING",
+        derefcnt=1,
+        name="ASN1_PRINTABLESTRING_new",
+        args=[],
     ),
     "ASN1_PRINTABLE_free": Function(
         type="void",
@@ -492,7 +506,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="n"),
         ],
     ),
-    "ASN1_STRING_new": Function(type="ASN1_STRING", derefcnt=1, name="ASN1_STRING_new", args=[]),
+    "ASN1_STRING_new": Function(
+        type="ASN1_STRING", derefcnt=1, name="ASN1_STRING_new", args=[]
+    ),
     "ASN1_STRING_print": Function(
         type="int",
         derefcnt=0,
@@ -619,7 +635,9 @@ _functions = {
         name="ASN1_TIME_free",
         args=[Argument(type="ASN1_TIME", derefcnt=1, name="a")],
     ),
-    "ASN1_TIME_new": Function(type="ASN1_TIME", derefcnt=1, name="ASN1_TIME_new", args=[]),
+    "ASN1_TIME_new": Function(
+        type="ASN1_TIME", derefcnt=1, name="ASN1_TIME_new", args=[]
+    ),
     "ASN1_TIME_print": Function(
         type="int",
         derefcnt=0,
@@ -698,7 +716,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="max_len"),
         ],
     ),
-    "ASN1_TYPE_new": Function(type="ASN1_TYPE", derefcnt=1, name="ASN1_TYPE_new", args=[]),
+    "ASN1_TYPE_new": Function(
+        type="ASN1_TYPE", derefcnt=1, name="ASN1_TYPE_new", args=[]
+    ),
     "ASN1_TYPE_set": Function(
         type="void",
         derefcnt=0,
@@ -747,7 +767,10 @@ _functions = {
         args=[Argument(type="ASN1_UNIVERSALSTRING", derefcnt=1, name="a")],
     ),
     "ASN1_UNIVERSALSTRING_new": Function(
-        type="ASN1_UNIVERSALSTRING", derefcnt=1, name="ASN1_UNIVERSALSTRING_new", args=[]
+        type="ASN1_UNIVERSALSTRING",
+        derefcnt=1,
+        name="ASN1_UNIVERSALSTRING_new",
+        args=[],
     ),
     "ASN1_UNIVERSALSTRING_to_string": Function(
         type="int",
@@ -787,7 +810,9 @@ _functions = {
         name="ASN1_UTCTIME_free",
         args=[Argument(type="ASN1_UTCTIME", derefcnt=1, name="a")],
     ),
-    "ASN1_UTCTIME_new": Function(type="ASN1_UTCTIME", derefcnt=1, name="ASN1_UTCTIME_new", args=[]),
+    "ASN1_UTCTIME_new": Function(
+        type="ASN1_UTCTIME", derefcnt=1, name="ASN1_UTCTIME_new", args=[]
+    ),
     "ASN1_UTCTIME_print": Function(
         type="int",
         derefcnt=0,
@@ -833,7 +858,9 @@ _functions = {
     "ASN1_VISIBLESTRING_new": Function(
         type="ASN1_VISIBLESTRING", derefcnt=1, name="ASN1_VISIBLESTRING_new", args=[]
     ),
-    "ASN1_add_oid_module": Function(type="void", derefcnt=0, name="ASN1_add_oid_module", args=[]),
+    "ASN1_add_oid_module": Function(
+        type="void", derefcnt=0, name="ASN1_add_oid_module", args=[]
+    ),
     "ASN1_bn_print": Function(
         type="int",
         derefcnt=0,
@@ -1497,13 +1524,23 @@ _functions = {
         args=[Argument(type="BIO", derefcnt=1, name="in")],
     ),
     "BIO_f_asn1": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_asn1", args=[]),
-    "BIO_f_base64": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_base64", args=[]),
-    "BIO_f_buffer": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_buffer", args=[]),
-    "BIO_f_cipher": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_cipher", args=[]),
+    "BIO_f_base64": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_f_base64", args=[]
+    ),
+    "BIO_f_buffer": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_f_buffer", args=[]
+    ),
+    "BIO_f_cipher": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_f_cipher", args=[]
+    ),
     "BIO_f_md": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_md", args=[]),
-    "BIO_f_nbio_test": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_nbio_test", args=[]),
+    "BIO_f_nbio_test": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_f_nbio_test", args=[]
+    ),
     "BIO_f_null": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_null", args=[]),
-    "BIO_f_reliable": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_reliable", args=[]),
+    "BIO_f_reliable": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_f_reliable", args=[]
+    ),
     "BIO_f_ssl": Function(type="BIO_METHOD", derefcnt=1, name="BIO_f_ssl", args=[]),
     "BIO_fd_non_fatal_error": Function(
         type="int",
@@ -1527,7 +1564,10 @@ _functions = {
         ],
     ),
     "BIO_free": Function(
-        type="int", derefcnt=0, name="BIO_free", args=[Argument(type="BIO", derefcnt=1, name="a")]
+        type="int",
+        derefcnt=0,
+        name="BIO_free",
+        args=[Argument(type="BIO", derefcnt=1, name="a")],
     ),
     "BIO_free_all": Function(
         type="void",
@@ -1783,7 +1823,10 @@ _functions = {
         args=[Argument(type="SSL_CTX", derefcnt=1, name="ctx")],
     ),
     "BIO_next": Function(
-        type="BIO", derefcnt=1, name="BIO_next", args=[Argument(type="BIO", derefcnt=1, name="b")]
+        type="BIO",
+        derefcnt=1,
+        name="BIO_next",
+        args=[Argument(type="BIO", derefcnt=1, name="b")],
     ),
     "BIO_nread": Function(
         type="int",
@@ -1836,7 +1879,10 @@ _functions = {
         ],
     ),
     "BIO_pop": Function(
-        type="BIO", derefcnt=1, name="BIO_pop", args=[Argument(type="BIO", derefcnt=1, name="b")]
+        type="BIO",
+        derefcnt=1,
+        name="BIO_pop",
+        args=[Argument(type="BIO", derefcnt=1, name="b")],
     ),
     "BIO_printf": Function(
         type="int",
@@ -1886,16 +1932,24 @@ _functions = {
             Argument(type="int", derefcnt=0, name="len"),
         ],
     ),
-    "BIO_s_accept": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_accept", args=[]),
+    "BIO_s_accept": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_s_accept", args=[]
+    ),
     "BIO_s_bio": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_bio", args=[]),
-    "BIO_s_connect": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_connect", args=[]),
-    "BIO_s_datagram": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_datagram", args=[]),
+    "BIO_s_connect": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_s_connect", args=[]
+    ),
+    "BIO_s_datagram": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_s_datagram", args=[]
+    ),
     "BIO_s_fd": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_fd", args=[]),
     "BIO_s_file": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_file", args=[]),
     "BIO_s_log": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_log", args=[]),
     "BIO_s_mem": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_mem", args=[]),
     "BIO_s_null": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_null", args=[]),
-    "BIO_s_socket": Function(type="BIO_METHOD", derefcnt=1, name="BIO_s_socket", args=[]),
+    "BIO_s_socket": Function(
+        type="BIO_METHOD", derefcnt=1, name="BIO_s_socket", args=[]
+    ),
     "BIO_set": Function(
         type="int",
         derefcnt=0,
@@ -1974,7 +2028,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="vararg"),
         ],
     ),
-    "BIO_sock_cleanup": Function(type="void", derefcnt=0, name="BIO_sock_cleanup", args=[]),
+    "BIO_sock_cleanup": Function(
+        type="void", derefcnt=0, name="BIO_sock_cleanup", args=[]
+    ),
     "BIO_sock_error": Function(
         type="int",
         derefcnt=0,
@@ -2038,7 +2094,10 @@ _functions = {
         ],
     ),
     "BIO_vfree": Function(
-        type="void", derefcnt=0, name="BIO_vfree", args=[Argument(type="BIO", derefcnt=1, name="a")]
+        type="void",
+        derefcnt=0,
+        name="BIO_vfree",
+        args=[Argument(type="BIO", derefcnt=1, name="a")],
     ),
     "BIO_vprintf": Function(
         type="int",
@@ -2458,7 +2517,9 @@ _functions = {
         name="BN_MONT_CTX_init",
         args=[Argument(type="BN_MONT_CTX", derefcnt=1, name="ctx")],
     ),
-    "BN_MONT_CTX_new": Function(type="BN_MONT_CTX", derefcnt=1, name="BN_MONT_CTX_new", args=[]),
+    "BN_MONT_CTX_new": Function(
+        type="BN_MONT_CTX", derefcnt=1, name="BN_MONT_CTX_new", args=[]
+    ),
     "BN_MONT_CTX_set": Function(
         type="int",
         derefcnt=0,
@@ -2492,7 +2553,9 @@ _functions = {
         name="BN_RECP_CTX_init",
         args=[Argument(type="BN_RECP_CTX", derefcnt=1, name="recp")],
     ),
-    "BN_RECP_CTX_new": Function(type="BN_RECP_CTX", derefcnt=1, name="BN_RECP_CTX_new", args=[]),
+    "BN_RECP_CTX_new": Function(
+        type="BN_RECP_CTX", derefcnt=1, name="BN_RECP_CTX_new", args=[]
+    ),
     "BN_RECP_CTX_set": Function(
         type="int",
         derefcnt=0,
@@ -3623,7 +3686,9 @@ _functions = {
     ),
     "COMP_rle": Function(type="COMP_METHOD", derefcnt=1, name="COMP_rle", args=[]),
     "COMP_zlib": Function(type="COMP_METHOD", derefcnt=1, name="COMP_zlib", args=[]),
-    "COMP_zlib_cleanup": Function(type="void", derefcnt=0, name="COMP_zlib_cleanup", args=[]),
+    "COMP_zlib_cleanup": Function(
+        type="void", derefcnt=0, name="COMP_zlib_cleanup", args=[]
+    ),
     "CRYPTO_EX_dup": Function(
         type="int",
         derefcnt=0,
@@ -3835,7 +3900,10 @@ _functions = {
         type="int", derefcnt=0, name="CRYPTO_get_add_lock_callback", args=[]
     ),
     "CRYPTO_get_dynlock_create_callback": Function(
-        type="CRYPTO_dynlock_value", derefcnt=1, name="CRYPTO_get_dynlock_create_callback", args=[]
+        type="CRYPTO_dynlock_value",
+        derefcnt=1,
+        name="CRYPTO_get_dynlock_create_callback",
+        args=[],
     ),
     "CRYPTO_get_dynlock_destroy_callback": Function(
         type="void", derefcnt=0, name="CRYPTO_get_dynlock_destroy_callback", args=[]
@@ -3859,7 +3927,10 @@ _functions = {
         ],
     ),
     "CRYPTO_get_ex_data_implementation": Function(
-        type="CRYPTO_EX_DATA_IMPL", derefcnt=1, name="CRYPTO_get_ex_data_implementation", args=[]
+        type="CRYPTO_EX_DATA_IMPL",
+        derefcnt=1,
+        name="CRYPTO_get_ex_data_implementation",
+        args=[],
     ),
     "CRYPTO_get_ex_new_index": Function(
         type="int",
@@ -4026,8 +4097,12 @@ _functions = {
             Argument(type="CRYPTO_EX_DATA", derefcnt=1, name="ad"),
         ],
     ),
-    "CRYPTO_num_locks": Function(type="int", derefcnt=0, name="CRYPTO_num_locks", args=[]),
-    "CRYPTO_pop_info": Function(type="int", derefcnt=0, name="CRYPTO_pop_info", args=[]),
+    "CRYPTO_num_locks": Function(
+        type="int", derefcnt=0, name="CRYPTO_num_locks", args=[]
+    ),
+    "CRYPTO_pop_info": Function(
+        type="int", derefcnt=0, name="CRYPTO_pop_info", args=[]
+    ),
     "CRYPTO_push_info_": Function(
         type="int",
         derefcnt=0,
@@ -4085,7 +4160,11 @@ _functions = {
         type="void",
         derefcnt=0,
         name="CRYPTO_set_dynlock_create_callback",
-        args=[Argument(type="CRYPTO_dynlock_value", derefcnt=1, name="dyn_create_function")],
+        args=[
+            Argument(
+                type="CRYPTO_dynlock_value", derefcnt=1, name="dyn_create_function"
+            )
+        ],
     ),
     "CRYPTO_set_dynlock_destroy_callback": Function(
         type="void",
@@ -4193,7 +4272,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="line"),
         ],
     ),
-    "CRYPTO_thread_id": Function(type="unsigned", derefcnt=0, name="CRYPTO_thread_id", args=[]),
+    "CRYPTO_thread_id": Function(
+        type="unsigned", derefcnt=0, name="CRYPTO_thread_id", args=[]
+    ),
     "DH_OpenSSL": Function(type="DH_METHOD", derefcnt=1, name="DH_OpenSSL", args=[]),
     "DH_check": Function(
         type="int",
@@ -4225,7 +4306,10 @@ _functions = {
         ],
     ),
     "DH_free": Function(
-        type="void", derefcnt=0, name="DH_free", args=[Argument(type="DH", derefcnt=1, name="dh")]
+        type="void",
+        derefcnt=0,
+        name="DH_free",
+        args=[Argument(type="DH", derefcnt=1, name="dh")],
     ),
     "DH_generate_key": Function(
         type="int",
@@ -4312,10 +4396,16 @@ _functions = {
         ],
     ),
     "DH_size": Function(
-        type="int", derefcnt=0, name="DH_size", args=[Argument(type="DH", derefcnt=1, name="dh")]
+        type="int",
+        derefcnt=0,
+        name="DH_size",
+        args=[Argument(type="DH", derefcnt=1, name="dh")],
     ),
     "DH_up_ref": Function(
-        type="int", derefcnt=0, name="DH_up_ref", args=[Argument(type="DH", derefcnt=1, name="dh")]
+        type="int",
+        derefcnt=0,
+        name="DH_up_ref",
+        args=[Argument(type="DH", derefcnt=1, name="dh")],
     ),
     "DHparams_dup": Function(
         type="DH",
@@ -4356,7 +4446,9 @@ _functions = {
         name="DISPLAYTEXT_free",
         args=[Argument(type="ASN1_STRING", derefcnt=1, name="a")],
     ),
-    "DISPLAYTEXT_new": Function(type="ASN1_STRING", derefcnt=1, name="DISPLAYTEXT_new", args=[]),
+    "DISPLAYTEXT_new": Function(
+        type="ASN1_STRING", derefcnt=1, name="DISPLAYTEXT_new", args=[]
+    ),
     "DSA_OpenSSL": Function(type="DSA_METHOD", derefcnt=1, name="DSA_OpenSSL", args=[]),
     "DSA_SIG_free": Function(
         type="void",
@@ -4387,10 +4479,16 @@ _functions = {
         ],
     ),
     "DSA_dup_DH": Function(
-        type="DH", derefcnt=1, name="DSA_dup_DH", args=[Argument(type="DSA", derefcnt=1, name="r")]
+        type="DH",
+        derefcnt=1,
+        name="DSA_dup_DH",
+        args=[Argument(type="DSA", derefcnt=1, name="r")],
     ),
     "DSA_free": Function(
-        type="void", derefcnt=0, name="DSA_free", args=[Argument(type="DSA", derefcnt=1, name="r")]
+        type="void",
+        derefcnt=0,
+        name="DSA_free",
+        args=[Argument(type="DSA", derefcnt=1, name="r")],
     ),
     "DSA_generate_key": Function(
         type="int",
@@ -4533,7 +4631,10 @@ _functions = {
         args=[Argument(type="DSA", derefcnt=1, name="arg0")],
     ),
     "DSA_up_ref": Function(
-        type="int", derefcnt=0, name="DSA_up_ref", args=[Argument(type="DSA", derefcnt=1, name="r")]
+        type="int",
+        derefcnt=0,
+        name="DSA_up_ref",
+        args=[Argument(type="DSA", derefcnt=1, name="r")],
     ),
     "DSA_verify": Function(
         type="int",
@@ -4575,11 +4676,15 @@ _functions = {
     "DTLSv1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="DTLSv1_client_method", args=[]
     ),
-    "DTLSv1_method": Function(type="SSL_METHOD", derefcnt=1, name="DTLSv1_method", args=[]),
+    "DTLSv1_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="DTLSv1_method", args=[]
+    ),
     "DTLSv1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="DTLSv1_server_method", args=[]
     ),
-    "ECDH_OpenSSL": Function(type="ECDH_METHOD", derefcnt=1, name="ECDH_OpenSSL", args=[]),
+    "ECDH_OpenSSL": Function(
+        type="ECDH_METHOD", derefcnt=1, name="ECDH_OpenSSL", args=[]
+    ),
     "ECDH_compute_key": Function(
         type="int",
         derefcnt=0,
@@ -4641,14 +4746,18 @@ _functions = {
             Argument(type="ECDH_METHOD", derefcnt=1, name="arg1"),
         ],
     ),
-    "ECDSA_OpenSSL": Function(type="ECDSA_METHOD", derefcnt=1, name="ECDSA_OpenSSL", args=[]),
+    "ECDSA_OpenSSL": Function(
+        type="ECDSA_METHOD", derefcnt=1, name="ECDSA_OpenSSL", args=[]
+    ),
     "ECDSA_SIG_free": Function(
         type="void",
         derefcnt=0,
         name="ECDSA_SIG_free",
         args=[Argument(type="ECDSA_SIG", derefcnt=1, name="sig")],
     ),
-    "ECDSA_SIG_new": Function(type="ECDSA_SIG", derefcnt=1, name="ECDSA_SIG_new", args=[]),
+    "ECDSA_SIG_new": Function(
+        type="ECDSA_SIG", derefcnt=1, name="ECDSA_SIG_new", args=[]
+    ),
     "ECDSA_do_sign": Function(
         type="ECDSA_SIG",
         derefcnt=1,
@@ -5706,32 +5815,54 @@ _functions = {
     "ERR_load_ASN1_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ASN1_strings", args=[]
     ),
-    "ERR_load_BIO_strings": Function(type="void", derefcnt=0, name="ERR_load_BIO_strings", args=[]),
-    "ERR_load_BN_strings": Function(type="void", derefcnt=0, name="ERR_load_BN_strings", args=[]),
-    "ERR_load_BUF_strings": Function(type="void", derefcnt=0, name="ERR_load_BUF_strings", args=[]),
+    "ERR_load_BIO_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_BIO_strings", args=[]
+    ),
+    "ERR_load_BN_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_BN_strings", args=[]
+    ),
+    "ERR_load_BUF_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_BUF_strings", args=[]
+    ),
     "ERR_load_COMP_strings": Function(
         type="void", derefcnt=0, name="ERR_load_COMP_strings", args=[]
     ),
     "ERR_load_CRYPTO_strings": Function(
         type="void", derefcnt=0, name="ERR_load_CRYPTO_strings", args=[]
     ),
-    "ERR_load_DH_strings": Function(type="void", derefcnt=0, name="ERR_load_DH_strings", args=[]),
-    "ERR_load_DSA_strings": Function(type="void", derefcnt=0, name="ERR_load_DSA_strings", args=[]),
+    "ERR_load_DH_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_DH_strings", args=[]
+    ),
+    "ERR_load_DSA_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_DSA_strings", args=[]
+    ),
     "ERR_load_ECDH_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ECDH_strings", args=[]
     ),
     "ERR_load_ECDSA_strings": Function(
         type="void", derefcnt=0, name="ERR_load_ECDSA_strings", args=[]
     ),
-    "ERR_load_EC_strings": Function(type="void", derefcnt=0, name="ERR_load_EC_strings", args=[]),
-    "ERR_load_EVP_strings": Function(type="void", derefcnt=0, name="ERR_load_EVP_strings", args=[]),
-    "ERR_load_OBJ_strings": Function(type="void", derefcnt=0, name="ERR_load_OBJ_strings", args=[]),
-    "ERR_load_PEM_strings": Function(type="void", derefcnt=0, name="ERR_load_PEM_strings", args=[]),
+    "ERR_load_EC_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_EC_strings", args=[]
+    ),
+    "ERR_load_EVP_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_EVP_strings", args=[]
+    ),
+    "ERR_load_OBJ_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_OBJ_strings", args=[]
+    ),
+    "ERR_load_PEM_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_PEM_strings", args=[]
+    ),
     "ERR_load_PKCS7_strings": Function(
         type="void", derefcnt=0, name="ERR_load_PKCS7_strings", args=[]
     ),
-    "ERR_load_RSA_strings": Function(type="void", derefcnt=0, name="ERR_load_RSA_strings", args=[]),
-    "ERR_load_SSL_strings": Function(type="void", derefcnt=0, name="ERR_load_SSL_strings", args=[]),
+    "ERR_load_RSA_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_RSA_strings", args=[]
+    ),
+    "ERR_load_SSL_strings": Function(
+        type="void", derefcnt=0, name="ERR_load_SSL_strings", args=[]
+    ),
     "ERR_load_X509_strings": Function(
         type="void", derefcnt=0, name="ERR_load_X509_strings", args=[]
     ),
@@ -6379,7 +6510,9 @@ _functions = {
             Argument(type="EVP_MD_CTX", derefcnt=1, name="in"),
         ],
     ),
-    "EVP_MD_CTX_create": Function(type="EVP_MD_CTX", derefcnt=1, name="EVP_MD_CTX_create", args=[]),
+    "EVP_MD_CTX_create": Function(
+        type="EVP_MD_CTX", derefcnt=1, name="EVP_MD_CTX_create", args=[]
+    ),
     "EVP_MD_CTX_destroy": Function(
         type="void",
         derefcnt=0,
@@ -6537,7 +6670,9 @@ _functions = {
             Argument(type="EVP_PBE_KEYGEN", derefcnt=1, name="keygen"),
         ],
     ),
-    "EVP_PBE_cleanup": Function(type="void", derefcnt=0, name="EVP_PBE_cleanup", args=[]),
+    "EVP_PBE_cleanup": Function(
+        type="void", derefcnt=0, name="EVP_PBE_cleanup", args=[]
+    ),
     "EVP_PBE_find": Function(
         type="int",
         derefcnt=0,
@@ -7569,7 +7704,9 @@ _functions = {
             Argument(type="EVP_PKEY", derefcnt=1, name="pkey"),
         ],
     ),
-    "EVP_add_alg_module": Function(type="void", derefcnt=0, name="EVP_add_alg_module", args=[]),
+    "EVP_add_alg_module": Function(
+        type="void", derefcnt=0, name="EVP_add_alg_module", args=[]
+    ),
     "EVP_add_cipher": Function(
         type="int",
         derefcnt=0,
@@ -7582,49 +7719,103 @@ _functions = {
         name="EVP_add_digest",
         args=[Argument(type="EVP_MD", derefcnt=1, name="digest")],
     ),
-    "EVP_aes_128_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc", args=[]),
+    "EVP_aes_128_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc", args=[]
+    ),
     "EVP_aes_128_cbc_hmac_sha1": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cbc_hmac_sha1", args=[]
     ),
-    "EVP_aes_128_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ccm", args=[]),
-    "EVP_aes_128_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb1", args=[]),
+    "EVP_aes_128_ccm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ccm", args=[]
+    ),
+    "EVP_aes_128_cfb1": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb1", args=[]
+    ),
     "EVP_aes_128_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb128", args=[]
     ),
-    "EVP_aes_128_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb8", args=[]),
-    "EVP_aes_128_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ctr", args=[]),
-    "EVP_aes_128_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ecb", args=[]),
-    "EVP_aes_128_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_gcm", args=[]),
-    "EVP_aes_128_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ofb", args=[]),
-    "EVP_aes_128_xts": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_xts", args=[]),
-    "EVP_aes_192_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cbc", args=[]),
-    "EVP_aes_192_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ccm", args=[]),
-    "EVP_aes_192_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb1", args=[]),
+    "EVP_aes_128_cfb8": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_cfb8", args=[]
+    ),
+    "EVP_aes_128_ctr": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ctr", args=[]
+    ),
+    "EVP_aes_128_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ecb", args=[]
+    ),
+    "EVP_aes_128_gcm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_gcm", args=[]
+    ),
+    "EVP_aes_128_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_ofb", args=[]
+    ),
+    "EVP_aes_128_xts": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_128_xts", args=[]
+    ),
+    "EVP_aes_192_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cbc", args=[]
+    ),
+    "EVP_aes_192_ccm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ccm", args=[]
+    ),
+    "EVP_aes_192_cfb1": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb1", args=[]
+    ),
     "EVP_aes_192_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb128", args=[]
     ),
-    "EVP_aes_192_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb8", args=[]),
-    "EVP_aes_192_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ctr", args=[]),
-    "EVP_aes_192_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ecb", args=[]),
-    "EVP_aes_192_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_gcm", args=[]),
-    "EVP_aes_192_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ofb", args=[]),
-    "EVP_aes_256_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc", args=[]),
+    "EVP_aes_192_cfb8": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_cfb8", args=[]
+    ),
+    "EVP_aes_192_ctr": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ctr", args=[]
+    ),
+    "EVP_aes_192_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ecb", args=[]
+    ),
+    "EVP_aes_192_gcm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_gcm", args=[]
+    ),
+    "EVP_aes_192_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_192_ofb", args=[]
+    ),
+    "EVP_aes_256_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc", args=[]
+    ),
     "EVP_aes_256_cbc_hmac_sha1": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cbc_hmac_sha1", args=[]
     ),
-    "EVP_aes_256_ccm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ccm", args=[]),
-    "EVP_aes_256_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb1", args=[]),
+    "EVP_aes_256_ccm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ccm", args=[]
+    ),
+    "EVP_aes_256_cfb1": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb1", args=[]
+    ),
     "EVP_aes_256_cfb128": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb128", args=[]
     ),
-    "EVP_aes_256_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb8", args=[]),
-    "EVP_aes_256_ctr": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ctr", args=[]),
-    "EVP_aes_256_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ecb", args=[]),
-    "EVP_aes_256_gcm": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_gcm", args=[]),
-    "EVP_aes_256_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ofb", args=[]),
-    "EVP_aes_256_xts": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_xts", args=[]),
+    "EVP_aes_256_cfb8": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_cfb8", args=[]
+    ),
+    "EVP_aes_256_ctr": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ctr", args=[]
+    ),
+    "EVP_aes_256_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ecb", args=[]
+    ),
+    "EVP_aes_256_gcm": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_gcm", args=[]
+    ),
+    "EVP_aes_256_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_ofb", args=[]
+    ),
+    "EVP_aes_256_xts": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_aes_256_xts", args=[]
+    ),
     "EVP_bf_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cbc", args=[]),
-    "EVP_bf_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cfb64", args=[]),
+    "EVP_bf_cfb64": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_bf_cfb64", args=[]
+    ),
     "EVP_bf_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_ecb", args=[]),
     "EVP_bf_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_bf_ofb", args=[]),
     "EVP_camellia_128_cbc": Function(
@@ -7681,36 +7872,74 @@ _functions = {
     "EVP_camellia_256_ofb": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_camellia_256_ofb", args=[]
     ),
-    "EVP_cast5_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cbc", args=[]),
-    "EVP_cast5_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cfb64", args=[]),
-    "EVP_cast5_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ecb", args=[]),
-    "EVP_cast5_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ofb", args=[]),
+    "EVP_cast5_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cbc", args=[]
+    ),
+    "EVP_cast5_cfb64": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_cfb64", args=[]
+    ),
+    "EVP_cast5_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ecb", args=[]
+    ),
+    "EVP_cast5_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_cast5_ofb", args=[]
+    ),
     "EVP_cleanup": Function(type="void", derefcnt=0, name="EVP_cleanup", args=[]),
     "EVP_des_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cbc", args=[]),
-    "EVP_des_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb1", args=[]),
-    "EVP_des_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb64", args=[]),
-    "EVP_des_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb8", args=[]),
+    "EVP_des_cfb1": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb1", args=[]
+    ),
+    "EVP_des_cfb64": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb64", args=[]
+    ),
+    "EVP_des_cfb8": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_cfb8", args=[]
+    ),
     "EVP_des_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ecb", args=[]),
     "EVP_des_ede": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede", args=[]),
-    "EVP_des_ede3": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3", args=[]),
-    "EVP_des_ede3_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cbc", args=[]),
-    "EVP_des_ede3_cfb1": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb1", args=[]),
+    "EVP_des_ede3": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3", args=[]
+    ),
+    "EVP_des_ede3_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cbc", args=[]
+    ),
+    "EVP_des_ede3_cfb1": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb1", args=[]
+    ),
     "EVP_des_ede3_cfb64": Function(
         type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb64", args=[]
     ),
-    "EVP_des_ede3_cfb8": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb8", args=[]),
-    "EVP_des_ede3_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ecb", args=[]),
-    "EVP_des_ede3_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ofb", args=[]),
-    "EVP_des_ede_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cbc", args=[]),
-    "EVP_des_ede_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cfb64", args=[]),
-    "EVP_des_ede_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ecb", args=[]),
-    "EVP_des_ede_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ofb", args=[]),
+    "EVP_des_ede3_cfb8": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_cfb8", args=[]
+    ),
+    "EVP_des_ede3_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ecb", args=[]
+    ),
+    "EVP_des_ede3_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede3_ofb", args=[]
+    ),
+    "EVP_des_ede_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cbc", args=[]
+    ),
+    "EVP_des_ede_cfb64": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_cfb64", args=[]
+    ),
+    "EVP_des_ede_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ecb", args=[]
+    ),
+    "EVP_des_ede_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_des_ede_ofb", args=[]
+    ),
     "EVP_des_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_des_ofb", args=[]),
-    "EVP_desx_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_desx_cbc", args=[]),
+    "EVP_desx_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_desx_cbc", args=[]
+    ),
     "EVP_dss": Function(type="EVP_MD", derefcnt=1, name="EVP_dss", args=[]),
     "EVP_dss1": Function(type="EVP_MD", derefcnt=1, name="EVP_dss1", args=[]),
     "EVP_ecdsa": Function(type="EVP_MD", derefcnt=1, name="EVP_ecdsa", args=[]),
-    "EVP_enc_null": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_enc_null", args=[]),
+    "EVP_enc_null": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_enc_null", args=[]
+    ),
     "EVP_get_cipherbyname": Function(
         type="EVP_CIPHER",
         derefcnt=1,
@@ -7723,19 +7952,29 @@ _functions = {
         name="EVP_get_digestbyname",
         args=[Argument(type="char", derefcnt=1, name="name")],
     ),
-    "EVP_get_pw_prompt": Function(type="char", derefcnt=1, name="EVP_get_pw_prompt", args=[]),
+    "EVP_get_pw_prompt": Function(
+        type="char", derefcnt=1, name="EVP_get_pw_prompt", args=[]
+    ),
     "EVP_md4": Function(type="EVP_MD", derefcnt=1, name="EVP_md4", args=[]),
     "EVP_md5": Function(type="EVP_MD", derefcnt=1, name="EVP_md5", args=[]),
     "EVP_md_null": Function(type="EVP_MD", derefcnt=1, name="EVP_md_null", args=[]),
-    "EVP_rc2_40_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_40_cbc", args=[]),
-    "EVP_rc2_64_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_64_cbc", args=[]),
+    "EVP_rc2_40_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_40_cbc", args=[]
+    ),
+    "EVP_rc2_64_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_64_cbc", args=[]
+    ),
     "EVP_rc2_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cbc", args=[]),
-    "EVP_rc2_cfb64": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cfb64", args=[]),
+    "EVP_rc2_cfb64": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_cfb64", args=[]
+    ),
     "EVP_rc2_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_ecb", args=[]),
     "EVP_rc2_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc2_ofb", args=[]),
     "EVP_rc4": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4", args=[]),
     "EVP_rc4_40": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_40", args=[]),
-    "EVP_rc4_hmac_md5": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_hmac_md5", args=[]),
+    "EVP_rc4_hmac_md5": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_rc4_hmac_md5", args=[]
+    ),
     "EVP_read_pw_string": Function(
         type="int",
         derefcnt=0,
@@ -7760,10 +7999,18 @@ _functions = {
         ],
     ),
     "EVP_ripemd160": Function(type="EVP_MD", derefcnt=1, name="EVP_ripemd160", args=[]),
-    "EVP_seed_cbc": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cbc", args=[]),
-    "EVP_seed_cfb128": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cfb128", args=[]),
-    "EVP_seed_ecb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ecb", args=[]),
-    "EVP_seed_ofb": Function(type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ofb", args=[]),
+    "EVP_seed_cbc": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cbc", args=[]
+    ),
+    "EVP_seed_cfb128": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_cfb128", args=[]
+    ),
+    "EVP_seed_ecb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ecb", args=[]
+    ),
+    "EVP_seed_ofb": Function(
+        type="EVP_CIPHER", derefcnt=1, name="EVP_seed_ofb", args=[]
+    ),
     "EVP_set_pw_prompt": Function(
         type="void",
         derefcnt=0,
@@ -7778,7 +8025,10 @@ _functions = {
     "EVP_sha512": Function(type="EVP_MD", derefcnt=1, name="EVP_sha512", args=[]),
     "EVP_whirlpool": Function(type="EVP_MD", derefcnt=1, name="EVP_whirlpool", args=[]),
     "Exit": Function(
-        type="void", derefcnt=0, name="Exit", args=[Argument(type="int", derefcnt=0, name="status")]
+        type="void",
+        derefcnt=0,
+        name="Exit",
+        args=[Argument(type="int", derefcnt=0, name="status")],
     ),
     "FIPS_mode": Function(type="int", derefcnt=0, name="FIPS_mode", args=[]),
     "FIPS_mode_set": Function(
@@ -8051,7 +8301,10 @@ _functions = {
         args=[Argument(type="NETSCAPE_CERT_SEQUENCE", derefcnt=1, name="a")],
     ),
     "NETSCAPE_CERT_SEQUENCE_new": Function(
-        type="NETSCAPE_CERT_SEQUENCE", derefcnt=1, name="NETSCAPE_CERT_SEQUENCE_new", args=[]
+        type="NETSCAPE_CERT_SEQUENCE",
+        derefcnt=1,
+        name="NETSCAPE_CERT_SEQUENCE_new",
+        args=[],
     ),
     "NETSCAPE_SPKAC_free": Function(
         type="void",
@@ -8384,8 +8637,12 @@ _functions = {
         type="unsigned", derefcnt=1, name="OPENSSL_ia32cap_loc", args=[]
     ),
     "OPENSSL_init": Function(type="void", derefcnt=0, name="OPENSSL_init", args=[]),
-    "OPENSSL_isservice": Function(type="int", derefcnt=0, name="OPENSSL_isservice", args=[]),
-    "OPENSSL_issetugid": Function(type="int", derefcnt=0, name="OPENSSL_issetugid", args=[]),
+    "OPENSSL_isservice": Function(
+        type="int", derefcnt=0, name="OPENSSL_isservice", args=[]
+    ),
+    "OPENSSL_issetugid": Function(
+        type="int", derefcnt=0, name="OPENSSL_issetugid", args=[]
+    ),
     "OpenSSLDie": Function(
         type="void",
         derefcnt=0,
@@ -8408,7 +8665,9 @@ _functions = {
         name="PBE2PARAM_free",
         args=[Argument(type="PBE2PARAM", derefcnt=1, name="a")],
     ),
-    "PBE2PARAM_new": Function(type="PBE2PARAM", derefcnt=1, name="PBE2PARAM_new", args=[]),
+    "PBE2PARAM_new": Function(
+        type="PBE2PARAM", derefcnt=1, name="PBE2PARAM_new", args=[]
+    ),
     "PBEPARAM_free": Function(
         type="void",
         derefcnt=0,
@@ -8422,7 +8681,9 @@ _functions = {
         name="PBKDF2PARAM_free",
         args=[Argument(type="PBKDF2PARAM", derefcnt=1, name="a")],
     ),
-    "PBKDF2PARAM_new": Function(type="PBKDF2PARAM", derefcnt=1, name="PBKDF2PARAM_new", args=[]),
+    "PBKDF2PARAM_new": Function(
+        type="PBKDF2PARAM", derefcnt=1, name="PBKDF2PARAM_new", args=[]
+    ),
     "PEM_ASN1_read": Function(
         type="void",
         derefcnt=1,
@@ -9872,7 +10133,9 @@ _functions = {
         name="PKCS7_DIGEST_free",
         args=[Argument(type="PKCS7_DIGEST", derefcnt=1, name="a")],
     ),
-    "PKCS7_DIGEST_new": Function(type="PKCS7_DIGEST", derefcnt=1, name="PKCS7_DIGEST_new", args=[]),
+    "PKCS7_DIGEST_new": Function(
+        type="PKCS7_DIGEST", derefcnt=1, name="PKCS7_DIGEST_new", args=[]
+    ),
     "PKCS7_ENCRYPT_free": Function(
         type="void",
         derefcnt=0,
@@ -9918,7 +10181,10 @@ _functions = {
         args=[Argument(type="PKCS7_ISSUER_AND_SERIAL", derefcnt=1, name="a")],
     ),
     "PKCS7_ISSUER_AND_SERIAL_new": Function(
-        type="PKCS7_ISSUER_AND_SERIAL", derefcnt=1, name="PKCS7_ISSUER_AND_SERIAL_new", args=[]
+        type="PKCS7_ISSUER_AND_SERIAL",
+        derefcnt=1,
+        name="PKCS7_ISSUER_AND_SERIAL_new",
+        args=[],
     ),
     "PKCS7_RECIP_INFO_free": Function(
         type="void",
@@ -9953,7 +10219,9 @@ _functions = {
         name="PKCS7_SIGNED_free",
         args=[Argument(type="PKCS7_SIGNED", derefcnt=1, name="a")],
     ),
-    "PKCS7_SIGNED_new": Function(type="PKCS7_SIGNED", derefcnt=1, name="PKCS7_SIGNED_new", args=[]),
+    "PKCS7_SIGNED_new": Function(
+        type="PKCS7_SIGNED", derefcnt=1, name="PKCS7_SIGNED_new", args=[]
+    ),
     "PKCS7_SIGNER_INFO_free": Function(
         type="void",
         derefcnt=0,
@@ -10484,7 +10752,9 @@ _functions = {
         name="RSAPublicKey_dup",
         args=[Argument(type="RSA", derefcnt=1, name="rsa")],
     ),
-    "RSA_PKCS1_SSLeay": Function(type="RSA_METHOD", derefcnt=1, name="RSA_PKCS1_SSLeay", args=[]),
+    "RSA_PKCS1_SSLeay": Function(
+        type="RSA_METHOD", derefcnt=1, name="RSA_PKCS1_SSLeay", args=[]
+    ),
     "RSA_PSS_PARAMS_free": Function(
         type="void",
         derefcnt=0,
@@ -10522,10 +10792,16 @@ _functions = {
         args=[Argument(type="RSA", derefcnt=1, name="arg0")],
     ),
     "RSA_flags": Function(
-        type="int", derefcnt=0, name="RSA_flags", args=[Argument(type="RSA", derefcnt=1, name="r")]
+        type="int",
+        derefcnt=0,
+        name="RSA_flags",
+        args=[Argument(type="RSA", derefcnt=1, name="r")],
     ),
     "RSA_free": Function(
-        type="void", derefcnt=0, name="RSA_free", args=[Argument(type="RSA", derefcnt=1, name="r")]
+        type="void",
+        derefcnt=0,
+        name="RSA_free",
+        args=[Argument(type="RSA", derefcnt=1, name="r")],
     ),
     "RSA_generate_key": Function(
         type="RSA",
@@ -10592,7 +10868,9 @@ _functions = {
         name="RSA_new_method",
         args=[Argument(type="ENGINE", derefcnt=1, name="engine")],
     ),
-    "RSA_null_method": Function(type="RSA_METHOD", derefcnt=1, name="RSA_null_method", args=[]),
+    "RSA_null_method": Function(
+        type="RSA_METHOD", derefcnt=1, name="RSA_null_method", args=[]
+    ),
     "RSA_padding_add_PKCS1_OAEP": Function(
         type="int",
         derefcnt=0,
@@ -10889,10 +11167,16 @@ _functions = {
         ],
     ),
     "RSA_size": Function(
-        type="int", derefcnt=0, name="RSA_size", args=[Argument(type="RSA", derefcnt=1, name="rsa")]
+        type="int",
+        derefcnt=0,
+        name="RSA_size",
+        args=[Argument(type="RSA", derefcnt=1, name="rsa")],
     ),
     "RSA_up_ref": Function(
-        type="int", derefcnt=0, name="RSA_up_ref", args=[Argument(type="RSA", derefcnt=1, name="r")]
+        type="int",
+        derefcnt=0,
+        name="RSA_up_ref",
+        args=[Argument(type="RSA", derefcnt=1, name="r")],
     ),
     "RSA_verify": Function(
         type="int",
@@ -11344,7 +11628,10 @@ _functions = {
         ],
     ),
     "SSL_COMP_get_compression_methods": Function(
-        type="stack_st_SSL_COMP", derefcnt=1, name="SSL_COMP_get_compression_methods", args=[]
+        type="stack_st_SSL_COMP",
+        derefcnt=1,
+        name="SSL_COMP_get_compression_methods",
+        args=[],
     ),
     "SSL_COMP_get_name": Function(
         type="char",
@@ -12094,7 +12381,9 @@ _functions = {
         name="SSL_SESSION_get_timeout",
         args=[Argument(type="SSL_SESSION", derefcnt=1, name="s")],
     ),
-    "SSL_SESSION_new": Function(type="SSL_SESSION", derefcnt=1, name="SSL_SESSION_new", args=[]),
+    "SSL_SESSION_new": Function(
+        type="SSL_SESSION", derefcnt=1, name="SSL_SESSION_new", args=[]
+    ),
     "SSL_SESSION_print": Function(
         type="int",
         derefcnt=0,
@@ -12242,7 +12531,10 @@ _functions = {
         args=[Argument(type="SSL", derefcnt=1, name="ctx")],
     ),
     "SSL_clear": Function(
-        type="int", derefcnt=0, name="SSL_clear", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="SSL_clear",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "SSL_connect": Function(
         type="int",
@@ -12277,7 +12569,10 @@ _functions = {
         args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "SSL_dup": Function(
-        type="SSL", derefcnt=1, name="SSL_dup", args=[Argument(type="SSL", derefcnt=1, name="ssl")]
+        type="SSL",
+        derefcnt=1,
+        name="SSL_dup",
+        args=[Argument(type="SSL", derefcnt=1, name="ssl")],
     ),
     "SSL_dup_CA_list": Function(
         type="stack_st_X509_NAME",
@@ -12413,7 +12708,10 @@ _functions = {
         ],
     ),
     "SSL_get_fd": Function(
-        type="int", derefcnt=0, name="SSL_get_fd", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="SSL_get_fd",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "SSL_get_finished": Function(
         type="size_t",
@@ -12626,7 +12924,9 @@ _functions = {
             Argument(type="unsigned", derefcnt=0, name="id_len"),
         ],
     ),
-    "SSL_library_init": Function(type="int", derefcnt=0, name="SSL_library_init", args=[]),
+    "SSL_library_init": Function(
+        type="int", derefcnt=0, name="SSL_library_init", args=[]
+    ),
     "SSL_load_client_CA_file": Function(
         type="stack_st_X509_NAME",
         derefcnt=1,
@@ -12903,7 +13203,11 @@ _functions = {
         name="SSL_set_session_secret_cb",
         args=[
             Argument(type="SSL", derefcnt=1, name="s"),
-            Argument(type="tls_session_secret_cb_fn", derefcnt=0, name="tls_session_secret_cb"),
+            Argument(
+                type="tls_session_secret_cb_fn",
+                derefcnt=0,
+                name="tls_session_secret_cb",
+            ),
             Argument(type="void", derefcnt=1, name="arg"),
         ],
     ),
@@ -13197,7 +13501,10 @@ _functions = {
         args=[Argument(type="SSL", derefcnt=1, name="ssl")],
     ),
     "SSL_want": Function(
-        type="int", derefcnt=0, name="SSL_want", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="SSL_want",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "SSL_write": Function(
         type="int",
@@ -13219,14 +13526,18 @@ _functions = {
     "SSLv23_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv23_client_method", args=[]
     ),
-    "SSLv23_method": Function(type="SSL_METHOD", derefcnt=1, name="SSLv23_method", args=[]),
+    "SSLv23_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="SSLv23_method", args=[]
+    ),
     "SSLv23_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv23_server_method", args=[]
     ),
     "SSLv3_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv3_client_method", args=[]
     ),
-    "SSLv3_method": Function(type="SSL_METHOD", derefcnt=1, name="SSLv3_method", args=[]),
+    "SSLv3_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="SSLv3_method", args=[]
+    ),
     "SSLv3_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="SSLv3_server_method", args=[]
     ),
@@ -13243,21 +13554,27 @@ _functions = {
     "TLSv1_1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_1_client_method", args=[]
     ),
-    "TLSv1_1_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_1_method", args=[]),
+    "TLSv1_1_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="TLSv1_1_method", args=[]
+    ),
     "TLSv1_1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_1_server_method", args=[]
     ),
     "TLSv1_2_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_2_client_method", args=[]
     ),
-    "TLSv1_2_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_2_method", args=[]),
+    "TLSv1_2_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="TLSv1_2_method", args=[]
+    ),
     "TLSv1_2_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_2_server_method", args=[]
     ),
     "TLSv1_client_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_client_method", args=[]
     ),
-    "TLSv1_method": Function(type="SSL_METHOD", derefcnt=1, name="TLSv1_method", args=[]),
+    "TLSv1_method": Function(
+        type="SSL_METHOD", derefcnt=1, name="TLSv1_method", args=[]
+    ),
     "TLSv1_server_method": Function(
         type="SSL_METHOD", derefcnt=1, name="TLSv1_server_method", args=[]
     ),
@@ -13313,7 +13630,9 @@ _functions = {
             Argument(type="X509_ALGOR", derefcnt=1, name="algor"),
         ],
     ),
-    "X509_ALGOR_new": Function(type="X509_ALGOR", derefcnt=1, name="X509_ALGOR_new", args=[]),
+    "X509_ALGOR_new": Function(
+        type="X509_ALGOR", derefcnt=1, name="X509_ALGOR_new", args=[]
+    ),
     "X509_ALGOR_set0": Function(
         type="int",
         derefcnt=0,
@@ -13481,7 +13800,9 @@ _functions = {
         name="X509_CINF_free",
         args=[Argument(type="X509_CINF", derefcnt=1, name="a")],
     ),
-    "X509_CINF_new": Function(type="X509_CINF", derefcnt=1, name="X509_CINF_new", args=[]),
+    "X509_CINF_new": Function(
+        type="X509_CINF", derefcnt=1, name="X509_CINF_new", args=[]
+    ),
     "X509_CRL_INFO_free": Function(
         type="void",
         derefcnt=0,
@@ -13863,7 +14184,9 @@ _functions = {
         name="X509_INFO_free",
         args=[Argument(type="X509_INFO", derefcnt=1, name="a")],
     ),
-    "X509_INFO_new": Function(type="X509_INFO", derefcnt=1, name="X509_INFO_new", args=[]),
+    "X509_INFO_new": Function(
+        type="X509_INFO", derefcnt=1, name="X509_INFO_new", args=[]
+    ),
     "X509_LOOKUP_by_alias": Function(
         type="int",
         derefcnt=0,
@@ -14199,7 +14522,9 @@ _functions = {
         name="X509_NAME_hash_old",
         args=[Argument(type="X509_NAME", derefcnt=1, name="x")],
     ),
-    "X509_NAME_new": Function(type="X509_NAME", derefcnt=1, name="X509_NAME_new", args=[]),
+    "X509_NAME_new": Function(
+        type="X509_NAME", derefcnt=1, name="X509_NAME_new", args=[]
+    ),
     "X509_NAME_oneline": Function(
         type="char",
         derefcnt=1,
@@ -14298,7 +14623,9 @@ _functions = {
         name="X509_PKEY_free",
         args=[Argument(type="X509_PKEY", derefcnt=1, name="a")],
     ),
-    "X509_PKEY_new": Function(type="X509_PKEY", derefcnt=1, name="X509_PKEY_new", args=[]),
+    "X509_PKEY_new": Function(
+        type="X509_PKEY", derefcnt=1, name="X509_PKEY_new", args=[]
+    ),
     "X509_PUBKEY_free": Function(
         type="void",
         derefcnt=0,
@@ -14323,7 +14650,9 @@ _functions = {
             Argument(type="X509_PUBKEY", derefcnt=1, name="pub"),
         ],
     ),
-    "X509_PUBKEY_new": Function(type="X509_PUBKEY", derefcnt=1, name="X509_PUBKEY_new", args=[]),
+    "X509_PUBKEY_new": Function(
+        type="X509_PUBKEY", derefcnt=1, name="X509_PUBKEY_new", args=[]
+    ),
     "X509_PUBKEY_set": Function(
         type="int",
         derefcnt=0,
@@ -14710,7 +15039,9 @@ _functions = {
             Argument(type="int", derefcnt=1, name="idx"),
         ],
     ),
-    "X509_REVOKED_new": Function(type="X509_REVOKED", derefcnt=1, name="X509_REVOKED_new", args=[]),
+    "X509_REVOKED_new": Function(
+        type="X509_REVOKED", derefcnt=1, name="X509_REVOKED_new", args=[]
+    ),
     "X509_REVOKED_set_revocationDate": Function(
         type="int",
         derefcnt=0,
@@ -15070,7 +15401,9 @@ _functions = {
             Argument(type="char", derefcnt=1, name="dir"),
         ],
     ),
-    "X509_STORE_new": Function(type="X509_STORE", derefcnt=1, name="X509_STORE_new", args=[]),
+    "X509_STORE_new": Function(
+        type="X509_STORE", derefcnt=1, name="X509_STORE_new", args=[]
+    ),
     "X509_STORE_set1_param": Function(
         type="int",
         derefcnt=0,
@@ -15144,7 +15477,9 @@ _functions = {
             Argument(type="void", derefcnt=1, name="arg2"),
         ],
     ),
-    "X509_TRUST_cleanup": Function(type="void", derefcnt=0, name="X509_TRUST_cleanup", args=[]),
+    "X509_TRUST_cleanup": Function(
+        type="void", derefcnt=0, name="X509_TRUST_cleanup", args=[]
+    ),
     "X509_TRUST_get0": Function(
         type="X509_TRUST",
         derefcnt=1,
@@ -15163,7 +15498,9 @@ _functions = {
         name="X509_TRUST_get_by_id",
         args=[Argument(type="int", derefcnt=0, name="id")],
     ),
-    "X509_TRUST_get_count": Function(type="int", derefcnt=0, name="X509_TRUST_get_count", args=[]),
+    "X509_TRUST_get_count": Function(
+        type="int", derefcnt=0, name="X509_TRUST_get_count", args=[]
+    ),
     "X509_TRUST_get_flags": Function(
         type="int",
         derefcnt=0,
@@ -16269,11 +16606,17 @@ _functions = {
         ],
     ),
     "a64l": Function(
-        type="long", derefcnt=0, name="a64l", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="long",
+        derefcnt=0,
+        name="a64l",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "abort": Function(type="void", derefcnt=0, name="abort", args=[]),
     "abs": Function(
-        type="int", derefcnt=0, name="abs", args=[Argument(type="int", derefcnt=0, name="x")]
+        type="int",
+        derefcnt=0,
+        name="abs",
+        args=[Argument(type="int", derefcnt=0, name="x")],
     ),
     "accept": Function(
         type="int",
@@ -16306,13 +16649,22 @@ _functions = {
         ],
     ),
     "acct": Function(
-        type="int", derefcnt=0, name="acct", args=[Argument(type="char", derefcnt=1, name="name")]
+        type="int",
+        derefcnt=0,
+        name="acct",
+        args=[Argument(type="char", derefcnt=1, name="name")],
     ),
     "acos": Function(
-        type="double", derefcnt=0, name="acos", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="acos",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "acosf": Function(
-        type="float", derefcnt=0, name="acosf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="acosf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "acosh": Function(
         type="double",
@@ -16321,13 +16673,22 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "acoshf": Function(
-        type="float", derefcnt=0, name="acoshf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="acoshf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "acoshl": Function(
-        type="long", derefcnt=0, name="acoshl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="acoshl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "acosl": Function(
-        type="long", derefcnt=0, name="acosl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="acosl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "action_fn_t": Function(
         type="void",
@@ -16405,7 +16766,9 @@ _functions = {
             Argument(type="char", derefcnt=1, name="expbuf"),
         ],
     ),
-    "after_morecore_hook": Function(type="void", derefcnt=0, name="after_morecore_hook", args=[]),
+    "after_morecore_hook": Function(
+        type="void", derefcnt=0, name="after_morecore_hook", args=[]
+    ),
     "aio_cancel": Function(
         type="int",
         derefcnt=0,
@@ -16820,7 +17183,10 @@ _functions = {
         ],
     ),
     "asctime": Function(
-        type="char", derefcnt=1, name="asctime", args=[Argument(type="tm", derefcnt=1, name="tp")]
+        type="char",
+        derefcnt=1,
+        name="asctime",
+        args=[Argument(type="tm", derefcnt=1, name="tp")],
     ),
     "asctime_r": Function(
         type="char",
@@ -16832,10 +17198,16 @@ _functions = {
         ],
     ),
     "asin": Function(
-        type="double", derefcnt=0, name="asin", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="asin",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "asinf": Function(
-        type="float", derefcnt=0, name="asinf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="asinf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "asinh": Function(
         type="double",
@@ -16844,13 +17216,22 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "asinhf": Function(
-        type="float", derefcnt=0, name="asinhf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="asinhf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "asinhl": Function(
-        type="long", derefcnt=0, name="asinhl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="asinhl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "asinl": Function(
-        type="long", derefcnt=0, name="asinl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="asinl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "asn1_Finish": Function(
         type="int",
@@ -16935,7 +17316,10 @@ _functions = {
         args=[Argument(type="void", derefcnt=0, name="func")],
     ),
     "atan": Function(
-        type="double", derefcnt=0, name="atan", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="atan",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "atan2": Function(
         type="double",
@@ -16965,7 +17349,10 @@ _functions = {
         ],
     ),
     "atanf": Function(
-        type="float", derefcnt=0, name="atanf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="atanf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "atanh": Function(
         type="double",
@@ -16974,16 +17361,28 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "atanhf": Function(
-        type="float", derefcnt=0, name="atanhf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="atanhf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "atanhl": Function(
-        type="long", derefcnt=0, name="atanhl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="atanhl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "atanl": Function(
-        type="long", derefcnt=0, name="atanl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="atanl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "atexit": Function(
-        type="int", derefcnt=0, name="atexit", args=[Argument(type="void", derefcnt=0, name="func")]
+        type="int",
+        derefcnt=0,
+        name="atexit",
+        args=[Argument(type="void", derefcnt=0, name="func")],
     ),
     "atof": Function(
         type="double",
@@ -16992,13 +17391,22 @@ _functions = {
         args=[Argument(type="char", derefcnt=1, name="nptr")],
     ),
     "atoi": Function(
-        type="int", derefcnt=0, name="atoi", args=[Argument(type="char", derefcnt=1, name="nptr")]
+        type="int",
+        derefcnt=0,
+        name="atoi",
+        args=[Argument(type="char", derefcnt=1, name="nptr")],
     ),
     "atol": Function(
-        type="long", derefcnt=0, name="atol", args=[Argument(type="char", derefcnt=1, name="nptr")]
+        type="long",
+        derefcnt=0,
+        name="atol",
+        args=[Argument(type="char", derefcnt=1, name="nptr")],
     ),
     "atoll": Function(
-        type="long", derefcnt=0, name="atoll", args=[Argument(type="char", derefcnt=1, name="nptr")]
+        type="long",
+        derefcnt=0,
+        name="atoll",
+        args=[Argument(type="char", derefcnt=1, name="nptr")],
     ),
     "b2i_PVK_bio": Function(
         type="EVP_PKEY",
@@ -17300,7 +17708,10 @@ _functions = {
         ],
     ),
     "brk": Function(
-        type="int", derefcnt=0, name="brk", args=[Argument(type="void", derefcnt=1, name="addr")]
+        type="int",
+        derefcnt=0,
+        name="brk",
+        args=[Argument(type="void", derefcnt=1, name="addr")],
     ),
     "bsd_signal": Function(
         type="sighandler_t",
@@ -17336,7 +17747,10 @@ _functions = {
         args=[Argument(type="uint64_t", derefcnt=0, name="bsx")],
     ),
     "btowc": Function(
-        type="wint_t", derefcnt=0, name="btowc", args=[Argument(type="int", derefcnt=0, name="c")]
+        type="wint_t",
+        derefcnt=0,
+        name="btowc",
+        args=[Argument(type="int", derefcnt=0, name="c")],
     ),
     "bwrite": Function(
         type="int",
@@ -17388,13 +17802,22 @@ _functions = {
         ],
     ),
     "cabs": Function(
-        type="double", derefcnt=0, name="cabs", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="cabs",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cabsf": Function(
-        type="float", derefcnt=0, name="cabsf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cabsf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cabsl": Function(
-        type="long", derefcnt=0, name="cabsl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cabsl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "cacos": Function(
         type="double",
@@ -17403,7 +17826,10 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cacosf": Function(
-        type="float", derefcnt=0, name="cacosf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cacosf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cacosh": Function(
         type="double",
@@ -17418,10 +17844,16 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cacoshl": Function(
-        type="long", derefcnt=0, name="cacoshl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cacoshl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "cacosl": Function(
-        type="long", derefcnt=0, name="cacosl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cacosl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "callback": Function(
         type="long",
@@ -17468,13 +17900,22 @@ _functions = {
         args=[Argument(type="char", derefcnt=1, name="name")],
     ),
     "carg": Function(
-        type="double", derefcnt=0, name="carg", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="carg",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cargf": Function(
-        type="float", derefcnt=0, name="cargf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cargf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cargl": Function(
-        type="long", derefcnt=0, name="cargl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cargl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "casin": Function(
         type="double",
@@ -17483,7 +17924,10 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "casinf": Function(
-        type="float", derefcnt=0, name="casinf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="casinf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "casinh": Function(
         type="double",
@@ -17498,10 +17942,16 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "casinhl": Function(
-        type="long", derefcnt=0, name="casinhl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="casinhl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "casinl": Function(
-        type="long", derefcnt=0, name="casinl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="casinl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "catan": Function(
         type="double",
@@ -17510,7 +17960,10 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "catanf": Function(
-        type="float", derefcnt=0, name="catanf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="catanf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "catanh": Function(
         type="double",
@@ -17525,10 +17978,16 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "catanhl": Function(
-        type="long", derefcnt=0, name="catanhl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="catanhl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "catanl": Function(
-        type="long", derefcnt=0, name="catanl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="catanl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "catclose": Function(
         type="int",
@@ -17577,19 +18036,34 @@ _functions = {
         ],
     ),
     "cbrt": Function(
-        type="double", derefcnt=0, name="cbrt", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="cbrt",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "cbrtf": Function(
-        type="float", derefcnt=0, name="cbrtf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="cbrtf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "cbrtl": Function(
-        type="long", derefcnt=0, name="cbrtl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="cbrtl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "ccos": Function(
-        type="double", derefcnt=0, name="ccos", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="ccos",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "ccosf": Function(
-        type="float", derefcnt=0, name="ccosf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="ccosf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "ccosh": Function(
         type="double",
@@ -17598,22 +18072,40 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "ccoshf": Function(
-        type="float", derefcnt=0, name="ccoshf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="ccoshf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "ccoshl": Function(
-        type="long", derefcnt=0, name="ccoshl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="ccoshl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "ccosl": Function(
-        type="long", derefcnt=0, name="ccosl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="ccosl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "ceil": Function(
-        type="double", derefcnt=0, name="ceil", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="ceil",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "ceilf": Function(
-        type="float", derefcnt=0, name="ceilf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="ceilf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "ceill": Function(
-        type="long", derefcnt=0, name="ceill", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="ceill",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "cert_crl": Function(
         type="int",
@@ -17626,13 +18118,22 @@ _functions = {
         ],
     ),
     "cexp": Function(
-        type="double", derefcnt=0, name="cexp", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="cexp",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cexpf": Function(
-        type="float", derefcnt=0, name="cexpf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cexpf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cexpl": Function(
-        type="long", derefcnt=0, name="cexpl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cexpl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "cfgetispeed": Function(
         type="speed_t",
@@ -17653,7 +18154,10 @@ _functions = {
         args=[Argument(type="termios", derefcnt=1, name="termios_p")],
     ),
     "cfree": Function(
-        type="void", derefcnt=0, name="cfree", args=[Argument(type="void", derefcnt=1, name="ptr")]
+        type="void",
+        derefcnt=0,
+        name="cfree",
+        args=[Argument(type="void", derefcnt=1, name="ptr")],
     ),
     "cfsetispeed": Function(
         type="int",
@@ -17683,7 +18187,10 @@ _functions = {
         ],
     ),
     "chdir": Function(
-        type="int", derefcnt=0, name="chdir", args=[Argument(type="char", derefcnt=1, name="path")]
+        type="int",
+        derefcnt=0,
+        name="chdir",
+        args=[Argument(type="char", derefcnt=1, name="path")],
     ),
     "check_crl": Function(
         type="int",
@@ -17752,7 +18259,10 @@ _functions = {
         ],
     ),
     "chroot": Function(
-        type="int", derefcnt=0, name="chroot", args=[Argument(type="char", derefcnt=1, name="path")]
+        type="int",
+        derefcnt=0,
+        name="chroot",
+        args=[Argument(type="char", derefcnt=1, name="path")],
     ),
     "chunkfun": Function(
         type="obstack_chunk",
@@ -17770,10 +18280,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cimagf": Function(
-        type="float", derefcnt=0, name="cimagf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cimagf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cimagl": Function(
-        type="long", derefcnt=0, name="cimagl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cimagl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "cleanup": Function(
         type="int",
@@ -17862,7 +18378,10 @@ _functions = {
         ],
     ),
     "clog": Function(
-        type="double", derefcnt=0, name="clog", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="clog",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "clog10": Function(
         type="double",
@@ -17877,13 +18396,22 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "clog10l": Function(
-        type="long", derefcnt=0, name="clog10l", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="clog10l",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "clogf": Function(
-        type="float", derefcnt=0, name="clogf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="clogf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "clogl": Function(
-        type="long", derefcnt=0, name="clogl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="clogl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "clone": Function(
         type="int",
@@ -17898,7 +18426,10 @@ _functions = {
         ],
     ),
     "close": Function(
-        type="int", derefcnt=0, name="close", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="close",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "closedir": Function(
         type="int",
@@ -18016,13 +18547,22 @@ _functions = {
         ],
     ),
     "conj": Function(
-        type="double", derefcnt=0, name="conj", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="conj",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "conjf": Function(
-        type="float", derefcnt=0, name="conjf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="conjf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "conjl": Function(
-        type="long", derefcnt=0, name="conjl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="conjl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "connect": Function(
         type="int",
@@ -18071,22 +18611,40 @@ _functions = {
         ],
     ),
     "cos": Function(
-        type="double", derefcnt=0, name="cos", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="cos",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "cosf": Function(
-        type="float", derefcnt=0, name="cosf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="cosf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "cosh": Function(
-        type="double", derefcnt=0, name="cosh", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="cosh",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "coshf": Function(
-        type="float", derefcnt=0, name="coshf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="coshf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "coshl": Function(
-        type="long", derefcnt=0, name="coshl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="coshl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "cosl": Function(
-        type="long", derefcnt=0, name="cosl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="cosl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "cpow": Function(
         type="double",
@@ -18122,10 +18680,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "cprojf": Function(
-        type="float", derefcnt=0, name="cprojf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="cprojf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "cprojl": Function(
-        type="long", derefcnt=0, name="cprojl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="cprojl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "crc32": Function(
         type="uLong",
@@ -18164,10 +18728,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "crealf": Function(
-        type="float", derefcnt=0, name="crealf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="crealf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "creall": Function(
-        type="long", derefcnt=0, name="creall", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="creall",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "creat": Function(
         type="int",
@@ -18188,7 +18758,10 @@ _functions = {
         ],
     ),
     "create": Function(
-        type="int", derefcnt=0, name="create", args=[Argument(type="BIO", derefcnt=1, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="create",
+        args=[Argument(type="BIO", derefcnt=1, name="arg0")],
     ),
     "crypt": Function(
         type="char",
@@ -18210,10 +18783,16 @@ _functions = {
         ],
     ),
     "csin": Function(
-        type="double", derefcnt=0, name="csin", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="csin",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "csinf": Function(
-        type="float", derefcnt=0, name="csinf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="csinf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "csinh": Function(
         type="double",
@@ -18222,13 +18801,22 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "csinhf": Function(
-        type="float", derefcnt=0, name="csinhf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="csinhf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "csinhl": Function(
-        type="long", derefcnt=0, name="csinhl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="csinhl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "csinl": Function(
-        type="long", derefcnt=0, name="csinl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="csinl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "csqrt": Function(
         type="double",
@@ -18237,16 +18825,28 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "csqrtf": Function(
-        type="float", derefcnt=0, name="csqrtf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="csqrtf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "csqrtl": Function(
-        type="long", derefcnt=0, name="csqrtl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="csqrtl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "ctan": Function(
-        type="double", derefcnt=0, name="ctan", args=[Argument(type="double", derefcnt=0, name="z")]
+        type="double",
+        derefcnt=0,
+        name="ctan",
+        args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "ctanf": Function(
-        type="float", derefcnt=0, name="ctanf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="ctanf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "ctanh": Function(
         type="double",
@@ -18255,16 +18855,28 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="z")],
     ),
     "ctanhf": Function(
-        type="float", derefcnt=0, name="ctanhf", args=[Argument(type="float", derefcnt=0, name="z")]
+        type="float",
+        derefcnt=0,
+        name="ctanhf",
+        args=[Argument(type="float", derefcnt=0, name="z")],
     ),
     "ctanhl": Function(
-        type="long", derefcnt=0, name="ctanhl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="ctanhl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "ctanl": Function(
-        type="long", derefcnt=0, name="ctanl", args=[Argument(type="long", derefcnt=0, name="z")]
+        type="long",
+        derefcnt=0,
+        name="ctanl",
+        args=[Argument(type="long", derefcnt=0, name="z")],
     ),
     "ctermid": Function(
-        type="char", derefcnt=1, name="ctermid", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="char",
+        derefcnt=1,
+        name="ctermid",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "ctime": Function(
         type="char",
@@ -18297,10 +18909,17 @@ _functions = {
     "ctype_get_mb_cur_max": Function(
         type="size_t", derefcnt=0, name="ctype_get_mb_cur_max", args=[]
     ),
-    "ctype_tolower_loc": Function(type="int32_t", derefcnt=2, name="ctype_tolower_loc", args=[]),
-    "ctype_toupper_loc": Function(type="int32_t", derefcnt=2, name="ctype_toupper_loc", args=[]),
+    "ctype_tolower_loc": Function(
+        type="int32_t", derefcnt=2, name="ctype_tolower_loc", args=[]
+    ),
+    "ctype_toupper_loc": Function(
+        type="int32_t", derefcnt=2, name="ctype_toupper_loc", args=[]
+    ),
     "cuserid": Function(
-        type="char", derefcnt=1, name="cuserid", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="char",
+        derefcnt=1,
+        name="cuserid",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "d2i_ASN1_BIT_STRING": Function(
         type="ASN1_BIT_STRING",
@@ -19685,7 +20304,10 @@ _functions = {
         ],
     ),
     "destroy": Function(
-        type="int", derefcnt=0, name="destroy", args=[Argument(type="BIO", derefcnt=1, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="destroy",
+        args=[Argument(type="BIO", derefcnt=1, name="arg0")],
     ),
     "dgettext": Function(
         type="char",
@@ -19706,7 +20328,10 @@ _functions = {
         ],
     ),
     "dirfd": Function(
-        type="int", derefcnt=0, name="dirfd", args=[Argument(type="DIR", derefcnt=1, name="dirp")]
+        type="int",
+        derefcnt=0,
+        name="dirfd",
+        args=[Argument(type="DIR", derefcnt=1, name="dirp")],
     ),
     "dirname": Function(
         type="char",
@@ -20001,7 +20626,10 @@ _functions = {
         ],
     ),
     "dup": Function(
-        type="int", derefcnt=0, name="dup", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="dup",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "dup2": Function(
         type="int",
@@ -20029,7 +20657,10 @@ _functions = {
         args=[Argument(type="locale_t", derefcnt=0, name="dataset")],
     ),
     "dysize": Function(
-        type="int", derefcnt=0, name="dysize", args=[Argument(type="int", derefcnt=0, name="year")]
+        type="int",
+        derefcnt=0,
+        name="dysize",
+        args=[Argument(type="int", derefcnt=0, name="year")],
     ),
     "eaccess": Function(
         type="int",
@@ -20248,7 +20879,10 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "erfcl": Function(
-        type="long", derefcnt=0, name="erfcl", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="erfcl",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "erff": Function(
         type="float",
@@ -20257,7 +20891,10 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "erfl": Function(
-        type="long", derefcnt=0, name="erfl", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="erfl",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "err": Function(
         type="void",
@@ -20342,7 +20979,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="vararg"),
         ],
     ),
-    "error_print_progname": Function(type="void", derefcnt=0, name="error_print_progname", args=[]),
+    "error_print_progname": Function(
+        type="void", derefcnt=0, name="error_print_progname", args=[]
+    ),
     "errx": Function(
         type="void",
         derefcnt=0,
@@ -20457,10 +21096,16 @@ _functions = {
         ],
     ),
     "exit": Function(
-        type="void", derefcnt=0, name="exit", args=[Argument(type="int", derefcnt=0, name="status")]
+        type="void",
+        derefcnt=0,
+        name="exit",
+        args=[Argument(type="int", derefcnt=0, name="status")],
     ),
     "exp": Function(
-        type="double", derefcnt=0, name="exp", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="exp",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "exp10": Function(
         type="double",
@@ -20469,19 +21114,34 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "exp10f": Function(
-        type="float", derefcnt=0, name="exp10f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="exp10f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "exp10l": Function(
-        type="long", derefcnt=0, name="exp10l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="exp10l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "exp2": Function(
-        type="double", derefcnt=0, name="exp2", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="exp2",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "exp2f": Function(
-        type="float", derefcnt=0, name="exp2f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="exp2f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "exp2l": Function(
-        type="long", derefcnt=0, name="exp2l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="exp2l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "expand": Function(
         type="int",
@@ -20496,10 +21156,16 @@ _functions = {
         ],
     ),
     "expf": Function(
-        type="float", derefcnt=0, name="expf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="expf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "expl": Function(
-        type="long", derefcnt=0, name="expl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="expl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "__explicit_bzero_chk": Function(
         type="void",
@@ -20518,19 +21184,34 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "expm1f": Function(
-        type="float", derefcnt=0, name="expm1f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="expm1f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "expm1l": Function(
-        type="long", derefcnt=0, name="expm1l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="expm1l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "fabs": Function(
-        type="double", derefcnt=0, name="fabs", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="fabs",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "fabsf": Function(
-        type="float", derefcnt=0, name="fabsf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="fabsf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "fabsl": Function(
-        type="long", derefcnt=0, name="fabsl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="fabsl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "faccessat": Function(
         type="int",
@@ -20581,7 +21262,10 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "fchdir": Function(
-        type="int", derefcnt=0, name="fchdir", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="fchdir",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "fchmod": Function(
         type="int",
@@ -20721,7 +21405,10 @@ _functions = {
         ],
     ),
     "fdopendir": Function(
-        type="DIR", derefcnt=1, name="fdopendir", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="DIR",
+        derefcnt=1,
+        name="fdopendir",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "feclearexcept": Function(
         type="int",
@@ -20765,7 +21452,10 @@ _functions = {
         args=[Argument(type="fenv_t", derefcnt=1, name="envp")],
     ),
     "feof": Function(
-        type="int", derefcnt=0, name="feof", args=[Argument(type="FILE", derefcnt=1, name="stream")]
+        type="int",
+        derefcnt=0,
+        name="feof",
+        args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "feof_unlocked": Function(
         type="int",
@@ -20847,13 +21537,22 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "ffs": Function(
-        type="int", derefcnt=0, name="ffs", args=[Argument(type="int", derefcnt=0, name="i")]
+        type="int",
+        derefcnt=0,
+        name="ffs",
+        args=[Argument(type="int", derefcnt=0, name="i")],
     ),
     "ffsl": Function(
-        type="int", derefcnt=0, name="ffsl", args=[Argument(type="long", derefcnt=0, name="l")]
+        type="int",
+        derefcnt=0,
+        name="ffsl",
+        args=[Argument(type="long", derefcnt=0, name="l")],
     ),
     "ffsll": Function(
-        type="int", derefcnt=0, name="ffsll", args=[Argument(type="long", derefcnt=0, name="ll")]
+        type="int",
+        derefcnt=0,
+        name="ffsll",
+        args=[Argument(type="long", derefcnt=0, name="ll")],
     ),
     "fgetc": Function(
         type="int",
@@ -21075,7 +21774,10 @@ _functions = {
         ],
     ),
     "finish": Function(
-        type="int", derefcnt=0, name="finish", args=[Argument(type="DSA", derefcnt=1, name="dsa")]
+        type="int",
+        derefcnt=0,
+        name="finish",
+        args=[Argument(type="DSA", derefcnt=1, name="dsa")],
     ),
     "finite": Function(
         type="int",
@@ -21096,7 +21798,10 @@ _functions = {
         args=[Argument(type="long", derefcnt=0, name="value")],
     ),
     "flbf": Function(
-        type="int", derefcnt=0, name="flbf", args=[Argument(type="FILE", derefcnt=1, name="fp")]
+        type="int",
+        derefcnt=0,
+        name="flbf",
+        args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "flock": Function(
         type="int",
@@ -21120,10 +21825,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "floorf": Function(
-        type="float", derefcnt=0, name="floorf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="floorf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "floorl": Function(
-        type="long", derefcnt=0, name="floorl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="floorl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "flushlbf": Function(type="void", derefcnt=0, name="flushlbf", args=[]),
     "fma": Function(
@@ -21393,7 +22104,10 @@ _functions = {
         ],
     ),
     "fpurge": Function(
-        type="void", derefcnt=0, name="fpurge", args=[Argument(type="FILE", derefcnt=1, name="fp")]
+        type="void",
+        derefcnt=0,
+        name="fpurge",
+        args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "fputc": Function(
         type="int",
@@ -21520,10 +22234,16 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "freading": Function(
-        type="int", derefcnt=0, name="freading", args=[Argument(type="FILE", derefcnt=1, name="fp")]
+        type="int",
+        derefcnt=0,
+        name="freading",
+        args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "free": Function(
-        type="void", derefcnt=0, name="free", args=[Argument(type="void", derefcnt=1, name="ptr")]
+        type="void",
+        derefcnt=0,
+        name="free",
+        args=[Argument(type="void", derefcnt=1, name="ptr")],
     ),
     "free_fn_t": Function(
         type="void",
@@ -21731,7 +22451,10 @@ _functions = {
         ],
     ),
     "fsync": Function(
-        type="int", derefcnt=0, name="fsync", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="fsync",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "ftell": Function(
         type="long",
@@ -21973,7 +22696,10 @@ _functions = {
         ],
     ),
     "fwriting": Function(
-        type="int", derefcnt=0, name="fwriting", args=[Argument(type="FILE", derefcnt=1, name="fp")]
+        type="int",
+        derefcnt=0,
+        name="fwriting",
+        args=[Argument(type="FILE", derefcnt=1, name="fp")],
     ),
     "fwscanf": Function(
         type="int",
@@ -22258,7 +22984,9 @@ _functions = {
         name="get_cipher_by_char",
         args=[Argument(type="unsigned", derefcnt=1, name="ptr")],
     ),
-    "get_crc_table": Function(type="z_crc_t", derefcnt=1, name="get_crc_table", args=[]),
+    "get_crc_table": Function(
+        type="z_crc_t", derefcnt=1, name="get_crc_table", args=[]
+    ),
     "get_crl": Function(
         type="int",
         derefcnt=0,
@@ -22269,7 +22997,9 @@ _functions = {
             Argument(type="X509", derefcnt=1, name="x"),
         ],
     ),
-    "get_current_dir_name": Function(type="char", derefcnt=1, name="get_current_dir_name", args=[]),
+    "get_current_dir_name": Function(
+        type="char", derefcnt=1, name="get_current_dir_name", args=[]
+    ),
     "get_issuer": Function(
         type="int",
         derefcnt=0,
@@ -22399,7 +23129,10 @@ _functions = {
         ],
     ),
     "getc": Function(
-        type="int", derefcnt=0, name="getc", args=[Argument(type="FILE", derefcnt=1, name="stream")]
+        type="int",
+        derefcnt=0,
+        name="getc",
+        args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getc_unlocked": Function(
         type="int",
@@ -22408,7 +23141,9 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getchar": Function(type="int", derefcnt=0, name="getchar", args=[]),
-    "getchar_unlocked": Function(type="int", derefcnt=0, name="getchar_unlocked", args=[]),
+    "getchar_unlocked": Function(
+        type="int", derefcnt=0, name="getchar_unlocked", args=[]
+    ),
     "getcontext": Function(
         type="int",
         derefcnt=0,
@@ -23364,7 +24099,10 @@ _functions = {
         ],
     ),
     "getutid": Function(
-        type="utmp", derefcnt=1, name="getutid", args=[Argument(type="utmp", derefcnt=1, name="id")]
+        type="utmp",
+        derefcnt=1,
+        name="getutid",
+        args=[Argument(type="utmp", derefcnt=1, name="id")],
     ),
     "getutid_r": Function(
         type="int",
@@ -23424,7 +24162,10 @@ _functions = {
         args=[Argument(type="utmpx", derefcnt=1, name="line")],
     ),
     "getw": Function(
-        type="int", derefcnt=0, name="getw", args=[Argument(type="FILE", derefcnt=1, name="stream")]
+        type="int",
+        derefcnt=0,
+        name="getw",
+        args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getwc": Function(
         type="wint_t",
@@ -23439,9 +24180,14 @@ _functions = {
         args=[Argument(type="FILE", derefcnt=1, name="stream")],
     ),
     "getwchar": Function(type="wint_t", derefcnt=0, name="getwchar", args=[]),
-    "getwchar_unlocked": Function(type="wint_t", derefcnt=0, name="getwchar_unlocked", args=[]),
+    "getwchar_unlocked": Function(
+        type="wint_t", derefcnt=0, name="getwchar_unlocked", args=[]
+    ),
     "getwd": Function(
-        type="char", derefcnt=1, name="getwd", args=[Argument(type="char", derefcnt=1, name="buf")]
+        type="char",
+        derefcnt=1,
+        name="getwd",
+        args=[Argument(type="char", derefcnt=1, name="buf")],
     ),
     "__getwd_chk": Function(
         type="char",
@@ -23568,7 +24314,10 @@ _functions = {
         args=[Argument(type="unsigned", derefcnt=0, name="dev")],
     ),
     "grantpt": Function(
-        type="int", derefcnt=0, name="grantpt", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="grantpt",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "group_member": Function(
         type="int",
@@ -23577,7 +24326,10 @@ _functions = {
         args=[Argument(type="gid_t", derefcnt=0, name="gid")],
     ),
     "gsignal": Function(
-        type="int", derefcnt=0, name="gsignal", args=[Argument(type="int", derefcnt=0, name="sig")]
+        type="int",
+        derefcnt=0,
+        name="gsignal",
+        args=[Argument(type="int", derefcnt=0, name="sig")],
     ),
     "gtty": Function(
         type="int",
@@ -23827,7 +24579,9 @@ _functions = {
             Argument(type="unsigned", derefcnt=0, name="len"),
         ],
     ),
-    "h_errno_location": Function(type="int", derefcnt=1, name="h_errno_location", args=[]),
+    "h_errno_location": Function(
+        type="int", derefcnt=1, name="h_errno_location", args=[]
+    ),
     "handshake_func": Function(
         type="int",
         derefcnt=0,
@@ -23876,7 +24630,10 @@ _functions = {
         ],
     ),
     "herror": Function(
-        type="void", derefcnt=0, name="herror", args=[Argument(type="char", derefcnt=1, name="str")]
+        type="void",
+        derefcnt=0,
+        name="herror",
+        args=[Argument(type="char", derefcnt=1, name="str")],
     ),
     "hostalias": Function(
         type="char",
@@ -25250,13 +26007,22 @@ _functions = {
         ],
     ),
     "ilogb": Function(
-        type="int", derefcnt=0, name="ilogb", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="int",
+        derefcnt=0,
+        name="ilogb",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "ilogbf": Function(
-        type="int", derefcnt=0, name="ilogbf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="int",
+        derefcnt=0,
+        name="ilogbf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "ilogbl": Function(
-        type="int", derefcnt=0, name="ilogbl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="int",
+        derefcnt=0,
+        name="ilogbl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "imaxabs": Function(
         type="intmax_t",
@@ -25833,7 +26599,10 @@ _functions = {
         ],
     ),
     "iopl": Function(
-        type="int", derefcnt=0, name="iopl", args=[Argument(type="int", derefcnt=0, name="level")]
+        type="int",
+        derefcnt=0,
+        name="iopl",
+        args=[Argument(type="int", derefcnt=0, name="level")],
     ),
     "iruserok": Function(
         type="int",
@@ -25859,7 +26628,10 @@ _functions = {
         ],
     ),
     "isalnum": Function(
-        type="int", derefcnt=0, name="isalnum", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isalnum",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isalnum_l": Function(
         type="int",
@@ -25871,7 +26643,10 @@ _functions = {
         ],
     ),
     "isalpha": Function(
-        type="int", derefcnt=0, name="isalpha", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isalpha",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isalpha_l": Function(
         type="int",
@@ -25883,7 +26658,10 @@ _functions = {
         ],
     ),
     "isascii": Function(
-        type="int", derefcnt=0, name="isascii", args=[Argument(type="int", derefcnt=0, name="c")]
+        type="int",
+        derefcnt=0,
+        name="isascii",
+        args=[Argument(type="int", derefcnt=0, name="c")],
     ),
     "isastream": Function(
         type="int",
@@ -25892,10 +26670,16 @@ _functions = {
         args=[Argument(type="int", derefcnt=0, name="fildes")],
     ),
     "isatty": Function(
-        type="int", derefcnt=0, name="isatty", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="isatty",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "isblank": Function(
-        type="int", derefcnt=0, name="isblank", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isblank",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isblank_l": Function(
         type="int",
@@ -25907,7 +26691,10 @@ _functions = {
         ],
     ),
     "iscntrl": Function(
-        type="int", derefcnt=0, name="iscntrl", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="iscntrl",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "iscntrl_l": Function(
         type="int",
@@ -25928,7 +26715,10 @@ _functions = {
         ],
     ),
     "isdigit": Function(
-        type="int", derefcnt=0, name="isdigit", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isdigit",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isdigit_l": Function(
         type="int",
@@ -25949,7 +26739,10 @@ _functions = {
         ],
     ),
     "isgraph": Function(
-        type="int", derefcnt=0, name="isgraph", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isgraph",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isgraph_l": Function(
         type="int",
@@ -25979,7 +26772,10 @@ _functions = {
         args=[Argument(type="long", derefcnt=0, name="value")],
     ),
     "islower": Function(
-        type="int", derefcnt=0, name="islower", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="islower",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "islower_l": Function(
         type="int",
@@ -26009,7 +26805,10 @@ _functions = {
         args=[Argument(type="long", derefcnt=0, name="value")],
     ),
     "isprint": Function(
-        type="int", derefcnt=0, name="isprint", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isprint",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isprint_l": Function(
         type="int",
@@ -26021,7 +26820,10 @@ _functions = {
         ],
     ),
     "ispunct": Function(
-        type="int", derefcnt=0, name="ispunct", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="ispunct",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "ispunct_l": Function(
         type="int",
@@ -26051,7 +26853,10 @@ _functions = {
         args=[Argument(type="long", derefcnt=0, name="value")],
     ),
     "isspace": Function(
-        type="int", derefcnt=0, name="isspace", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isspace",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isspace_l": Function(
         type="int",
@@ -26063,7 +26868,10 @@ _functions = {
         ],
     ),
     "isupper": Function(
-        type="int", derefcnt=0, name="isupper", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="isupper",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "isupper_l": Function(
         type="int",
@@ -26295,10 +27103,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="arg0")],
     ),
     "j0f": Function(
-        type="float", derefcnt=0, name="j0f", args=[Argument(type="float", derefcnt=0, name="arg0")]
+        type="float",
+        derefcnt=0,
+        name="j0f",
+        args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "j0l": Function(
-        type="long", derefcnt=0, name="j0l", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="j0l",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "j1": Function(
         type="double",
@@ -26307,10 +27121,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="arg0")],
     ),
     "j1f": Function(
-        type="float", derefcnt=0, name="j1f", args=[Argument(type="float", derefcnt=0, name="arg0")]
+        type="float",
+        derefcnt=0,
+        name="j1f",
+        args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "j1l": Function(
-        type="long", derefcnt=0, name="j1l", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="j1l",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "jn": Function(
         type="double",
@@ -26374,7 +27194,10 @@ _functions = {
         ],
     ),
     "l64a": Function(
-        type="char", derefcnt=1, name="l64a", args=[Argument(type="long", derefcnt=0, name="n")]
+        type="char",
+        derefcnt=1,
+        name="l64a",
+        args=[Argument(type="long", derefcnt=0, name="n")],
     ),
     "la_activity": Function(
         type="void",
@@ -26508,7 +27331,10 @@ _functions = {
         ],
     ),
     "labs": Function(
-        type="long", derefcnt=0, name="labs", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="labs",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "lchmod": Function(
         type="int",
@@ -26824,7 +27650,10 @@ _functions = {
         ],
     ),
     "llabs": Function(
-        type="long", derefcnt=0, name="llabs", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="llabs",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "lldiv": Function(
         type="lldiv_t",
@@ -26836,13 +27665,22 @@ _functions = {
         ],
     ),
     "llrint": Function(
-        type="long", derefcnt=0, name="llrint", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="llrint",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "llrintf": Function(
-        type="long", derefcnt=0, name="llrintf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="llrintf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "llrintl": Function(
-        type="long", derefcnt=0, name="llrintl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="llrintl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "llround": Function(
         type="long",
@@ -26857,7 +27695,10 @@ _functions = {
         args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "llroundl": Function(
-        type="long", derefcnt=0, name="llroundl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="llroundl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "loc_aton": Function(
         type="int",
@@ -26914,7 +27755,10 @@ _functions = {
         ],
     ),
     "log": Function(
-        type="double", derefcnt=0, name="log", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="log",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "log10": Function(
         type="double",
@@ -26923,10 +27767,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "log10f": Function(
-        type="float", derefcnt=0, name="log10f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="log10f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "log10l": Function(
-        type="long", derefcnt=0, name="log10l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="log10l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "log1p": Function(
         type="double",
@@ -26935,31 +27785,58 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "log1pf": Function(
-        type="float", derefcnt=0, name="log1pf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="log1pf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "log1pl": Function(
-        type="long", derefcnt=0, name="log1pl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="log1pl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "log2": Function(
-        type="double", derefcnt=0, name="log2", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="log2",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "log2f": Function(
-        type="float", derefcnt=0, name="log2f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="log2f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "log2l": Function(
-        type="long", derefcnt=0, name="log2l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="log2l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "logb": Function(
-        type="double", derefcnt=0, name="logb", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="logb",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "logbf": Function(
-        type="float", derefcnt=0, name="logbf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="logbf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "logbl": Function(
-        type="long", derefcnt=0, name="logbl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="logbl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "logf": Function(
-        type="float", derefcnt=0, name="logf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="logf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "login": Function(
         type="void",
@@ -26968,10 +27845,16 @@ _functions = {
         args=[Argument(type="utmp", derefcnt=1, name="entry")],
     ),
     "login_tty": Function(
-        type="int", derefcnt=0, name="login_tty", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="login_tty",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "logl": Function(
-        type="long", derefcnt=0, name="logl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="logl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "logout": Function(
         type="int",
@@ -27027,22 +27910,40 @@ _functions = {
         ],
     ),
     "lrint": Function(
-        type="long", derefcnt=0, name="lrint", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lrint",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "lrintf": Function(
-        type="long", derefcnt=0, name="lrintf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lrintf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "lrintl": Function(
-        type="long", derefcnt=0, name="lrintl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lrintl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "lround": Function(
-        type="long", derefcnt=0, name="lround", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lround",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "lroundf": Function(
-        type="long", derefcnt=0, name="lroundf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lroundf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "lroundl": Function(
-        type="long", derefcnt=0, name="lroundl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="lroundl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "lsearch": Function(
         type="void",
@@ -27886,7 +28787,9 @@ _functions = {
     "lzma_version_number": Function(
         type="uint32_t", derefcnt=0, name="lzma_version_number", args=[]
     ),
-    "lzma_version_string": Function(type="char", derefcnt=1, name="lzma_version_string", args=[]),
+    "lzma_version_string": Function(
+        type="char", derefcnt=1, name="lzma_version_string", args=[]
+    ),
     "lzma_vli_decode": Function(
         type="lzma_ret",
         derefcnt=0,
@@ -27945,8 +28848,12 @@ _functions = {
         name="malloc",
         args=[Argument(type="size_t", derefcnt=0, name="size")],
     ),
-    "malloc_check_init": Function(type="void", derefcnt=0, name="malloc_check_init", args=[]),
-    "malloc_get_state": Function(type="void", derefcnt=1, name="malloc_get_state", args=[]),
+    "malloc_check_init": Function(
+        type="void", derefcnt=0, name="malloc_check_init", args=[]
+    ),
+    "malloc_get_state": Function(
+        type="void", derefcnt=1, name="malloc_get_state", args=[]
+    ),
     "malloc_hook": Function(
         type="void",
         derefcnt=1,
@@ -28123,7 +29030,9 @@ _functions = {
         name="mcheck",
         args=[Argument(type="void", derefcnt=0, name="abortfunc")],
     ),
-    "mcheck_check_all": Function(type="void", derefcnt=0, name="mcheck_check_all", args=[]),
+    "mcheck_check_all": Function(
+        type="void", derefcnt=0, name="mcheck_check_all", args=[]
+    ),
     "mcheck_pedantic": Function(
         type="int",
         derefcnt=0,
@@ -28455,7 +29364,10 @@ _functions = {
         args=[Argument(type="char", derefcnt=1, name="template")],
     ),
     "mktime": Function(
-        type="time_t", derefcnt=0, name="mktime", args=[Argument(type="tm", derefcnt=1, name="tp")]
+        type="time_t",
+        derefcnt=0,
+        name="mktime",
+        args=[Argument(type="tm", derefcnt=1, name="tp")],
     ),
     "mlock": Function(
         type="int",
@@ -28789,13 +29701,22 @@ _functions = {
         ],
     ),
     "nan": Function(
-        type="double", derefcnt=0, name="nan", args=[Argument(type="char", derefcnt=1, name="tagb")]
+        type="double",
+        derefcnt=0,
+        name="nan",
+        args=[Argument(type="char", derefcnt=1, name="tagb")],
     ),
     "nanf": Function(
-        type="float", derefcnt=0, name="nanf", args=[Argument(type="char", derefcnt=1, name="tagb")]
+        type="float",
+        derefcnt=0,
+        name="nanf",
+        args=[Argument(type="char", derefcnt=1, name="tagb")],
     ),
     "nanl": Function(
-        type="long", derefcnt=0, name="nanl", args=[Argument(type="char", derefcnt=1, name="tagb")]
+        type="long",
+        derefcnt=0,
+        name="nanl",
+        args=[Argument(type="char", derefcnt=1, name="tagb")],
     ),
     "nanosleep": Function(
         type="int",
@@ -28982,7 +29903,10 @@ _functions = {
         ],
     ),
     "nice": Function(
-        type="int", derefcnt=0, name="nice", args=[Argument(type="int", derefcnt=0, name="inc")]
+        type="int",
+        derefcnt=0,
+        name="nice",
+        args=[Argument(type="int", derefcnt=0, name="inc")],
     ),
     "nl_langinfo": Function(
         type="char",
@@ -29837,7 +30761,10 @@ _functions = {
         args=[Argument(type="u_int32_t", derefcnt=0, name="arg0")],
     ),
     "p_type": Function(
-        type="char", derefcnt=1, name="p_type", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="char",
+        derefcnt=1,
+        name="p_type",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "parse_printf_format": Function(
         type="size_t",
@@ -29877,10 +30804,16 @@ _functions = {
         ],
     ),
     "perror": Function(
-        type="void", derefcnt=0, name="perror", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="void",
+        derefcnt=0,
+        name="perror",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "pipe": Function(
-        type="int", derefcnt=0, name="pipe", args=[Argument(type="int", derefcnt=1, name="pipedes")]
+        type="int",
+        derefcnt=0,
+        name="pipe",
+        args=[Argument(type="int", derefcnt=1, name="pipedes")],
     ),
     "pipe2": Function(
         type="int",
@@ -30011,7 +30944,9 @@ _functions = {
         args=[
             Argument(type="pid_t", derefcnt=1, name="pid"),
             Argument(type="char", derefcnt=1, name="path"),
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
+            Argument(
+                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
+            ),
             Argument(type="posix_spawnattr_t", derefcnt=1, name="attrp"),
             Argument(type="char", derefcnt=2, name="argv"),
             Argument(type="char", derefcnt=2, name="envp"),
@@ -30022,7 +30957,9 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_addclose",
         args=[
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
+            Argument(
+                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
+            ),
             Argument(type="int", derefcnt=0, name="fd"),
         ],
     ),
@@ -30031,7 +30968,9 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_adddup2",
         args=[
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
+            Argument(
+                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
+            ),
             Argument(type="int", derefcnt=0, name="fd"),
             Argument(type="int", derefcnt=0, name="newfd"),
         ],
@@ -30041,7 +30980,9 @@ _functions = {
         derefcnt=0,
         name="posix_spawn_file_actions_addopen",
         args=[
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
+            Argument(
+                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
+            ),
             Argument(type="int", derefcnt=0, name="fd"),
             Argument(type="char", derefcnt=1, name="path"),
             Argument(type="int", derefcnt=0, name="oflag"),
@@ -30052,13 +30993,17 @@ _functions = {
         type="int",
         derefcnt=0,
         name="posix_spawn_file_actions_destroy",
-        args=[Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")],
+        args=[
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")
+        ],
     ),
     "posix_spawn_file_actions_init": Function(
         type="int",
         derefcnt=0,
         name="posix_spawn_file_actions_init",
-        args=[Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")],
+        args=[
+            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions")
+        ],
     ),
     "posix_spawnattr_destroy": Function(
         type="int",
@@ -30187,7 +31132,9 @@ _functions = {
         args=[
             Argument(type="pid_t", derefcnt=1, name="pid"),
             Argument(type="char", derefcnt=1, name="file"),
-            Argument(type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"),
+            Argument(
+                type="posix_spawn_file_actions_t", derefcnt=1, name="file_actions"
+            ),
             Argument(type="posix_spawnattr_t", derefcnt=1, name="attrp"),
             Argument(type="char", derefcnt=2, name="argv"),
             Argument(type="char", derefcnt=2, name="envp"),
@@ -30209,10 +31156,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "pow10f": Function(
-        type="float", derefcnt=0, name="pow10f", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="pow10f",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "pow10l": Function(
-        type="long", derefcnt=0, name="pow10l", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="pow10l",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "powf": Function(
         type="float",
@@ -31397,7 +32350,9 @@ _functions = {
             Argument(type="int", derefcnt=0, name="pshared"),
         ],
     ),
-    "pthread_self": Function(type="pthread_t", derefcnt=0, name="pthread_self", args=[]),
+    "pthread_self": Function(
+        type="pthread_t", derefcnt=0, name="pthread_self", args=[]
+    ),
     "pthread_setaffinity_np": Function(
         type="int",
         derefcnt=0,
@@ -31528,7 +32483,9 @@ _functions = {
         name="pthread_spin_unlock",
         args=[Argument(type="pthread_spinlock_t", derefcnt=1, name="lock")],
     ),
-    "pthread_testcancel": Function(type="void", derefcnt=0, name="pthread_testcancel", args=[]),
+    "pthread_testcancel": Function(
+        type="void", derefcnt=0, name="pthread_testcancel", args=[]
+    ),
     "pthread_timedjoin_np": Function(
         type="int",
         derefcnt=0,
@@ -31577,7 +32534,10 @@ _functions = {
         ],
     ),
     "ptsname": Function(
-        type="char", derefcnt=1, name="ptsname", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="char",
+        derefcnt=1,
+        name="ptsname",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "ptsname_r": Function(
         type="int",
@@ -31617,7 +32577,10 @@ _functions = {
         ],
     ),
     "putchar": Function(
-        type="int", derefcnt=0, name="putchar", args=[Argument(type="int", derefcnt=0, name="c")]
+        type="int",
+        derefcnt=0,
+        name="putchar",
+        args=[Argument(type="int", derefcnt=0, name="c")],
     ),
     "putchar_unlocked": Function(
         type="int",
@@ -31682,7 +32645,10 @@ _functions = {
         ],
     ),
     "puts": Function(
-        type="int", derefcnt=0, name="puts", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="puts",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "putsgent": Function(
         type="int",
@@ -31900,7 +32866,10 @@ _functions = {
         args=[Argument(type="int", derefcnt=0, name="status")],
     ),
     "raise": Function(
-        type="int", derefcnt=0, name="raise", args=[Argument(type="int", derefcnt=0, name="sig")]
+        type="int",
+        derefcnt=0,
+        name="raise",
+        args=[Argument(type="int", derefcnt=0, name="sig")],
     ),
     "rand": Function(type="int", derefcnt=0, name="rand", args=[]),
     "rand_r": Function(
@@ -32713,7 +33682,10 @@ _functions = {
     ),
     "res_state": Function(type="res_state", derefcnt=1, name="res_state", args=[]),
     "revoke": Function(
-        type="int", derefcnt=0, name="revoke", args=[Argument(type="char", derefcnt=1, name="file")]
+        type="int",
+        derefcnt=0,
+        name="revoke",
+        args=[Argument(type="char", derefcnt=1, name="file")],
     ),
     "rewind": Function(
         type="void",
@@ -32764,16 +33736,28 @@ _functions = {
         ],
     ),
     "rint": Function(
-        type="double", derefcnt=0, name="rint", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="rint",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "rintf": Function(
-        type="float", derefcnt=0, name="rintf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="rintf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "rintl": Function(
-        type="long", derefcnt=0, name="rintl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="rintl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "rmdir": Function(
-        type="int", derefcnt=0, name="rmdir", args=[Argument(type="char", derefcnt=1, name="path")]
+        type="int",
+        derefcnt=0,
+        name="rmdir",
+        args=[Argument(type="char", derefcnt=1, name="path")],
     ),
     "round": Function(
         type="double",
@@ -32782,10 +33766,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "roundf": Function(
-        type="float", derefcnt=0, name="roundf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="roundf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "roundl": Function(
-        type="long", derefcnt=0, name="roundl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="roundl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "routine": Function(
         type="void",
@@ -33477,7 +34467,10 @@ _functions = {
     ),
     "setfsent": Function(type="int", derefcnt=0, name="setfsent", args=[]),
     "setgid": Function(
-        type="int", derefcnt=0, name="setgid", args=[Argument(type="gid_t", derefcnt=0, name="gid")]
+        type="int",
+        derefcnt=0,
+        name="setgid",
+        args=[Argument(type="gid_t", derefcnt=0, name="gid")],
     ),
     "setgrent": Function(type="void", derefcnt=0, name="setgrent", args=[]),
     "setgroups": Function(
@@ -33540,7 +34533,10 @@ _functions = {
         args=[Argument(type="jmp_buf_tag", derefcnt=1, name="env")],
     ),
     "setkey": Function(
-        type="void", derefcnt=0, name="setkey", args=[Argument(type="char", derefcnt=1, name="key")]
+        type="void",
+        derefcnt=0,
+        name="setkey",
+        args=[Argument(type="char", derefcnt=1, name="key")],
     ),
     "setkey_r": Function(
         type="void",
@@ -33758,7 +34754,10 @@ _functions = {
     ),
     "setttyent": Function(type="int", derefcnt=0, name="setttyent", args=[]),
     "setuid": Function(
-        type="int", derefcnt=0, name="setuid", args=[Argument(type="uid_t", derefcnt=0, name="uid")]
+        type="int",
+        derefcnt=0,
+        name="setuid",
+        args=[Argument(type="uid_t", derefcnt=0, name="uid")],
     ),
     "setusershell": Function(type="void", derefcnt=0, name="setusershell", args=[]),
     "setutent": Function(type="void", derefcnt=0, name="setutent", args=[]),
@@ -33941,7 +34940,10 @@ _functions = {
         args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "sighold": Function(
-        type="int", derefcnt=0, name="sighold", args=[Argument(type="int", derefcnt=0, name="sig")]
+        type="int",
+        derefcnt=0,
+        name="sighold",
+        args=[Argument(type="int", derefcnt=0, name="sig")],
     ),
     "sigignore": Function(
         type="int",
@@ -34051,7 +35053,10 @@ _functions = {
         ],
     ),
     "sigpause": Function(
-        type="int", derefcnt=0, name="sigpause", args=[Argument(type="int", derefcnt=0, name="sig")]
+        type="int",
+        derefcnt=0,
+        name="sigpause",
+        args=[Argument(type="int", derefcnt=0, name="sig")],
     ),
     "sigpending": Function(
         type="int",
@@ -34080,7 +35085,10 @@ _functions = {
         ],
     ),
     "sigrelse": Function(
-        type="int", derefcnt=0, name="sigrelse", args=[Argument(type="int", derefcnt=0, name="sig")]
+        type="int",
+        derefcnt=0,
+        name="sigrelse",
+        args=[Argument(type="int", derefcnt=0, name="sig")],
     ),
     "sigreturn": Function(
         type="int",
@@ -34166,7 +35174,10 @@ _functions = {
         ],
     ),
     "sin": Function(
-        type="double", derefcnt=0, name="sin", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="sin",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "sincos": Function(
         type="void",
@@ -34199,19 +35210,34 @@ _functions = {
         ],
     ),
     "sinf": Function(
-        type="float", derefcnt=0, name="sinf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="sinf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "sinh": Function(
-        type="double", derefcnt=0, name="sinh", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="sinh",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "sinhf": Function(
-        type="float", derefcnt=0, name="sinhf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="sinhf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "sinhl": Function(
-        type="long", derefcnt=0, name="sinhl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="sinhl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "sinl": Function(
-        type="long", derefcnt=0, name="sinl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="sinl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "sk_delete": Function(
         type="void",
@@ -34278,7 +35304,10 @@ _functions = {
         args=[Argument(type="STACK", derefcnt=1, name="st")],
     ),
     "sk_new": Function(
-        type="STACK", derefcnt=1, name="sk_new", args=[Argument(type="int", derefcnt=0, name="cmp")]
+        type="STACK",
+        derefcnt=1,
+        name="sk_new",
+        args=[Argument(type="int", derefcnt=0, name="cmp")],
     ),
     "sk_new_null": Function(type="STACK", derefcnt=1, name="sk_new_null", args=[]),
     "sk_num": Function(
@@ -34288,7 +35317,10 @@ _functions = {
         args=[Argument(type="STACK", derefcnt=1, name="arg0")],
     ),
     "sk_pop": Function(
-        type="void", derefcnt=1, name="sk_pop", args=[Argument(type="STACK", derefcnt=1, name="st")]
+        type="void",
+        derefcnt=1,
+        name="sk_pop",
+        args=[Argument(type="STACK", derefcnt=1, name="st")],
     ),
     "sk_pop_free": Function(
         type="void",
@@ -34456,13 +35488,22 @@ _functions = {
         ],
     ),
     "sqrt": Function(
-        type="double", derefcnt=0, name="sqrt", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="sqrt",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "sqrtf": Function(
-        type="float", derefcnt=0, name="sqrtf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="sqrtf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "sqrtl": Function(
-        type="long", derefcnt=0, name="sqrtl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="sqrtl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "srand": Function(
         type="void",
@@ -34520,7 +35561,10 @@ _functions = {
         ],
     ),
     "ssl_accept": Function(
-        type="int", derefcnt=0, name="ssl_accept", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="ssl_accept",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "ssl_callback_ctrl": Function(
         type="long",
@@ -34533,7 +35577,10 @@ _functions = {
         ],
     ),
     "ssl_clear": Function(
-        type="void", derefcnt=0, name="ssl_clear", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="void",
+        derefcnt=0,
+        name="ssl_clear",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "ssl_connect": Function(
         type="int",
@@ -34580,7 +35627,10 @@ _functions = {
         args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "ssl_free": Function(
-        type="void", derefcnt=0, name="ssl_free", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="void",
+        derefcnt=0,
+        name="ssl_free",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "ssl_get_message": Function(
         type="long",
@@ -34596,7 +35646,10 @@ _functions = {
         ],
     ),
     "ssl_new": Function(
-        type="int", derefcnt=0, name="ssl_new", args=[Argument(type="SSL", derefcnt=1, name="s")]
+        type="int",
+        derefcnt=0,
+        name="ssl_new",
+        args=[Argument(type="SSL", derefcnt=1, name="s")],
     ),
     "ssl_peek": Function(
         type="int",
@@ -34871,7 +35924,10 @@ _functions = {
         ],
     ),
     "strdup": Function(
-        type="char", derefcnt=1, name="strdup", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="char",
+        derefcnt=1,
+        name="strdup",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "strerror": Function(
         type="char",
@@ -34951,7 +36007,10 @@ _functions = {
         ],
     ),
     "strlen": Function(
-        type="size_t", derefcnt=0, name="strlen", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="size_t",
+        derefcnt=0,
+        name="strlen",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "strncasecmp": Function(
         type="int",
@@ -35470,7 +36529,10 @@ _functions = {
         ],
     ),
     "syncfs": Function(
-        type="int", derefcnt=0, name="syncfs", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="syncfs",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "syscall": Function(
         type="long",
@@ -35513,25 +36575,46 @@ _functions = {
         ],
     ),
     "tan": Function(
-        type="double", derefcnt=0, name="tan", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="tan",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "tanf": Function(
-        type="float", derefcnt=0, name="tanf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="tanf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "tanh": Function(
-        type="double", derefcnt=0, name="tanh", args=[Argument(type="double", derefcnt=0, name="x")]
+        type="double",
+        derefcnt=0,
+        name="tanh",
+        args=[Argument(type="double", derefcnt=0, name="x")],
     ),
     "tanhf": Function(
-        type="float", derefcnt=0, name="tanhf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="tanhf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "tanhl": Function(
-        type="long", derefcnt=0, name="tanhl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="tanhl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "tanl": Function(
-        type="long", derefcnt=0, name="tanl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="tanl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "tcdrain": Function(
-        type="int", derefcnt=0, name="tcdrain", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="tcdrain",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "tcflow": Function(
         type="int",
@@ -36039,7 +37122,10 @@ _functions = {
         args=[Argument(type="time_t", derefcnt=1, name="timer")],
     ),
     "timegm": Function(
-        type="time_t", derefcnt=0, name="timegm", args=[Argument(type="tm", derefcnt=1, name="tp")]
+        type="time_t",
+        derefcnt=0,
+        name="timegm",
+        args=[Argument(type="tm", derefcnt=1, name="tp")],
     ),
     "timelocal": Function(
         type="time_t",
@@ -36181,16 +37267,28 @@ _functions = {
     "tmpfile": Function(type="FILE", derefcnt=1, name="tmpfile", args=[]),
     "tmpfile64": Function(type="FILE", derefcnt=1, name="tmpfile64", args=[]),
     "tmpnam": Function(
-        type="char", derefcnt=1, name="tmpnam", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="char",
+        derefcnt=1,
+        name="tmpnam",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "tmpnam_r": Function(
-        type="char", derefcnt=1, name="tmpnam_r", args=[Argument(type="char", derefcnt=1, name="s")]
+        type="char",
+        derefcnt=1,
+        name="tmpnam_r",
+        args=[Argument(type="char", derefcnt=1, name="s")],
     ),
     "toascii": Function(
-        type="int", derefcnt=0, name="toascii", args=[Argument(type="int", derefcnt=0, name="c")]
+        type="int",
+        derefcnt=0,
+        name="toascii",
+        args=[Argument(type="int", derefcnt=0, name="c")],
     ),
     "tolower": Function(
-        type="int", derefcnt=0, name="tolower", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="tolower",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "tolower_l": Function(
         type="int",
@@ -36202,7 +37300,10 @@ _functions = {
         ],
     ),
     "toupper": Function(
-        type="int", derefcnt=0, name="toupper", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="int",
+        derefcnt=0,
+        name="toupper",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
     "toupper_l": Function(
         type="int",
@@ -36287,10 +37388,16 @@ _functions = {
         ],
     ),
     "truncf": Function(
-        type="float", derefcnt=0, name="truncf", args=[Argument(type="float", derefcnt=0, name="x")]
+        type="float",
+        derefcnt=0,
+        name="truncf",
+        args=[Argument(type="float", derefcnt=0, name="x")],
     ),
     "truncl": Function(
-        type="long", derefcnt=0, name="truncl", args=[Argument(type="long", derefcnt=0, name="x")]
+        type="long",
+        derefcnt=0,
+        name="truncl",
+        args=[Argument(type="long", derefcnt=0, name="x")],
     ),
     "tsearch": Function(
         type="void",
@@ -36303,7 +37410,10 @@ _functions = {
         ],
     ),
     "ttyname": Function(
-        type="char", derefcnt=1, name="ttyname", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="char",
+        derefcnt=1,
+        name="ttyname",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "ttyname_r": Function(
         type="int",
@@ -36410,7 +37520,10 @@ _functions = {
         ],
     ),
     "unlink": Function(
-        type="int", derefcnt=0, name="unlink", args=[Argument(type="char", derefcnt=1, name="name")]
+        type="int",
+        derefcnt=0,
+        name="unlink",
+        args=[Argument(type="char", derefcnt=1, name="name")],
     ),
     "unlinkat": Function(
         type="int",
@@ -36423,7 +37536,10 @@ _functions = {
         ],
     ),
     "unlockpt": Function(
-        type="int", derefcnt=0, name="unlockpt", args=[Argument(type="int", derefcnt=0, name="fd")]
+        type="int",
+        derefcnt=0,
+        name="unlockpt",
+        args=[Argument(type="int", derefcnt=0, name="fd")],
     ),
     "unsetenv": Function(
         type="int",
@@ -37578,7 +38694,10 @@ _functions = {
         ],
     ),
     "wctob": Function(
-        type="int", derefcnt=0, name="wctob", args=[Argument(type="wint_t", derefcnt=0, name="c")]
+        type="int",
+        derefcnt=0,
+        name="wctob",
+        args=[Argument(type="wint_t", derefcnt=0, name="c")],
     ),
     "wctomb": Function(
         type="int",
@@ -37859,10 +38978,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="arg0")],
     ),
     "y0f": Function(
-        type="float", derefcnt=0, name="y0f", args=[Argument(type="float", derefcnt=0, name="arg0")]
+        type="float",
+        derefcnt=0,
+        name="y0f",
+        args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "y0l": Function(
-        type="long", derefcnt=0, name="y0l", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="y0l",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "y1": Function(
         type="double",
@@ -37871,10 +38996,16 @@ _functions = {
         args=[Argument(type="double", derefcnt=0, name="arg0")],
     ),
     "y1f": Function(
-        type="float", derefcnt=0, name="y1f", args=[Argument(type="float", derefcnt=0, name="arg0")]
+        type="float",
+        derefcnt=0,
+        name="y1f",
+        args=[Argument(type="float", derefcnt=0, name="arg0")],
     ),
     "y1l": Function(
-        type="long", derefcnt=0, name="y1l", args=[Argument(type="long", derefcnt=0, name="arg0")]
+        type="long",
+        derefcnt=0,
+        name="y1l",
+        args=[Argument(type="long", derefcnt=0, name="arg0")],
     ),
     "yn": Function(
         type="double",
@@ -37904,8 +39035,13 @@ _functions = {
         ],
     ),
     "zError": Function(
-        type="char", derefcnt=1, name="zError", args=[Argument(type="int", derefcnt=0, name="arg0")]
+        type="char",
+        derefcnt=1,
+        name="zError",
+        args=[Argument(type="int", derefcnt=0, name="arg0")],
     ),
-    "zlibCompileFlags": Function(type="uLong", derefcnt=0, name="zlibCompileFlags", args=[]),
+    "zlibCompileFlags": Function(
+        type="uLong", derefcnt=0, name="zlibCompileFlags", args=[]
+    ),
     "zlibVersion": Function(type="char", derefcnt=1, name="zlibVersion", args=[]),
 }

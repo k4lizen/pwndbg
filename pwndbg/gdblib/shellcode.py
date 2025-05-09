@@ -80,7 +80,9 @@ def exec_shellcode(blob, restore_context=True, capture=None, disable_breakpoints
     """
 
     register_set = pwndbg.lib.regs.reg_sets[pwndbg.aglib.arch.name]
-    preserve_set = register_set.gpr + register_set.args + (register_set.pc, register_set.stack)
+    preserve_set = (
+        register_set.gpr + register_set.args + (register_set.pc, register_set.stack)
+    )
 
     registers = {reg: pwndbg.aglib.regs[reg] for reg in preserve_set}
     starting_address = registers[register_set.pc]
@@ -98,8 +100,8 @@ def exec_shellcode(blob, restore_context=True, capture=None, disable_breakpoints
     if clearance < 0:
         # The page isn't large enough to hold our shellcode.
         raise RuntimeError(
-            f"Not enough space to execute code as inferior: \
-            need at least {len(blob)} bytes, have {clearance} bytes available"
+            "Not enough space to execute code as inferior:             need at least"
+            f" {len(blob)} bytes, have {clearance} bytes available"
         )
 
     # Swap the code in the range with our shellcode.

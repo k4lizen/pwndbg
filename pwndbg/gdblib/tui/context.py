@@ -82,7 +82,9 @@ class ContextTUIWindow:
             if self._blank_line_lengths[start + idx] < width:
                 line = self._ansi_substr(line, self._hscroll_start, len(line)) + "\n"
             else:
-                line = self._ansi_substr(line, self._hscroll_start, self._hscroll_start + width)
+                line = self._ansi_substr(
+                    line, self._hscroll_start, self._hscroll_start + width
+                )
                 if self._blank_line_lengths[start + idx] - self._hscroll_start < width:
                     line += "\n"
             output += line
@@ -147,7 +149,10 @@ class ContextTUIWindow:
             if not self._enabled:
                 for context_window in ContextTUIWindow._context_windows:
                     context_window._enable()
-                if not ContextTUIWindow._static_enabled and pwndbg.dbg.selected_inferior().alive():
+                if (
+                    not ContextTUIWindow._static_enabled
+                    and pwndbg.dbg.selected_inferior().alive()
+                ):
                     context()
                 ContextTUIWindow._static_enabled = True
         else:
@@ -213,7 +218,8 @@ class ContextTUIWindow:
 
 if hasattr(gdb, "register_window_type"):
     sections = ["legend"] + [
-        section.__name__.replace("context_", "") for section in context_sections.values()
+        section.__name__.replace("context_", "")
+        for section in context_sections.values()
     ]
     for section_name in sections:
         # https://github.com/python/mypy/issues/12557

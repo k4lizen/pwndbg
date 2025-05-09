@@ -100,9 +100,9 @@ def test_hexdump_saved_address_and_offset(start_binary):
 
     out1 = gdb.execute(f"hexdump $rsp {SIZE}", to_string=True)
     out2 = (
-        f"+0000 0x{sp:x}  61 62 63 64 65 66 67 68  01 02 03 04 05 06 07 08  │abcdefgh│........│\n"
-        f"+0010 0x{sp + 0x10:x}  61 62 63 64 65                             "
-        "       │abcde   │        │\n"
+        f"+0000 0x{sp:x}  61 62 63 64 65 66 67 68  01 02 03 04 05 06 07 08 "
+        f" │abcdefgh│........│\n+0010 0x{sp + 0x10:x}  61 62 63 64 65                  "
+        "                  │abcde   │        │\n"
     )
 
     assert out1 == out2
@@ -142,7 +142,10 @@ def test_hexdump_limit_check(start_binary):
     # 3. Test increasing the limit allows larger dumps
     new_limit_mb = 15
     count_over_default_under_new = (default_limit_mb + 1) * 1024 * 1024
-    print(f"Setting limit to {new_limit_mb} MB and testing count {count_over_default_under_new}")
+    print(
+        f"Setting limit to {new_limit_mb} MB and testing count"
+        f" {count_over_default_under_new}"
+    )
     gdb.execute(f"set hexdump-limit-mb {new_limit_mb}")
     try:
         gdb.execute(f"hexdump {sp} {count_over_default_under_new}", to_string=True)

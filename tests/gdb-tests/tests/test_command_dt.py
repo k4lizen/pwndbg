@@ -18,7 +18,9 @@ def test_command_dt_works_with_address(start_binary):
 
     tcache_addr = tcache.split()[-1]
 
-    out = gdb.execute(f'dt "struct tcache_perthread_struct" {tcache_addr}', to_string=True)
+    out = gdb.execute(
+        f'dt "struct tcache_perthread_struct" {tcache_addr}', to_string=True
+    )
 
     exp_regex = (
         "struct tcache_perthread_struct @ 0x[0-9a-f]+\n"

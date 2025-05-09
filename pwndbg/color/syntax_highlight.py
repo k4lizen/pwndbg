@@ -17,7 +17,9 @@ from pwndbg.color import disable_colors
 from pwndbg.color import message
 from pwndbg.color import theme
 
-pwndbg.config.add_param("syntax-highlight", True, "source code / assembly syntax highlight")
+pwndbg.config.add_param(
+    "syntax-highlight", True, "source code / assembly syntax highlight"
+)
 style = theme.add_param(
     "syntax-highlight-style",
     "monokai",
@@ -41,7 +43,10 @@ def check_style() -> None:
         get_highlight_source.cache.clear()
     except pygments.util.ClassNotFound:
         print(
-            message.warn(f"The pygment formatter style '{style}' is not found, restore to default")
+            message.warn(
+                f"The pygment formatter style '{style}' is not found, restore to"
+                " default"
+            )
         )
         style.revert_default()
 
@@ -51,7 +56,12 @@ def _fn_matches(filename, pattern):
     # most of the regexs are of the form "*.<extension>", which can be
     # converted to a simple string match
     extension = pattern[2:]
-    if pattern.isascii() and pattern[0] == "*" and pattern[1] == "." and extension.isalnum():
+    if (
+        pattern.isascii()
+        and pattern[0] == "*"
+        and pattern[1] == "."
+        and extension.isalnum()
+    ):
         # to avoid an extra string copy, we also need to check whether the
         # filename has a '.' before the extension
         return filename.endswith(extension) and filename[-len(extension) - 1] == "."

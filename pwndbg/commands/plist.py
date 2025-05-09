@@ -144,7 +144,9 @@ parser.add_argument(
     help="The first element of the linked list",
 )
 parser.add_argument(
-    "next", type=str, help="The name of the field pointing to the next element in the list"
+    "next",
+    type=str,
+    help="The name of the field pointing to the next element in the list",
 )
 parser.add_argument(
     "-s",
@@ -182,7 +184,9 @@ parser.add_argument(
     dest="count",
     type=int,
     default=None,
-    help="The number of elements to display. Defaults to the value of dereference-limit.",
+    help=(
+        "The number of elements to display. Defaults to the value of dereference-limit."
+    ),
 )
 
 
@@ -291,8 +295,8 @@ def plist(
         if bit_offset is None:
             print(
                 message.error(
-                    f"{path}{sep}{field_name} has no known offset \
-                from {deref}{path}"
+                    f"{path}{sep}{field_name} has no known offset                 from"
+                    f" {deref}{path}"
                 )
             )
             return
@@ -300,8 +304,8 @@ def plist(
         if byte_offset is None:
             print(
                 message.error(
-                    f"{field_name} is a non-whole number of bytes \
-                {bit_offset} bits) offset from {deref}{path}"
+                    f"{field_name} is a non-whole number of bytes                "
+                    f" {bit_offset} bits) offset from {deref}{path}"
                 )
             )
             return
@@ -314,8 +318,8 @@ def plist(
         if bit_offset is None:
             print(
                 message.error(
-                    f"{path}{sep}{inner_name} has no known offset \
-                from {deref}{path}"
+                    f"{path}{sep}{inner_name} has no known offset                 from"
+                    f" {deref}{path}"
                 )
             )
             return
@@ -323,8 +327,8 @@ def plist(
         if byte_offset is None:
             print(
                 message.error(
-                    f"{inner_name} is a non-whole number of bytes \
-                {bit_offset} bits) offset from {deref}{path}"
+                    f"{inner_name} is a non-whole number of bytes                "
+                    f" {bit_offset} bits) offset from {deref}{path}"
                 )
             )
             return
@@ -335,8 +339,8 @@ def plist(
     if bit_offset is None:
         print(
             message.error(
-                f"{path}{sep}{next_ptr_name} has no known offset \
-            from {deref}{path}{inner_sep}{inner_name}"
+                f"{path}{sep}{next_ptr_name} has no known offset             from"
+                f" {deref}{path}{inner_sep}{inner_name}"
             )
         )
         return
@@ -344,9 +348,9 @@ def plist(
     if byte_offset is None:
         print(
             message.error(
-                f"{path}{sep}{next_ptr_name} is a non-whole \
-            number of bytes {bit_offset} bits) offset from \
-            {deref}{path}{inner_sep}{inner_name}"
+                f"{path}{sep}{next_ptr_name} is a non-whole             number of bytes"
+                f" {bit_offset} bits) offset from            "
+                f" {deref}{path}{inner_sep}{inner_name}"
             )
         )
         return
@@ -367,8 +371,8 @@ def plist(
     else:
         print(
             message.error(
-                f"{deref}{path}{sep}{next_ptr_name} has a \
-            different type than {path}"
+                f"{deref}{path}{sep}{next_ptr_name} has a             different type"
+                f" than {path}"
             )
         )
         return
@@ -386,7 +390,9 @@ def plist(
         addresses = pwndbg.chain.get(int(first.address), limit=1, offset=offset0)
         if len(addresses) > 1 and total >= 3:
             addresses.extend(
-                pwndbg.chain.get(addresses[1], offset=offset1, include_start=False, limit=total - 2)
+                pwndbg.chain.get(
+                    addresses[1], offset=offset1, include_start=False, limit=total - 2
+                )
             )
     else:
         addresses = [int(first.address)]
@@ -409,15 +415,25 @@ def plist(
                 target_type = field_type
                 target_address = address + field_offset
 
-            value = pwndbg.aglib.memory.get_typed_pointer_value(target_type, target_address)
+            value = pwndbg.aglib.memory.get_typed_pointer_value(
+                target_type, target_address
+            )
 
             symbol = pwndbg.aglib.symbol.resolve_addr(target_address)
             symbol = f"<{symbol}>" if symbol else ""
 
             print(f"{target_address:#x} {symbol}: {value.value_to_human_readable()}")
         except pwndbg.dbg_mod.Error as e:
-            print(message.error(f"Cannot dereference {address:#x} for list link #{i + 1}: {e}"))
-            print(message.error("Is the linked list corrupted or is the sentinel value wrong?"))
+            print(
+                message.error(
+                    f"Cannot dereference {address:#x} for list link #{i + 1}: {e}"
+                )
+            )
+            print(
+                message.error(
+                    "Is the linked list corrupted or is the sentinel value wrong?"
+                )
+            )
             return
 
 

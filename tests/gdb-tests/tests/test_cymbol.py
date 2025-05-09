@@ -43,14 +43,25 @@ def test_cymbol(start_binary):
             void* d;
         } example_t;
     """
-    custom_structure_example_path = create_symbol_file("example", custom_structure_example)
+    custom_structure_example_path = create_symbol_file(
+        "example", custom_structure_example
+    )
 
     # Test whether OnlyWhenStructFileExists decorator works properly
-    assert pwndbg.commands.cymbol.OnlyWhenStructFileExists(lambda x, y: True)("dummy") is None
-    assert pwndbg.commands.cymbol.OnlyWhenStructFileExists(lambda x, y: True)("example") is True
+    assert (
+        pwndbg.commands.cymbol.OnlyWhenStructFileExists(lambda x, y: True)("dummy")
+        is None
+    )
+    assert (
+        pwndbg.commands.cymbol.OnlyWhenStructFileExists(lambda x, y: True)("example")
+        is True
+    )
 
     # Test whether generate_debug_symbols() works properly.
-    assert pwndbg.commands.cymbol.generate_debug_symbols(custom_structure_example_path) is not None
+    assert (
+        pwndbg.commands.cymbol.generate_debug_symbols(custom_structure_example_path)
+        is not None
+    )
 
     # Test whether load_custom_structure() works properly
     pwndbg.commands.cymbol.load_custom_structure("example")
@@ -63,7 +74,8 @@ def test_cymbol(start_binary):
         "    +0x0004 b                    : char [16]\n"
         "    +0x0018 c                    : char *\n"
         "    +0x0020 d                    : void *"
-    ) == pwndbg.aglib.dt.dt("example_t").strip()
+        == pwndbg.aglib.dt.dt("example_t").strip()
+    )
 
     # Test whether unload_loaded_symbol() works properly.
     pwndbg.commands.cymbol.unload_loaded_symbol("example")
@@ -130,7 +142,7 @@ def test_cymbol_header_file(start_binary):
             "    +0x0018 c                    : char *\n"
             "    +0x0020 d                    : void *"
         ),
-        "example_B": ("example_B\n    +0x0000 X                    : uint16_t"),
+        "example_B": "example_B\n    +0x0000 X                    : uint16_t",
         "example_C": (
             "example_C\n"
             "    +0x0000 name                 : char [32]\n"

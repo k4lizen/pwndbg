@@ -74,7 +74,10 @@ parser.add_argument(
     help="Mapping name of the page that you want the pointers point to",
 )
 parser.add_argument(
-    "--max-ptrs", type=int, default=0, help="Stop search after find n pointers, default 0"
+    "--max-ptrs",
+    type=int,
+    default=0,
+    help="Stop search after find n pointers, default 0",
 )
 parser.add_argument(
     "--flags",
@@ -97,11 +100,13 @@ def probeleak(
     if flags is not None:
         require_flags = flags_str2int(flags)
 
-    if count > address > 0x10000:  # in case someone puts in an end address and not a count (smh)
+    if (
+        count > address > 0x10000
+    ):  # in case someone puts in an end address and not a count (smh)
         print(
             message.warn(
-                "Warning: you gave an end address, not a count. Subtracting 0x%x from the count."
-                % (address)
+                "Warning: you gave an end address, not a count. Subtracting 0x%x from"
+                " the count." % (address)
             )
         )
         count -= address
@@ -115,7 +120,8 @@ def probeleak(
     if not data:
         print(
             message.error(
-                f"Couldn't read memory at 0x{address:x}. See 'probeleak -h' for the usage."
+                f"Couldn't read memory at 0x{address:x}. See 'probeleak -h' for the"
+                " usage."
             )
         )
         return
@@ -156,7 +162,9 @@ def probeleak(
 
             offset_text = "0x%0*x" % (off_zeros, i)
             p_text = "0x%0*x" % (int(ptrsize * 2), p)
-            text = f"{offset_text}: {M.get(p, text=p_text)} = {M.get(p, text=right_text)}"
+            text = (
+                f"{offset_text}: {M.get(p, text=p_text)} = {M.get(p, text=right_text)}"
+            )
 
             symbol = pwndbg.aglib.symbol.resolve_addr(p)
             if symbol:

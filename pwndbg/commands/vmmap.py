@@ -177,13 +177,25 @@ parser.add_argument(
     default=None,
     help="Address or module name filter",
 )
-parser.add_argument("-w", "--writable", action="store_true", help="Display writable maps only")
-parser.add_argument("-x", "--executable", action="store_true", help="Display executable maps only")
 parser.add_argument(
-    "-A", "--lines-after", type=int, help="Number of pages to display after result", default=1
+    "-w", "--writable", action="store_true", help="Display writable maps only"
 )
 parser.add_argument(
-    "-B", "--lines-before", type=int, help="Number of pages to display before result", default=1
+    "-x", "--executable", action="store_true", help="Display executable maps only"
+)
+parser.add_argument(
+    "-A",
+    "--lines-after",
+    type=int,
+    help="Number of pages to display after result",
+    default=1,
+)
+parser.add_argument(
+    "-B",
+    "--lines-before",
+    type=int,
+    help="Number of pages to display before result",
+    default=1,
 )
 parser.add_argument(
     "-C", "--context", type=int, help="Number of pages to display around the result"
@@ -239,7 +251,8 @@ def vmmap(
                 # Guard index, and only insert the page if it is not displayed yet
                 if (
                     matched_index - before_index >= 0
-                    and total_pages[matched_index - before_index] not in pages_to_display
+                    and total_pages[matched_index - before_index]
+                    not in pages_to_display
                 ):
                     pages_to_display.append(total_pages[matched_index - before_index])
 
@@ -284,7 +297,8 @@ def vmmap(
 
     if vmmap.is_qemu():
         print(
-            "\n[QEMU <8.1 target detected - vmmap result might not be accurate; see `help vmmap`]"
+            "\n[QEMU <8.1 target detected - vmmap result might not be accurate; see"
+            " `help vmmap`]"
         )
 
 
@@ -329,9 +343,13 @@ def vmmap_add(start: int, size: int, flags: str, offset: int) -> None:
     print("%r added" % page)
 
 
-parser = argparse.ArgumentParser(description="Explore a page, trying to guess permissions.")
+parser = argparse.ArgumentParser(
+    description="Explore a page, trying to guess permissions."
+)
 parser.add_argument(
-    "address", type=pwndbg.commands.sloppy_gdb_parse, help="Address of the page to explore"
+    "address",
+    type=pwndbg.commands.sloppy_gdb_parse,
+    help="Address of the page to explore",
 )
 
 
@@ -366,7 +384,9 @@ def vmmap_clear() -> None:
     pwndbg.aglib.vmmap_custom.clear_custom_page()
 
 
-parser = argparse.ArgumentParser(description="Load virtual memory map pages from ELF file.")
+parser = argparse.ArgumentParser(
+    description="Load virtual memory map pages from ELF file."
+)
 parser.add_argument(
     "filename",
     nargs="?",

@@ -27,7 +27,9 @@ def update_length() -> None:
     length = pwndbg.dbg.string_limit()
 
 
-def get(address: int, maxlen: int | None = None, maxread: int | None = None) -> str | None:
+def get(
+    address: int, maxlen: int | None = None, maxread: int | None = None
+) -> str | None:
     """
     Returns a printable C-string from address.
 

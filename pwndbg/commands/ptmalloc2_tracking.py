@@ -19,7 +19,8 @@ Currently, the following errors can be detected:
 )
 
 subparsers = parser.add_subparsers(
-    required=True, description="Used to enable, disable and query information about the tracker"
+    required=True,
+    description="Used to enable, disable and query information about the tracker",
 )
 
 # Subcommand that enables the tracker.
@@ -45,7 +46,9 @@ toggle_break = subparsers.add_parser(
 toggle_break.set_defaults(mode="toggle-break")
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.LINUX, command_name="track-heap")
+@pwndbg.commands.Command(
+    parser, category=CommandCategory.LINUX, command_name="track-heap"
+)
 @pwndbg.commands.OnlyWhenRunning
 def track_heap(mode=None, use_hardware_breakpoints=False):
     if mode == "enable":
@@ -64,4 +67,6 @@ def track_heap(mode=None, use_hardware_breakpoints=False):
         else:
             print("The heap tracker will only print a message when it detects an error")
     else:
-        raise AssertionError(f"track-heap must never have invalid mode '{mode}'. this is a bug")
+        raise AssertionError(
+            f"track-heap must never have invalid mode '{mode}'. this is a bug"
+        )

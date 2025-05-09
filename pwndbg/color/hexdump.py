@@ -8,7 +8,9 @@ config_normal = theme.add_color_param(
     "hexdump-normal-color", "none", "color for hexdump command (normal bytes)"
 )
 config_printable = theme.add_color_param(
-    "hexdump-printable-color", "bold", "color for hexdump command (printable characters)"
+    "hexdump-printable-color",
+    "bold",
+    "color for hexdump command (printable characters)",
 )
 config_zero = theme.add_color_param(
     "hexdump-zero-color", "red", "color for hexdump command (zero bytes)"
@@ -29,7 +31,9 @@ config_highlight_group_lsb = theme.add_param(
     "hexdump-highlight-group-lsb",
     "underline",
     "highlight LSB of each group",
-    help_docstring="Applies only if hexdump-use-big-endian actually changes byte order.",
+    help_docstring=(
+        "Applies only if hexdump-use-big-endian actually changes byte order."
+    ),
 )
 
 

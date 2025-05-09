@@ -138,7 +138,9 @@ class GDBFrame(pwndbg.dbg_mod.Frame):
         from pwndbg.gdblib.scheduler import lock_scheduler as do_lock_scheduler
 
         with do_lock_scheduler() if lock_scheduler else nullcontext():
-            with selection(self.inner, lambda: gdb.selected_frame(), lambda f: f.select()):
+            with selection(
+                self.inner, lambda: gdb.selected_frame(), lambda f: f.select()
+            ):
                 try:
                     value = parse_and_eval(expression, global_context=False)
                 except gdb.error as e:
@@ -497,7 +499,9 @@ class GDBProcess(pwndbg.dbg_mod.Process):
             gdb.selected_inferior().write_memory(address, data)
         except gdb.MemoryError as e:
             if partial:
-                raise NotImplementedError("partial writes are currently not supported under gdb")
+                raise NotImplementedError(
+                    "partial writes are currently not supported under gdb"
+                )
 
             raise pwndbg.dbg_mod.Error(e)
         return len(data)
@@ -542,7 +546,8 @@ class GDBProcess(pwndbg.dbg_mod.Process):
                 print(f"WARN: gdb.search_memory failed with: {e}")
                 if e.args[0].startswith("Invalid hex digit"):
                     print(
-                        "WARN: This is possibly related to a timeout. Connection is likely broken."
+                        "WARN: This is possibly related to a timeout. Connection is"
+                        " likely broken."
                     )
                     break
                 start = None
@@ -623,10 +628,13 @@ class GDBProcess(pwndbg.dbg_mod.Process):
                     return
                 except OSError as e:
                     raise pwndbg.dbg_mod.Error(
-                        "Could not download remote file %r:\nError: %s" % (remote_path, str(e))
+                        "Could not download remote file %r:\nError: %s"
+                        % (remote_path, str(e))
                     )
         try:
-            error = gdb.execute(f'remote get "{remote_path}" "{local_path}"', to_string=True)
+            error = gdb.execute(
+                f'remote get "{remote_path}" "{local_path}"', to_string=True
+            )
         except gdb.error as e:
             error = str(e)
 
@@ -642,7 +650,8 @@ class GDBProcess(pwndbg.dbg_mod.Process):
             if len(real_error):
                 error = "\n".join(real_error)
                 raise pwndbg.dbg_mod.Error(
-                    "Could not download remote file %r:\nError: %s" % (remote_path, error)
+                    "Could not download remote file %r:\nError: %s"
+                    % (remote_path, error)
                 )
 
     # Note that in GDB this method does not depend on the process at all!
@@ -750,7 +759,9 @@ class GDBProcess(pwndbg.dbg_mod.Process):
                 # but it doesn't appear to expose this in information through any command/API.
                 # Since Cortex-M has the .xpsr flags register instead of .cpsr, we will check
                 # if it's present. See: https://github.com/pwndbg/pwndbg/issues/2153
-                if match == "arm" and ("-m" in arch or pwndbg.aglib.regs.xpsr is not None):
+                if match == "arm" and (
+                    "-m" in arch or pwndbg.aglib.regs.xpsr is not None
+                ):
                     match = "armcm"
                 elif match.startswith("riscv:"):
                     match = match[6:]
@@ -796,7 +807,8 @@ class GDBProcess(pwndbg.dbg_mod.Process):
         # [1]: https://sourceware.org/gdb/current/onlinedocs/gdb.html/Breakpoints-In-Python.html#Breakpoints-In-Python
         if self.in_bpwp_stop_handler:
             raise pwndbg.dbg_mod.Error(
-                "Creating new Breakpoints/Watchpoints while in a stop handler is not allowed in GDB"
+                "Creating new Breakpoints/Watchpoints while in a stop handler is not"
+                " allowed in GDB"
             )
 
         if isinstance(location, pwndbg.dbg_mod.BreakpointLocation):
@@ -832,6 +844,7 @@ class GDBProcess(pwndbg.dbg_mod.Process):
                 stop = stop_handler(sp)
                 self.in_bpwp_stop_handler = False
                 return stop
+
         else:
 
             def handler():
@@ -966,7 +979,10 @@ class GDBProcess(pwndbg.dbg_mod.Process):
 
     @override
     def dispatch_execution_controller(
-        self, procedure: Callable[[pwndbg.dbg_mod.ExecutionController], Coroutine[Any, Any, None]]
+        self,
+        procedure: Callable[
+            [pwndbg.dbg_mod.ExecutionController], Coroutine[Any, Any, None]
+        ],
     ):
         # GDB isn't nearly as finnicky as LLDB when it comes to us controlling
         # the execution of the inferior, so we can safely mostly ignore all of
@@ -995,7 +1011,9 @@ class GDBExecutionController(pwndbg.dbg_mod.ExecutionController):
         # Check if the program stopped because of the step we just took. If it
         # stopped for any other reason, we should propagate a cancellation error
         # to the task and give it a chance to respond.
-        if "It stopped after being stepped" not in gdb.execute("info program", to_string=True):
+        if "It stopped after being stepped" not in gdb.execute(
+            "info program", to_string=True
+        ):
             raise CancelledError()
 
     @override
@@ -1096,7 +1114,9 @@ class GDBType(pwndbg.dbg_mod.Type):
     @override
     def code(self) -> pwndbg.dbg_mod.TypeCode:
         try:
-            assert self.inner.code in GDBType.CODE_MAPPING, "missing mapping for type code"
+            assert (
+                self.inner.code in GDBType.CODE_MAPPING
+            ), "missing mapping for type code"
             return GDBType.CODE_MAPPING[self.inner.code]
         except Exception:
             # TODO: log invalid types
@@ -1109,7 +1129,9 @@ class GDBType(pwndbg.dbg_mod.Type):
 
         # Type without debug info
         # https://github.com/bminor/binutils-gdb/blob/c2dbc2929e87557f8bc030f6f010d67b19f99f12/gdb/gdbtypes.c#L6052-L6072
-        is_missing_debug_info = self.inner.name and self.inner.name.endswith(", no debug info>")
+        is_missing_debug_info = self.inner.name and self.inner.name.endswith(
+            ", no debug info>"
+        )
         if is_missing_debug_info:
             return None
 
@@ -1242,7 +1264,9 @@ class GDBValue(pwndbg.dbg_mod.Value):
         type: GDBType = type
 
         if type.code == pwndbg.dbg_mod.TypeCode.FUNC:
-            raise pwndbg.dbg_mod.Error("Cast to function type is not allowed, use pointer")
+            raise pwndbg.dbg_mod.Error(
+                "Cast to function type is not allowed, use pointer"
+            )
 
         try:
             return GDBValue(self.inner.cast(type.inner))
@@ -1266,7 +1290,10 @@ class GDBValue(pwndbg.dbg_mod.Value):
 
     @override
     def __getitem__(self, key: str | int) -> pwndbg.dbg_mod.Value:
-        if isinstance(key, int) and self.inner.type.strip_typedefs().code == gdb.TYPE_CODE_STRUCT:
+        if (
+            isinstance(key, int)
+            and self.inner.type.strip_typedefs().code == gdb.TYPE_CODE_STRUCT
+        ):
             # GDB doesn't normally support indexing fields in a struct by int,
             # so we nudge it a little.
             key = self.inner.type.fields()[key]
@@ -1634,7 +1661,9 @@ class GDB(pwndbg.dbg_mod.Debugger):
                 # GDB 13.1+
                 if hasattr(bp, "locations"):
                     for location in bp.locations:
-                        locations.append(pwndbg.dbg_mod.BreakpointLocation(location.address))
+                        locations.append(
+                            pwndbg.dbg_mod.BreakpointLocation(location.address)
+                        )
                 else:
                     # Num     Type           Disp Enb Address            What
                     # 1       breakpoint     keep y   0x00007ffff7e90840 in __GI___libc_read
@@ -1658,7 +1687,11 @@ class GDB(pwndbg.dbg_mod.Debugger):
     @override
     def x86_disassembly_flavor(self) -> Literal["att", "intel"]:
         try:
-            flavor = gdb.execute("show disassembly-flavor", to_string=True).lower().split('"')[1]
+            flavor = (
+                gdb.execute("show disassembly-flavor", to_string=True)
+                .lower()
+                .split('"')[1]
+            )
         except gdb.error as e:
             if str(e).find("disassembly-flavor") > -1:
                 flavor = "intel"

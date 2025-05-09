@@ -31,8 +31,12 @@ config_flag_unset_color = theme.add_color_param(
 config_flag_changed_color = theme.add_color_param(
     "context-flag-changed-color", "underline", "color for flags register (flag changed)"
 )
-config_banner_color = theme.add_color_param("banner-color", "blue", "color for banner line")
-config_banner_title = theme.add_color_param("banner-title-color", "none", "color for banner title")
+config_banner_color = theme.add_color_param(
+    "banner-color", "blue", "color for banner line"
+)
+config_banner_title = theme.add_color_param(
+    "banner-title-color", "none", "color for banner title"
+)
 config_register_changed_color = theme.add_color_param(
     "context-register-changed-color", "red", "color for registers label (change marker)"
 )

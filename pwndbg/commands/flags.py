@@ -6,7 +6,9 @@ import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
 parser = argparse.ArgumentParser(description="Modify the flags register.")
-parser.add_argument("flag", type=str, help="Flag for which you want to change the value")
+parser.add_argument(
+    "flag", type=str, help="Flag for which you want to change the value"
+)
 parser.add_argument(
     "value",
     type=int,

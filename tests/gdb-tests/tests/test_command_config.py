@@ -23,22 +23,19 @@ def test_config_filtering():
     assert re.match(r"Name\s+Documentation\s+Value\s+\(Default\)", out[0])
     assert re.match(r"-+", out[1])
     assert re.match(
-        r"context-disasm-lines\s+number of additional lines to print in the disasm context\s+10",
+        r"context-disasm-lines\s+number of additional lines to print in the disasm"
+        r" context\s+10",
         out[2],
     )
     assert (
         out[3]
-        == (
-            "You can set a config variable with `set <config-var> <value>`,"
-            " and read more about it with `help set <config-var>`."
-        )
+        == "You can set a config variable with `set <config-var> <value>`,"
+        " and read more about it with `help set <config-var>`."
     )
     assert (
         out[4]
-        == (
-            "You can generate a configuration file using `configfile` - "
-            "then put it in your .gdbinit after initializing pwndbg."
-        )
+        == "You can generate a configuration file using `configfile` - "
+        "then put it in your .gdbinit after initializing pwndbg."
     )
 
 

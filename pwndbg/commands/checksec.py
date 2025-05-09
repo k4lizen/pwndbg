@@ -12,7 +12,9 @@ parser = argparse.ArgumentParser(
     description="Prints out the binary security settings using `checksec`.",
 )
 
-parser.add_argument("-f", "--file", type=str, help="Specify the file to run `checksec` on.")
+parser.add_argument(
+    "-f", "--file", type=str, help="Specify the file to run `checksec` on."
+)
 
 
 @pwndbg.commands.Command(

@@ -31,8 +31,8 @@ def translate_addr(offset, module):
 
     if not any(addr in p for p in pages):
         print(
-            "Offset 0x%x rebased to module %s as 0x%x is beyond module's "
-            "memory pages:" % (offset, module, addr)
+            "Offset 0x%x rebased to module %s as 0x%x is beyond module's memory pages:"
+            % (offset, module, addr)
         )
         for p in pages:
             print(p)
@@ -79,7 +79,9 @@ if pwndbg.dbg.is_gdblib_available():
         help="Module to choose as base. Defaults to the target executable.",
     )
 
-    @pwndbg.commands.Command(parser, aliases=["brva"], category=CommandCategory.BREAKPOINT)
+    @pwndbg.commands.Command(
+        parser, aliases=["brva"], category=CommandCategory.BREAKPOINT
+    )
     @pwndbg.commands.OnlyWhenRunning
     def breakrva(offset=0, module=None) -> None:
         offset = int(offset)
@@ -92,4 +94,8 @@ if pwndbg.dbg.is_gdblib_available():
             spec = "*%#x" % (addr)
             gdb.Breakpoint(spec)
         else:
-            print(message.error("Could not determine rebased breakpoint address on current target"))
+            print(
+                message.error(
+                    "Could not determine rebased breakpoint address on current target"
+                )
+            )

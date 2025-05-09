@@ -68,14 +68,21 @@ def unload_loaded_symbol(custom_structure_name: str) -> None:
 
 
 class _OnlyWhenStructFileExists(Protocol):
-    def __call__(self, custom_structure_name: str, custom_structure_path: str = "") -> T | None: ...
+    def __call__(
+        self, custom_structure_name: str, custom_structure_path: str = ""
+    ) -> T | None: ...
 
 
-def OnlyWhenStructFileExists(func: _OnlyWhenStructFileExists) -> _OnlyWhenStructFileExists:
+def OnlyWhenStructFileExists(
+    func: _OnlyWhenStructFileExists,
+) -> _OnlyWhenStructFileExists:
     @functools.wraps(func)
-    def wrapper(custom_structure_name: str, custom_structure_path: str = "") -> T | None:
+    def wrapper(
+        custom_structure_name: str, custom_structure_path: str = ""
+    ) -> T | None:
         pwndbg_custom_structure_path = (
-            custom_structure_path or os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
+            custom_structure_path
+            or os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
         )
         if not os.path.exists(pwndbg_custom_structure_path):
             print(message.error("No custom structure was found with the given name!"))
@@ -89,7 +96,9 @@ def generate_debug_symbols(
     custom_structure_path: str, pwndbg_debug_symbols_output_file: str | None = None
 ) -> str | None:
     if not pwndbg_debug_symbols_output_file:
-        _, pwndbg_debug_symbols_output_file = tempfile.mkstemp(prefix="custom-", suffix=".dbg")
+        _, pwndbg_debug_symbols_output_file = tempfile.mkstemp(
+            prefix="custom-", suffix=".dbg"
+        )
 
     # -fno-eliminate-unused-debug-types is a handy gcc flag that lets us extract debug symbols from non-used defined structures.
     gcc_extra_flags = [
@@ -114,7 +123,8 @@ def generate_debug_symbols(
         print(message.error(exception))
         print(
             message.error(
-                "Failed to compile the .c file with custom structures. Please fix any compilation errors there may be."
+                "Failed to compile the .c file with custom structures. Please fix any"
+                " compilation errors there may be."
             )
         )
         return None
@@ -127,19 +137,24 @@ def generate_debug_symbols(
 
 
 def add_custom_structure(custom_structure_name: str) -> None:
-    pwndbg_custom_structure_path = os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
+    pwndbg_custom_structure_path = (
+        os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
+    )
 
     if os.path.exists(pwndbg_custom_structure_path):
         option = input(
             message.notice(
-                "A custom structure was found with the given name, would you like to overwrite it? [y/n] "
+                "A custom structure was found with the given name, would you like to"
+                " overwrite it? [y/n] "
             )
         )
         if option != "y":
             return
 
     print(
-        message.notice("Enter your custom structure in a C header style, press Ctrl+D to save:\n")
+        message.notice(
+            "Enter your custom structure in a C header style, press Ctrl+D to save:\n"
+        )
     )
 
     custom_structures_source = sys.stdin.read().strip()
@@ -151,10 +166,14 @@ def add_custom_structure(custom_structure_name: str) -> None:
         f.write(custom_structures_source)
 
     # Avoid checking for file existance. Call the decorator wrapper directly.
-    load_custom_structure.__wrapped__(custom_structure_name, pwndbg_custom_structure_path)
+    load_custom_structure.__wrapped__(
+        custom_structure_name, pwndbg_custom_structure_path
+    )
 
 
-def add_structure_from_header(header_file: str, custom_structure_name: str = None) -> None:
+def add_structure_from_header(
+    header_file: str, custom_structure_name: str = None
+) -> None:
     # Properly handle the provided or default name for the custom structure
     custom_structure_name = (
         custom_structure_name.strip()
@@ -166,17 +185,24 @@ def add_structure_from_header(header_file: str, custom_structure_name: str = Non
         print(message.error("Invalid structure name provided or generated."))
         return
 
-    pwndbg_custom_structure_path = os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
+    pwndbg_custom_structure_path = (
+        os.path.join(pwndbg_cachedir, custom_structure_name) + ".c"
+    )
 
     if os.path.exists(pwndbg_custom_structure_path):
         option = input(
-            message.notice(f"Structure '{custom_structure_name}' already exists. Overwrite? [y/n] ")
+            message.notice(
+                f"Structure '{custom_structure_name}' already exists. Overwrite? [y/n] "
+            )
         )
         if option != "y":
             return
 
     try:
-        with open(header_file, "r") as src, open(pwndbg_custom_structure_path, "w") as f:
+        with (
+            open(header_file, "r") as src,
+            open(pwndbg_custom_structure_path, "w") as f,
+        ):
             content = src.read().strip()
             if not content:
                 print(message.notice("Header file is empty, skipping..."))
@@ -187,11 +213,15 @@ def add_structure_from_header(header_file: str, custom_structure_name: str = Non
         return
 
     # Avoid checking for file existance. Call the decorator wrapper directly.
-    load_custom_structure.__wrapped__(custom_structure_name, pwndbg_custom_structure_path)
+    load_custom_structure.__wrapped__(
+        custom_structure_name, pwndbg_custom_structure_path
+    )
 
 
 @OnlyWhenStructFileExists
-def edit_custom_structure(custom_structure_name: str, custom_structure_path: str = "") -> None:
+def edit_custom_structure(
+    custom_structure_name: str, custom_structure_path: str = ""
+) -> None:
     # Lookup an editor to use for editing the custom structure.
     editor_preference = os.getenv("EDITOR")
     if not editor_preference:
@@ -213,7 +243,8 @@ def edit_custom_structure(custom_structure_name: str, custom_structure_path: str
         print(message.error("Please try to manually edit the structure."))
         print(
             message.error(
-                '\nTry to set a path to an editor with:\n\tset "cymbol-editor" /usr/bin/nano'
+                '\nTry to set a path to an editor with:\n\tset "cymbol-editor"'
+                " /usr/bin/nano"
             )
         )
         return
@@ -224,14 +255,18 @@ def edit_custom_structure(custom_structure_name: str, custom_structure_path: str
 
 
 @OnlyWhenStructFileExists
-def remove_custom_structure(custom_structure_name: str, custom_structure_path: str = "") -> None:
+def remove_custom_structure(
+    custom_structure_name: str, custom_structure_path: str = ""
+) -> None:
     unload_loaded_symbol(custom_structure_name)
     os.remove(custom_structure_path)
     print(message.success("Symbols are removed!"))
 
 
 @OnlyWhenStructFileExists
-def load_custom_structure(custom_structure_name: str, custom_structure_path: str = "") -> None:
+def load_custom_structure(
+    custom_structure_name: str, custom_structure_path: str = ""
+) -> None:
     unload_loaded_symbol(custom_structure_name)
     pwndbg_debug_symbols_output_file = generate_debug_symbols(custom_structure_path)
     if not pwndbg_debug_symbols_output_file:
@@ -242,10 +277,14 @@ def load_custom_structure(custom_structure_name: str, custom_structure_path: str
 
 
 @OnlyWhenStructFileExists
-def show_custom_structure(custom_structure_name: str, custom_structure_path: str = "") -> None:
+def show_custom_structure(
+    custom_structure_name: str, custom_structure_path: str = ""
+) -> None:
     # Call non-caching version of the function (thus .__wrapped__)
-    highlighted_source = pwndbg.pwndbg.commands.context.get_highlight_source.__wrapped__(
-        custom_structure_path
+    highlighted_source = (
+        pwndbg.pwndbg.commands.context.get_highlight_source.__wrapped__(
+            custom_structure_path
+        )
     )
     print("\n".join(highlighted_source))
 

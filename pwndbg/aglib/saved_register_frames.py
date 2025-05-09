@@ -27,7 +27,9 @@ class SavedRegisterFrame:
             sp = pwndbg.aglib.regs.sp
 
         try:
-            mem = pwndbg.aglib.memory.read(sp + self.offsets[reg], pwndbg.aglib.arch.ptrsize)
+            mem = pwndbg.aglib.memory.read(
+                sp + self.offsets[reg], pwndbg.aglib.arch.ptrsize
+            )
         except pwndbg.dbg_mod.Error:
             return None
 
@@ -48,4 +50,6 @@ ARM_CORTEX_M_EXCEPTION_STACK_FRAME_OFFSETS = {
 }
 
 
-ARM_CORTEX_M_EXCEPTION_STACK = SavedRegisterFrame(ARM_CORTEX_M_EXCEPTION_STACK_FRAME_OFFSETS)
+ARM_CORTEX_M_EXCEPTION_STACK = SavedRegisterFrame(
+    ARM_CORTEX_M_EXCEPTION_STACK_FRAME_OFFSETS
+)

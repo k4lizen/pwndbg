@@ -22,7 +22,9 @@ c = ColorConfig(
     [
         ColorParamSpec("arrow", "normal", "color of chain formatting (arrow)"),
         ColorParamSpec(
-            "contiguous-marker", "normal", "color of chain formatting (contiguous marker)"
+            "contiguous-marker",
+            "normal",
+            "color of chain formatting (contiguous marker)",
         ),
     ],
 )
@@ -74,13 +76,16 @@ def get(
 
             # Avoid redundant dereferences in bare metal mode by checking
             # if address is in any of vmmap pages
-            if not pwndbg.dbg.selected_inferior().is_linux() and not pwndbg.aglib.vmmap.find(
-                address
+            if (
+                not pwndbg.dbg.selected_inferior().is_linux()
+                and not pwndbg.aglib.vmmap.find(address)
             ):
                 break
 
             next_address = int(
-                pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, address)
+                pwndbg.aglib.memory.get_typed_pointer_value(
+                    pwndbg.aglib.typeinfo.ppvoid, address
+                )
             )
             address = next_address ^ ((address >> 12) if safe_linking else 0)
             address &= pwndbg.aglib.arch.ptrmask
@@ -91,8 +96,12 @@ def get(
     return result
 
 
-config_arrow_left = theme.add_param("chain-arrow-left", "◂—", "left arrow of chain formatting")
-config_arrow_right = theme.add_param("chain-arrow-right", "—▸", "right arrow of chain formatting")
+config_arrow_left = theme.add_param(
+    "chain-arrow-left", "◂—", "left arrow of chain formatting"
+)
+config_arrow_right = theme.add_param(
+    "chain-arrow-right", "—▸", "right arrow of chain formatting"
+)
 config_contiguous = theme.add_param(
     "chain-contiguous-marker", "...", "contiguous marker of chain formatting"
 )
@@ -135,7 +144,10 @@ def format(
     if isinstance(value, list):
         chain = value
     else:
-        chain = get(value, limit, offset, hard_stop, hard_end, safe_linking=safe_linking) or []
+        chain = (
+            get(value, limit, offset, hard_stop, hard_end, safe_linking=safe_linking)
+            or []
+        )
 
     arrow_left = c.arrow(f" {config_arrow_left} ")
     arrow_right = c.arrow(f" {config_arrow_right} ")

@@ -62,7 +62,17 @@ By default search results are cached. If you want to cache all results, but only
 parser.add_argument(
     "-t",
     "--type",
-    choices=["byte", "short", "word", "dword", "qword", "pointer", "string", "bytes", "asm"],
+    choices=[
+        "byte",
+        "short",
+        "word",
+        "dword",
+        "qword",
+        "pointer",
+        "string",
+        "bytes",
+        "asm",
+    ],
     help="Size of search target",
     default="bytes",
     type=str,
@@ -125,12 +135,17 @@ parser.add_argument(
     "--asmbp", action="store_true", help="Set breakpoint for found assembly instruction"
 )
 parser.add_argument(
-    "-x", "--hex", action="store_true", help="Target is a hex-encoded (for bytes/strings)"
+    "-x",
+    "--hex",
+    action="store_true",
+    help="Target is a hex-encoded (for bytes/strings)",
 )
 parser.add_argument(
     "-e", "--executable", action="store_true", help="Search executable segments only"
 )
-parser.add_argument("-w", "--writable", action="store_true", help="Search writable segments only")
+parser.add_argument(
+    "-w", "--writable", action="store_true", help="Search writable segments only"
+)
 parser.add_argument(
     "-s",
     "--step",
@@ -143,14 +158,25 @@ parser.add_argument(
     "--limit",
     default=None,
     type=str,
-    help="Max results before quitting the search. Differs from --trunc-out in that it will not save all search results before quitting",
+    help=(
+        "Max results before quitting the search. Differs from --trunc-out in that it"
+        " will not save all search results before quitting"
+    ),
 )
 parser.add_argument(
-    "-a", "--aligned", default=None, type=str, help="Result must be aligned to this byte boundary"
+    "-a",
+    "--aligned",
+    default=None,
+    type=str,
+    help="Result must be aligned to this byte boundary",
 )
 parser.add_argument("value", type=str, help="Value to search for")
 parser.add_argument(
-    "mapping_name", type=str, nargs="?", default=None, help="Mapping to search [e.g. libc]"
+    "mapping_name",
+    type=str,
+    nargs="?",
+    default=None,
+    help="Mapping to search [e.g. libc]",
 )
 parser.add_argument(
     "--save",
@@ -172,7 +198,10 @@ parser.add_argument(
     "--trunc-out",
     action="store_true",
     default=False,
-    help="Truncate the output to 20 results. Differs from --limit in that it will first save all search results",
+    help=(
+        "Truncate the output to 20 results. Differs from --limit in that it will first"
+        " save all search results"
+    ),
 )
 
 
@@ -197,7 +226,8 @@ def search(
     global saved
     if next and not saved:
         print(
-            "WARNING: cannot filter previous search results as they were empty. Performing new search saving results."
+            "WARNING: cannot filter previous search results as they were empty."
+            " Performing new search saving results."
         )
         next = False
         save = True
@@ -272,7 +302,8 @@ def search(
         except UnicodeError as what:
             print(
                 message.error(
-                    f"Invalid pattern '{value}'. Patterns of type `bytes` must be encodable in UTF-8: {what}"
+                    f"Invalid pattern '{value}'. Patterns of type `bytes` must be"
+                    f" encodable in UTF-8: {what}"
                 )
             )
             return

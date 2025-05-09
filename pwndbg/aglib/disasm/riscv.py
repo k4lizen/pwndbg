@@ -118,7 +118,9 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         super().__init__(architecture)
         self.architecture = architecture
 
-        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {
+        self.annotation_handlers: Dict[
+            int, Callable[[PwndbgInstruction, Emulator], None]
+        ] = {
             # AUIPC
             RISCV_INS_AUIPC: self._auipc_annotator,
             # C.MV
@@ -131,7 +133,9 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         }
 
     @override
-    def _set_annotation_string(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
+    def _set_annotation_string(
+        self, instruction: PwndbgInstruction, emu: Emulator
+    ) -> None:
         if instruction.id in RISCV_LOAD_INSTRUCTIONS:
             read_size = RISCV_LOAD_INSTRUCTIONS[instruction.id]
             self._common_load_annotator(
@@ -169,7 +173,9 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         elif instruction.id in RISCV_EMULATED_ANNOTATIONS:
             self._common_generic_register_destination(instruction, emu)
         else:
-            self.annotation_handlers.get(instruction.id, lambda *a: None)(instruction, emu)
+            self.annotation_handlers.get(instruction.id, lambda *a: None)(
+                instruction, emu
+            )
 
     def _auipc_annotator(self, instruction: PwndbgInstruction, emu: Emulator) -> None:
         result_operand, right = instruction.operands
@@ -224,10 +230,14 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         if condition is None:
             return InstructionCondition.UNDETERMINED
 
-        return InstructionCondition.TRUE if bool(condition) else InstructionCondition.FALSE
+        return (
+            InstructionCondition.TRUE if bool(condition) else InstructionCondition.FALSE
+        )
 
     @override
-    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
+    def _condition(
+        self, instruction: PwndbgInstruction, emu: Emulator
+    ) -> InstructionCondition:
         """
         Checks if the current instruction is a jump that is taken.
         """
@@ -250,11 +260,15 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
         # JAL is unconditional and independent of current register status
         if instruction.id in (RISCV_INS_JAL, RISCV_INS_C_JAL, RISCV_INS_C_J):
             # But that doesn't apply to ARM anyways :)
-            return (instruction.address + instruction.op_find(CS_OP_IMM, 1).imm) & ptrmask
+            return (
+                instruction.address + instruction.op_find(CS_OP_IMM, 1).imm
+            ) & ptrmask
 
         # Determine target of branch - all of them are offset to address
         if RISCV_GRP_BRANCH_RELATIVE in instruction.groups:
-            return (instruction.address + instruction.op_find(CS_OP_IMM, 1).imm) & ptrmask
+            return (
+                instruction.address + instruction.op_find(CS_OP_IMM, 1).imm
+            ) & ptrmask
 
         # Determine the target address of the indirect jump
         if instruction.id == RISCV_INS_JALR:
@@ -265,7 +279,9 @@ class RISCVDisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant):
             # If source is omitted, ra is implied as link register
             # To find target, get the LAST
             reg_op_count = instruction.op_count(CS_OP_REG)
-            if (target := instruction.op_find(CS_OP_REG, reg_op_count).before_value) is None:
+            if (
+                target := instruction.op_find(CS_OP_REG, reg_op_count).before_value
+            ) is None:
                 return None
 
             if (imm_op := instruction.op_find(CS_OP_IMM, 1)) is not None:

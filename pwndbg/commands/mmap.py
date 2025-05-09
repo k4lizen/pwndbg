@@ -45,7 +45,9 @@ Examples:
 """,
 )
 parser.add_argument(
-    "addr", help="Address hint to be given to mmap.", type=pwndbg.commands.sloppy_gdb_parse
+    "addr",
+    help="Address hint to be given to mmap.",
+    type=pwndbg.commands.sloppy_gdb_parse,
 )
 parser.add_argument(
     "length",
@@ -81,10 +83,16 @@ parser.add_argument(
     default=0,
 )
 parser.add_argument(
-    "--quiet", "-q", help="Disable address validity warnings and hints", action="store_true"
+    "--quiet",
+    "-q",
+    help="Disable address validity warnings and hints",
+    action="store_true",
 )
 parser.add_argument(
-    "--force", "-f", help="Force potentially unsafe actions to happen", action="store_true"
+    "--force",
+    "-f",
+    help="Force potentially unsafe actions to happen",
+    action="store_true",
 )
 
 
@@ -141,7 +149,9 @@ def parse_str_or_int(val: Union[str, int], parser):
 
 @pwndbg.commands.Command(parser, category=CommandCategory.MEMORY)
 @pwndbg.commands.OnlyWhenRunning
-def mmap(addr, length, prot=7, flags=0x22, fd=-1, offset=0, quiet=False, force=False) -> None:
+def mmap(
+    addr, length, prot=7, flags=0x22, fd=-1, offset=0, quiet=False, force=False
+) -> None:
     try:
         prot_int = parse_str_or_int(prot, prot_str_to_val)
     except ValueError as e:
@@ -164,15 +174,11 @@ def mmap(addr, length, prot=7, flags=0x22, fd=-1, offset=0, quiet=False, force=F
         # to fail because the address is not properly aligned.
         addr = int(addr)
         if addr != aligned_addr and not quiet:
-            print(
-                message.warn(
-                    f"""\
+            print(message.warn(f"""\
 Address {addr:#x} is not properly aligned. Calling mmap with MAP_FIXED and an
 unaligned address is likely to fail. Consider using the address {aligned_addr:#x}
 instead.\
-"""
-                )
-            )
+"""))
 
         # Collision checking can get expensive for some combinations of number
         # of existing mappings and size of maps. If the user is using `--force`,
@@ -202,27 +208,19 @@ instead.\
 
             if len(collisions) > 0:
                 m = message.error
-                print(
-                    m(
-                        f"""\
+                print(m(f"""\
 Trying to mmap with MAP_FIXED for an address range that collides with {len(collisions)}
 existing range{"s" if len(collisions) > 1 else ""}:\
-"""
-                    )
-                )
+"""))
                 for c in collisions:
                     print(m(f"    {c}"))
-                print(
-                    m(
-                        """
+                print(m("""
 This operation is destructive and will delete all of the listed mappings.\
-"""
-                    )
-                )
+"""))
                 print(
                     m(
-                        "Run this command again with `--force` if you still \
-wish to proceed."
+                        "Run this command again with `--force` if you still wish to"
+                        " proceed."
                     )
                 )
                 return
@@ -230,15 +228,11 @@ wish to proceed."
     elif int(addr) != aligned_addr and not quiet:
         # Highlight to the user that the address they've specified is likely to
         # be changed by the kernel.
-        print(
-            message.warn(
-                f"""\
+        print(message.warn(f"""\
 Address {addr:#x} is not properly aligned. It is likely to be changed to an
 aligned address by the kernel automatically. If this is not desired, consider
 using the address {aligned_addr:#x} instead.\
-"""
-            )
-        )
+"""))
 
     async def ctrl(ec: pwndbg.dbg_mod.ExecutionController):
         pointer = await pwndbg.aglib.shellcode.exec_syscall(

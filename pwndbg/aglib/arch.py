@@ -52,14 +52,18 @@ FMT_LITTLE_ENDIAN = {1: "B", 2: "<H", 4: "<I", 8: "<Q"}
 FMT_BIG_ENDIAN = {1: "B", 2: ">H", 4: ">I", 8: ">Q"}
 
 
-registered_architectures: Dict[PWNDBG_SUPPORTED_ARCHITECTURES_TYPE, PwndbgArchitecture] = {}
+registered_architectures: Dict[
+    PWNDBG_SUPPORTED_ARCHITECTURES_TYPE, PwndbgArchitecture
+] = {}
 
 
 def register_arch(arch: PwndbgArchitecture):
     registered_architectures[arch.name] = arch
 
 
-def get_pwndbg_architecture(name: PWNDBG_SUPPORTED_ARCHITECTURES_TYPE) -> PwndbgArchitecture | None:
+def get_pwndbg_architecture(
+    name: PWNDBG_SUPPORTED_ARCHITECTURES_TYPE,
+) -> PwndbgArchitecture | None:
     if name not in registered_architectures:
         return None
 
@@ -134,7 +138,9 @@ class PwndbgArchitecture(ArchDefinition):
         self.syscall_abi = SYSCALL_ABIS.get(default_abi_identifer)
         self.sigreturn_abi = SIGRETURN_ABIS.get(default_abi_identifer)
 
-        self.fmts: Dict[int, str] = FMT_LITTLE_ENDIAN if self.endian == "little" else FMT_BIG_ENDIAN
+        self.fmts: Dict[int, str] = (
+            FMT_LITTLE_ENDIAN if self.endian == "little" else FMT_BIG_ENDIAN
+        )
         self.fmt: str = self.fmts[self.ptrsize]
 
     def pack(self, integer: int) -> bytes:
@@ -391,9 +397,8 @@ def update() -> None:
         pwndbg_arch = get_pwndbg_architecture(a.name)
         if pwndbg_arch is None:
             raise pwndbg.dbg_mod.Error(
-                f"Unsupported architecture: {a.name}. "
-                f"It may be that Pwndbg is not correctly categorizing the architecture. "
-                f"Please file a bug report. "
+                f"Unsupported architecture: {a.name}. It may be that Pwndbg is not"
+                " correctly categorizing the architecture. Please file a bug report. "
             )
         pwndbg.aglib.set_arch(pwndbg_arch)
 

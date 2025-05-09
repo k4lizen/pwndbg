@@ -28,7 +28,10 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "count", nargs="?", default=8, help="Number of entries to dump (should be (GDTR.size+1)/8)"
+    "count",
+    nargs="?",
+    default=8,
+    help="Number of entries to dump (should be (GDTR.size+1)/8)",
 )
 
 
@@ -94,24 +97,20 @@ def decode_gdt_entry(value):
     def colorme(label, val):
         return (C.green if val else C.red)(label)
 
-    access_str = "|".join(
-        (
-            colorme("P", present_bit),
-            f"DPL:{dpl_bits}",
-            colorme("S", type_bit),
-            colorme("E", exec_bit),
-            colorme("DC", dc_bit),
-            colorme("RW", rw_bit),
-            colorme("A", accessed_bit),
-        )
-    )
+    access_str = "|".join((
+        colorme("P", present_bit),
+        f"DPL:{dpl_bits}",
+        colorme("S", type_bit),
+        colorme("E", exec_bit),
+        colorme("DC", dc_bit),
+        colorme("RW", rw_bit),
+        colorme("A", accessed_bit),
+    ))
 
-    flags_str = "|".join(
-        (
-            colorme("G", (flags & (1 << 3)) >> 3),
-            colorme("DB", (flags & (1 << 2)) >> 2),
-            colorme("L", (flags & (1 << 1)) >> 1),
-        )
-    )
+    flags_str = "|".join((
+        colorme("G", (flags & (1 << 3)) >> 3),
+        colorme("DB", (flags & (1 << 2)) >> 2),
+        colorme("L", (flags & (1 << 1)) >> 1),
+    ))
 
     return f"base={base:#4x}, limit={limit:#8x}, access={access_str}, flags={flags_str}"

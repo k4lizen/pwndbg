@@ -81,7 +81,9 @@ def test_loads_core_without_crashing():
 
 def test_entry_no_file_loaded():
     # This test is just to demonstrate that if gdb fails, all we have left is its stdout/err
-    output = run_gdb_with_script(binary="not_existing_binary", pyafter="entry").splitlines()
+    output = run_gdb_with_script(
+        binary="not_existing_binary", pyafter="entry"
+    ).splitlines()
 
     expected = ["not_existing_binary: No such file or directory."]
     expected += HELLO

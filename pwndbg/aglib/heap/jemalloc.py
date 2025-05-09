@@ -210,7 +210,9 @@ class RTree:
         #     "rtree_s", self._addr, include_only_fields={"root"}
         # )
         # pwndbg.aglib.memory
-        self._Value = pwndbg.aglib.memory.get_typed_pointer_value("struct rtree_s", self._addr)
+        self._Value = pwndbg.aglib.memory.get_typed_pointer_value(
+            "struct rtree_s", self._addr
+        )
 
         self._extents = None
 
@@ -436,7 +438,9 @@ class Extent:
         self._addr = addr
 
         # fetch_struct_as_dictionary does not support union currently
-        self._Value = pwndbg.aglib.memory.get_typed_pointer_value("struct edata_s", self._addr)
+        self._Value = pwndbg.aglib.memory.get_typed_pointer_value(
+            "struct edata_s", self._addr
+        )
 
         self._bitfields = None
 
@@ -497,16 +501,27 @@ class Extent:
 
         if self._bitfields is None:
             self._bitfields = {
-                "arena_ind": (self.bits & EDATA_BITS_ARENA_MASK) >> EDATA_BITS_ARENA_SHIFT,
+                "arena_ind": (
+                    (self.bits & EDATA_BITS_ARENA_MASK) >> EDATA_BITS_ARENA_SHIFT
+                ),
                 "slab": (self.bits & EDATA_BITS_SLAB_MASK) >> EDATA_BITS_SLAB_SHIFT,
-                "committed": (self.bits & EDATA_BITS_COMMITTED_MASK) >> EDATA_BITS_COMMITTED_SHIFT,
+                "committed": (
+                    (self.bits & EDATA_BITS_COMMITTED_MASK)
+                    >> EDATA_BITS_COMMITTED_SHIFT
+                ),
                 "pai": (self.bits & EDATA_BITS_PAI_MASK) >> EDATA_BITS_PAI_SHIFT,
-                "zeroed": (self.bits & EDATA_BITS_ZEROED_MASK) >> EDATA_BITS_ZEROED_SHIFT,
-                "guarded": (self.bits & EDATA_BITS_GUARDED_MASK) >> EDATA_BITS_GUARDED_SHIFT,
+                "zeroed": (
+                    (self.bits & EDATA_BITS_ZEROED_MASK) >> EDATA_BITS_ZEROED_SHIFT
+                ),
+                "guarded": (
+                    (self.bits & EDATA_BITS_GUARDED_MASK) >> EDATA_BITS_GUARDED_SHIFT
+                ),
                 "state": (self.bits & EDATA_BITS_STATE_MASK) >> EDATA_BITS_STATE_SHIFT,
                 "szind": (self.bits & EDATA_BITS_SZIND_MASK) >> EDATA_BITS_SZIND_SHIFT,
                 "nfree": (self.bits & EDATA_BITS_NFREE_MASK) >> EDATA_BITS_NFREE_SHIFT,
-                "bin_shard": (self.bits & EDATA_BITS_BINSHARD_MASK) >> EDATA_BITS_BINSHARD_SHIFT,
+                "bin_shard": (
+                    (self.bits & EDATA_BITS_BINSHARD_MASK) >> EDATA_BITS_BINSHARD_SHIFT
+                ),
             }
 
         return self._bitfields

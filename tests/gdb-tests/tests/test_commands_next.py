@@ -28,7 +28,9 @@ def test_command_nextproginstr(start_binary):
 
     # Sanity check
     exec_bin_pages = [
-        p for p in pwndbg.aglib.vmmap.get() if p.objfile == pwndbg.aglib.proc.exe and p.execute
+        p
+        for p in pwndbg.aglib.vmmap.get()
+        if p.objfile == pwndbg.aglib.proc.exe and p.execute
     ]
     assert any(pwndbg.aglib.regs.pc in p for p in exec_bin_pages)
     main_page = pwndbg.aglib.vmmap.find(pwndbg.aglib.regs.pc)
@@ -50,7 +52,15 @@ def test_command_nextproginstr(start_binary):
 
 @pytest.mark.parametrize(
     "command",
-    ("nextcall", "nextjump", "nextproginstr", "nextret", "nextsyscall", "stepret", "stepsyscall"),
+    (
+        "nextcall",
+        "nextjump",
+        "nextproginstr",
+        "nextret",
+        "nextsyscall",
+        "stepret",
+        "stepsyscall",
+    ),
 )
 def test_next_command_doesnt_freeze_crashed_binary(start_binary, command):
     start_binary(REFERENCE_BINARY)

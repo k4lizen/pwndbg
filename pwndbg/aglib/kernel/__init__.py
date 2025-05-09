@@ -46,7 +46,9 @@ def has_debug_syms() -> bool:
 
 
 # NOTE: This implies requires_debug_syms(), as it is needed for kconfig() to return non-None
-def requires_kconfig(default: D = None) -> Callable[[Callable[P, T]], Callable[P, T | D]]:
+def requires_kconfig(
+    default: D = None,
+) -> Callable[[Callable[P, T]], Callable[P, T | D]]:
     def decorator(f: Callable[P, T]) -> Callable[P, T | D]:
         @functools.wraps(f)
         def func(*args: P.args, **kwargs: P.kwargs) -> T | D:
@@ -58,14 +60,18 @@ def requires_kconfig(default: D = None) -> Callable[[Callable[P, T]], Callable[P
             if default is not None:
                 return default
 
-            raise Exception(f"Function {f.__name__} requires CONFIG_IKCONFIG enabled in kernel")
+            raise Exception(
+                f"Function {f.__name__} requires CONFIG_IKCONFIG enabled in kernel"
+            )
 
         return func
 
     return decorator
 
 
-def requires_debug_syms(default: D = None) -> Callable[[Callable[P, T]], Callable[P, T | D]]:
+def requires_debug_syms(
+    default: D = None,
+) -> Callable[[Callable[P, T]], Callable[P, T | D]]:
     def decorator(f: Callable[P, T]) -> Callable[P, T | D]:
         @functools.wraps(f)
         def func(*args: P.args, **kwargs: P.kwargs) -> T | D:
@@ -160,7 +166,9 @@ def kversion() -> str:
         assert version_addr is not None, "Symbol linux_banner not exists"
     else:
         mapping = get_first_kernel_ro()
-        version_addr = list(pwndbg.search.search(b"Linux version", mappings=[mapping]))[0]
+        version_addr = list(pwndbg.search.search(b"Linux version", mappings=[mapping]))[
+            0
+        ]
 
     return pwndbg.aglib.memory.string(version_addr).decode("ascii").strip()
 
@@ -228,7 +236,9 @@ def get_idt_entries() -> List[pwndbg.lib.kernel.structs.IDTEntry]:
     # TODO: read the entire IDT in one call?
     for i in range(num_entries):
         entry_addr = base + i * size
-        entry = pwndbg.lib.kernel.structs.IDTEntry(pwndbg.aglib.memory.read(entry_addr, size))
+        entry = pwndbg.lib.kernel.structs.IDTEntry(
+            pwndbg.aglib.memory.read(entry_addr, size)
+        )
         entries.append(entry)
 
     return entries
@@ -349,7 +359,9 @@ class i386Ops(x86Ops):
     def virt_to_phys(self, virt: int) -> int:
         return (virt - self.page_offset) % (1 << 32)
 
-    def per_cpu(self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None) -> pwndbg.dbg_mod.Value:
+    def per_cpu(
+        self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None
+    ) -> pwndbg.dbg_mod.Value:
         raise NotImplementedError()
 
     def pfn_to_page(self, pfn: int) -> int:
@@ -392,7 +404,9 @@ class x86_64Ops(x86Ops):
         return 12
 
     @requires_debug_syms()
-    def per_cpu(self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None) -> pwndbg.dbg_mod.Value:
+    def per_cpu(
+        self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None
+    ) -> pwndbg.dbg_mod.Value:
         if cpu is None:
             cpu = pwndbg.dbg.selected_thread().index() - 1
 
@@ -434,7 +448,10 @@ class x86_64Ops(x86Ops):
         # https://elixir.bootlin.com/linux/v6.2/source/arch/x86/include/asm/cpufeatures.h#L381
         X86_FEATURE_LA57 = 16 * 32 + 16
         # Separate to avoid using kconfig if possible
-        if not x86_64Ops.cpu_feature_capability(X86_FEATURE_LA57) or "no5lvl" in kcmdline():
+        if (
+            not x86_64Ops.cpu_feature_capability(X86_FEATURE_LA57)
+            or "no5lvl" in kcmdline()
+        ):
             return False
         return x86_64Ops._kconfig_5lvl_paging()
 
@@ -464,7 +481,9 @@ class Aarch64Ops(ArchOps):
 
         VA_BITS_MIN = 48 if self.VA_BITS > 48 else self.VA_BITS
         PAGE_END = (-1 << (VA_BITS_MIN - 1)) + 2**64
-        VMEMMAP_SIZE = (PAGE_END - self.PAGE_OFFSET) >> (self.PAGE_SHIFT - self.STRUCT_PAGE_SHIFT)
+        VMEMMAP_SIZE = (PAGE_END - self.PAGE_OFFSET) >> (
+            self.PAGE_SHIFT - self.STRUCT_PAGE_SHIFT
+        )
 
         if pwndbg.aglib.kernel.krelease() >= (5, 11):
             # Linux 5.11 changed the calculation for VMEMMAP_START
@@ -478,7 +497,9 @@ class Aarch64Ops(ArchOps):
         return 1 << self.PAGE_SHIFT
 
     @requires_debug_syms()
-    def per_cpu(self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None) -> pwndbg.dbg_mod.Value:
+    def per_cpu(
+        self, addr: pwndbg.dbg_mod.Value, cpu: int | None = None
+    ) -> pwndbg.dbg_mod.Value:
         if cpu is None:
             cpu = pwndbg.dbg.selected_thread().index() - 1
 
@@ -657,7 +678,9 @@ def paging_enabled() -> bool:
         # https://starfivetech.com/uploads/u74_core_complex_manual_21G1.pdf
         # page 41, satp.MODE, bits: 60,61,62,63
         # "When satp.MODE=0x0, supervisor virtual addresses are equal to supervisor physical addresses"
-        return int(pwndbg.aglib.regs.satp) & (BIT(60) | BIT(61) | BIT(62) | BIT(63)) != 0
+        return (
+            int(pwndbg.aglib.regs.satp) & (BIT(60) | BIT(61) | BIT(62) | BIT(63)) != 0
+        )
     else:
         raise NotImplementedError()
 

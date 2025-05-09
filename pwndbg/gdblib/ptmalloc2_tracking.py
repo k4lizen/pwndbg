@@ -119,7 +119,8 @@ def resolve_address(name: str) -> int | None:
     if not info or LIBC_NAME not in info:
         print(
             message.warn(
-                f'Found "{name}" that does not seem to belong to {LIBC_NAME}. Refusing to use.'
+                f'Found "{name}" that does not seem to belong to {LIBC_NAME}. Refusing'
+                " to use."
             )
         )
         return None
@@ -176,7 +177,9 @@ class AllocChunkWatchpoint(gdb.Breakpoint):
 
 
 class Chunk:
-    def __init__(self, address: int, size: int, requested_size: int, flags: int) -> None:
+    def __init__(
+        self, address: int, size: int, requested_size: int, flags: int
+    ) -> None:
         self.address = address
         self.size = size
         self.requested_size = requested_size
@@ -394,7 +397,9 @@ class CallocEnterBreakpoint(gdb.Breakpoint):
             return False
 
         self.tracker.enter_memory_management(CALLOC_NAME)
-        AllocExitBreakpoint(self.tracker, requested_size, f"calloc({num_elements}, {element_size})")
+        AllocExitBreakpoint(
+            self.tracker, requested_size, f"calloc({num_elements}, {element_size})"
+        )
         return False
 
 
@@ -445,7 +450,8 @@ class AllocExitBreakpoint(gdb.FinishBreakpoint):
     def out_of_scope(self) -> None:
         print(
             message.warn(
-                f"warning: could not follow allocation request of {self.requested_size} bytes"
+                "warning: could not follow allocation request of"
+                f" {self.requested_size} bytes"
             )
         )
         self.tracker.exit_memory_management()
@@ -474,15 +480,17 @@ class ReallocEnterBreakpoint(gdb.Breakpoint):
             # defined. Either way, print a warning and do nothing.
             print(
                 message.warn(
-                    f"[-] realloc({self.freed_pointer:#x}, {requested_size}) ignored, as"
-                    " realloc(0, ...) is implementation defined"
+                    f"[-] realloc({self.freed_pointer:#x}, {requested_size}) ignored,"
+                    " as realloc(0, ...) is implementation defined"
                 )
             )
             return False
 
         if freed_pointer == 0:
             # Treat this realloc same as malloc
-            AllocExitBreakpoint(self.tracker, requested_size, f"realloc(0x0, {requested_size})")
+            AllocExitBreakpoint(
+                self.tracker, requested_size, f"realloc(0x0, {requested_size})"
+            )
         else:
             ReallocExitBreakpoint(self.tracker, freed_pointer, requested_size)
         return False
@@ -539,7 +547,11 @@ class ReallocExitBreakpoint(gdb.FinishBreakpoint):
         return False
 
     def out_of_scope(self) -> None:
-        print(message.warn(f"warning: could not follow free request for chunk {self.freed_ptr:#x}"))
+        print(
+            message.warn(
+                f"warning: could not follow free request for chunk {self.freed_ptr:#x}"
+            )
+        )
         self.tracker.exit_memory_management()
 
 
@@ -596,14 +608,20 @@ class FreeExitBreakpoint(gdb.FinishBreakpoint):
         return False
 
     def out_of_scope(self) -> None:
-        print(message.warn(f"warning: could not follow free request for chunk {self.ptr:#x}"))
+        print(
+            message.warn(
+                f"warning: could not follow free request for chunk {self.ptr:#x}"
+            )
+        )
         self.tracker.exit_memory_management()
 
 
 def in_program_code_stack() -> bool:
     exe = pwndbg.aglib.proc.exe
     binary_exec_page_ranges = tuple(
-        (p.start, p.end) for p in pwndbg.aglib.vmmap.get() if p.objfile == exe and p.execute
+        (p.start, p.end)
+        for p in pwndbg.aglib.vmmap.get()
+        if p.objfile == exe and p.execute
     )
 
     frame = gdb.newest_frame()
@@ -656,10 +674,15 @@ def install(disable_hardware_watchpoints=True) -> None:
     # See https://sourceware.org/pipermail/gdb/2024-January/051062.html
     print(
         message.warn(
-            "This feature is experimental and is known to report false positives, take the"
+            "This feature is experimental and is known to report false positives,"
+            " take the"
         )
     )
-    print(message.warn("diagnostics it procudes with a grain of salt. Use at your own risk."))
+    print(
+        message.warn(
+            "diagnostics it procudes with a grain of salt. Use at your own risk."
+        )
+    )
     print()
 
     # Disable hardware watchpoints.
@@ -674,14 +697,19 @@ def install(disable_hardware_watchpoints=True) -> None:
     # [1]: https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html
     if disable_hardware_watchpoints:
         gdb.execute("set can-use-hw-watchpoints 0")
-        print("Hardware watchpoints have been disabled. Please do not turn them back on until")
+        print(
+            "Hardware watchpoints have been disabled. Please do not turn them back on"
+            " until"
+        )
         print("heap tracking is disabled, as it may lead to unexpected silent errors.")
         print()
         print("They may be re-enabled with `set can-use-hw-watchpoints 1`")
         print()
     else:
         print(
-            message.warn("Hardware watchpoints have not been disabled, silent errors may happen.")
+            message.warn(
+                "Hardware watchpoints have not been disabled, silent errors may happen."
+            )
         )
         print()
 

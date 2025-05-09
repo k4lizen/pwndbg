@@ -64,7 +64,10 @@ and are a maximum length of 6.
 """,
 )
 parser.add_argument(
-    "address", nargs="?", default="$sp", help="Starting address to find a leak chain from"
+    "address",
+    nargs="?",
+    default="$sp",
+    help="Starting address to find a leak chain from",
 )
 parser.add_argument(
     "-p",
@@ -96,7 +99,11 @@ parser.add_argument(
     nargs="?",
     type=int,
     default=0x1,
-    help="Step to add between pointers so they are considered. For example, if this is 4 it would only consider pointers at an offset divisible by 4 from the starting pointer",
+    help=(
+        "Step to add between pointers so they are considered. For example, if this is 4"
+        " it would only consider pointers at an offset divisible by 4 from the starting"
+        " pointer"
+    ),
 )
 parser.add_argument(
     "--negative_offset",
@@ -203,4 +210,7 @@ def leakfind(
             print(line)
 
     if pwndbg.aglib.qemu.is_qemu():
-        print("\n[QEMU target detected - leakfind result might not be accurate; see `help vmmap`]")
+        print(
+            "\n[QEMU target detected - leakfind result might not be accurate; see `help"
+            " vmmap`]"
+        )

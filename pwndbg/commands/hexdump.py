@@ -13,7 +13,9 @@ from pwndbg.commands import CommandCategory
 from pwndbg.lib.config import PARAM_ZUINTEGER
 
 pwndbg.config.add_param("hexdump-width", 16, "line width of hexdump command")
-pwndbg.config.add_param("hexdump-bytes", 64, "number of bytes printed by hexdump command")
+pwndbg.config.add_param(
+    "hexdump-bytes", 64, "number of bytes printed by hexdump command"
+)
 pwndbg.config.add_param(
     "hexdump-group-width",
     -1,
@@ -24,8 +26,10 @@ pwndbg.config.add_param(
     "hexdump-group-use-big-endian",
     False,
     "use big-endian within each group of bytes in hexdump command",
-    help_docstring="When `on`, use big-endian within each group of bytes. Only applies to raw bytes, not the ASCII part. "
-    "See also hexdump-highlight-group-lsb.",
+    help_docstring=(
+        "When `on`, use big-endian within each group of bytes. Only applies to raw"
+        " bytes, not the ASCII part. See also hexdump-highlight-group-lsb."
+    ),
 )
 pwndbg.config.add_param(
     "hexdump-limit-mb",
@@ -42,11 +46,15 @@ def address_or_module_name(s) -> int:
     addr_or_str: int | str = pwndbg.commands.sloppy_gdb_parse(s)
     if isinstance(addr_or_str, str):
         module_name = addr_or_str
-        pages = list(filter(lambda page: module_name in page.objfile, pwndbg.aglib.vmmap.get()))
+        pages = list(
+            filter(lambda page: module_name in page.objfile, pwndbg.aglib.vmmap.get())
+        )
         if pages:
             return pages[0].vaddr
         else:
-            raise argparse.ArgumentTypeError(f"Could not find pages for module {module_name}")
+            raise argparse.ArgumentTypeError(
+                f"Could not find pages for module {module_name}"
+            )
     elif isinstance(addr_or_str, int):
         return addr_or_str
     else:
@@ -64,7 +72,10 @@ parser.add_argument(
     help="Address or module name to dump",
 )
 parser.add_argument(
-    "count", nargs="?", default=pwndbg.config.hexdump_bytes, help="Number of bytes to dump"
+    "count",
+    nargs="?",
+    default=pwndbg.config.hexdump_bytes,
+    help="Number of bytes to dump",
 )
 
 
@@ -80,7 +91,9 @@ def hexdump(address, count=pwndbg.config.hexdump_bytes) -> None:
     if address > pwndbg.aglib.arch.ptrmask:
         new_address = address & pwndbg.aglib.arch.ptrmask
         print(
-            message.warn("0x%x is larger than the maximum address, truncating to 0x%x instead"),
+            message.warn(
+                "0x%x is larger than the maximum address, truncating to 0x%x instead"
+            ),
             address,
             new_address,
         )
@@ -101,8 +114,9 @@ def hexdump(address, count=pwndbg.config.hexdump_bytes) -> None:
         if count > limit_bytes:
             # Raise an error with the informative message
             raise ValueError(
-                f"Hexdump count ({count}) exceeds the current limit of {limit_mb} MB.\n"
-                f"Use 'set hexdump-limit-mb <new_limit_in_mb>' to increase the limit (or set to 0 for unlimited)."
+                f"Hexdump count ({count}) exceeds the current limit of"
+                f" {limit_mb} MB.\nUse 'set hexdump-limit-mb <new_limit_in_mb>' to"
+                " increase the limit (or set to 0 for unlimited)."
             )
 
     width = int(pwndbg.config.hexdump_width)
@@ -112,7 +126,8 @@ def hexdump(address, count=pwndbg.config.hexdump_bytes) -> None:
 
     # TODO: What if arch endian is big, and use_big_endian is false?
     flip_group_endianness = (
-        bool(pwndbg.config.hexdump_group_use_big_endian) and pwndbg.aglib.arch.endian == "little"
+        bool(pwndbg.config.hexdump_group_use_big_endian)
+        and pwndbg.aglib.arch.endian == "little"
     )
 
     # The user may have input the start and end range to dump instead of the

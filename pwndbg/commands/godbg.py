@@ -12,14 +12,19 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "ty",
     type=str,
-    help="Go type of value to dump, e.g. map[int]string, or the address of a type to resolve at runtime, e.g. 0x408860",
+    help=(
+        "Go type of value to dump, e.g. map[int]string, or the address of a type to"
+        " resolve at runtime, e.g. 0x408860"
+    ),
 )
 parser.add_argument(
     "address",
     type=pwndbg.commands.AddressExpr,
     help="Address to dump",
 )
-parser.add_argument("-x", "--hex", action="store_true", help="Display non-pointer integers as hex")
+parser.add_argument(
+    "-x", "--hex", action="store_true", help="Display non-pointer integers as hex"
+)
 parser.add_argument(
     "-f",
     "--decimals",
@@ -32,7 +37,9 @@ parser.add_argument(
     "-d",
     "--debug",
     action="store_true",
-    help="Shows debug info, like addresses for slice/map elements, slice capacity, etc.",
+    help=(
+        "Shows debug info, like addresses for slice/map elements, slice capacity, etc."
+    ),
 )
 
 parser.add_argument(

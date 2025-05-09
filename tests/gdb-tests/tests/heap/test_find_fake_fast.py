@@ -161,7 +161,9 @@ def test_find_fake_fast_command(start_binary):
     result = gdb.execute("find-fake-fast &target_address", to_string=True)
     check_no_results(result)
 
-    result = gdb.execute("find-fake-fast &target_address --glibc-fastbin-bug", to_string=True)
+    result = gdb.execute(
+        "find-fake-fast &target_address --glibc-fastbin-bug", to_string=True
+    )
     check_result(result, 0xAABBCCDD00000020)
     gdb.execute("continue")
 
@@ -169,5 +171,7 @@ def test_find_fake_fast_command(start_binary):
     result = gdb.execute("find-fake-fast &target_address", to_string=True)
     check_no_results(result)
 
-    result = gdb.execute("find-fake-fast &target_address --partial-overwrite", to_string=True)
+    result = gdb.execute(
+        "find-fake-fast &target_address --partial-overwrite", to_string=True
+    )
     check_result(result, 0x80)

@@ -59,16 +59,23 @@ parser.add_argument(
     dest="accept_readonly",
 )
 parser.add_argument(
-    "symbol_filter", help="Filter results by symbol name.", type=str, nargs="?", default=""
+    "symbol_filter",
+    help="Filter results by symbol name.",
+    type=str,
+    nargs="?",
+    default="",
 )
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.LINUX)
 @pwndbg.commands.OnlyWhenRunning
-def got(path_filter: str, all_: bool, accept_readonly: bool, symbol_filter: str) -> None:
+def got(
+    path_filter: str, all_: bool, accept_readonly: bool, symbol_filter: str
+) -> None:
     if pwndbg.aglib.qemu.is_qemu_usermode():
         print(
-            "QEMU target detected - the result might not be accurate when checking if the entry is writable and getting the information for libraries/objfiles"
+            "QEMU target detected - the result might not be accurate when checking if"
+            " the entry is writable and getting the information for libraries/objfiles"
         )
         print()
     # Show the filters we are using
@@ -77,7 +84,9 @@ def got(path_filter: str, all_: bool, accept_readonly: bool, symbol_filter: str)
     if symbol_filter:
         print("Filtering by symbol name: " + message.hint(symbol_filter))
     if not accept_readonly:
-        print("Filtering out read-only entries (display them with -r or --show-readonly)")
+        print(
+            "Filtering out read-only entries (display them with -r or --show-readonly)"
+        )
 
     if path_filter or not accept_readonly or symbol_filter:
         print()
@@ -123,7 +132,9 @@ def _got(path: str, accept_readonly: bool, symbol_filter: str) -> None:
     # TODO/FIXME: Maybe a -v option to show more information will be better
     outputs: List[Dict[str, Union[str, int]]] = []
     if path == pwndbg.aglib.proc.exe:
-        bin_base_offset = pwndbg.aglib.proc.binary_base_addr if "PIE enabled" in pie_status else 0
+        bin_base_offset = (
+            pwndbg.aglib.proc.binary_base_addr if "PIE enabled" in pie_status else 0
+        )
     else:
         # TODO/FIXME: Is there a better way to get the base address of the loaded shared library?
         # I guess parsing the vmmap result might also work, but what if it's not
@@ -131,7 +142,8 @@ def _got(path: str, accept_readonly: bool, symbol_filter: str) -> None:
         text_section_addr = pwndbg.gdblib.info.parsed_sharedlibrary()[path][0]
         with open(local_path, "rb") as f:
             bin_base_offset = (
-                text_section_addr - ELFFile(f).get_section_by_name(".text").header["sh_addr"]
+                text_section_addr
+                - ELFFile(f).get_section_by_name(".text").header["sh_addr"]
             )
 
     # Parse the output of readelf line by line
@@ -172,12 +184,10 @@ def _got(path: str, accept_readonly: bool, symbol_filter: str) -> None:
                     name = f"*ABS*+0x{int(value, 16):x}"
             if symbol_filter not in name:
                 continue
-            outputs.append(
-                {
-                    "name": name or "????",
-                    "address": address,
-                }
-            )
+            outputs.append({
+                "name": name or "????",
+                "address": address,
+            })
     # By sorting the outputs by address, we can get a more intuitive output
     outputs.sort(key=lambda x: x["address"])
     relro_color = message.off
@@ -187,8 +197,8 @@ def _got(path: str, accept_readonly: bool, symbol_filter: str) -> None:
         relro_color = message.on
     print(f"State of the GOT of {message.notice(path)}:")
     print(
-          f"GOT protection: {relro_color(relro_status)} | "
-          f"Found {message.hint(len(outputs))} GOT entries passing the filter"
+        f"GOT protection: {relro_color(relro_status)} | "
+        f"Found {message.hint(len(outputs))} GOT entries passing the filter"
     )
     for output in outputs:
         print(

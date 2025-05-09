@@ -22,11 +22,15 @@ printable = None
 
 
 def groupby(width: int, array, fill=None):
-    return pwnlib.util.lists.group(width, array, underfull_action="fill", fill_value=fill)
+    return pwnlib.util.lists.group(
+        width, array, underfull_action="fill", fill_value=fill
+    )
 
 
 config_colorize_ascii = theme.add_param(
-    "hexdump-colorize-ascii", True, "whether to colorize the hexdump command ascii section"
+    "hexdump-colorize-ascii",
+    True,
+    "whether to colorize the hexdump command ascii section",
 )
 config_separator = theme.add_param(
     "hexdump-ascii-block-separator", "│", "block separator char of the hexdump command"
@@ -39,7 +43,11 @@ config_byte_separator = theme.add_param(
 
 
 @pwndbg.config.trigger(
-    H.config_normal, H.config_zero, H.config_special, H.config_printable, config_colorize_ascii
+    H.config_normal,
+    H.config_zero,
+    H.config_special,
+    H.config_printable,
+    config_colorize_ascii,
 )
 def load_color_scheme() -> None:
     global color_scheme, printable
@@ -51,11 +59,15 @@ def load_color_scheme() -> None:
     printable = {i: H.normal(".") for i in range(256)}
 
     for c in bytearray(
-        (string.ascii_letters + string.digits + string.punctuation).encode("utf-8", "ignore")
+        (string.ascii_letters + string.digits + string.punctuation).encode(
+            "utf-8", "ignore"
+        )
     ):
         color_scheme[c] = H.printable("%02x" % c)
         printable[c] = (
-            H.printable(f"{chr(c)}") if pwndbg.config.hexdump_colorize_ascii else f"{chr(c)}"
+            H.printable(f"{chr(c)}")
+            if pwndbg.config.hexdump_colorize_ascii
+            else f"{chr(c)}"
         )
 
     for c in bytearray(b"\x00"):
@@ -171,7 +183,9 @@ def hexdump(
 
         for i in range(count):
             try:
-                gval = pwndbg.aglib.memory.get_typed_pointer_value(size_type, address + i * size)
+                gval = pwndbg.aglib.memory.get_typed_pointer_value(
+                    size_type, address + i * size
+                )
                 values.append(int(gval))
             except pwndbg.dbg_mod.Error:
                 break

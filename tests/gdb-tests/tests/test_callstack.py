@@ -17,4 +17,6 @@ def test_callstack_readable(start_binary):
     addresses = pwndbg.aglib.stack.callstack()
 
     assert len(addresses) > 0
-    assert all(pwndbg.aglib.memory.is_readable_address(address) for address in addresses)
+    assert all(
+        pwndbg.aglib.memory.is_readable_address(address) for address in addresses
+    )

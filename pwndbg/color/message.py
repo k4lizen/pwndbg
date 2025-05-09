@@ -23,17 +23,25 @@ config_hint_color = theme.add_color_param(
 config_success_color = theme.add_color_param(
     "message-success-color", "green", "color of success messages"
 )
-config_debug_color = theme.add_color_param("message-debug-color", "blue", "color of debug messages")
-config_info_color = theme.add_color_param("message-info-color", "white", "color of info messages")
+config_debug_color = theme.add_color_param(
+    "message-debug-color", "blue", "color of debug messages"
+)
+config_info_color = theme.add_color_param(
+    "message-info-color", "white", "color of info messages"
+)
 config_warning_color = theme.add_color_param(
     "message-warning-color", "yellow", "color of warning messages"
 )
-config_error_color = theme.add_color_param("message-error-color", "red", "color of error messages")
+config_error_color = theme.add_color_param(
+    "message-error-color", "red", "color of error messages"
+)
 config_system_color = theme.add_color_param(
     "message-system-color", "light-red", "color of system messages"
 )
 
-config_exit_color = theme.add_color_param("message-exit-color", "red", "color of exit messages")
+config_exit_color = theme.add_color_param(
+    "message-exit-color", "red", "color of exit messages"
+)
 config_breakpoint_color = theme.add_color_param(
     "message-breakpoint-color", "yellow", "color of breakpoint messages"
 )

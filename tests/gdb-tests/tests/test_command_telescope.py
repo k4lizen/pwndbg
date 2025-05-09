@@ -140,7 +140,10 @@ def test_command_telescope_frame_bp_below_sp(start_binary):
 
     result_str = gdb.execute("telescope --frame", to_string=True)
 
-    assert "Cannot display stack frame because base pointer is below stack pointer" in result_str
+    assert (
+        "Cannot display stack frame because base pointer is below stack pointer"
+        in result_str
+    )
 
 
 def test_command_telescope_frame_bp_sp_different_vmmaps(start_binary):
@@ -162,6 +165,7 @@ def test_command_telescope_frame_bp_sp_different_vmmaps(start_binary):
     result_str = gdb.execute("telescope --frame", to_string=True)
 
     assert (
-        "Cannot display stack frame because base pointer is not on the same page with stack pointer"
+        "Cannot display stack frame because base pointer is not on the same page with"
+        " stack pointer"
         in result_str
     )

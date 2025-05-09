@@ -70,7 +70,9 @@ def attempt_colorized_symbol(address: int) -> str | None:
 #
 # TODO: Remove the exception for gdb.Value case from `pwndbg.color.memory.get`.
 def get(
-    address: int | pwndbg.dbg_mod.Value | Any, text: str | None = None, prefix: str | None = None
+    address: int | pwndbg.dbg_mod.Value | Any,
+    text: str | None = None,
+    prefix: str | None = None,
 ) -> str:
     """
     Returns a colorized string representing the provided address.
@@ -117,14 +119,12 @@ def get(
 
 
 def legend():
-    return "LEGEND: " + " | ".join(
-        (
-            c.stack("STACK"),
-            c.heap("HEAP"),
-            c.code("CODE"),
-            c.data("DATA"),
-            # WX segments will also be marked as code, so do 2 formatters here
-            c.wx(c.code("WX")),
-            c.rodata("RODATA"),
-        )
-    )
+    return "LEGEND: " + " | ".join((
+        c.stack("STACK"),
+        c.heap("HEAP"),
+        c.code("CODE"),
+        c.data("DATA"),
+        # WX segments will also be marked as code, so do 2 formatters here
+        c.wx(c.code("WX")),
+        c.rodata("RODATA"),
+    ))

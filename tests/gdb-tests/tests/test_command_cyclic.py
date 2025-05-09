@@ -20,11 +20,14 @@ def test_command_cyclic_value(start_binary):
     ptr_size = pwndbg.aglib.arch.ptrsize
     test_offset = 37
     pattern = cyclic(length=80, n=ptr_size)
-    val = int.from_bytes(pattern[test_offset : test_offset + ptr_size], pwndbg.aglib.arch.endian)
+    val = int.from_bytes(
+        pattern[test_offset : test_offset + ptr_size], pwndbg.aglib.arch.endian
+    )
     out = gdb.execute(f"cyclic -l {hex(val)}", to_string=True)
 
-    assert out == (
-        "Finding cyclic pattern of 8 bytes: b'aaafaaaa' (hex: 0x6161616661616161)\n"
+    assert (
+        out
+        == "Finding cyclic pattern of 8 bytes: b'aaafaaaa' (hex: 0x6161616661616161)\n"
         "Found at offset 37\n"
     )
 
@@ -43,8 +46,9 @@ def test_command_cyclic_register(start_binary):
     )
     out = gdb.execute("cyclic -l $rdi", to_string=True)
 
-    assert out == (
-        "Finding cyclic pattern of 8 bytes: b'aaagaaaa' (hex: 0x6161616761616161)\n"
+    assert (
+        out
+        == "Finding cyclic pattern of 8 bytes: b'aaagaaaa' (hex: 0x6161616761616161)\n"
         "Found at offset 45\n"
     )
 
@@ -60,24 +64,31 @@ def test_command_cyclic_address(start_binary):
     test_offset = 48
     pattern = cyclic(length=80, n=ptr_size)
     pwndbg.aglib.memory.write(addr, pattern)
-    out = gdb.execute(f"cyclic -l '{{unsigned long}}{hex(addr + test_offset)}'", to_string=True)
+    out = gdb.execute(
+        f"cyclic -l '{{unsigned long}}{hex(addr + test_offset)}'", to_string=True
+    )
 
-    assert out == (
-        "Finding cyclic pattern of 8 bytes: b'gaaaaaaa' (hex: 0x6761616161616161)\n"
+    assert (
+        out
+        == "Finding cyclic pattern of 8 bytes: b'gaaaaaaa' (hex: 0x6761616161616161)\n"
         "Found at offset 48\n"
     )
 
 
 def test_command_cyclic_wrong_alphabet():
     out = gdb.execute("cyclic -l 1234", to_string=True)
-    assert out == (
-        "Finding cyclic pattern of 4 bytes: b'\\xd2\\x04\\x00\\x00' (hex: 0xd2040000)\n"
+    assert (
+        out
+        == "Finding cyclic pattern of 4 bytes: b'\\xd2\\x04\\x00\\x00' (hex:"
+        " 0xd2040000)\n"
         "Pattern contains characters not present in the alphabet\n"
     )
 
 
 def test_command_cyclic_wrong_length():
     out = gdb.execute("cyclic -l qwerty", to_string=True)
-    assert out == (
-        "Lookup pattern must be 4 bytes (use `-n <length>` to lookup pattern of different length)\n"
+    assert (
+        out
+        == "Lookup pattern must be 4 bytes (use `-n <length>` to lookup pattern of"
+        " different length)\n"
     )

@@ -11,7 +11,9 @@ parser = argparse.ArgumentParser(
     description="Outputs the kernel config (requires CONFIG_IKCONFIG)."
 )
 
-parser.add_argument("config_name", nargs="?", type=str, help="A config name to search for")
+parser.add_argument(
+    "config_name", nargs="?", type=str, help="A config name to search for"
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.KERNEL)
@@ -23,7 +25,8 @@ def kconfig(config_name=None) -> None:
     if not kconfig_:
         print(
             M.warn(
-                "No kernel configuration found, make sure the kernel was built with CONFIG_IKCONFIG"
+                "No kernel configuration found, make sure the kernel was built with"
+                " CONFIG_IKCONFIG"
             )
         )
         return

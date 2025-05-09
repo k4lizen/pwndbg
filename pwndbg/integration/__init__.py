@@ -73,7 +73,9 @@ provider_name = pwndbg.config.add_param(
 )
 
 symbol_lookup = pwndbg.config.add_param(
-    "integration-symbol-lookup", True, "whether to use integration to look up unknown symbols"
+    "integration-symbol-lookup",
+    True,
+    "whether to use integration to look up unknown symbols",
 )
 
 smart_enhance = pwndbg.config.add_param(
@@ -150,7 +152,8 @@ def switch_providers():
     else:
         print(
             message.warn(
-                f"Invalid provider {provider_name.value!r} specified. Disabling integration."
+                f"Invalid provider {provider_name.value!r} specified. Disabling"
+                " integration."
             )
         )
         provider_name.revert_default()

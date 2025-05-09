@@ -9,16 +9,24 @@ import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
 parser = argparse.ArgumentParser(
-    description="Extracts and displays ASCII strings from readable memory pages of the debugged process."
+    description=(
+        "Extracts and displays ASCII strings from readable memory pages of the debugged"
+        " process."
+    )
 )
 
-parser.add_argument("-n", type=int, default=4, help="Minimum length of ASCII strings to include")
+parser.add_argument(
+    "-n", type=int, default=4, help="Minimum length of ASCII strings to include"
+)
 parser.add_argument(
     "page_names",
     type=str,
     nargs="*",
     default=[],
-    help="Mapping to search [e.g. libc].\nCan be used with multiple mappings [e.g libc heap stack]",
+    help=(
+        "Mapping to search [e.g. libc].\nCan be used with multiple mappings [e.g libc"
+        " heap stack]"
+    ),
 )
 parser.add_argument(
     "--save-as",
@@ -35,7 +43,8 @@ def strings(n: int = 4, page_names: List[str] = [], save_as: str = None):
     pages = (
         p
         for p in pwndbg.aglib.vmmap.get()
-        if p.read and ((not page_names) or any(name in p.objfile for name in page_names))
+        if p.read
+        and ((not page_names) or any(name in p.objfile for name in page_names))
     )
 
     f = open(save_as, "w") if save_as else None

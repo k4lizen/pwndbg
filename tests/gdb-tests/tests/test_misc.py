@@ -31,7 +31,8 @@ def test_list_and_filter_commands_full_list():
         return c.description.splitlines()[0]
 
     cmd_name_docs = [
-        (c.command_name, c.aliases, c.category, get_doc(c)) for c in pwndbg.commands.commands
+        (c.command_name, c.aliases, c.category, get_doc(c))
+        for c in pwndbg.commands.commands
     ]
     cmd_name_docs.sort()
 

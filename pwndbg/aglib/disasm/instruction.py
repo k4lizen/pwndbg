@@ -255,7 +255,9 @@ class PwndbgInstructionImpl(PwndbgInstruction):
         if self.cs_insn._cs.syntax == CS_OPT_SYNTAX_ATT:
             self.cs_insn.operands.reverse()
 
-        self.operands: List[EnhancedOperand] = [EnhancedOperand(op) for op in self.cs_insn.operands]
+        self.operands: List[EnhancedOperand] = [
+            EnhancedOperand(op) for op in self.cs_insn.operands
+        ]
 
         # ***********
         # The following member variables are set during instruction enhancement
@@ -562,7 +564,9 @@ class PwndbgInstructionImpl(PwndbgInstruction):
         # Hacky, but this is just for debugging
         if hasattr(self.cs_insn, "cc"):
             info += f"\n\tARM condition code: {self.cs_insn.cc}"
-            info += f"\n\tThumb mode: {1 if self.cs_insn._cs._mode & CS_MODE_THUMB else 0}"
+            info += (
+                f"\n\tThumb mode: {1 if self.cs_insn._cs._mode & CS_MODE_THUMB else 0}"
+            )
 
         return info
 
@@ -664,10 +668,11 @@ class EnhancedOperand:
     # For debugging
     def __repr__(self) -> str:
         info = (
-            f"'{self.str}': Symbol: {self.symbol}, "
-            f"Before: {hex(self.before_value) if self.before_value is not None else None}, "
-            f"After: {hex(self.after_value) if self.after_value is not None else None}, "
-            f"type={CS_OP.get(self.type, self.type)}"
+            f"'{self.str}': Symbol: {self.symbol}, Before:"
+            f" {hex(self.before_value) if self.before_value is not None else None},"
+            " After:"
+            f" {hex(self.after_value) if self.after_value is not None else None},"
+            f" type={CS_OP.get(self.type, self.type)}"
         )
 
         if isinstance(self.cs_op, X86Op):

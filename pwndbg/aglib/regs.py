@@ -47,7 +47,9 @@ def get_register(
             # `read_reg` will return None when it catches this exception. This
             # mirrors how a `gdb.error` causes `read_reg` to return `None` in
             # gdblib when no frame is selected.
-            raise pwndbg.dbg_mod.Error("No currently selected frame to read registers from")
+            raise pwndbg.dbg_mod.Error(
+                "No currently selected frame to read registers from"
+            )
 
     regs = regs_in_frame(frame)
 
@@ -102,7 +104,9 @@ class module(ModuleType):
     last: Dict[str, int] = {}
 
     @pwndbg.lib.cache.cache_until("stop", "prompt")
-    def read_reg(self, reg: str, frame: pwndbg.dbg_mod.Frame | None = None) -> int | None:
+    def read_reg(
+        self, reg: str, frame: pwndbg.dbg_mod.Frame | None = None
+    ) -> int | None:
         reg = reg.lstrip("$")
         try:
             value = get_register(reg, frame)
@@ -130,7 +134,9 @@ class module(ModuleType):
             super().__setattr__(attr, val)
         else:
             if not pwndbg.dbg.selected_frame().reg_write(attr, int(val)):
-                raise RuntimeError(f"Attempted to write to a non-existent register '{attr}'")
+                raise RuntimeError(
+                    f"Attempted to write to a non-existent register '{attr}'"
+                )
 
     @pwndbg.lib.cache.cache_until("stop", "prompt")
     def __getitem__(self, item: Any) -> int | None:

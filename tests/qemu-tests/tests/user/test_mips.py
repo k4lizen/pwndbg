@@ -62,13 +62,15 @@ def test_mips32_delay_slot(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>    ✔ beq    $t1, $t0, _target           <_target>\n"
         "   0x20154 <__start+4>    nop    \n"
         "    ↓\n"
         "   0x2015c <_target>      addu   $gp, $gp, $ra         GP => 0 (0 + 0)\n"
         "   0x20160 <_target+4>    nop    \n"
-        "   0x20164 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 + 0xfa1)\n"
+        "   0x20164 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 +"
+        " 0xfa1)\n"
         "   0x20168 <end+4>        addiu  $a0, $zero, 0         A0 => 0 (0 + 0)\n"
         "   0x2016c <end+8>        syscall \n"
         "\n"
@@ -87,13 +89,15 @@ def test_mips32_delay_slot(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         "   0x20150 <__start>    ✔ beq    $t1, $t0, _target           <_target>\n"
         "   0x20154 <__start+4>    nop    \n"
         "    ↓\n"
         " ► 0x2015c <_target>      addu   $gp, $gp, $ra         GP => 0 (0 + 0)\n"
         "   0x20160 <_target+4>    nop    \n"
-        "   0x20164 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 + 0xfa1)\n"
+        "   0x20164 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 +"
+        " 0xfa1)\n"
         "   0x20168 <end+4>        addiu  $a0, $zero, 0         A0 => 0 (0 + 0)\n"
         "   0x2016c <end+8>        syscall \n"
         "\n"
@@ -131,12 +135,14 @@ def test_mips32_bnez_instruction(qemu_assembly_run, arch):
 
     expected_1 = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>      addiu  $t0, $zero, 0xa     T0 => 10 (0x0 + 0xa)\n"
         "   0x20154 <__start+4>  ✔ bnez   $t0, end                    <end>\n"
         "   0x20158 <__start+8>    nop    \n"
         "    ↓\n"
-        "   0x20168 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 + 0xfa1)\n"
+        "   0x20168 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 +"
+        " 0xfa1)\n"
         "   0x2016c <end+4>        addiu  $a0, $zero, 0         A0 => 0 (0 + 0)\n"
         "   0x20170 <end+8>        syscall \n"
         "\n"
@@ -156,7 +162,8 @@ def test_mips32_bnez_instruction(qemu_assembly_run, arch):
     # So the disasm output should just contain the instructions linearly in memory
     expected_2 = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────────[ DISASM / mips / set emulate off ]───────────────────────\n"
+        "──────────────────────[ DISASM / mips / set emulate off"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>       addiu  $t0, $zero, 0xa     T0 => 0x0 + 0xa\n"
         "   0x20154 <__start+4>     bnez   $t0, end                    <end>\n"
         "   0x20158 <__start+8>     nop    \n"
@@ -181,7 +188,8 @@ def test_mips32_bnez_instruction(qemu_assembly_run, arch):
 
     expected_3 = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────────[ DISASM / mips / set emulate off ]───────────────────────\n"
+        "──────────────────────[ DISASM / mips / set emulate off"
+        " ]───────────────────────\n"
         "   0x20150 <__start>      addiu  $t0, $zero, 0xa     T0 => 0x0 + 0xa\n"
         " ► 0x20154 <__start+4>  ✔ bnez   $t0, end                    <end>\n"
         "   0x20158 <__start+8>    nop    \n"
@@ -232,7 +240,8 @@ def test_mips32_call_instruction(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>       jal    my_function                 <my_function>\n"
         "        $a0:       0\n"
         "        $a1:       0\n"
@@ -262,7 +271,8 @@ def test_mips32_call_instruction(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         "   0x20150 <__start>       jal    my_function                 <my_function>\n"
         "   0x20154 <__start+4>     nop    \n"
         " \n"
@@ -270,7 +280,8 @@ def test_mips32_call_instruction(qemu_assembly_run, arch):
         "   0x2015c <__start+12>    j      end                         <end>\n"
         "   0x20160 <__start+16>    nop    \n"
         "    ↓\n"
-        " ► 0x20170 <end>           addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 + 0xfa1)\n"
+        " ► 0x20170 <end>           addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 +"
+        " 0xfa1)\n"
         "   0x20174 <end+4>         addiu  $a0, $zero, 0         A0 => 0 (0 + 0)\n"
         "   0x20178 <end+8>         syscall \n"
         "\n"
@@ -315,14 +326,16 @@ def test_mips32_store_instruction(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>       lui    $t0, 0x1234          T0 => 0x12340000\n"
         "   0x20154 <__start+4>     ori    $t0, $t0, 0x5678     "
         "T0 => 0x12345678 (0x12340000 | 0x5678)\n"
         "   0x20158 <__start+8>     lui    $s0, 3               S0 => 0x30000\n"
         "   0x2015c <__start+12>    addiu  $s0, $s0, 0x180      "
         "S0 => 0x30180 (value1) (0x30000 + 0x180)\n"
-        "   0x20160 <__start+16>    sw     $t0, 0($s0)          [value1] <= 0x12345678\n"
+        "   0x20160 <__start+16>    sw     $t0, 0($s0)          [value1] <="
+        " 0x12345678\n"
         "   0x20164 <__start+20>    lui    $s1, 3               S1 => 0x30000\n"
         "   0x20168 <__start+24>    addiu  $s1, $s1, 0x184      "
         "S1 => 0x30184 (value2) (0x30000 + 0x184)\n"
@@ -397,7 +410,8 @@ def test_mips32_load_instructions(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20188 <loads>       lw     $t1, 0($s0)     T1, [value1] => 0xffffffff\n"
         "   0x2018c <loads+4>     lhu    $t2, 0($s1)     T2, [value2] => 0xffff\n"
         "   0x20190 <loads+8>     lbu    $t3, 0($s2)     T3, [value3] => 0xff\n"
@@ -442,7 +456,8 @@ def test_mips32_binary_operations(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>       addiu  $t0, $zero, 0xa      T0 => 10 (0x0 + 0xa)\n"
         "   0x20154 <__start+4>     addiu  $t1, $zero, 0x14     T1 => 20 (0x0 + 0x14)\n"
         "   0x20158 <__start+8>     add    $t2, $t0, $t1        T2 => 30 (0xa + 0x14)\n"
@@ -452,8 +467,10 @@ def test_mips32_binary_operations(qemu_assembly_run, arch):
         "   0x20168 <__start+24>    xor    $t6, $t0, $t1        T6 => 30 (0xa ^ 0x14)\n"
         "   0x2016c <__start+28>    sll    $t7, $t0, 2          T7 => 40 (0xa << 0x2)\n"
         "   0x20170 <__start+32>    srl    $t8, $t1, 2          T8 => 5 (0x14 >> 0x2)\n"
-        "   0x20174 <__start+36>    sllv   $t8, $t1, $t8        T8 => 0x280 (0x14 << 0x5)\n"
-        "   0x20178 <__start+40>    srlv   $t3, $t8, $t5        T3 => 0 (0x280 >> 0x1e)\n"
+        "   0x20174 <__start+36>    sllv   $t8, $t1, $t8        T8 => 0x280 (0x14 <<"
+        " 0x5)\n"
+        "   0x20178 <__start+40>    srlv   $t3, $t8, $t5        T3 => 0 (0x280 >>"
+        " 0x1e)\n"
         "────────────────────────────────────────────────────────────────────────────────\n"
     )
 
@@ -497,7 +514,8 @@ def test_mips32_multiple_branches_followed(qemu_assembly_run, arch):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "───────────────────────[ DISASM / mips / set emulate on ]───────────────────────\n"
+        "───────────────────────[ DISASM / mips / set emulate on"
+        " ]───────────────────────\n"
         " ► 0x20150 <__start>      nop    \n"
         "   0x20154 <__start+4>  ✔ beq    $t1, $t0, first             <first>\n"
         "   0x20158 <__start+8>    nop    \n"
@@ -509,7 +527,8 @@ def test_mips32_multiple_branches_followed(qemu_assembly_run, arch):
         "   0x20178 <second>       b      end                         <end>\n"
         "   0x2017c <second+4>     nop    \n"
         "    ↓\n"
-        "   0x20188 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 + 0xfa1)\n"
+        "   0x20188 <end>          addiu  $v0, $zero, 0xfa1     V0 => 0xfa1 (0x0 +"
+        " 0xfa1)\n"
         "   0x2018c <end+4>        addiu  $a0, $zero, 0         A0 => 0 (0 + 0)\n"
         "   0x20190 <end+8>        syscall \n"
         "────────────────────────────────────────────────────────────────────────────────\n"

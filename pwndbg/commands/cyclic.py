@@ -28,7 +28,10 @@ parser.add_argument(
     "--length",
     metavar="length",
     type=int,
-    help="Size of the unique subsequences (defaults to the pointer size for the current arch)",
+    help=(
+        "Size of the unique subsequences (defaults to the pointer size for the current"
+        " arch)"
+    ),
 )
 
 
@@ -41,7 +44,10 @@ group.add_argument(
     dest="lookup",
     metavar="lookup_value",
     type=str,
-    help="Do a lookup instead of printing the sequence (accepts constant values as well as expressions)",
+    help=(
+        "Do a lookup instead of printing the sequence (accepts constant values as well"
+        " as expressions)"
+    ),
 )
 
 group.add_argument(
@@ -49,7 +55,10 @@ group.add_argument(
     type=int,
     nargs="?",
     default=100,
-    help="Number of characters to print from the sequence (default: print the entire sequence)",
+    help=(
+        "Number of characters to print from the sequence (default: print the entire"
+        " sequence)"
+    ),
 )
 
 parser.add_argument(
@@ -76,7 +85,8 @@ def cyclic_cmd(alphabet, length: Optional[int], lookup, count=100, filename="") 
         if len(lookup) != length:
             print(
                 message.error(
-                    f"Lookup pattern must be {length} bytes (use `-n <length>` to lookup pattern of different length)"
+                    f"Lookup pattern must be {length} bytes (use `-n <length>` to"
+                    " lookup pattern of different length)"
                 )
             )
             return
@@ -84,12 +94,15 @@ def cyclic_cmd(alphabet, length: Optional[int], lookup, count=100, filename="") 
         hexstr = "0x" + lookup.hex()
         print(
             message.notice(
-                f"Finding cyclic pattern of {length} bytes: {str(lookup)} (hex: {hexstr})"
+                f"Finding cyclic pattern of {length} bytes: {str(lookup)} (hex:"
+                f" {hexstr})"
             )
         )
 
         if any(c not in alphabet for c in lookup):
-            print(message.error("Pattern contains characters not present in the alphabet"))
+            print(
+                message.error("Pattern contains characters not present in the alphabet")
+            )
             return
 
         offset = cyclic_find(lookup, alphabet, length)

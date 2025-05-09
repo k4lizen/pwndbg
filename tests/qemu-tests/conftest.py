@@ -42,7 +42,9 @@ COMPILATION_TARGETS: list[COMPILATION_TARGETS_TYPE] = list(
 )
 
 # Tuple contains (Zig target,extra_cli_args,qemu_suffix),
-COMPILE_AND_RUN_INFO: Dict[COMPILATION_TARGETS_TYPE, Tuple[str, Tuple[str, ...], str]] = {
+COMPILE_AND_RUN_INFO: Dict[
+    COMPILATION_TARGETS_TYPE, Tuple[str, Tuple[str, ...], str]
+] = {
     "aarch64": ("aarch64-freestanding", (), "aarch64"),
     # TODO: when updating to newer version of Zig, this -mcpu option can be removed
     "arm": ("arm-freestanding", ("-mcpu=cortex_a7",), "arm"),
@@ -115,16 +117,16 @@ def qemu_assembly_run():
         )
 
         if compile_process.returncode != 0:
-            raise Exception("Compilation error", compile_process.stdout, compile_process.stderr)
+            raise Exception(
+                "Compilation error", compile_process.stdout, compile_process.stderr
+            )
 
-        qemu = subprocess.Popen(
-            [
-                f"qemu-{qemu_suffix}",
-                "-g",
-                f"{QEMU_PORT}",
-                f"{compiled_file}",
-            ]
-        )
+        qemu = subprocess.Popen([
+            f"qemu-{qemu_suffix}",
+            "-g",
+            f"{QEMU_PORT}",
+            f"{compiled_file}",
+        ])
 
         os.environ["PWNDBG_IN_TEST"] = "1"
         os.environ["COLUMNS"] = "80"
@@ -166,14 +168,12 @@ def qemu_start_binary():
 
         _, _, qemu_suffix = COMPILE_AND_RUN_INFO[arch]
 
-        qemu = subprocess.Popen(
-            [
-                f"qemu-{qemu_suffix}",
-                "-g",
-                f"{QEMU_PORT}",
-                f"{path}",
-            ]
-        )
+        qemu = subprocess.Popen([
+            f"qemu-{qemu_suffix}",
+            "-g",
+            f"{QEMU_PORT}",
+            f"{path}",
+        ])
 
         os.environ["PWNDBG_IN_TEST"] = "1"
         os.environ["COLUMNS"] = "80"

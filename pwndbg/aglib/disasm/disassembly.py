@@ -89,13 +89,15 @@ def clear_on_reg_mem_change() -> None:
 backward_cache: DefaultDict[int, int] = collections.defaultdict(lambda: None)
 
 # This allows use to retain the annotation strings from previous instructions
-computed_instruction_cache: DefaultDict[int, PwndbgInstruction] = collections.defaultdict(
-    lambda: None
+computed_instruction_cache: DefaultDict[int, PwndbgInstruction] = (
+    collections.defaultdict(lambda: None)
 )
 
 # Maps an address to integer 0/1, indicating the Thumb mode bit for the given address.
 # Value is None if Thumb bit is irrelevent or unknown.
-emulated_arm_mode_cache: DefaultDict[int, int | None] = collections.defaultdict(lambda: None)
+emulated_arm_mode_cache: DefaultDict[int, int | None] = collections.defaultdict(
+    lambda: None
+)
 
 
 @pwndbg.lib.cache.cache_until("objfile")
@@ -141,7 +143,9 @@ def get_one_instruction(
         return ManualPwndbgInstruction(address)
 
     md = get_disassembler(address, cs_info)
-    data = pwndbg.aglib.memory.read(address, pwndbg.aglib.arch.max_instruction_size, partial=True)
+    data = pwndbg.aglib.memory.read(
+        address, pwndbg.aglib.arch.max_instruction_size, partial=True
+    )
     for ins in md.disasm(bytes(data), address, 1):
         pwn_ins: PwndbgInstruction = PwndbgInstructionImpl(ins)
 
@@ -257,11 +261,12 @@ def can_run_first_emulate() -> bool:
     except OSError:
         print(
             message.error(
-                "Disabling the emulation via Unicorn Engine that is used for computing branches"
-                " as there isn't enough memory (1GB) to use it (since mmap(1G, RWX) failed). See also:\n"
-                "* https://github.com/pwndbg/pwndbg/issues/1534\n"
-                "* https://github.com/unicorn-engine/unicorn/pull/1743\n"
-                "Either free your memory or explicitly set `set emulate off` in your Pwndbg config"
+                "Disabling the emulation via Unicorn Engine that is used for computing"
+                " branches as there isn't enough memory (1GB) to use it (since mmap(1G,"
+                " RWX) failed). See also:\n*"
+                " https://github.com/pwndbg/pwndbg/issues/1534\n*"
+                " https://github.com/unicorn-engine/unicorn/pull/1743\nEither free your"
+                " memory or explicitly set `set emulate off` in your Pwndbg config"
             )
         )
         pwndbg.config.emulate.value = "off"
@@ -305,7 +310,12 @@ def one_with_config():
 
 # Return (list of PwndbgInstructions, index in list where instruction.address = passed in address)
 def near(
-    address, instructions=1, emulate=False, show_prev_insns=True, use_cache=False, linear=False
+    address,
+    instructions=1,
+    emulate=False,
+    show_prev_insns=True,
+    use_cache=False,
+    linear=False,
 ) -> Tuple[List[PwndbgInstruction], int]:
     """
     Disasms instructions near given `address`. Passing `emulate` makes use of
@@ -324,7 +334,11 @@ def near(
 
     # Emulate if program pc is at the current instruction - can't emulate at arbitrary places, because we need current
     # processor state to instantiate the emulator.
-    if address == pc and emulate and (not first_time_emulate or can_run_first_emulate()):
+    if (
+        address == pc
+        and emulate
+        and (not first_time_emulate or can_run_first_emulate())
+    ):
         try:
             emu = pwndbg.emu.emulator.Emulator()
         except pwndbg.dbg_mod.Error as e:
@@ -336,7 +350,9 @@ def near(
 
     # By using the same assistant for all the instructions disassembled in
     # this pass, we can track and share information across the instructions
-    assistant = pwndbg.aglib.disasm.disassembly.get_disassembly_assistant_for_current_arch()
+    assistant = (
+        pwndbg.aglib.disasm.disassembly.get_disassembly_assistant_for_current_arch()
+    )
 
     # Start at the current instruction using emulation if available.
     current = one(address, emu, put_cache=True, assistant=assistant)
@@ -356,15 +372,27 @@ def near(
 
     if show_prev_insns:
         cached = backward_cache[current.address]
-        insn = one(cached, from_cache=use_cache, put_backward_cache=False) if cached else None
+        insn = (
+            one(cached, from_cache=use_cache, put_backward_cache=False)
+            if cached
+            else None
+        )
         while insn is not None and len(insns) < instructions:
             if DEBUG_ENHANCEMENT:
                 print(f"Got instruction from cache, addr={cached:#x}")
-            if insn.jump_like and insn.split == SplitType.NO_SPLIT and not insn.causes_branch_delay:
+            if (
+                insn.jump_like
+                and insn.split == SplitType.NO_SPLIT
+                and not insn.causes_branch_delay
+            ):
                 insn.split = SplitType.BRANCH_NOT_TAKEN
             insns.append(insn)
             cached = backward_cache[insn.address]
-            insn = one(cached, from_cache=use_cache, put_backward_cache=False) if cached else None
+            insn = (
+                one(cached, from_cache=use_cache, put_backward_cache=False)
+                if cached
+                else None
+            )
         insns.reverse()
 
     index_of_current_instruction = len(insns)
@@ -434,7 +462,9 @@ def near(
 
                 # Manually make the backtracing cache correct
                 backward_cache[insn.next] = split_insn.address
-                backward_cache[split_insn.address + split_insn.size] = split_insn.address
+                backward_cache[split_insn.address + split_insn.size] = (
+                    split_insn.address
+                )
                 backward_cache[split_insn.address] = insn.address
 
                 # Because the emulator failed, we manually set the address of the next instruction.
@@ -447,7 +477,8 @@ def near(
                     target = insn.target
 
             if not linear and (
-                insn.next != insn.address + insn.size or insn.force_unconditional_jump_target
+                insn.next != insn.address + insn.size
+                or insn.force_unconditional_jump_target
             ):
                 split_insn.split = SplitType.BRANCH_TAKEN
             else:
@@ -468,7 +499,11 @@ def near(
     #
     # This helps with infinite loops and RET sleds.
 
-    while insns and len(insns) > 2 and insns[-3].address == insns[-2].address == insns[-1].address:
+    while (
+        insns
+        and len(insns) > 2
+        and insns[-3].address == insns[-2].address == insns[-1].address
+    ):
         del insns[-1]
 
     return (insns, index_of_current_instruction)
@@ -477,7 +512,9 @@ def near(
 ALL_DISASSEMBLY_ASSISTANTS: Dict[
     PWNDBG_SUPPORTED_ARCHITECTURES_TYPE, Callable[[], DisassemblyAssistant]
 ] = {
-    "aarch64": lambda: pwndbg.aglib.disasm.aarch64.AArch64DisassemblyAssistant("aarch64"),
+    "aarch64": lambda: pwndbg.aglib.disasm.aarch64.AArch64DisassemblyAssistant(
+        "aarch64"
+    ),
     "i386": lambda: pwndbg.aglib.disasm.x86.X86DisassemblyAssistant("i386"),
     "x86-64": lambda: pwndbg.aglib.disasm.x86.X86DisassemblyAssistant("x86-64"),
     "arm": lambda: pwndbg.aglib.disasm.arm.ArmDisassemblyAssistant("arm", "cpsr"),
@@ -498,7 +535,9 @@ def get_disassembly_assistant_for_current_arch() -> DisassemblyAssistant:
     )()
 
 
-def arch_has_disassembly_assistant(arch: PWNDBG_SUPPORTED_ARCHITECTURES_TYPE | None = None) -> bool:
+def arch_has_disassembly_assistant(
+    arch: PWNDBG_SUPPORTED_ARCHITECTURES_TYPE | None = None,
+) -> bool:
     if arch is None:
         arch = pwndbg.aglib.arch.name
 

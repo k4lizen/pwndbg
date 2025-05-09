@@ -23,8 +23,7 @@ def test_command_plist_dereference_limit_change_has_impact_on_plist(start_binary
     """
     startup(start_binary)
     gdb.execute("set dereference-limit 5")
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: {\\s*
   value = 0,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_b>\\s*
@@ -45,21 +44,18 @@ def test_command_plist_dereference_limit_change_has_impact_on_plist(start_binary
   value = 4,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_f>\\s*
 }\
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next", to_string=True)
     assert expected_out.match(result_str) is not None
 
     gdb.execute("set dereference-limit 1")
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: {\\s*
   value = 0,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_b>\\s*
 }\
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -72,16 +68,14 @@ def test_command_plist_unreached_sentinel_does_not_cause_null_deference(start_bi
     not try to dereference zero
     """
     startup(start_binary)
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: 0\\s*
 0[xX][0-9a-fA-F]+ <node_b>: 1\\s*
 0[xX][0-9a-fA-F]+ <node_c>: 2\\s*
 0[xX][0-9a-fA-F]+ <node_d>: 3\\s*
 0[xX][0-9a-fA-F]+ <node_e>: 4\\s*
 \
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next --sentinel 1 -f value", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -94,14 +88,12 @@ def test_command_plist_invalid_address_deference_is_displayed_properly(start_bin
     """
     startup(start_binary)
     gdb.execute("p node_a->next = 0x1234")
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: 0\\s*
 Cannot dereference 0x1234 for list link #2: Cannot access memory at address 0x1234\\s*
 Is the linked list corrupted or is the sentinel value wrong\\?\\s*
 \
-"""
-    )
+""")
     result_str = gdb.execute("plist node_a next -f value", to_string=True)
     assert expected_out.match(result_str) is not None
 
@@ -112,8 +104,7 @@ def test_command_plist_flat_with_offset(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_d>: {\\s*
   value = 3,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_e>\\s*
@@ -126,8 +117,7 @@ def test_command_plist_flat_with_offset(start_binary):
   value = 5,\\s*
   next = 0x0\\s*
 }\
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next -o 3", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -139,8 +129,7 @@ def test_command_plist_flat_with_count(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: {\\s*
   value = 0,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_b>\\s*
@@ -153,8 +142,7 @@ def test_command_plist_flat_with_count(start_binary):
   value = 2,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_d>\\s*
 }\
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next -c 3", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -166,8 +154,7 @@ def test_command_plist_flat_no_flags(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: {\\s*
   value = 0,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_b>\\s*
@@ -188,8 +175,7 @@ def test_command_plist_flat_no_flags(start_binary):
   value = 4,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_f>\\s*
 }\
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -201,13 +187,11 @@ def test_command_plist_flat_field(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: 0\\s*
 0[xX][0-9a-fA-F]+ <node_b>: 1\\s*
 0[xX][0-9a-fA-F]+ <node_c>: 2\\s*
-"""
-    )
+""")
 
     result_str = gdb.execute("plist node_a next -f value", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -220,8 +204,7 @@ def test_command_plist_flat_sentinel(start_binary):
     startup(start_binary)
 
     sentinel = int(gdb.lookup_symbol("node_c")[0].value().address)
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <node_a>: {\\s*
   value = 0,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_b>\\s*
@@ -229,8 +212,7 @@ def test_command_plist_flat_sentinel(start_binary):
 0[xX][0-9a-fA-F]+ <node_b>: {\\s*
   value = 1,\\s*
   next = 0[xX][0-9a-fA-F]+ <node_c>\\s*
-}"""
-    )
+}""")
 
     result_str = gdb.execute(f"plist node_a next -s {sentinel}", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -242,8 +224,7 @@ def test_command_plist_nested_direct(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <inner_b_node_a>: {\\s*
   value = 0,\\s*
   inner = {\\s*
@@ -261,8 +242,7 @@ def test_command_plist_nested_direct(start_binary):
   inner = {\\s*
     next = 0x0\\s*
   }\\s*
-}"""
-    )
+}""")
 
     result_str = gdb.execute("plist inner_b_node_a -i inner next", to_string=True)
     assert expected_out.match(result_str) is not None
@@ -274,8 +254,7 @@ def test_command_plist_nested_indirect(start_binary):
     """
     startup(start_binary)
 
-    expected_out = re.compile(
-        """\
+    expected_out = re.compile("""\
 0[xX][0-9a-fA-F]+ <inner_a_node_a>: {\\s*
   value = 0,\\s*
   inner = {\\s*
@@ -293,8 +272,7 @@ def test_command_plist_nested_indirect(start_binary):
   inner = {\\s*
     next = 0x0\\s*
   }\\s*
-}"""
-    )
+}""")
 
     result_str = gdb.execute("plist inner_a_node_a -i inner next", to_string=True)
     assert expected_out.match(result_str) is not None

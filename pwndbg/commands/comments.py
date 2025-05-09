@@ -9,9 +9,15 @@ from pwndbg.commands import CommandCategory
 
 parser = argparse.ArgumentParser(description="Put comments in assembly code.")
 parser.add_argument(
-    "--addr", metavar="address", default=None, type=str, help="Address to write comments"
+    "--addr",
+    metavar="address",
+    default=None,
+    type=str,
+    help="Address to write comments",
 )
-parser.add_argument("comment", type=str, default=None, help="The text you want to comment")
+parser.add_argument(
+    "comment", type=str, default=None, help="The text you want to comment"
+)
 
 file_lists: Dict[str, Dict[str, str]] = {}  # This saves all comments.
 

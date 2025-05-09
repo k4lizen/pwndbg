@@ -12,7 +12,10 @@ from pwndbg.commands import CommandCategory
 parser = argparse.ArgumentParser(description="Print out ARM CPSR or xPSR register.")
 
 parser.add_argument(
-    "cpsr_value", help="Parse the given CPSR value instead of the actual one.", nargs="?", type=int
+    "cpsr_value",
+    help="Parse the given CPSR value instead of the actual one.",
+    nargs="?",
+    type=int,
 )
 
 

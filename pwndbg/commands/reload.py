@@ -32,7 +32,9 @@ def reload(*a) -> None:
     pwndbg.gdblib.events.after_reload()
 
 
-@pwndbg.commands.Command("Makes pwndbg reinitialize all state.", category=CommandCategory.PWNDBG)
+@pwndbg.commands.Command(
+    "Makes pwndbg reinitialize all state.", category=CommandCategory.PWNDBG
+)
 def reinit_pwndbg() -> None:
     """
     Makes pwndbg reinitialize all state.
