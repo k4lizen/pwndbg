@@ -8,7 +8,8 @@ from pwndbg.commands import CommandCategory
 
 
 @pwndbg.commands.Command(
-    "Prints the section mappings contained in the ELF header.", category=CommandCategory.LINUX
+    "Prints the section mappings contained in the ELF header.",
+    category=CommandCategory.LINUX,
 )
 @pwndbg.commands.OnlyWithFile
 def elfsections() -> None:
@@ -43,7 +44,8 @@ def gotplt() -> None:
 
 
 @pwndbg.commands.Command(
-    "Prints any symbols found in the .plt section if it exists.", category=CommandCategory.LINUX
+    "Prints any symbols found in the .plt section if it exists.",
+    category=CommandCategory.LINUX,
 )
 @pwndbg.commands.OnlyWithFile
 def plt() -> None:

@@ -26,7 +26,9 @@ from pwndbg.aglib.kernel.slab import Slab
 from pwndbg.aglib.kernel.slab import find_containing_slab_cache
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(description="Prints information about the slab allocator")
+parser = argparse.ArgumentParser(
+    description="Prints information about the slab allocator"
+)
 subparsers = parser.add_subparsers(dest="command")
 
 # The command will still work on 3.6 and earlier, but the help won't be shown
@@ -97,7 +99,9 @@ def _rx(val: int) -> str:
 
 
 def print_slab(slab: Slab, indent, verbose: bool) -> None:
-    indent.print(f"- {C.green('Slab')} @ {_yx(slab.virt_address)} [{_rx(slab.slab_address)}]:")
+    indent.print(
+        f"- {C.green('Slab')} @ {_yx(slab.virt_address)} [{_rx(slab.slab_address)}]:"
+    )
 
     with indent:
         indent.print(f"{C.blue('In-Use')}: {slab.inuse}/{slab.object_count}")
@@ -121,7 +125,9 @@ def print_slab(slab: Slab, indent, verbose: bool) -> None:
 
 
 def print_cpu_cache(cpu_cache: CpuCache, verbose: bool, indent) -> None:
-    indent.print(f"{C.green('kmem_cache_cpu')} @ {_yx(cpu_cache.address)} [CPU {cpu_cache.cpu}]:")
+    indent.print(
+        f"{C.green('kmem_cache_cpu')} @ {_yx(cpu_cache.address)} [CPU {cpu_cache.cpu}]:"
+    )
     with indent:
         indent.print(f"{C.blue('Freelist')}:", _yx(int(cpu_cache.freelist)))
 
@@ -140,14 +146,17 @@ def print_cpu_cache(cpu_cache: CpuCache, verbose: bool, indent) -> None:
         slabs = partial_slabs[0].slabs
         pobjects = partial_slabs[0].pobjects
         cpu_partial = partial_slabs[0].slab_cache.cpu_partial
-        indent.print(f"{C.green('Partial Slabs')} [{slabs}] [PO: ~{pobjects}/{cpu_partial}]:")
+        indent.print(
+            f"{C.green('Partial Slabs')} [{slabs}] [PO: ~{pobjects}/{cpu_partial}]:"
+        )
         for partial_slab in partial_slabs:
             print_slab(partial_slab, indent, verbose)
 
 
 def print_node_cache(node_cache: NodeCache, verbose: bool, indent) -> None:
     indent.print(
-        f"{C.green('kmem_cache_node')} @ {_yx(node_cache.address)} [NUMA node {node_cache.node}]:"
+        f"{C.green('kmem_cache_node')} @ {_yx(node_cache.address)} [NUMA node"
+        f" {node_cache.node}]:"
     )
     with indent:
         partial_slabs = node_cache.partial_slabs
@@ -204,7 +213,12 @@ def slab_list(filter_) -> None:
         if not filter_ or filter_ in slab_cache.name
     ]
 
-    print(tabulate(results, headers=["Name", "# Objects", "Size", "Obj Size", "# inuse", "order"]))
+    print(
+        tabulate(
+            results,
+            headers=["Name", "# Objects", "Size", "Obj Size", "# inuse", "order"],
+        )
+    )
 
 
 def slab_contains(address: str) -> None:

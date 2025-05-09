@@ -51,7 +51,9 @@ from pwndbg.lib.functions import Function
 bn_rpc_host = pwndbg.config.add_param(
     "bn-rpc-host", "127.0.0.1", "Binary Ninja XML-RPC server host"
 )
-bn_rpc_port = pwndbg.config.add_param("bn-rpc-port", 31337, "Binary Ninja XML-RPC server port")
+bn_rpc_port = pwndbg.config.add_param(
+    "bn-rpc-port", 31337, "Binary Ninja XML-RPC server port"
+)
 bn_timeout = pwndbg.config.add_param(
     "bn-timeout", 2, "time to wait for Binary Ninja XML-RPC, in seconds"
 )
@@ -81,7 +83,9 @@ K = TypeVar("K")
 
 
 @pwndbg.decorators.only_after_first_prompt()
-@pwndbg.config.trigger(bn_rpc_host, bn_rpc_port, pwndbg.integration.provider_name, bn_timeout)
+@pwndbg.config.trigger(
+    bn_rpc_host, bn_rpc_port, pwndbg.integration.provider_name, bn_timeout
+)
 def init_bn_rpc_client() -> None:
     global _bn, _bn_last_exception, _bn_last_connection_check
 
@@ -105,7 +109,8 @@ def init_bn_rpc_client() -> None:
         version: str = _bn.get_version()
         print(
             message.success(
-                f"Pwndbg successfully connected to Binary Ninja ({version}) xmlrpc: {addr}"
+                f"Pwndbg successfully connected to Binary Ninja ({version}) xmlrpc:"
+                f" {addr}"
             )
         )
     except TimeoutError:
@@ -131,12 +136,15 @@ def init_bn_rpc_client() -> None:
                 exc_type, exc_value, _ = exception
                 print(
                     message.error(
-                        f"Failed to connect to Binary Ninja ({exc_type.__qualname__}: {exc_value})"
+                        f"Failed to connect to Binary Ninja ({exc_type.__qualname__}:"
+                        f" {exc_value})"
                     )
                 )
                 if exc_type is socket.timeout:
                     print(
-                        message.notice("To increase the time to wait for Binary Ninja use `")
+                        message.notice(
+                            "To increase the time to wait for Binary Ninja use `"
+                        )
                         + message.hint("set bn-timeout <new-timeout-in-seconds>")
                         + message.notice("`")
                     )
@@ -193,12 +201,16 @@ def can_connect() -> bool:
 
 
 def l2r(addr: int) -> int:
-    result = (addr - pwndbg.aglib.proc.binary_base_addr + base()) & pwndbg.aglib.arch.ptrmask
+    result = (
+        addr - pwndbg.aglib.proc.binary_base_addr + base()
+    ) & pwndbg.aglib.arch.ptrmask
     return result
 
 
 def r2l(addr: int) -> int:
-    result = (addr - base() + pwndbg.aglib.proc.binary_base_addr) & pwndbg.aglib.arch.ptrmask
+    result = (
+        addr - base() + pwndbg.aglib.proc.binary_base_addr
+    ) & pwndbg.aglib.arch.ptrmask
     return result
 
 
@@ -263,115 +275,111 @@ def bn_to_pygment_theme(theme: Dict[str, str]) -> Dict[Any, str]:
 
 
 class DarkTheme(pygments.style.Style):
-    styles = bn_to_pygment_theme(
-        {
-            "TextToken": "#e0e0e0",
-            "InstructionToken": "#eddfb3",
-            "OperandSeparatorToken": "#e0e0e0",
-            "RegisterToken": "#e0e0e0",
-            "IntegerToken": "#a2d9af",
-            "PossibleAddressToken": "#a2d9af",
-            "BeginMemoryOperandToken": "#e0e0e0",
-            "EndMemoryOperandToken": "#e0e0e0",
-            "FloatingPointToken": "#a2d9af",
-            "AnnotationToken": "#dac4d1",
-            "CodeRelativeAddressToken": "#a2d9af",
-            "ArgumentNameToken": "#e0e0e0",
-            "HexDumpByteValueToken": "#e0e0e0",
-            "HexDumpSkippedByteToken": "#e0e0e0",
-            "HexDumpInvalidByteToken": "#909090",
-            "HexDumpTextToken": "#e0e0e0",
-            "OpcodeToken": "#909090",
-            "StringToken": "#dac4d1",
-            "CharacterConstantToken": "#dac4d1",
-            "KeywordToken": "#eddfb3",
-            "TypeNameToken": "#edbd81",
-            "FieldNameToken": "#b0dde4",
-            "NameSpaceToken": "#80c6e9",
-            "NameSpaceSeparatorToken": "#80c6e9",
-            "TagToken": "#e0e0e0",
-            "StructOffsetToken": "#b0dde4",
-            "StructOffsetByteValueToken": "#e0e0e0",
-            "StructureHexDumpTextToken": "#e0e0e0",
-            "GotoLabelToken": "#80c6e9",
-            "CommentToken": "#dac4d1",
-            "PossibleValueToken": "#e0e0e0",
-            "PossibleValueTypeToken": "#e0e0e0",
-            "ArrayIndexToken": "#a2d9af",
-            "IndentationToken": "#5d5d5d",
-            "UnknownMemoryToken": "#909090",
-            "EnumerationMemberToken": "#eddfb3",
-            "OperationToken": "#89a4b1",
-            "BaseStructureNameToken": "#dac4d1",
-            "BaseStructureSeparatorToken": "#dac4d1",
-            "BraceToken": "#e0e0e0",
-            "CodeSymbolToken": "#80c6e9",
-            "DataSymbolToken": "#8ee6ed",
-            "LocalVariableToken": "#e0e0e0",
-            "ImportToken": "#edbd81",
-            "AddressDisplayToken": "#a2d9af",
-            "IndirectImportToken": "#edbd81",
-            "ExternalSymbolToken": "#edbd81",
-            "StackVariableToken": "#c1dcc7",
-            "AddressSeparatorToken": "#e0e0e0",
-        }
-    )
+    styles = bn_to_pygment_theme({
+        "TextToken": "#e0e0e0",
+        "InstructionToken": "#eddfb3",
+        "OperandSeparatorToken": "#e0e0e0",
+        "RegisterToken": "#e0e0e0",
+        "IntegerToken": "#a2d9af",
+        "PossibleAddressToken": "#a2d9af",
+        "BeginMemoryOperandToken": "#e0e0e0",
+        "EndMemoryOperandToken": "#e0e0e0",
+        "FloatingPointToken": "#a2d9af",
+        "AnnotationToken": "#dac4d1",
+        "CodeRelativeAddressToken": "#a2d9af",
+        "ArgumentNameToken": "#e0e0e0",
+        "HexDumpByteValueToken": "#e0e0e0",
+        "HexDumpSkippedByteToken": "#e0e0e0",
+        "HexDumpInvalidByteToken": "#909090",
+        "HexDumpTextToken": "#e0e0e0",
+        "OpcodeToken": "#909090",
+        "StringToken": "#dac4d1",
+        "CharacterConstantToken": "#dac4d1",
+        "KeywordToken": "#eddfb3",
+        "TypeNameToken": "#edbd81",
+        "FieldNameToken": "#b0dde4",
+        "NameSpaceToken": "#80c6e9",
+        "NameSpaceSeparatorToken": "#80c6e9",
+        "TagToken": "#e0e0e0",
+        "StructOffsetToken": "#b0dde4",
+        "StructOffsetByteValueToken": "#e0e0e0",
+        "StructureHexDumpTextToken": "#e0e0e0",
+        "GotoLabelToken": "#80c6e9",
+        "CommentToken": "#dac4d1",
+        "PossibleValueToken": "#e0e0e0",
+        "PossibleValueTypeToken": "#e0e0e0",
+        "ArrayIndexToken": "#a2d9af",
+        "IndentationToken": "#5d5d5d",
+        "UnknownMemoryToken": "#909090",
+        "EnumerationMemberToken": "#eddfb3",
+        "OperationToken": "#89a4b1",
+        "BaseStructureNameToken": "#dac4d1",
+        "BaseStructureSeparatorToken": "#dac4d1",
+        "BraceToken": "#e0e0e0",
+        "CodeSymbolToken": "#80c6e9",
+        "DataSymbolToken": "#8ee6ed",
+        "LocalVariableToken": "#e0e0e0",
+        "ImportToken": "#edbd81",
+        "AddressDisplayToken": "#a2d9af",
+        "IndirectImportToken": "#edbd81",
+        "ExternalSymbolToken": "#edbd81",
+        "StackVariableToken": "#c1dcc7",
+        "AddressSeparatorToken": "#e0e0e0",
+    })
 
 
 class LightTheme(pygments.style.Style):
-    styles = bn_to_pygment_theme(
-        {
-            "TextToken": "#1f1f1f",
-            "InstructionToken": "#8d8d2d",
-            "OperandSeparatorToken": "#1f1f1f",
-            "RegisterToken": "#1f1f1f",
-            "IntegerToken": "#30820d",
-            "PossibleAddressToken": "#30820d",
-            "BeginMemoryOperandToken": "#1f1f1f",
-            "EndMemoryOperandToken": "#1f1f1f",
-            "FloatingPointToken": "#30820d",
-            "AnnotationToken": "#bf2624",
-            "CodeRelativeAddressToken": "#30820d",
-            "ArgumentNameToken": "#1f1f1f",
-            "HexDumpByteValueToken": "#1f1f1f",
-            "HexDumpSkippedByteToken": "#1f1f1f",
-            "HexDumpInvalidByteToken": "#7a7a7a",
-            "HexDumpTextToken": "#1f1f1f",
-            "OpcodeToken": "#7a7a7a",
-            "StringToken": "#203635",
-            "CharacterConstantToken": "#203635",
-            "KeywordToken": "#8d8d2d",
-            "TypeNameToken": "#e07c35",
-            "FieldNameToken": "#35dae0",
-            "NameSpaceToken": "#00a4c7",
-            "NameSpaceSeparatorToken": "#00a4c7",
-            "TagToken": "#1f1f1f",
-            "StructOffsetToken": "#35dae0",
-            "StructOffsetByteValueToken": "#1f1f1f",
-            "StructureHexDumpTextToken": "#1f1f1f",
-            "GotoLabelToken": "#00a4c7",
-            "CommentToken": "#bf2624",
-            "PossibleValueToken": "#1f1f1f",
-            "PossibleValueTypeToken": "#1f1f1f",
-            "ArrayIndexToken": "#30820d",
-            "IndentationToken": "#bcbcbc",
-            "UnknownMemoryToken": "#7a7a7a",
-            "EnumerationMemberToken": "#8d8d2d",
-            "OperationToken": "#5b848d",
-            "BaseStructureNameToken": "#bf2624",
-            "BaseStructureSeparatorToken": "#bf2624",
-            "BraceToken": "#1f1f1f",
-            "CodeSymbolToken": "#00a4c7",
-            "DataSymbolToken": "#278cad",
-            "LocalVariableToken": "#1f1f1f",
-            "ImportToken": "#e07c35",
-            "AddressDisplayToken": "#30820d",
-            "IndirectImportToken": "#e07c35",
-            "ExternalSymbolToken": "#e07c35",
-            "StackVariableToken": "#275016",
-            "AddressSeparatorToken": "#1f1f1f",
-        }
-    )
+    styles = bn_to_pygment_theme({
+        "TextToken": "#1f1f1f",
+        "InstructionToken": "#8d8d2d",
+        "OperandSeparatorToken": "#1f1f1f",
+        "RegisterToken": "#1f1f1f",
+        "IntegerToken": "#30820d",
+        "PossibleAddressToken": "#30820d",
+        "BeginMemoryOperandToken": "#1f1f1f",
+        "EndMemoryOperandToken": "#1f1f1f",
+        "FloatingPointToken": "#30820d",
+        "AnnotationToken": "#bf2624",
+        "CodeRelativeAddressToken": "#30820d",
+        "ArgumentNameToken": "#1f1f1f",
+        "HexDumpByteValueToken": "#1f1f1f",
+        "HexDumpSkippedByteToken": "#1f1f1f",
+        "HexDumpInvalidByteToken": "#7a7a7a",
+        "HexDumpTextToken": "#1f1f1f",
+        "OpcodeToken": "#7a7a7a",
+        "StringToken": "#203635",
+        "CharacterConstantToken": "#203635",
+        "KeywordToken": "#8d8d2d",
+        "TypeNameToken": "#e07c35",
+        "FieldNameToken": "#35dae0",
+        "NameSpaceToken": "#00a4c7",
+        "NameSpaceSeparatorToken": "#00a4c7",
+        "TagToken": "#1f1f1f",
+        "StructOffsetToken": "#35dae0",
+        "StructOffsetByteValueToken": "#1f1f1f",
+        "StructureHexDumpTextToken": "#1f1f1f",
+        "GotoLabelToken": "#00a4c7",
+        "CommentToken": "#bf2624",
+        "PossibleValueToken": "#1f1f1f",
+        "PossibleValueTypeToken": "#1f1f1f",
+        "ArrayIndexToken": "#30820d",
+        "IndentationToken": "#bcbcbc",
+        "UnknownMemoryToken": "#7a7a7a",
+        "EnumerationMemberToken": "#8d8d2d",
+        "OperationToken": "#5b848d",
+        "BaseStructureNameToken": "#bf2624",
+        "BaseStructureSeparatorToken": "#bf2624",
+        "BraceToken": "#1f1f1f",
+        "CodeSymbolToken": "#00a4c7",
+        "DataSymbolToken": "#278cad",
+        "LocalVariableToken": "#1f1f1f",
+        "ImportToken": "#e07c35",
+        "AddressDisplayToken": "#30820d",
+        "IndirectImportToken": "#e07c35",
+        "ExternalSymbolToken": "#e07c35",
+        "StackVariableToken": "#275016",
+        "AddressSeparatorToken": "#1f1f1f",
+    })
 
 
 themes = {}
@@ -442,7 +450,9 @@ class BinjaProvider(pwndbg.integration.IntegrationProvider):
         if not decomp:
             return None
         decomp = [
-            (r2l(addr), toks) for (addr, toks) in decomp if not all(t[0].isspace() for t in toks)
+            (r2l(addr), toks)
+            for (addr, toks) in decomp
+            if not all(t[0].isspace() for t in toks)
         ]
         ind = min(
             ((i, x) for (i, x) in enumerate(decomp) if x[0] >= addr),
@@ -514,7 +524,9 @@ class BinjaProvider(pwndbg.integration.IntegrationProvider):
     @pwndbg.decorators.suppress_errors()
     @with_bn()
     def get_func_type(self, addr: int) -> Function | None:
-        ty: Tuple[Tuple[str, int, str], List[Tuple[str, int, str]]] = _bn.get_func_type(l2r(addr))
+        ty: Tuple[Tuple[str, int, str], List[Tuple[str, int, str]]] = _bn.get_func_type(
+            l2r(addr)
+        )
         if ty is None:
             return None
         args = [Argument(type=x[0], derefcnt=x[1], name=x[2]) for x in ty[1]]
@@ -549,9 +561,13 @@ class BinjaProvider(pwndbg.integration.IntegrationProvider):
         ]
         # put stack pointer and frame pointer at the front
         regs.sort(
-            key=lambda x: {pwndbg.aglib.regs.stack: 0, pwndbg.aglib.regs.frame: 1}.get(x[0], 2)
+            key=lambda x: {pwndbg.aglib.regs.stack: 0, pwndbg.aglib.regs.frame: 1}.get(
+                x[0], 2
+            )
         )
-        ret: Tuple[int, str, int] | None = _bn.get_stack_var_name(l2r(int(cur.pc())), regs, addr)
+        ret: Tuple[int, str, int] | None = _bn.get_stack_var_name(
+            l2r(int(cur.pc())), regs, addr
+        )
         if ret is None:
             return None
         (conf, func, var) = ret

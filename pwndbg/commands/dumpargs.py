@@ -12,8 +12,12 @@ import pwndbg.commands.telescope
 from pwndbg.commands import CommandCategory
 from pwndbg.lib.functions import format_flags_argument
 
-parser = argparse.ArgumentParser(description="Prints determined arguments for call instruction.")
-parser.add_argument("-f", "--force", action="store_true", help="Force displaying of all arguments.")
+parser = argparse.ArgumentParser(
+    description="Prints determined arguments for call instruction."
+)
+parser.add_argument(
+    "-f", "--force", action="store_true", help="Force displaying of all arguments."
+)
 
 
 @pwndbg.commands.Command(parser, aliases=["args"], category=CommandCategory.MISC)
@@ -26,9 +30,10 @@ def dumpargs(force: bool = False) -> None:
     else:
         print("Couldn't resolve call arguments from registers.")
         print(
-            f"Detected ABI: {pwndbg.aglib.arch.name} ({pwndbg.aglib.arch.ptrsize * 8} bit)"
-            " either doesn't pass arguments through registers or is not implemented."
-            " Maybe they are passed on the stack?"
+            "Detected ABI:"
+            f" {pwndbg.aglib.arch.name} ({pwndbg.aglib.arch.ptrsize * 8} bit) either"
+            " doesn't pass arguments through registers or is not implemented. Maybe"
+            " they are passed on the stack?"
         )
 
 

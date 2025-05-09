@@ -28,7 +28,9 @@ from pwndbg.aglib.disasm.instruction import PwndbgInstruction
 from pwndbg.aglib.nearpc import c as N
 
 
-def get(instruction: PwndbgInstruction) -> List[Tuple[pwndbg.lib.functions.Argument, int]]:
+def get(
+    instruction: PwndbgInstruction,
+) -> List[Tuple[pwndbg.lib.functions.Argument, int]]:
     """
     Returns an array containing the arguments to the current function,
     if $pc is a 'call', 'bl', or 'jalr' type instruction.
@@ -103,7 +105,8 @@ def get(instruction: PwndbgInstruction) -> List[Tuple[pwndbg.lib.functions.Argum
         args = func.args
     else:
         args = (
-            pwndbg.lib.functions.Argument("int", 0, argname(i, abi)) for i in range(n_args_default)
+            pwndbg.lib.functions.Argument("int", 0, argname(i, abi))
+            for i in range(n_args_default)
         )
 
     for i, arg in enumerate(args):
@@ -130,7 +133,8 @@ def argument(n: int, abi: pwndbg.lib.abi.ABI | None = None) -> int:
     abi = abi or pwndbg.aglib.arch.function_abi
     if abi is None:
         raise pwndbg.dbg_mod.Error(
-            f"Function ABI not defined for current architecture, {pwndbg.aglib.arch.function_abi}"
+            "Function ABI not defined for current architecture,"
+            f" {pwndbg.aglib.arch.function_abi}"
         )
     regs = abi.register_arguments
 
@@ -141,7 +145,9 @@ def argument(n: int, abi: pwndbg.lib.abi.ABI | None = None) -> int:
 
     sp = pwndbg.aglib.regs.sp + (n * pwndbg.aglib.arch.ptrsize)
 
-    return int(pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, sp))
+    return int(
+        pwndbg.aglib.memory.get_typed_pointer_value(pwndbg.aglib.typeinfo.ppvoid, sp)
+    )
 
 
 def arguments(abi: pwndbg.lib.abi.ABI | None = None):

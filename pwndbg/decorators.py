@@ -58,7 +58,11 @@ def suppress_errors(
                 return func(*args, **kwargs)
             except Exception as e:
                 if should_warn:
-                    print(message.warn(f"Warning: Received an error in {func.__name__}: {e}"))
+                    print(
+                        message.warn(
+                            f"Warning: Received an error in {func.__name__}: {e}"
+                        )
+                    )
                     if pwndbg.config.exception_verbose:
                         traceback.print_exc()
                 return fallback

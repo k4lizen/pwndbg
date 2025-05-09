@@ -72,7 +72,9 @@ class QemuMachine(Machine):
         # We add a chardev file backend (we dont add a fronted, so it doesn't affect
         # the guest). We can then look through proc to find which process has the file
         # open. This approach is agnostic to namespaces (pid, network and mount).
-        chardev_id = "gdb-pt-dump" + "-" + "".join(random.choices(string.ascii_letters, k=16))
+        chardev_id = (
+            "gdb-pt-dump" + "-" + "".join(random.choices(string.ascii_letters, k=16))
+        )
         with tempfile.NamedTemporaryFile() as tmpf:
             pwndbg.dbg.selected_inferior().send_monitor(
                 f"chardev-add file,id={chardev_id},path={tmpf.name}"
@@ -86,7 +88,9 @@ class QemuMachine(Machine):
         return int(pid_found, 10)
 
     def read_physical_memory(self, physical_address: int, length: int) -> bytes:
-        res = pwndbg.dbg.selected_inferior().send_monitor(f"gpa2hva {hex(physical_address)}")
+        res = pwndbg.dbg.selected_inferior().send_monitor(
+            f"gpa2hva {hex(physical_address)}"
+        )
 
         # It's not possible to pread large sizes, so let's break the request
         # into a few smaller ones.
@@ -128,18 +132,19 @@ def kernel_vmmap_via_page_tables() -> Tuple[pwndbg.lib.memory.Page, ...]:
     except PermissionError:
         print(
             M.error(
-                "Permission error when attempting to parse page tables with gdb-pt-dump.\n"
-                "Either change the kernel-vmmap setting, re-run GDB as root, or disable "
-                "`ptrace_scope` (`echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope`)"
+                "Permission error when attempting to parse page tables with"
+                " gdb-pt-dump.\nEither change the kernel-vmmap setting, re-run GDB as"
+                " root, or disable `ptrace_scope` (`echo 0 | sudo tee"
+                " /proc/sys/kernel/yama/ptrace_scope`)"
             )
         )
         return ()
     except ProcessLookupError:
         print(
             M.error(
-                "Could not find the PID for process named `qemu-system`.\n"
-                "This might happen if pwndbg is running on a different machine than `qemu-system`,\n"
-                "or if the `qemu-system` binary has a different name."
+                "Could not find the PID for process named `qemu-system`.\nThis might"
+                " happen if pwndbg is running on a different machine than"
+                " `qemu-system`,\nor if the `qemu-system` binary has a different name."
             )
         )
         return ()
@@ -254,12 +259,10 @@ def kernel_vmmap_via_monitor_info_mem() -> Tuple[pwndbg.lib.memory.Page, ...]:
         if end - start != size and monitor_info_mem_not_warned:
             print(
                 M.warn(
-                    (
-                        "The vmmap output may be incorrect as `monitor info mem` output assertion/assumption\n"
-                        "that end-start==size failed. The values are:\n"
-                        "end=%#x; start=%#x; size=%#x; end-start=%#x\n"
-                        "Note that this warning will not show up again in this Pwndbg/GDB session."
-                    )
+                    "The vmmap output may be incorrect as `monitor info mem` output"
+                    " assertion/assumption\nthat end-start==size failed. The values"
+                    " are:\nend=%#x; start=%#x; size=%#x; end-start=%#x\nNote that this"
+                    " warning will not show up again in this Pwndbg/GDB session."
                     % (end, start, size, end - start)
                 )
             )

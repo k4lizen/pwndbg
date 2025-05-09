@@ -12,7 +12,8 @@ from pwndbg.commands.vmmap import print_vmmap_table_header
 
 
 @pwndbg.commands.Command(
-    "Print out the stack addresses that contain return addresses.", category=CommandCategory.STACK
+    "Print out the stack addresses that contain return addresses.",
+    category=CommandCategory.STACK,
 )
 @pwndbg.commands.OnlyWhenRunning
 def retaddr() -> None:
@@ -35,7 +36,9 @@ def retaddr() -> None:
         sp += pwndbg.aglib.arch.ptrsize
 
 
-@pwndbg.commands.Command("Explore stack from all threads.", category=CommandCategory.STACK)
+@pwndbg.commands.Command(
+    "Explore stack from all threads.", category=CommandCategory.STACK
+)
 @pwndbg.commands.OnlyWhenRunning
 def stack_explore() -> None:
     old_value = pwndbg.config.auto_explore_stack.value

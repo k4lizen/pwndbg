@@ -77,7 +77,9 @@ def aslr(state=None) -> None:
     if state:
         if pwndbg.dbg.is_gdblib_available():
             gdb.execute(
-                f"set disable-randomization {options[state]}", from_tty=False, to_string=True
+                f"set disable-randomization {options[state]}",
+                from_tty=False,
+                to_string=True,
             )
 
             if pwndbg.aglib.proc.alive:
@@ -85,7 +87,8 @@ def aslr(state=None) -> None:
         else:
             # TODO: lldb settings set target.disable-aslr false
             print(
-                "Please use command 'settings set target.disable-aslr true/false', autocommand not supported yet"
+                "Please use command 'settings set target.disable-aslr true/false',"
+                " autocommand not supported yet"
             )
 
     aslr, method = check_aslr()

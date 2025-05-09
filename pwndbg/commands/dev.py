@@ -8,7 +8,9 @@ import pwndbg.color.message as MessageColor
 import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(description="Dump internal PwndbgInstruction attributes.")
+parser = argparse.ArgumentParser(
+    description="Dump internal PwndbgInstruction attributes."
+)
 
 # We don't have a parser to pass in true/false in arguments, so there are
 # two args to force the enabling/disabling of emulation
@@ -18,7 +20,10 @@ parser.add_argument(
     dest="force_emulate",
     action="store_true",
     default=False,
-    help="Force the use of emulation when enhancing the instruction, regardless of global 'emulate' setting.",
+    help=(
+        "Force the use of emulation when enhancing the instruction, regardless of"
+        " global 'emulate' setting."
+    ),
 )
 
 parser.add_argument(
@@ -27,7 +32,10 @@ parser.add_argument(
     dest="no_emulate",
     action="store_true",
     default=False,
-    help="Disable the use of emulation when enhancing the instruction, regardless of global 'emulate' setting.",
+    help=(
+        "Disable the use of emulation when enhancing the instruction, regardless of"
+        " global 'emulate' setting."
+    ),
 )
 
 
@@ -44,8 +52,10 @@ parser.add_argument(
 def dev_dump_instruction(address=None, force_emulate=False, no_emulate=False) -> None:
     if address is not None:
         address = int(address)
-        cached_instruction = pwndbg.aglib.disasm.disassembly.computed_instruction_cache.get(
-            address, None
+        cached_instruction = (
+            pwndbg.aglib.disasm.disassembly.computed_instruction_cache.get(
+                address, None
+            )
         )
         if cached_instruction:
             print(repr(cached_instruction))
@@ -56,11 +66,17 @@ def dev_dump_instruction(address=None, force_emulate=False, no_emulate=False) ->
         # None if not overridden
         override_setting = True if force_emulate else (False if no_emulate else None)
         use_emulation = (
-            bool(pwndbg.config.emulate == "on") if override_setting is None else override_setting
+            bool(pwndbg.config.emulate == "on")
+            if override_setting is None
+            else override_setting
         )
 
         instructions, index_of_pc = pwndbg.aglib.disasm.disassembly.near(
-            pwndbg.aglib.regs.pc, 1, emulate=use_emulation, show_prev_insns=False, use_cache=False
+            pwndbg.aglib.regs.pc,
+            1,
+            emulate=use_emulation,
+            show_prev_insns=False,
+            use_cache=False,
         )
 
         if instructions:

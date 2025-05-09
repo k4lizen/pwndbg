@@ -40,12 +40,18 @@ def _get_errno() -> int:
     # We can't simply call __errno_location because its .plt.got entry may be uninitialized
     # (e.g. if the binary was just started with `starti` command)
     # So we have to check the got.plt entry first before calling it
-    errno_loc_gotplt = pwndbg.aglib.symbol.lookup_symbol_addr("__errno_location@got.plt")
+    errno_loc_gotplt = pwndbg.aglib.symbol.lookup_symbol_addr(
+        "__errno_location@got.plt"
+    )
     if errno_loc_gotplt is not None:
-        page_loaded = pwndbg.aglib.vmmap.find(pwndbg.aglib.memory.pvoid(errno_loc_gotplt))
+        page_loaded = pwndbg.aglib.vmmap.find(
+            pwndbg.aglib.memory.pvoid(errno_loc_gotplt)
+        )
         if page_loaded is None:
             raise pwndbg.dbg_mod.Error(
-                "Could not determine error code automatically: the __errno_location@got.plt has no valid address yet (perhaps libc.so hasn't been loaded yet?)"
+                "Could not determine error code automatically: the"
+                " __errno_location@got.plt has no valid address yet (perhaps libc.so"
+                " hasn't been loaded yet?)"
             )
 
     try:
@@ -56,7 +62,9 @@ def _get_errno() -> int:
         )
     except pwndbg.dbg_mod.Error as e:
         raise pwndbg.dbg_mod.Error(
-            "Could not determine error code automatically: neither `errno` nor `__errno_location` symbols were provided (perhaps libc.so hasn't been not loaded yet?)"
+            "Could not determine error code automatically: neither `errno` nor"
+            " `__errno_location` symbols were provided (perhaps libc.so hasn't been not"
+            " loaded yet?)"
         ) from e
 
 
@@ -74,14 +82,24 @@ def errno_(err) -> None:
     print(f"Errno {err}: {msg}")
 
 
-parser = argparse.ArgumentParser(description="Prints out a list of all pwndbg commands.")
+parser = argparse.ArgumentParser(
+    description="Prints out a list of all pwndbg commands."
+)
 
 cat_group = parser.add_mutually_exclusive_group()
 cat_group.add_argument(
-    "-c", "--category", type=str, default=None, dest="category_", help="Filter commands by category"
+    "-c",
+    "--category",
+    type=str,
+    default=None,
+    dest="category_",
+    help="Filter commands by category",
 )
 cat_group.add_argument(
-    "--list-categories", dest="list_categories", action="store_true", help="List command categories"
+    "--list-categories",
+    dest="list_categories",
+    action="store_true",
+    help="List command categories",
 )
 
 parser.add_argument(
@@ -113,7 +131,11 @@ def pwndbg_(filter_pattern, category_, list_categories) -> None:
         table_data[category].append((command_names, docs))
 
     for category in CommandCategory:
-        if category not in table_data or category_ and category_.lower() not in category.lower():
+        if (
+            category not in table_data
+            or category_
+            and category_.lower() not in category.lower()
+        ):
             continue
         data = table_data[category]
 
@@ -121,7 +143,11 @@ def pwndbg_(filter_pattern, category_, list_categories) -> None:
         alias_header = C.bold(C.blue("Aliases"))
         print(
             tabulate(
-                data, headers=[f"{category_header} [{alias_header}]", f"{C.bold('Description')}"]
+                data,
+                headers=[
+                    f"{category_header} [{alias_header}]",
+                    f"{C.bold('Description')}",
+                ],
             )
         )
         print()
@@ -144,7 +170,11 @@ def list_and_filter_commands(filter_str):
         assert desc
         desc = desc.splitlines()[0]
 
-        if not filter_str or filter_str in name.lower() or (desc and filter_str in desc.lower()):
+        if (
+            not filter_str
+            or filter_str in name.lower()
+            or (desc and filter_str in desc.lower())
+        ):
             results.append((name, c.aliases, c.category, desc))
 
     return results

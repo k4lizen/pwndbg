@@ -11,7 +11,10 @@ parser.add_argument(
     type=int,
     nargs="?",
     default=None,
-    help="Address to disassemble near. If this is the only argument and the value provided is small enough, it is interpreted as lines instead.",
+    help=(
+        "Address to disassemble near. If this is the only argument and the value"
+        " provided is small enough, it is interpreted as lines instead."
+    ),
 )
 parser.add_argument(
     "lines",
@@ -24,11 +27,16 @@ parser.add_argument(
     "-e",
     "--emulate",
     action="store_true",
-    help="Whether to emulate instructions to find the next ones or just linearly disassemble.",
+    help=(
+        "Whether to emulate instructions to find the next ones or just linearly"
+        " disassemble."
+    ),
 )
 
 
-@pwndbg.commands.Command(parser, aliases=["pdisass", "u"], category=CommandCategory.DISASS)
+@pwndbg.commands.Command(
+    parser, aliases=["pdisass", "u"], category=CommandCategory.DISASS
+)
 @pwndbg.commands.OnlyWhenRunning
 def nearpc(pc=None, lines=None, emulate=False, use_cache=False, linear=True) -> None:
     """
@@ -44,9 +52,13 @@ def nearpc(pc=None, lines=None, emulate=False, use_cache=False, linear=True) -> 
 
 
 parser = argparse.ArgumentParser(
-    description="Like nearpc, but will emulate instructions from the current $PC forward."
+    description=(
+        "Like nearpc, but will emulate instructions from the current $PC forward."
+    )
 )
-parser.add_argument("pc", type=int, nargs="?", default=None, help="Address to emulate near.")
+parser.add_argument(
+    "pc", type=int, nargs="?", default=None, help="Address to emulate near."
+)
 parser.add_argument(
     "lines",
     type=int,

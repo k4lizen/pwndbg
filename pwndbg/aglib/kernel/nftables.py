@@ -85,7 +85,9 @@ class Expr:
 
     def print_expr_iptables(self, expr_name: str):
         typel = pwndbg.aglib.typeinfo.lookup_types(f"struct xt_{expr_name}")
-        expr = pwndbg.aglib.memory.get_typed_pointer(typel, int(self._addr["ops"]["data"]))
+        expr = pwndbg.aglib.memory.get_typed_pointer(
+            typel, int(self._addr["ops"]["data"])
+        )
 
         if expr_name == "match":
             size = int(expr["matchsize"])
@@ -98,21 +100,21 @@ class Expr:
             info = pwndbg.aglib.memory.read(int(self._addr["data"].address), size)
         except pwndbg.dbg_mod.Error as e:
             info = bytearray(f"<unavailable: {e}>".encode())
-        print(
-            {
-                "name": expr["name"].string(),
-                "rev": int(expr["revision"]),
-                "size": size,
-                "info": info,
-            }
-        )
+        print({
+            "name": expr["name"].string(),
+            "rev": int(expr["revision"]),
+            "size": size,
+            "info": info,
+        })
 
     def print_expr_nftables(self, expr_name: str):
         typel = pwndbg.aglib.typeinfo.lookup_types(
             f"struct nft_{expr_name}",
             f"struct nft_{expr_name}_expr",
         )
-        expr = pwndbg.aglib.memory.get_typed_pointer(typel, int(self._addr["data"].address))
+        expr = pwndbg.aglib.memory.get_typed_pointer(
+            typel, int(self._addr["data"].address)
+        )
         print(expr.dereference().value_to_human_readable())
 
     def print(self, print_nested: bool = True):
@@ -164,7 +166,10 @@ class Rule(NftFields):
         nsid: Optional[int] = None,
     ) -> Iterator["Rule"]:
         for nft in Chain.find(
-            table_name=table_name, table_family=table_family, chain_name=chain_name, nsid=nsid
+            table_name=table_name,
+            table_family=table_family,
+            chain_name=chain_name,
+            nsid=nsid,
         ):
             for rule in nft.iter_rules():
                 if rule.handle == rule_id or rule_id is None:
@@ -226,7 +231,9 @@ class ChainHook(NftFields):
         NF_INET_INGRESS = 5
         family = self._parent.table.family
         hooknum = self.hooknum
-        return family == NFPROTO_NETDEV or (family == NFPROTO_INET and hooknum == NF_INET_INGRESS)
+        return family == NFPROTO_NETDEV or (
+            family == NFPROTO_INET and hooknum == NF_INET_INGRESS
+        )
 
     def get_netdevs(self) -> List[str]:
         basechain = self._parent.basechain
@@ -305,7 +312,9 @@ class Chain(NftFields):
         chain_name: Optional[str] = None,
         nsid: Optional[int] = None,
     ) -> Iterator["Chain"]:
-        for nft in Table.find(table_name=table_name, table_family=table_family, nsid=nsid):
+        for nft in Table.find(
+            table_name=table_name, table_family=table_family, nsid=nsid
+        ):
             for chain in nft.iter_chains():
                 if chain_name is None or chain.name == chain_name:
                     yield chain
@@ -530,9 +539,7 @@ class Flowtable(NftFields):
 
 class Table(NftFields):
     family: int  # internal field
-    genmask: (
-        int  # internal nft transaction number (maybe useful to checking errors in commit phase)
-    )
+    genmask: int  # internal nft transaction number (maybe useful to checking errors in commit phase)
     name: str  # NFTA_TABLE_NAME
     handle: int  # NFTA_TABLE_HANDLE
     use: int  # NFTA_TABLE_USE
@@ -567,11 +574,15 @@ class Table(NftFields):
             yield Set(nft_set)
 
     def iter_flowtables(self) -> Iterator[Flowtable]:
-        for flowtable in for_each_entry(self._addr["flowtables"], "struct nft_flowtable", "list"):
+        for flowtable in for_each_entry(
+            self._addr["flowtables"], "struct nft_flowtable", "list"
+        ):
             yield Flowtable(flowtable)
 
     def iter_objects(self) -> Iterator[Object]:
-        for nft_object in for_each_entry(self._addr["objects"], "struct nft_flowtable", "list"):
+        for nft_object in for_each_entry(
+            self._addr["objects"], "struct nft_flowtable", "list"
+        ):
             yield Object(nft_object)
 
     def nested_print(self, nested: int = 0):
@@ -603,7 +614,9 @@ class Nftables:
         return Nftables(addr)
 
     def iter_tables(self) -> Iterator[Table]:
-        for table in for_each_entry(self._addr["nft"]["tables"], "struct nft_table", "list"):
+        for table in for_each_entry(
+            self._addr["nft"]["tables"], "struct nft_table", "list"
+        ):
             yield Table(table)
 
     def print(self):

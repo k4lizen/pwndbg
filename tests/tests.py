@@ -111,7 +111,9 @@ def get_tests_list(
         gdb_args.extend(["--init-command", gdbinit_path])
 
     env = os.environ.copy()
-    env["TESTS_PATH"] = os.path.join(os.path.dirname(os.path.realpath(__file__)), test_dir_path)
+    env["TESTS_PATH"] = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), test_dir_path
+    )
 
     result = run_gdb(gdb_path, gdb_args, env=env)
     tests_collect_output = result.stdout
@@ -135,7 +137,11 @@ TEST_RETURN_TYPE = Tuple[CompletedProcess[str], str, float]
 
 
 def run_test(
-    test_case: str, args: argparse.Namespace, gdb_path: str, gdbinit_path: str, port: int = None
+    test_case: str,
+    args: argparse.Namespace,
+    gdb_path: str,
+    gdbinit_path: str,
+    port: int = None,
 ) -> TEST_RETURN_TYPE:
     gdb_args = ["--command", "pytests_launcher.py"]
     if gdbinit_path:
@@ -221,12 +227,16 @@ def run_tests_and_print_stats(
     else:
         print("")
         print("Running tests in parallel")
-        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+        with concurrent.futures.ThreadPoolExecutor(
+            max_workers=os.cpu_count()
+        ) as executor:
             for test in tests_list:
                 executor.submit(
                     run_test, test, args, gdb_path, gdbinit_path, reserve_port()
                 ).add_done_callback(
-                    lambda future: stats.handle_test_result(future.result(), args, test_dir_path)
+                    lambda future: stats.handle_test_result(
+                        future.result(), args, test_dir_path
+                    )
                 )
 
     end = time.time()
@@ -249,7 +259,9 @@ def run_tests_and_print_stats(
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run tests.")
-    parser.add_argument("-t", "--type", dest="type", choices=["gdb", "cross-arch"], default="gdb")
+    parser.add_argument(
+        "-t", "--type", dest="type", choices=["gdb", "cross-arch"], default="gdb"
+    )
 
     parser.add_argument(
         "-p",
@@ -265,7 +277,10 @@ def parse_args():
         help="display all test output instead of just failing test output",
     )
     parser.add_argument(
-        "-s", "--serial", action="store_true", help="run tests one at a time instead of in parallel"
+        "-s",
+        "--serial",
+        action="store_true",
+        help="run tests one at a time instead of in parallel",
     )
     parser.add_argument(
         "--nix",
@@ -278,7 +293,10 @@ def parse_args():
         help="only show the output of test collection, don't run any tests",
     )
     parser.add_argument(
-        "test_name_filter", nargs="?", help="run only tests that match the regex", default=".*"
+        "test_name_filter",
+        nargs="?",
+        help="run only tests that match the regex",
+        default=".*",
     )
     return parser.parse_args()
 

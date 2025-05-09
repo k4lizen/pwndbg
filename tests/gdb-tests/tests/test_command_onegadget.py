@@ -208,7 +208,10 @@ def test_no_onegadget_installed(which):
     # pwndbg should not be able to find onegadget
     output = gdb.execute("onegadget", to_string=True)
 
-    assert output == "Could not find one_gadget. Please ensure it's installed and in $PATH.\n"
+    assert (
+        output
+        == "Could not find one_gadget. Please ensure it's installed and in $PATH.\n"
+    )
 
 
 @patch("shutil.which", return_value="one_gadget")

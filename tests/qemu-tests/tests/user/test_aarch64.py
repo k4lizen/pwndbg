@@ -81,7 +81,8 @@ def test_aarch64_branch_enhancement(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>      bl     my_function                 <my_function>\n"
         "        x0:        0\n"
         "        x1:        0\n"
@@ -138,7 +139,8 @@ def test_aarch64_syscall_annotation(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>       mov    x0, #0            X0 => 0\n"
         "   0x1010124 <_start+4>     mov    x8, #0x5d         X8 => 0x5d\n"
         "   0x1010128 <_start+8>     svc    #0 <SYS_exit>\n"
@@ -214,7 +216,8 @@ def test_aarch64_conditional_jump_output(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>      mov    x2, #0xa     X2 => 0xa\n"
         "   0x1010124 <_start+4>    mov    x3, #0       X3 => 0\n"
         "   0x1010128 <_start+8>  ✔ cbz    x3, A                       <A>\n"
@@ -311,7 +314,8 @@ def test_aarch64_binary_operations(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>       mov    x0, #7          X0 => 7\n"
         "   0x1010124 <_start+4>     mov    x1, #0x233      X1 => 0x233\n"
         "   0x1010128 <_start+8>     add    x2, x0, x1      X2 => 0x23a (0x7 + 0x233)\n"
@@ -321,7 +325,8 @@ def test_aarch64_binary_operations(qemu_assembly_run):
         "   0x1010138 <_start+24>    and    x4, x0, x1      X4 => 3 (0x7 & 0x233)\n"
         "   0x101013c <_start+28>    orr    x5, x0, x1      X5 => 0x237 (0x7 | 0x233)\n"
         "   0x1010140 <_start+32>    eor    x6, x0, x1      X6 => 0x234 (0x7 ^ 0x233)\n"
-        "   0x1010144 <_start+36>    mul    x10, x0, x1     X10 => 0xf65 (0x7 * 0x233)\n"
+        "   0x1010144 <_start+36>    mul    x10, x0, x1     X10 => 0xf65 (0x7 *"
+        " 0x233)\n"
         "   0x1010148 <_start+40>    udiv   x11, x1, x0     X11 => 80 (0x233 / 0x7)\n"
         "────────────────────────────────────────────────────────────────────────────────\n"
     )
@@ -382,7 +387,8 @@ def test_aarch64_store_instructions(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010180 <stores>       ldr    x4, stores+56     X4, [stores+56] => "
         "0x10201d8 (value1) ◂— 0\n"
         "   0x1010184 <stores+4>     strb   w0, [x4]          [value1] <= 0xf0\n"
@@ -394,7 +400,8 @@ def test_aarch64_store_instructions(qemu_assembly_run):
         "   0x1010194 <stores+20>    str    w0, [x6]          [value4] <= 0x9abcdef0\n"
         "   0x1010198 <stores+24>    ldr    x7, stores+80     X7, [stores+80] => "
         "0x10201df (value8) ◂— 0\n"
-        "   0x101019c <stores+28>    str    x0, [x7]          [value8] <= 0x123456789abcdef0\n"
+        "   0x101019c <stores+28>    str    x0, [x7]          [value8] <="
+        " 0x123456789abcdef0\n"
         "   0x10101a0 <stores+32>    mov    x8, #0x5d         X8 => 0x5d\n"
         "   0x10101a4 <stores+36>    mov    x0, #0            X0 => 0\n"
         "   0x10101a8 <stores+40>    svc    #0 <SYS_exit>\n"
@@ -461,14 +468,20 @@ def test_aarch64_load_instructions(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x101017c <loads>       ldrb   w9, [x4]          W9, [value1] => 0xf0\n"
-        "   0x1010180 <loads+4>     ldrsb  w10, [x4]         W10, [value1] => 0xfffffff0\n"
+        "   0x1010180 <loads+4>     ldrsb  w10, [x4]         W10, [value1] =>"
+        " 0xfffffff0\n"
         "   0x1010184 <loads+8>     ldrh   w12, [x5]         W12, [value2] => 0xdef0\n"
-        "   0x1010188 <loads+12>    ldrsh  w13, [x5]         W13, [value2] => 0xffffdef0\n"
-        "   0x101018c <loads+16>    ldr    w15, [x6]         W15, [value4] => 0x9abcdef0\n"
-        "   0x1010190 <loads+20>    ldrsw  x16, [x6]         X16, [value4] => 0xffffffff9abcdef0\n"
-        "   0x1010194 <loads+24>    ldr    x18, [x6]         X18, [value4] => 0x9abcdef09abcdef0\n"
+        "   0x1010188 <loads+12>    ldrsh  w13, [x5]         W13, [value2] =>"
+        " 0xffffdef0\n"
+        "   0x101018c <loads+16>    ldr    w15, [x6]         W15, [value4] =>"
+        " 0x9abcdef0\n"
+        "   0x1010190 <loads+20>    ldrsw  x16, [x6]         X16, [value4] =>"
+        " 0xffffffff9abcdef0\n"
+        "   0x1010194 <loads+24>    ldr    x18, [x6]         X18, [value4] =>"
+        " 0x9abcdef09abcdef0\n"
         "   0x1010198 <loads+28>    mov    x8, #0x5d         X8 => 0x5d\n"
         "   0x101019c <loads+32>    mov    x0, #0            X0 => 0\n"
         "   0x10101a0 <loads+36>    svc    #0 <SYS_exit>\n"
@@ -524,7 +537,8 @@ def test_aarch64_write_cpsr_when_zero(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         "   0x1010120 <_start>      mov    x19, #8     X19 => 8\n"
         "   0x1010124 <_start+4>    cmn    x19, #8     8 + 8     "
         "CPSR => 0x0 [ n z c v q pan il d a i f el:0 sp ]\n"
@@ -583,15 +597,19 @@ def test_aarch64_memory_operands(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010158 <_start>       ldr    x1, data          "
         "X1, [data] => 0x10201b0 (msg) ◂— 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!'\n"
         "   0x101015c <_start+4>     ldr    w0, [x1], #4      W0, [msg] => 0x44434241\n"
-        "   0x1010160 <_start+8>     ldr    w0, [x1, #4]      W0, [msg+8] => 0x4c4b4a49\n"
+        "   0x1010160 <_start+8>     ldr    w0, [x1, #4]      W0, [msg+8] =>"
+        " 0x4c4b4a49\n"
         "   0x1010164 <_start+12>    mov    x3, #8            X3 => 8\n"
-        "   0x1010168 <_start+16>    ldr    w4, [x1, x3]      W4, [msg+12] => 0x504f4e4d\n"
+        "   0x1010168 <_start+16>    ldr    w4, [x1, x3]      W4, [msg+12] =>"
+        " 0x504f4e4d\n"
         "   0x101016c <_start+20>    ldur   w5, [x1, #-4]     W5, [msg] => 0x44434241\n"
-        "   0x1010170 <_start+24>    mov    x6, #-4           X6 => 0xfffffffffffffffc\n"
+        "   0x1010170 <_start+24>    mov    x6, #-4           X6 =>"
+        " 0xfffffffffffffffc\n"
         "   0x1010174 <_start+28>    ldr    w7, [x1, x6]      W7, [msg] => 0x44434241\n"
         "   0x1010178 <exit>         mov    x0, #0            X0 => 0\n"
         "   0x101017c <exit+4>       mov    x8, #0x5d         X8 => 0x5d\n"
@@ -633,7 +651,8 @@ def test_aarch64_shifts_and_extends(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>       mov    x1, #1                  X1 => 1\n"
         "   0x1010124 <_start+4>     mov    x3, #8                  X3 => 8\n"
         "   0x1010128 <_start+8>     add    x0, x1, x1, lsl #2      X0 => 5 (1 + 4)\n"
@@ -641,7 +660,8 @@ def test_aarch64_shifts_and_extends(qemu_assembly_run):
         "   0x1010130 <_start+16>    mov    w2, #-1                 W2 => 0xffffffff\n"
         "   0x1010134 <_start+20>    add    x0, x1, w2, sxtb        "
         "X0 => 0 (0x1 + 0xffffffffffffffff)\n"
-        "   0x1010138 <_start+24>    add    x0, x1, w2, uxtb        X0 => 0x100 (0x1 + 0xff)\n"
+        "   0x1010138 <_start+24>    add    x0, x1, w2, uxtb        X0 => 0x100 (0x1 +"
+        " 0xff)\n"
         "   0x101013c <_start+28>    add    x0, x1, x2, asr #2      "
         "X0 => 0x40000000 (0x1 + 0x3fffffff)\n"
         "   0x1010140 <_start+32>    orr    x0, xzr, x1, ror #2     "
@@ -677,12 +697,14 @@ def test_aarch64_shifts_and_extends_in_memory_operands(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010158 <_start>       ldr    x2, _start+24             "
         "X2, [_start+24] => 0x1020178 (msg) ◂— 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!'\n"
         "   0x101015c <_start+4>     add    x2, x2, #0x10             "
         "X2 => 0x1020188 (msg+16) (0x1020178 + 0x10)\n"
-        "   0x1010160 <_start+8>     mov    w3, #-1                   W3 => 0xffffffff\n"
+        "   0x1010160 <_start+8>     mov    w3, #-1                   W3 =>"
+        " 0xffffffff\n"
         "   0x1010164 <_start+12>    ldr    x1, [x2, w3, sxtw]        "
         "X1, [msg+15] => 0x5756555453525150 ('PQRSTUVW')\n"
         "   0x1010168 <_start+16>    ldr    x1, [x2, w3, sxtw #3]     "
@@ -730,17 +752,22 @@ def test_aarch64_shift_instructions(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────────[ DISASM / aarch64 / set emulate on ]──────────────────────\n"
+        "─────────────────────[ DISASM / aarch64 / set emulate on"
+        " ]──────────────────────\n"
         " ► 0x1010120 <_start>       mov    x0, #3          X0 => 3\n"
         "   0x1010124 <_start+4>     mov    x1, #0xf000     X1 => 0xf000\n"
         "   0x1010128 <_start+8>     mov    x2, #0x1234     X2 => 0x1234\n"
-        "   0x101012c <_start+12>    lsr    x3, x1, #4      X3 => 0xf00 (0xf000 >> 0x4)\n"
+        "   0x101012c <_start+12>    lsr    x3, x1, #4      X3 => 0xf00 (0xf000 >>"
+        " 0x4)\n"
         "   0x1010130 <_start+16>    lsr    x4, x1, x0      X4 => 0x1e00\n"
-        "   0x1010134 <_start+20>    lsl    x5, x4, #4      X5 => 0x1e000 (0x1e00 << 0x4)\n"
+        "   0x1010134 <_start+20>    lsl    x5, x4, #4      X5 => 0x1e000 (0x1e00 <<"
+        " 0x4)\n"
         "   0x1010138 <_start+24>    lsl    x6, x4, x2      X6 => 0xe000000000000000\n"
-        "   0x101013c <_start+28>    asr    x6, x4, #4      X6 => 0x1e0 (0x1e00 >>s 0x4)\n"
+        "   0x101013c <_start+28>    asr    x6, x4, #4      X6 => 0x1e0 (0x1e00 >>s"
+        " 0x4)\n"
         "   0x1010140 <_start+32>    asr    x6, x4, x0      X6 => 0x3c0\n"
-        "   0x1010144 <_start+36>    ror    x6, x4, #4      X6 => 0x1e0 (0x1e00 >>r 0x4)\n"
+        "   0x1010144 <_start+36>    ror    x6, x4, #4      X6 => 0x1e0 (0x1e00 >>r"
+        " 0x4)\n"
         "   0x1010148 <_start+40>    ror    x6, x4, x0      X6 => 0x3c0\n"
         "────────────────────────────────────────────────────────────────────────────────\n"
     )
@@ -802,29 +829,43 @@ def test_memory_read_error_handling(qemu_assembly_run):
 
     assert stack_end_addr != -1, "Failed to find a memory page followed by a gap"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFF, 0xFF, partial=False)
+    result = pwndbg.dbg.selected_inferior().read_memory(
+        stack_end_addr - 0xFF, 0xFF, partial=False
+    )
     assert len(result) == 0xFF, f"Expected 0xff bytes, but got {len(result)}"
 
     try:
-        pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFE, 0xFF, partial=False)
+        pwndbg.dbg.selected_inferior().read_memory(
+            stack_end_addr - 0xFE, 0xFF, partial=False
+        )
         assert False, "Expected Error due to inaccessible memory address."
     except pwndbg.dbg_mod.Error:
         pass
 
-    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0xFF, 0xFF, partial=True)
+    result = pwndbg.dbg.selected_inferior().read_memory(
+        stack_end_addr - 0xFF, 0xFF, partial=True
+    )
     assert len(result) == 0xFF, f"Expected 0xff bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x10, 0xFF, partial=True)
+    result = pwndbg.dbg.selected_inferior().read_memory(
+        stack_end_addr - 0x10, 0xFF, partial=True
+    )
     assert len(result) == 0x10, f"Expected 0x10 bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x2, 0xFF, partial=True)
+    result = pwndbg.dbg.selected_inferior().read_memory(
+        stack_end_addr - 0x2, 0xFF, partial=True
+    )
     assert len(result) == 0x2, f"Expected 0x2 bytes, but got {len(result)}"
 
-    result = pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x1, 0xFF, partial=True)
+    result = pwndbg.dbg.selected_inferior().read_memory(
+        stack_end_addr - 0x1, 0xFF, partial=True
+    )
     assert len(result) == 0x1, f"Expected 0x1 byte, but got {len(result)}"
 
     try:
-        pwndbg.dbg.selected_inferior().read_memory(stack_end_addr - 0x0, 0xFF, partial=True)
+        pwndbg.dbg.selected_inferior().read_memory(
+            stack_end_addr - 0x0, 0xFF, partial=True
+        )
         assert False, "Expected Error due to inaccessible memory address."
     except pwndbg.dbg_mod.Error:
         pass

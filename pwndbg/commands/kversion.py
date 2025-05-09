@@ -6,7 +6,9 @@ import pwndbg.aglib.kernel
 import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(description="Outputs the kernel version (/proc/version).")
+parser = argparse.ArgumentParser(
+    description="Outputs the kernel version (/proc/version)."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.KERNEL)

@@ -134,7 +134,9 @@ class SlabCache:
                 return 0
 
         return (
-            int(self._slab_cache["random"]) if "SLAB_FREELIST_HARDENED" in kernel.kconfig() else 0
+            int(self._slab_cache["random"])
+            if "SLAB_FREELIST_HARDENED" in kernel.kconfig()
+            else 0
         )
 
     @property
@@ -195,7 +197,9 @@ class SlabCache:
 
 
 class CpuCache:
-    def __init__(self, cpu_cache: pwndbg.dbg_mod.Value, slab_cache: SlabCache, cpu: int) -> None:
+    def __init__(
+        self, cpu_cache: pwndbg.dbg_mod.Value, slab_cache: SlabCache, cpu: int
+    ) -> None:
         self._cpu_cache = cpu_cache
         self.slab_cache = slab_cache
         self.cpu = cpu
@@ -234,7 +238,9 @@ class CpuCache:
 
 
 class NodeCache:
-    def __init__(self, node_cache: pwndbg.dbg_mod.Value, slab_cache: SlabCache, node: int) -> None:
+    def __init__(
+        self, node_cache: pwndbg.dbg_mod.Value, slab_cache: SlabCache, node: int
+    ) -> None:
         self._node_cache = node_cache
         self.slab_cache = slab_cache
         self.node = node
@@ -350,7 +356,9 @@ def find_containing_slab_cache(addr: int) -> SlabCache | None:
         # address is out of range
         return None
 
-    page = pwndbg.aglib.memory.get_typed_pointer_value("struct page", kernel.virt_to_page(addr))
+    page = pwndbg.aglib.memory.get_typed_pointer_value(
+        "struct page", kernel.virt_to_page(addr)
+    )
     head_page = compound_head(page)
 
     slab_type = pwndbg.aglib.typeinfo.load(f"struct {slab_struct_type()}")

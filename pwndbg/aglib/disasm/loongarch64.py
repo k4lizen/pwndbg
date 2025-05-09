@@ -23,10 +23,14 @@ CONDITION_RESOLVERS: Dict[int, Callable[[List[int]], bool]] = {
     LOONGARCH_INS_BNEZ: lambda ops: ops[0] != 0,
     LOONGARCH_INS_BEQ: lambda ops: ops[0] == ops[1],
     LOONGARCH_INS_BNE: lambda ops: ops[0] != ops[1],
-    LOONGARCH_INS_BGE: lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8)
-    >= bit_math.to_signed(ops[1], pwndbg.aglib.arch.ptrsize * 8),
-    LOONGARCH_INS_BLT: lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8)
-    < bit_math.to_signed(ops[1], pwndbg.aglib.arch.ptrsize * 8),
+    LOONGARCH_INS_BGE: (
+        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8)
+        >= bit_math.to_signed(ops[1], pwndbg.aglib.arch.ptrsize * 8)
+    ),
+    LOONGARCH_INS_BLT: (
+        lambda ops: bit_math.to_signed(ops[0], pwndbg.aglib.arch.ptrsize * 8)
+        < bit_math.to_signed(ops[1], pwndbg.aglib.arch.ptrsize * 8)
+    ),
     LOONGARCH_INS_BLTU: lambda ops: ops[0] < ops[1],
     LOONGARCH_INS_BGEU: lambda ops: ops[0] >= ops[1],
 }
@@ -44,10 +48,14 @@ class Loong64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
     def __init__(self, architecture) -> None:
         super().__init__(architecture)
 
-        self.annotation_handlers: Dict[int, Callable[[PwndbgInstruction, Emulator], None]] = {}
+        self.annotation_handlers: Dict[
+            int, Callable[[PwndbgInstruction, Emulator], None]
+        ] = {}
 
     @override
-    def _condition(self, instruction: PwndbgInstruction, emu: Emulator) -> InstructionCondition:
+    def _condition(
+        self, instruction: PwndbgInstruction, emu: Emulator
+    ) -> InstructionCondition:
         if len(instruction.operands) == 0:
             return InstructionCondition.UNDETERMINED
 
@@ -65,7 +73,9 @@ class Loong64DisassemblyAssistant(pwndbg.aglib.disasm.arch.DisassemblyAssistant)
             # https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#_beqz_bnez
             return InstructionCondition.UNDETERMINED
 
-        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(resolved_operands)
+        conditional = CONDITION_RESOLVERS.get(instruction.id, lambda *a: None)(
+            resolved_operands
+        )
 
         if conditional is None:
             return InstructionCondition.UNDETERMINED

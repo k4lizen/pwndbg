@@ -26,6 +26,7 @@ def profiler(command, file="pwndbg.pstats") -> None:
     elif command == "stop":
         print("Stopped profiler. Wrote results to", file)
         print(
-            "To analyze the results, use the ./profiling/print_stats.py script in the pwndbg repo."
+            "To analyze the results, use the ./profiling/print_stats.py script in the"
+            " pwndbg repo."
         )
         pwndbg.profiling.profiler.stop(file)

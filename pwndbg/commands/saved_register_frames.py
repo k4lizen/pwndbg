@@ -56,11 +56,18 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument(
-    "frame_type", choices=tuple(VALID_FRAME_TYPES), type=str, help="The type of frame to print"
+    "frame_type",
+    choices=tuple(VALID_FRAME_TYPES),
+    type=str,
+    help="The type of frame to print",
 )
 
 parser.add_argument(
-    "address", nargs="?", default=None, type=int, help="The address to read the frame from"
+    "address",
+    nargs="?",
+    default=None,
+    type=int,
+    help="The address to read the frame from",
 )
 
 
@@ -76,10 +83,15 @@ parser.add_argument(
 
 @pwndbg.commands.Command(parser, category=CommandCategory.MEMORY)
 @pwndbg.commands.OnlyWhenRunning
-def dump_register_frame(frame_type: str, address: int = None, print_address=False) -> None:
+def dump_register_frame(
+    frame_type: str, address: int = None, print_address=False
+) -> None:
     register_frame = VALID_FRAME_TYPES.get(frame_type)
     if register_frame is None:
-        print(f"Invalid frame type: {frame_type} (valid: {','.join(VALID_FRAME_TYPES.keys())})")
+        print(
+            f"Invalid frame type: {frame_type} (valid:"
+            f" {','.join(VALID_FRAME_TYPES.keys())})"
+        )
         return
 
     print_saved_register_frame(register_frame, address, print_address)

@@ -115,7 +115,10 @@ def r_debug_install_link_map_changed_hook() -> None:
     # TODO: Currently, reacting to this event has some unpleasant side effects
     # on usability. Until this can be fixed, this hook is unavailable.
     print(
-        message.warn("r_brk hook is disabled. r_debug_install_link_map_changed_hook() does nothing")
+        message.warn(
+            "r_brk hook is disabled. r_debug_install_link_map_changed_hook() does"
+            " nothing"
+        )
     )
     return
 
@@ -125,7 +128,11 @@ def r_debug_install_link_map_changed_hook() -> None:
 
     r_debug_address = _r_debug()
     if r_debug_address is None:
-        print(message.warn("symbol _r_debug is missing, cannot install link map change hook"))
+        print(
+            message.warn(
+                "symbol _r_debug is missing, cannot install link map change hook"
+            )
+        )
         return
 
     r_debug = CStruct.r_debug()
@@ -245,7 +252,9 @@ class LinkMapEntry:
             return LinkMapEntry(ptr)
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} node={self.link_map_address:#x} name={self.name()} load_bias={self.load_bias():#x} dynamic={self.dynamic():#x}>"
+        return (
+            f"<{self.__class__.__name__} node={self.link_map_address:#x} name={self.name()} load_bias={self.load_bias():#x} dynamic={self.dynamic():#x}>"
+        )
 
 
 # Normally, only one entry for each tag is allowed to be present in the dynamic
@@ -349,18 +358,25 @@ class DynamicSegment:
             self.symtab_elem = CStruct.elf64_sym()
         else:
             raise RuntimeError(
-                f"unsupported value {syment} for DT_SYMENT, expected either 16 (Elf32_Sym) or 24 (Elf64_Sym)"
+                f"unsupported value {syment} for DT_SYMENT, expected either 16"
+                " (Elf32_Sym) or 24 (Elf64_Sym)"
             )
 
         # Check the relocation sections, and perform some sanity checks.
         self.has_jmprel = (
-            elf.DT_JMPREL in sections and elf.DT_PLTREL in sections and elf.DT_PLTRELSZ in sections
+            elf.DT_JMPREL in sections
+            and elf.DT_PLTREL in sections
+            and elf.DT_PLTRELSZ in sections
         )
         self.has_rela = (
-            elf.DT_RELA in sections and elf.DT_RELASZ in sections and elf.DT_RELAENT in sections
+            elf.DT_RELA in sections
+            and elf.DT_RELASZ in sections
+            and elf.DT_RELAENT in sections
         )
         self.has_rel = (
-            elf.DT_REL in sections and elf.DT_RELSZ in sections and elf.DT_RELENT in sections
+            elf.DT_REL in sections
+            and elf.DT_RELSZ in sections
+            and elf.DT_RELENT in sections
         )
 
         # Create the CStructs for the entries in each of our relocation sections
@@ -415,7 +431,9 @@ class DynamicSegment:
                 self.jmprel_elem = CStruct.elfNN_rela()
                 if elf.DT_RELAENT not in sections:
                     raise RuntimeError("DT_PLTREL is DT_RELA, but missing DT_RELAENT")
-                assert self.jmprel_elem.size == self.dyn_array_read_tag_val(elf.DT_RELAENT)
+                assert self.jmprel_elem.size == self.dyn_array_read_tag_val(
+                    elf.DT_RELAENT
+                )
 
                 if self.rela_elem.size == 12:
                     self.jmprel_r_sym = elf32_r_sym
@@ -425,14 +443,17 @@ class DynamicSegment:
                     self.jmprel_r_type = elf64_r_type
                 else:
                     raise RuntimeError(
-                        f"DT_RELAENT is {self.rela_elem}, expected 12 (ELF32) or 24 (ELF64)"
+                        f"DT_RELAENT is {self.rela_elem}, expected 12 (ELF32) or 24"
+                        " (ELF64)"
                     )
 
             elif pltrel == elf.DT_REL:
                 self.jmprel_elem = CStruct.elfNN_rel()
                 if elf.DT_RELENT not in sections:
                     raise RuntimeError("DT_PLTREL is DT_REL, but missing DT_RELENT")
-                assert self.jmprel_elem.size == self.dyn_array_read_tag_val(elf.DT_RELENT)
+                assert self.jmprel_elem.size == self.dyn_array_read_tag_val(
+                    elf.DT_RELENT
+                )
 
                 if self.jmprel_elem.size == 8:
                     self.jmprel_r_sym = elf32_r_sym
@@ -442,10 +463,14 @@ class DynamicSegment:
                     self.jmprel_r_type = elf64_r_type
                 else:
                     raise RuntimeError(
-                        f"DT_RELENT is {self.rel_elem}, expected 8 (ELF32) or 16 (ELF64)"
+                        f"DT_RELENT is {self.rel_elem}, expected 8 (ELF32) or 16"
+                        " (ELF64)"
                     )
 
-            if self.dyn_array_read_tag_val(elf.DT_PLTRELSZ) % self.jmprel_elem.size != 0:
+            if (
+                self.dyn_array_read_tag_val(elf.DT_PLTRELSZ) % self.jmprel_elem.size
+                != 0
+            ):
                 raise RuntimeError("DT_PLTRELSZ is not divisible by the element size")
 
     def jmprel_has_addend(self):
@@ -462,7 +487,9 @@ class DynamicSegment:
         assert self.has_rela
         count = self.rela_entry_count()
         if i >= count:
-            raise ValueError(f"tried to read entry {i} in RELA with only {count} entries")
+            raise ValueError(
+                f"tried to read entry {i} in RELA with only {count} entries"
+            )
 
         def transform(x):
             return x
@@ -474,7 +501,9 @@ class DynamicSegment:
             transform = self.rela_r_type
             field = "r_info"
 
-        return transform(self.rela_elem.read(self.rela_addr + i * self.rela_elem.size, field))
+        return transform(
+            self.rela_elem.read(self.rela_addr + i * self.rela_elem.size, field)
+        )
 
     def rel_read(self, i, field):
         """
@@ -483,7 +512,9 @@ class DynamicSegment:
         assert self.has_rel
         count = self.rel_entry_count()
         if i >= count:
-            raise ValueError(f"tried to read entry {i} in REL with only {count} entries")
+            raise ValueError(
+                f"tried to read entry {i} in REL with only {count} entries"
+            )
 
         def transform(x):
             return x
@@ -495,7 +526,9 @@ class DynamicSegment:
             transform = self.rel_r_type
             field = "r_info"
 
-        return transform(self.rel_elem.read(self.rel_addr + i * self.rel_elem.size, field))
+        return transform(
+            self.rel_elem.read(self.rel_addr + i * self.rel_elem.size, field)
+        )
 
     def jmprel_read(self, i, field):
         """
@@ -504,7 +537,9 @@ class DynamicSegment:
         assert self.has_jmprel
         count = self.jmprel_entry_count()
         if i >= count:
-            raise ValueError(f"tried to read entry {i} in JMPREL with only {count} entries")
+            raise ValueError(
+                f"tried to read entry {i} in JMPREL with only {count} entries"
+            )
 
         def transform(x):
             return x
@@ -516,7 +551,9 @@ class DynamicSegment:
             transform = self.jmprel_r_type
             field = "r_info"
 
-        return transform(self.jmprel_elem.read(self.jmprel_addr + i * self.jmprel_elem.size, field))
+        return transform(
+            self.jmprel_elem.read(self.jmprel_addr + i * self.jmprel_elem.size, field)
+        )
 
     def rela_entry_count(self):
         """
@@ -554,7 +591,8 @@ class DynamicSegment:
         """
         if i >= self.strtab_size:
             raise ValueError(
-                f"tried to read entry {i} in string table with only {self.entries} bytes"
+                f"tried to read entry {i} in string table with only"
+                f" {self.entries} bytes"
             )
         return pwndbg.aglib.memory.string(self.strtab_addr + i)
 
@@ -563,7 +601,9 @@ class DynamicSegment:
         Reads the requested field from the entry of given index in the symbol
         table.
         """
-        return self.symtab_elem.read(self.symtab_addr + i * self.symtab_elem.size, field)
+        return self.symtab_elem.read(
+            self.symtab_addr + i * self.symtab_elem.size, field
+        )
 
     def dyn_array_read(self, i, field):
         """
@@ -572,7 +612,8 @@ class DynamicSegment:
         """
         if i >= self.entries:
             raise ValueError(
-                f"tried to read from entry {i} in dynamic array with only {self.entries} entries"
+                f"tried to read from entry {i} in dynamic array with only"
+                f" {self.entries} entries"
             )
         return self.elf_dyn.read(self.address + i * self.elf_dyn.size, field)
 
@@ -643,15 +684,13 @@ class CStruct:
         Creates a new instance describing the ABI-stable part of the link_map
         struct.
         """
-        return CStruct(
-            [
-                ("l_addr", pwndbg.aglib.typeinfo.size_t, int),
-                ("l_name", pwndbg.aglib.typeinfo.char.pointer(), int),
-                ("l_ld", pwndbg.aglib.typeinfo.pvoid, int),
-                ("l_next", pwndbg.aglib.typeinfo.pvoid, int),
-                ("l_prev", pwndbg.aglib.typeinfo.pvoid, int),
-            ]
-        )
+        return CStruct([
+            ("l_addr", pwndbg.aglib.typeinfo.size_t, int),
+            ("l_name", pwndbg.aglib.typeinfo.char.pointer(), int),
+            ("l_ld", pwndbg.aglib.typeinfo.pvoid, int),
+            ("l_next", pwndbg.aglib.typeinfo.pvoid, int),
+            ("l_prev", pwndbg.aglib.typeinfo.pvoid, int),
+        ])
 
     @staticmethod
     def r_debug():
@@ -659,13 +698,11 @@ class CStruct:
         Creates a new instance describing the ABI-stable part of the r_debug
         struct.
         """
-        return CStruct(
-            [
-                ("r_version", pwndbg.aglib.typeinfo.uint, int),
-                ("r_map", pwndbg.aglib.typeinfo.pvoid, int),
-                ("r_brk", pwndbg.aglib.typeinfo.pvoid, int),
-            ]
-        )
+        return CStruct([
+            ("r_version", pwndbg.aglib.typeinfo.uint, int),
+            ("r_map", pwndbg.aglib.typeinfo.pvoid, int),
+            ("r_brk", pwndbg.aglib.typeinfo.pvoid, int),
+        ])
 
     @staticmethod
     def elfNN_dyn():
@@ -673,12 +710,10 @@ class CStruct:
         Creates a new instance describing the ElfNN_Dyn structure, suitable for
         the architecture of the inferior.
         """
-        return CStruct(
-            [
-                ("d_tag", pwndbg.aglib.typeinfo.size_t, int),
-                ("d_un", pwndbg.aglib.typeinfo.size_t, int),
-            ]
-        )
+        return CStruct([
+            ("d_tag", pwndbg.aglib.typeinfo.size_t, int),
+            ("d_un", pwndbg.aglib.typeinfo.size_t, int),
+        ])
 
     @staticmethod
     def elfNN_rel():
@@ -686,12 +721,10 @@ class CStruct:
         Creates a new instance describing the ElfNN_Rel structure, suitable for
         the architecture of the inferior.
         """
-        return CStruct(
-            [
-                ("r_offset", pwndbg.aglib.typeinfo.size_t, int),
-                ("r_info", pwndbg.aglib.typeinfo.size_t, int),
-            ]
-        )
+        return CStruct([
+            ("r_offset", pwndbg.aglib.typeinfo.size_t, int),
+            ("r_info", pwndbg.aglib.typeinfo.size_t, int),
+        ])
 
     @staticmethod
     def elfNN_rela():
@@ -699,13 +732,11 @@ class CStruct:
         Creates a new instance describing the ElfNN_Rela structure, suitable for
         the architecture of the inferior.
         """
-        return CStruct(
-            [
-                ("r_offset", pwndbg.aglib.typeinfo.size_t, int),
-                ("r_info", pwndbg.aglib.typeinfo.size_t, int),
-                ("r_addend", pwndbg.aglib.typeinfo.size_t, int),
-            ]
-        )
+        return CStruct([
+            ("r_offset", pwndbg.aglib.typeinfo.size_t, int),
+            ("r_info", pwndbg.aglib.typeinfo.size_t, int),
+            ("r_addend", pwndbg.aglib.typeinfo.size_t, int),
+        ])
 
     @staticmethod
     def elf32_sym():
@@ -721,16 +752,14 @@ class CStruct:
         assert pwndbg.aglib.typeinfo.uint16.sizeof == 2
         assert pwndbg.aglib.typeinfo.uint8.sizeof == 1
 
-        return CStruct(
-            [
-                ("st_name", pwndbg.aglib.typeinfo.uint32, int),
-                ("st_value", pwndbg.aglib.typeinfo.uint32, int),
-                ("st_size", pwndbg.aglib.typeinfo.uint32, int),
-                ("st_info", pwndbg.aglib.typeinfo.uint8, int),
-                ("st_other", pwndbg.aglib.typeinfo.uint8, int),
-                ("st_shndx", pwndbg.aglib.typeinfo.uint16, int),
-            ]
-        )
+        return CStruct([
+            ("st_name", pwndbg.aglib.typeinfo.uint32, int),
+            ("st_value", pwndbg.aglib.typeinfo.uint32, int),
+            ("st_size", pwndbg.aglib.typeinfo.uint32, int),
+            ("st_info", pwndbg.aglib.typeinfo.uint8, int),
+            ("st_other", pwndbg.aglib.typeinfo.uint8, int),
+            ("st_shndx", pwndbg.aglib.typeinfo.uint16, int),
+        ])
 
     @staticmethod
     def elf64_sym():
@@ -744,16 +773,14 @@ class CStruct:
         assert pwndbg.aglib.typeinfo.uint16.sizeof == 2
         assert pwndbg.aglib.typeinfo.uint8.sizeof == 1
 
-        return CStruct(
-            [
-                ("st_name", pwndbg.aglib.typeinfo.uint32, int),
-                ("st_info", pwndbg.aglib.typeinfo.uint8, int),
-                ("st_other", pwndbg.aglib.typeinfo.uint8, int),
-                ("st_shndx", pwndbg.aglib.typeinfo.uint16, int),
-                ("st_value", pwndbg.aglib.typeinfo.uint64, int),
-                ("st_size", pwndbg.aglib.typeinfo.uint64, int),
-            ]
-        )
+        return CStruct([
+            ("st_name", pwndbg.aglib.typeinfo.uint32, int),
+            ("st_info", pwndbg.aglib.typeinfo.uint8, int),
+            ("st_other", pwndbg.aglib.typeinfo.uint8, int),
+            ("st_shndx", pwndbg.aglib.typeinfo.uint16, int),
+            ("st_value", pwndbg.aglib.typeinfo.uint64, int),
+            ("st_size", pwndbg.aglib.typeinfo.uint64, int),
+        ])
 
     def __init__(self, fields: List[Tuple[str, pwndbg.dbg_mod.Type, type]]) -> None:
         # Calculate the offset of all of the fields in the struct.

@@ -49,15 +49,15 @@ def test_ror():
 
 def test_asr():
     # Unsigned numbers should be the same
-    assert bit_math.arithmetic_shift_right(0b0100_0000, 1, 8) == bit_math.logical_shift_right(
+    assert bit_math.arithmetic_shift_right(
         0b0100_0000, 1, 8
-    )
-    assert bit_math.arithmetic_shift_right(0xFFFF_FF, 1, 32) == bit_math.logical_shift_right(
+    ) == bit_math.logical_shift_right(0b0100_0000, 1, 8)
+    assert bit_math.arithmetic_shift_right(
         0xFFFF_FF, 1, 32
-    )
-    assert bit_math.arithmetic_shift_right(0xFFFF_FF, 6, 32) == bit_math.logical_shift_right(
+    ) == bit_math.logical_shift_right(0xFFFF_FF, 1, 32)
+    assert bit_math.arithmetic_shift_right(
         0xFFFF_FF, 6, 32
-    )
+    ) == bit_math.logical_shift_right(0xFFFF_FF, 6, 32)
 
     assert bit_math.arithmetic_shift_right(0b1000_0000, 1, 8) == -64
     assert bit_math.arithmetic_shift_right(0b1000_0000, 2, 8) == -32

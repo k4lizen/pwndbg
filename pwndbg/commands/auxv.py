@@ -18,7 +18,8 @@ def auxv() -> None:
 
 
 @pwndbg.commands.Command(
-    "Explore and print information from the Auxiliary ELF Vector.", category=CommandCategory.LINUX
+    "Explore and print information from the Auxiliary ELF Vector.",
+    category=CommandCategory.LINUX,
 )
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.commands.OnlyWhenUserspace

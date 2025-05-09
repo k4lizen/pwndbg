@@ -68,7 +68,11 @@ To start the inferior without using a shell, use "set startup-with-shell off".
 )
 
 parser.add_argument(
-    "args", nargs="*", type=str, default=None, help="The arguments to run the binary with."
+    "args",
+    nargs="*",
+    type=str,
+    default=None,
+    help="The arguments to run the binary with.",
 )
 
 
@@ -122,7 +126,11 @@ To start the inferior without using a shell, use "set startup-with-shell off".
 """,
 )
 parser.add_argument(
-    "args", nargs="*", type=str, default=None, help="The arguments to run the binary with."
+    "args",
+    nargs="*",
+    type=str,
+    default=None,
+    help="The arguments to run the binary with.",
 )
 
 
@@ -142,7 +150,8 @@ def entry(args=None) -> None:
         if not pwndbg.aglib.proc.alive:
             print(
                 M.error(
-                    "The program is not running. Start the program with `run -s` and then use `entry` to set the breakpoint."
+                    "The program is not running. Start the program with `run -s` and"
+                    " then use `entry` to set the breakpoint."
                 )
             )
             return

@@ -59,7 +59,9 @@ def update() -> None:
     module.ulong = lookup_types("unsigned long", "uint", "u32", "uint32")
     module.long = lookup_types("long", "int", "i32", "int32")
     module.uchar = lookup_types("unsigned char", "ubyte", "u8", "uint8")
-    module.ushort = lookup_types("unsigned short", "ushort", "u16", "uint16", "uint16_t")
+    module.ushort = lookup_types(
+        "unsigned short", "ushort", "u16", "uint16", "uint16_t"
+    )
     module.uint = lookup_types("unsigned int", "uint", "u32", "uint32")
     module.void = lookup_types("void", "()")
 

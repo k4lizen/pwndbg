@@ -6,7 +6,9 @@ import pwndbg.aglib.kernel
 import pwndbg.commands
 from pwndbg.commands import CommandCategory
 
-parser = argparse.ArgumentParser(description="Return the kernel commandline (/proc/cmdline).")
+parser = argparse.ArgumentParser(
+    description="Return the kernel commandline (/proc/cmdline)."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.KERNEL)

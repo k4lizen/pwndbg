@@ -28,7 +28,9 @@ Examples:
 """,
 )
 parser.add_argument(
-    "addr", help="Page-aligned address to all mprotect on.", type=pwndbg.commands.sloppy_gdb_parse
+    "addr",
+    help="Page-aligned address to all mprotect on.",
+    type=pwndbg.commands.sloppy_gdb_parse,
 )
 parser.add_argument(
     "length",
@@ -36,7 +38,9 @@ parser.add_argument(
     type=int,
 )
 parser.add_argument(
-    "prot", help='Prot string as in mprotect(2). Eg. "PROT_READ|PROT_EXEC", "rx", or "5"', type=str
+    "prot",
+    help='Prot string as in mprotect(2). Eg. "PROT_READ|PROT_EXEC", "rx", or "5"',
+    type=str,
 )
 
 SYS_MPROTECT = 0x7D
@@ -104,7 +108,11 @@ def mprotect(addr, length, prot) -> None:
         )
 
         ret = await pwndbg.aglib.shellcode.exec_syscall(
-            ec, "SYS_mprotect", aligned, int(length) + orig_addr - aligned, int(prot_int)
+            ec,
+            "SYS_mprotect",
+            aligned,
+            int(length) + orig_addr - aligned,
+            int(prot_int),
         )
         print(f"mprotect returned {ret}")
 

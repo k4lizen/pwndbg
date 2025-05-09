@@ -56,7 +56,9 @@ def read_chunk(addr: int) -> Dict[str, int]:
     return {renames.get(key, key): int(val[key]) for key in value_keys}
 
 
-def format_bin(bins: Bins, verbose: bool = False, offset: int | None = None) -> List[str]:
+def format_bin(
+    bins: Bins, verbose: bool = False, offset: int | None = None
+) -> List[str]:
     assert isinstance(pwndbg.aglib.heap.current, GlibcMemoryAllocator)
     allocator = pwndbg.aglib.heap.current
     if offset is None:
@@ -100,7 +102,10 @@ def format_bin(bins: Bins, verbose: bool = False, offset: int | None = None) -> 
             )
         else:
             formatted_chain = pwndbg.chain.format(
-                chain_fd[0], limit=heap_chain_limit, offset=offset, safe_linking=safe_lnk
+                chain_fd[0],
+                limit=heap_chain_limit,
+                offset=offset,
+                safe_linking=safe_lnk,
             )
 
         if isinstance(size, int):
@@ -122,7 +127,9 @@ def format_bin(bins: Bins, verbose: bool = False, offset: int | None = None) -> 
             )
         else:
             if count is not None:
-                line = (message.hint(size) + message.hint(" [%3d]" % count) + ": ").ljust(13)
+                line = (
+                    message.hint(size) + message.hint(" [%3d]" % count) + ": "
+                ).ljust(13)
             else:
                 line = (message.hint(size) + ": ").ljust(13)
             line += formatted_chain
@@ -170,10 +177,16 @@ parser.add_argument(
     help="Address of the first chunk (malloc_chunk struct start, prev_size field).",
 )
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Print all chunk fields, even unused ones."
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Print all chunk fields, even unused ones.",
 )
 parser.add_argument(
-    "-s", "--simple", action="store_true", help="Simply print malloc_chunk struct's contents."
+    "-s",
+    "--simple",
+    action="store_true",
+    help="Simply print malloc_chunk struct's contents.",
 )
 
 
@@ -214,16 +227,25 @@ parser.add_argument(
     help="Address of the interest.",
 )
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Print all chunk fields, even unused ones."
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Print all chunk fields, even unused ones.",
 )
 parser.add_argument(
-    "-s", "--simple", action="store_true", help="Simply print malloc_chunk struct's contents."
+    "-s",
+    "--simple",
+    action="store_true",
+    help="Simply print malloc_chunk struct's contents.",
 )
 parser.add_argument(
     "-f",
     "--fake",
     action="store_true",
-    help="Allow fake chunks. If set, displays any memory as a heap chunk (even if its not a real chunk).",
+    help=(
+        "Allow fake chunks. If set, displays any memory as a heap chunk (even if its"
+        " not a real chunk)."
+    ),
 )
 
 
@@ -231,11 +253,15 @@ parser.add_argument(
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.commands.OnlyWithResolvedHeapSyms
 @pwndbg.commands.OnlyWhenHeapIsInitialized
-def hi(addr: int, verbose: bool = False, simple: bool = False, fake: bool = False) -> None:
+def hi(
+    addr: int, verbose: bool = False, simple: bool = False, fake: bool = False
+) -> None:
     try:
         heap = Heap(addr)
     except Exception as E:
-        print(f"The provided address {hex(addr)} cannot be interpreted as a heap!\n{E}\n")
+        print(
+            f"The provided address {hex(addr)} cannot be interpreted as a heap!\n{E}\n"
+        )
         return
 
     if fake is False and heap.arena is None:
@@ -245,14 +271,20 @@ def hi(addr: int, verbose: bool = False, simple: bool = False, fake: bool = Fals
         if addr in chunk:
             malloc_chunk(chunk.address, verbose=verbose, simple=simple)
             if verbose:
-                start = chunk.address + (pwndbg.aglib.arch.ptrsize if chunk.prev_inuse else 0x00)
+                start = chunk.address + (
+                    pwndbg.aglib.arch.ptrsize if chunk.prev_inuse else 0x00
+                )
                 print(f"Your address: {hex(addr)}")
                 print(f"Head offset: {hex(addr - start)}")
                 if chunk.is_top_chunk is False and chunk.real_size is not None:
                     end = (
                         start
                         + chunk.real_size
-                        + (pwndbg.aglib.arch.ptrsize if chunk.prev_inuse is False else 0x00)
+                        + (
+                            pwndbg.aglib.arch.ptrsize
+                            if chunk.prev_inuse is False
+                            else 0x00
+                        )
                     )
                     print(f"Tail offset: {hex(end - addr)}")
             break
@@ -263,7 +295,9 @@ parser = argparse.ArgumentParser(
 
 Default to the current thread's arena.""",
 )
-parser.add_argument("addr", nargs="?", type=int, default=None, help="Address of the arena.")
+parser.add_argument(
+    "addr", nargs="?", type=int, default=None, help="Address of the arena."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.PTMALLOC2)
@@ -291,7 +325,9 @@ def arena(addr: int | None = None) -> None:
             )
         )
 
-    print(arena._gdbValue.value_to_human_readable())  # Breaks encapsulation, find a better way.
+    print(
+        arena._gdbValue.value_to_human_readable()
+    )  # Breaks encapsulation, find a better way.
 
 
 parser = argparse.ArgumentParser(description="List this process's arenas.")
@@ -360,7 +396,9 @@ parser = argparse.ArgumentParser(
 
 Default to the current thread's tcache.""",
 )
-parser.add_argument("addr", nargs="?", type=int, default=None, help="Address of the tcache.")
+parser.add_argument(
+    "addr", nargs="?", type=int, default=None, help="Address of the tcache."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.PTMALLOC2)
@@ -380,7 +418,8 @@ def tcache(addr: int | None = None) -> None:
     if tcache:
         print(
             message.notice(
-                f"tcache is pointing to: {message.hint(hex(int(tcache.address)))} for thread {message.hint(tid)}"
+                f"tcache is pointing to: {message.hint(hex(int(tcache.address)))} for"
+                f" thread {message.hint(tid)}"
             )
         )
     else:
@@ -401,7 +440,9 @@ def mp() -> None:
     allocator = pwndbg.aglib.heap.current
     assert isinstance(allocator, GlibcMemoryAllocator)
 
-    print(message.notice("mp_ struct at: ") + message.hint(hex(int(allocator.mp.address))))
+    print(
+        message.notice("mp_ struct at: ") + message.hint(hex(int(allocator.mp.address)))
+    )
     print(allocator.mp.value_to_human_readable())
 
 
@@ -410,7 +451,9 @@ parser = argparse.ArgumentParser(
 
 Default to current thread's arena.""",
 )
-parser.add_argument("addr", nargs="?", type=int, default=None, help="Address of the arena.")
+parser.add_argument(
+    "addr", nargs="?", type=int, default=None, help="Address of the arena."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.PTMALLOC2)
@@ -438,19 +481,33 @@ def top_chunk(addr: int | None = None) -> None:
 
 parser = argparse.ArgumentParser(description="Print a chunk.")
 parser.add_argument(
-    "addr", type=int, help="Address of the chunk (malloc_chunk struct start, prev_size field)."
+    "addr",
+    type=int,
+    help="Address of the chunk (malloc_chunk struct start, prev_size field).",
 )
 parser.add_argument("-f", "--fake", action="store_true", help="Is this a fake chunk?")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Print all chunk fields, even unused ones."
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Print all chunk fields, even unused ones.",
 )
 parser.add_argument(
-    "-s", "--simple", action="store_true", help="Simply print malloc_chunk struct's contents."
+    "-s",
+    "--simple",
+    action="store_true",
+    help="Simply print malloc_chunk struct's contents.",
 )
-parser.add_argument("-d", "--dump", action="store_true", help="Print a hexdump of the chunk.")
+parser.add_argument(
+    "-d", "--dump", action="store_true", help="Print a hexdump of the chunk."
+)
 
 parser.add_argument(
-    "-n", "--next", type=int, default=0, help="Print the next N chunks after the specified address."
+    "-n",
+    "--next",
+    type=int,
+    default=0,
+    help="Print the next N chunks after the specified address.",
 )
 
 
@@ -514,9 +571,13 @@ def malloc_chunk(
                 headers_to_print.append(message.hint("Allocated chunk"))
 
     if verbose:
-        fields_to_print.update(["prev_size", "size", "fd", "bk", "fd_nextsize", "bk_nextsize"])
+        fields_to_print.update(
+            ["prev_size", "size", "fd", "bk", "fd_nextsize", "bk_nextsize"]
+        )
     else:
-        out_fields += f"Size: 0x{chunk.real_size:02x} (with flag bits: 0x{chunk.size:02x})\n"
+        out_fields += (
+            f"Size: 0x{chunk.real_size:02x} (with flag bits: 0x{chunk.size:02x})\n"
+        )
 
     prev_inuse, is_mmapped, non_main_arena = allocator.chunk_flags(chunk.size)
     if prev_inuse:
@@ -537,7 +598,8 @@ def malloc_chunk(
             )
         else:
             out_fields += (
-                message.system(field_to_print) + f": 0x{getattr(chunk, field_to_print):02x}\n"
+                message.system(field_to_print)
+                + f": 0x{getattr(chunk, field_to_print):02x}\n"
             )
 
     print(" | ".join(headers_to_print) + "\n" + out_fields)
@@ -558,7 +620,9 @@ def malloc_chunk(
                 break
 
             print()  # extra newline for better readability
-            malloc_chunk(chunk.address, fake=fake, verbose=verbose, simple=simple, dump=dump)
+            malloc_chunk(
+                chunk.address, fake=fake, verbose=verbose, simple=simple, dump=dump
+            )
 
 
 parser = argparse.ArgumentParser(
@@ -566,8 +630,12 @@ parser = argparse.ArgumentParser(
 
 Default to the current thread's arena and tcache.""",
 )
-parser.add_argument("addr", nargs="?", type=int, default=None, help="Address of the arena.")
-parser.add_argument("tcache_addr", nargs="?", type=int, default=None, help="Address of the tcache.")
+parser.add_argument(
+    "addr", nargs="?", type=int, default=None, help="Address of the arena."
+)
+parser.add_argument(
+    "tcache_addr", nargs="?", type=int, default=None, help="Address of the tcache."
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.PTMALLOC2)
@@ -602,7 +670,10 @@ Default to the current thread's arena.""",
 )
 parser.add_argument("addr", nargs="?", type=int, help="Address of the arena.")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Show all fastbins, including empty ones"
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Show all fastbins, including empty ones",
 )
 
 
@@ -637,7 +708,10 @@ Default to the current thread's arena.""",
 )
 parser.add_argument("addr", nargs="?", type=int, help="Address of the arena.")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help='Show the "all" bin even if it\'s empty'
+    "-v",
+    "--verbose",
+    action="store_true",
+    help='Show the "all" bin even if it\'s empty',
 )
 
 
@@ -672,7 +746,10 @@ Default to the current thread's arena.""",
 )
 parser.add_argument("addr", nargs="?", type=int, help="Address of the arena.")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Show all smallbins, including empty ones"
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Show all smallbins, including empty ones",
 )
 
 
@@ -707,7 +784,10 @@ Default to the current thread's arena.""",
 )
 parser.add_argument("addr", nargs="?", type=int, help="Address of the arena.")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Show all largebins, including empty ones"
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Show all largebins, including empty ones",
 )
 
 
@@ -741,7 +821,10 @@ Default to the current thread's tcache.""",
 )
 parser.add_argument("addr", nargs="?", type=int, help="The address of the tcache bins.")
 parser.add_argument(
-    "-v", "--verbose", action="store_true", help="Show all tcachebins, including empty ones"
+    "-v",
+    "--verbose",
+    action="store_true",
+    help="Show all tcachebins, including empty ones",
 )
 
 
@@ -760,7 +843,9 @@ def tcachebins(addr: int | None = None, verbose: bool = False) -> None:
         print_no_tcache_bins_found_error()
         return
 
-    formatted_bins = format_bin(tcachebins, verbose, offset=allocator.tcache_next_offset)
+    formatted_bins = format_bin(
+        tcachebins, verbose, offset=allocator.tcache_next_offset
+    )
 
     print(C.banner("tcachebins"))
     for node in formatted_bins:
@@ -768,9 +853,13 @@ def tcachebins(addr: int | None = None, verbose: bool = False) -> None:
 
 
 parser = argparse.ArgumentParser(
-    description="Find candidate fake fast or tcache chunks overlapping the specified address."
+    description=(
+        "Find candidate fake fast or tcache chunks overlapping the specified address."
+    )
 )
-parser.add_argument("target_address", type=int, help="Address of the word-sized value to overlap.")
+parser.add_argument(
+    "target_address", type=int, help="Address of the word-sized value to overlap."
+)
 parser.add_argument(
     "max_candidate_size",
     nargs="?",
@@ -784,8 +873,8 @@ parser.add_argument(
     action="store_true",
     default=False,
     help=(
-        "Whether the fake chunk must be aligned to MALLOC_ALIGNMENT. This is required for tcache "
-        "chunks and for all chunks when Safe Linking is enabled"
+        "Whether the fake chunk must be aligned to MALLOC_ALIGNMENT. This is required"
+        " for tcache chunks and for all chunks when Safe Linking is enabled"
     ),
 )
 parser.add_argument(
@@ -799,7 +888,10 @@ parser.add_argument(
     "--partial-overwrite",
     "-p",
     action="store_true",
-    help="Consider partial overwrite candidates, default behavior only shows word-size overwrites.",
+    help=(
+        "Consider partial overwrite candidates, default behavior only shows word-size"
+        " overwrites."
+    ),
 )
 
 
@@ -823,13 +915,16 @@ def find_fake_fast(
     global_max_fast = allocator.global_max_fast
     size_types = pwndbg.dbg.selected_inferior().types_with_name("unsigned int")
     size_field_width = (
-        (size_types[0].sizeof if len(size_types) > 0 else size_sz) if glibc_fastbin_bug else size_sz
+        (size_types[0].sizeof if len(size_types) > 0 else size_sz)
+        if glibc_fastbin_bug
+        else size_sz
     )
 
     if global_max_fast is None:
         print(
             message.warn(
-                "The global_max_fast symbol is not available, falling back to the default value of 0x80"
+                "The global_max_fast symbol is not available, falling back to the"
+                " default value of 0x80"
             )
         )
         global_max_fast = 0x80
@@ -910,7 +1005,9 @@ def find_fake_fast(
         )
     )
 
-    search_region = pwndbg.aglib.memory.read(search_start, search_end - search_start, partial=True)
+    search_region = pwndbg.aglib.memory.read(
+        search_start, search_end - search_start, partial=True
+    )
 
     print(C.banner("FAKE CHUNKS"))
     step = allocator.malloc_alignment if align else 1
@@ -960,7 +1057,10 @@ group.add_argument(
     nargs="?",
     type=lambda n: max(int(n, 0), 1),
     default=pwndbg.config.default_visualize_chunk_number,
-    help="Number of chunks to visualize. If the value is big enough and addr isn't provided, this is interpreted as addr instead.",
+    help=(
+        "Number of chunks to visualize. If the value is big enough and addr isn't"
+        " provided, this is interpreted as addr instead."
+    ),
 )
 parser.add_argument("addr", nargs="?", default=None, help="Address of the first chunk.")
 parser.add_argument(
@@ -975,14 +1075,19 @@ parser.add_argument(
     "-n",
     action="store_true",
     default=False,
-    help="Display all the chunk contents (Ignore the `max-visualize-chunk-size` configuration).",
+    help=(
+        "Display all the chunk contents (Ignore the `max-visualize-chunk-size`"
+        " configuration)."
+    ),
 )
 group.add_argument(
     "--all_chunks",
     "-a",
     action="store_true",
     default=False,
-    help=" Display all chunks (Ignore the default-visualize-chunk-number configuration).",
+    help=(
+        " Display all chunks (Ignore the default-visualize-chunk-number configuration)."
+    ),
 )
 
 
@@ -1111,7 +1216,10 @@ def vis_heap_chunks(
     has_huge_chunk = False
     # round up to align with 4*ptr_size and get half
     half_max_size = (
-        pwndbg.lib.memory.round_up(int(pwndbg.config.max_visualize_chunk_size), ptr_size << 2) >> 1
+        pwndbg.lib.memory.round_up(
+            int(pwndbg.config.max_visualize_chunk_size), ptr_size << 2
+        )
+        >> 1
     )
 
     bin_labels_map: Dict[int, List[str]] = bin_labels_mapping(bin_collections)
@@ -1156,7 +1264,11 @@ def vis_heap_chunks(
 
             asc += bin_ascii(data)
             if printed % 2 == 0:
-                out += "\t" + color_func(asc) + ("\t <-- " + ", ".join(labels) if labels else "")
+                out += (
+                    "\t"
+                    + color_func(asc)
+                    + ("\t <-- " + ", ".join(labels) if labels else "")
+                )
                 asc = ""
                 labels = []
 
@@ -1175,12 +1287,17 @@ def vis_heap_chunks(
     if has_huge_chunk and pwndbg.config.max_visualize_chunk_size == 0:
         print(
             message.warn(
-                "You can try `set max-visualize-chunk-size 0x500` and re-run this command.\n"
+                "You can try `set max-visualize-chunk-size 0x500` and re-run this"
+                " command.\n"
             )
         )
 
     if not reached_top and nothing_supplied:
-        print(message.hint("Not all chunks were shown, see `vis --help` for more information."))
+        print(
+            message.hint(
+                "Not all chunks were shown, see `vis --help` for more information."
+            )
+        )
 
 
 VALID_CHARS = list(map(ord, set(printable) - set("\t\r\n\x0c\x0b")))
@@ -1336,7 +1453,9 @@ def try_free(addr: str | int) -> None:
         err = "free(): invalid size -> chunk's size is not aligned\n"
         err += "    LSB of size 0x{:x} are 0b{}, should be 0b{}"
         err = err.format(
-            chunk_size_unmasked, bin(chunk_size_unmasked)[-aligned_lsb:], "0" * aligned_lsb
+            chunk_size_unmasked,
+            bin(chunk_size_unmasked)[-aligned_lsb:],
+            "0" * aligned_lsb,
         )
         print(message.error(err))
         errors_found += 1
@@ -1347,7 +1466,9 @@ def try_free(addr: str | int) -> None:
         and allocator.tcache_entry is not None
         and "key" in allocator.tcache_entry.keys()
     ):
-        tc_idx = (chunk_size_unmasked - chunk_minsize + malloc_alignment - 1) // malloc_alignment
+        tc_idx = (
+            chunk_size_unmasked - chunk_minsize + malloc_alignment - 1
+        ) // malloc_alignment
         if allocator.mp is not None and tc_idx < int(allocator.mp["tcache_bins"]):
             print(message.notice("Tcache checks"))
             e = addr + 2 * size_sz
@@ -1358,12 +1479,15 @@ def try_free(addr: str | int) -> None:
                 # todo, actually do checks
                 print(
                     message.error(
-                        "Will do checks for tcache double-free (memory_tcache_double_free)"
+                        "Will do checks for tcache double-free"
+                        " (memory_tcache_double_free)"
                     )
                 )
                 errors_found += 1
 
-            if int(allocator.get_tcache()["counts"][tc_idx]) < int(allocator.mp["tcache_count"]):
+            if int(allocator.get_tcache()["counts"][tc_idx]) < int(
+                allocator.mp["tcache_count"]
+            ):
                 print(message.success("Using tcache_put"))
                 if errors_found == 0:
                     returned_before_error = True
@@ -1396,17 +1520,26 @@ def try_free(addr: str | int) -> None:
 
         # next chunk's size is big enough and small enough
         next_chunk_size = unsigned_size(next_chunk["size"])
-        if next_chunk_size <= 2 * size_sz or chunksize(next_chunk_size) >= arena.system_mem:
+        if (
+            next_chunk_size <= 2 * size_sz
+            or chunksize(next_chunk_size) >= arena.system_mem
+        ):
             err = "free(): invalid next size (fast) -> next chunk's size"
             err += " not in [2*size_sz; av->system_mem]\n"
-            err += "    next chunk's size is 0x{:x}, 2*size_sz is 0x{:x}, system_mem is 0x{:x}"
+            err += (
+                "    next chunk's size is 0x{:x}, 2*size_sz is 0x{:x}, system_mem is"
+                " 0x{:x}"
+            )
             err = err.format(next_chunk_size, 2 * size_sz, arena.system_mem)
             print(message.error(err))
             errors_found += 1
 
         # chunk is not the same as the one on top of fastbin[idx]
         if int(fastbin_list[0]) == addr:
-            err = "double free or corruption (fasttop) -> chunk already is on top of fastbin list\n"
+            err = (
+                "double free or corruption (fasttop) -> chunk already is on top of"
+                " fastbin list\n"
+            )
             err += "    fastbin idx == {}"
             err = err.format(chunk_fastbin_idx)
             print(message.error(err))
@@ -1418,19 +1551,19 @@ def try_free(addr: str | int) -> None:
             try:
                 fastbin_top_chunk = read_chunk(fastbin_top_chunk)
             except pwndbg.dbg_mod.Error:
-                print(
-                    message.error(
-                        f"Can't read top fastbin chunk at address 0x{
-    fastbin_top_chunk:x}, memory error"
-                    )
-                )
+                print(message.error(f"Can't read top fastbin chunk at address 0x{
+    fastbin_top_chunk:x}, memory error"))
                 finalize(errors_found, returned_before_error)
                 return
 
-            fastbin_top_chunk_size = chunksize(unsigned_size(
-                fastbin_top_chunk["size"]))  # type: ignore[index]
+            fastbin_top_chunk_size = chunksize(
+                unsigned_size(fastbin_top_chunk["size"])
+            )  # type: ignore[index]
             if chunk_fastbin_idx != allocator.fastbin_index(fastbin_top_chunk_size):
-                err = "invalid fastbin entry (free) -> chunk's size is not near top chunk's size\n"
+                err = (
+                    "invalid fastbin entry (free) -> chunk's size is not near top"
+                    " chunk's size\n"
+                )
                 err += "    chunk's size == {}, idx == {}\n"
                 err += "    top chunk's size == {}, idx == {}"
                 err += "    if `have_lock` is false then the error is invalid"
@@ -1460,13 +1593,17 @@ def try_free(addr: str | int) -> None:
         next_chunk_addr = addr + chunk_size_unmasked
 
         # todo: in libc, addition may overflow
-        if (arena.flags & NONCONTIGUOUS_BIT == 0) and next_chunk_addr >= top_chunk_addr + chunksize(
-            top_chunk["size"]
-        ):
-            err = "double free or corruption (out) -> next chunk is beyond arena and arena is contiguous\n"
+        if (
+            arena.flags & NONCONTIGUOUS_BIT == 0
+        ) and next_chunk_addr >= top_chunk_addr + chunksize(top_chunk["size"]):
+            err = (
+                "double free or corruption (out) -> next chunk is beyond arena and"
+                " arena is contiguous\n"
+            )
             err += "next chunk at 0x{:x}, end of arena at 0x{:x}"
             err = err.format(
-                next_chunk_addr, top_chunk_addr + chunksize(unsigned_size(top_chunk["size"]))
+                next_chunk_addr,
+                top_chunk_addr + chunksize(unsigned_size(top_chunk["size"])),
             )
             print(message.error(err))
             errors_found += 1
@@ -1476,21 +1613,31 @@ def try_free(addr: str | int) -> None:
             next_chunk = read_chunk(next_chunk_addr)
             next_chunk_size = chunksize(unsigned_size(next_chunk["size"]))
         except (OverflowError, pwndbg.dbg_mod.Error):
-            print(message.error(f"Can't read next chunk at address 0x{next_chunk_addr:x}"))
+            print(
+                message.error(f"Can't read next chunk at address 0x{next_chunk_addr:x}")
+            )
             finalize(errors_found, returned_before_error)
             return
 
         # next chunk's P bit is set
         prev_inuse, _, _ = allocator.chunk_flags(next_chunk["size"])
         if prev_inuse == 0:
-            err = "double free or corruption (!prev) -> next chunk's previous-in-use bit is 0\n"
+            err = (
+                "double free or corruption (!prev) -> next chunk's previous-in-use bit"
+                " is 0\n"
+            )
             print(message.error(err))
             errors_found += 1
 
         # next chunk's size is big enough and small enough
         if next_chunk_size <= 2 * size_sz or next_chunk_size >= arena.system_mem:
-            err = "free(): invalid next size (normal) -> next chunk's size not in [2*size_sz; system_mem]\n"
-            err += "next chunk's size is 0x{:x}, 2*size_sz is 0x{:x}, system_mem is 0x{:x}"
+            err = (
+                "free(): invalid next size (normal) -> next chunk's size not in"
+                " [2*size_sz; system_mem]\n"
+            )
+            err += (
+                "next chunk's size is 0x{:x}, 2*size_sz is 0x{:x}, system_mem is 0x{:x}"
+            )
             err = err.format(next_chunk_size, 2 * size_sz, arena.system_mem)
             print(message.error(err))
             errors_found += 1
@@ -1506,13 +1653,20 @@ def try_free(addr: str | int) -> None:
                 prev_chunk = read_chunk(prev_chunk_addr)
                 prev_chunk_size = chunksize(unsigned_size(prev_chunk["size"]))
             except (OverflowError, pwndbg.dbg_mod.Error):
-                print(message.error(f"Can't read next chunk at address 0x{prev_chunk_addr:x}"))
+                print(
+                    message.error(
+                        f"Can't read next chunk at address 0x{prev_chunk_addr:x}"
+                    )
+                )
                 finalize(errors_found, returned_before_error)
                 return
 
             if prev_chunk_size != prev_size:
                 err = "corrupted size vs. prev_size while consolidating\n"
-                err += "prev_size field is 0x{:x}, prev chunk at 0x{:x}, prev chunk size is 0x{:x}"
+                err += (
+                    "prev_size field is 0x{:x}, prev chunk at 0x{:x}, prev chunk size"
+                    " is 0x{:x}"
+                )
                 err = err.format(prev_size, prev_chunk_addr, prev_chunk_size)
                 print(message.error(err))
                 errors_found += 1
@@ -1529,7 +1683,11 @@ def try_free(addr: str | int) -> None:
                 next_next_chunk_addr = next_chunk_addr + next_chunk_size
                 next_next_chunk = read_chunk(next_next_chunk_addr)
             except (OverflowError, pwndbg.dbg_mod.Error):
-                print(message.error(f"Can't read next chunk at address 0x{next_next_chunk_addr:x}"))
+                print(
+                    message.error(
+                        f"Can't read next chunk at address 0x{next_next_chunk_addr:x}"
+                    )
+                )
                 finalize(errors_found, returned_before_error)
                 return
 
@@ -1548,24 +1706,35 @@ def try_free(addr: str | int) -> None:
                 unsorted = read_chunk(unsorted_addr)
                 try:
                     if read_chunk(unsorted["fd"])["bk"] != unsorted_addr:
-                        err = "free(): corrupted unsorted chunks -> unsorted_chunk->fd->bk != unsorted_chunk\n"
+                        err = (
+                            "free(): corrupted unsorted chunks ->"
+                            " unsorted_chunk->fd->bk != unsorted_chunk\n"
+                        )
                         err += (
-                            "unsorted at 0x{:x}, unsorted->fd == 0x{:x}, unsorted->fd->bk == 0x{:x}"
+                            "unsorted at 0x{:x}, unsorted->fd == 0x{:x},"
+                            " unsorted->fd->bk == 0x{:x}"
                         )
                         err = err.format(
-                            unsorted_addr, unsorted["fd"], read_chunk(unsorted["fd"])["bk"]
+                            unsorted_addr,
+                            unsorted["fd"],
+                            read_chunk(unsorted["fd"])["bk"],
                         )
                         print(message.error(err))
                         errors_found += 1
                 except (OverflowError, pwndbg.dbg_mod.Error):
                     print(
                         message.error(
-                            f"Can't read chunk at 0x{unsorted['fd']:x}, it is unsorted bin fd"
+                            f"Can't read chunk at 0x{unsorted['fd']:x}, it is unsorted"
+                            " bin fd"
                         )
                     )
                     errors_found += 1
             except (OverflowError, pwndbg.dbg_mod.Error):
-                print(message.error(f"Can't read unsorted bin chunk at 0x{unsorted_addr:x}"))
+                print(
+                    message.error(
+                        f"Can't read unsorted bin chunk at 0x{unsorted_addr:x}"
+                    )
+                )
                 errors_found += 1
 
         else:

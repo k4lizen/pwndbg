@@ -14,9 +14,24 @@ import pwndbg.lib.config
         ("bool", True, "on", {}),
         ("bool", False, "off", {}),
         ("string", "some-string-val", "some-string-val", {}),
-        ("auto-bool", None, "auto", {"param_class": pwndbg.lib.config.PARAM_AUTO_BOOLEAN}),
-        ("unlimited-uint", 0, "unlimited", {"param_class": pwndbg.lib.config.PARAM_UINTEGER}),
-        ("unlimited-int", 0, "unlimited", {"param_class": pwndbg.lib.config.PARAM_INTEGER}),
+        (
+            "auto-bool",
+            None,
+            "auto",
+            {"param_class": pwndbg.lib.config.PARAM_AUTO_BOOLEAN},
+        ),
+        (
+            "unlimited-uint",
+            0,
+            "unlimited",
+            {"param_class": pwndbg.lib.config.PARAM_UINTEGER},
+        ),
+        (
+            "unlimited-int",
+            0,
+            "unlimited",
+            {"param_class": pwndbg.lib.config.PARAM_INTEGER},
+        ),
         (
             "enum",
             "enum1",
@@ -82,10 +97,8 @@ def test_gdb_parameter_default_value_works(start_binary, params):
     out = gdb.execute(f"show {param_name}", to_string=True)
     assert (
         out
-        == (
-            f"{set_show_doc.capitalize()} is {displayed_value!r}."
-            f" See `help set {param_name}` for more information.\n"
-        )
+        == f"{set_show_doc.capitalize()} is {displayed_value!r}."
+        f" See `help set {param_name}` for more information.\n"
     )
     if (
         optional_kwargs.get("param_class")

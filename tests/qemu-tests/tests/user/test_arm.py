@@ -52,7 +52,8 @@ def test_arm_simple_branch(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>         mov    r2, #5       R2 => 5\n"
         "   0x200b8 <_start+4>       mov    r1, #0xa     R1 => 0xa\n"
         "   0x200bc <_start+8>       cmp    r0, r1       0x0 - 0xa     CPSR =>"
@@ -82,7 +83,8 @@ def test_arm_simple_branch(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         "   0x200c0 <_start+12>    ✔ bne    not_equal                   <not_equal>\n"
         "    ↓\n"
         "   0x200cc <not_equal>      mov    r3, #1       R3 => 1\n"
@@ -139,15 +141,13 @@ def test_arm_interworking_branch(qemu_assembly_run):
     dis = gdb.execute("emulate 3", to_string=True)
 
     expected = (
-        " ► 0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9) (0x200bc + 0x1)\n"
-        "   0x200b8 <_start+4>     bx     r0                          <_start+8>\n"
-        "    ↓\n"
-        "   0x200bc <_start+8>     mov.w  r2, #4                  R2 => 4\n"
-        "   0x200c0 <_start+12>    add    r2, r0                  R2 => 0x200c1"
-        " (_start+13) (0x4 + 0x200bd)\n"
-        "   0x200c2 <end>          mov.w  r0, #0                  R0 => 0\n"
-        "   0x200c6 <end+4>        mov.w  r7, #0xf8               R7 => 0xf8\n"
-        "   0x200ca <end+8>        svc    #0 <SYS_exit_group>\n"
+        " ► 0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9)"
+        " (0x200bc + 0x1)\n   0x200b8 <_start+4>     bx     r0                         "
+        " <_start+8>\n    ↓\n   0x200bc <_start+8>     mov.w  r2, #4                 "
+        " R2 => 4\n   0x200c0 <_start+12>    add    r2, r0                  R2 =>"
+        " 0x200c1 (_start+13) (0x4 + 0x200bd)\n   0x200c2 <end>          mov.w  r0, #0 "
+        "                 R0 => 0\n   0x200c6 <end+4>        mov.w  r7, #0xf8          "
+        "     R7 => 0xf8\n   0x200ca <end+8>        svc    #0 <SYS_exit_group>\n"
     )
 
     assert dis == expected
@@ -159,15 +159,13 @@ def test_arm_interworking_branch(qemu_assembly_run):
     dis = gdb.execute("emulate 3", to_string=True)
 
     expected = (
-        "   0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9) (0x200bc + 0x1)\n"
-        "   0x200b8 <_start+4>     bx     r0                          <_start+8>\n"
-        "    ↓\n"
-        " ► 0x200bc <_start+8>     mov.w  r2, #4                  R2 => 4\n"
-        "   0x200c0 <_start+12>    add    r2, r0                  R2 => 0x200c1"
-        " (_start+13) (0x4 + 0x200bd)\n"
-        "   0x200c2 <end>          mov.w  r0, #0                  R0 => 0\n"
-        "   0x200c6 <end+4>        mov.w  r7, #0xf8               R7 => 0xf8\n"
-        "   0x200ca <end+8>        svc    #0 <SYS_exit_group>\n"
+        "   0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9)"
+        " (0x200bc + 0x1)\n   0x200b8 <_start+4>     bx     r0                         "
+        " <_start+8>\n    ↓\n ► 0x200bc <_start+8>     mov.w  r2, #4                 "
+        " R2 => 4\n   0x200c0 <_start+12>    add    r2, r0                  R2 =>"
+        " 0x200c1 (_start+13) (0x4 + 0x200bd)\n   0x200c2 <end>          mov.w  r0, #0 "
+        "                 R0 => 0\n   0x200c6 <end+4>        mov.w  r7, #0xf8          "
+        "     R7 => 0xf8\n   0x200ca <end+8>        svc    #0 <SYS_exit_group>\n"
     )
 
     assert dis == expected
@@ -214,8 +212,10 @@ def test_arm_implicit_branch(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
-        " ► 0x200b4 <_start>        ldr    r1, [pc, #0x28]     R1, [_target+36] => 0x200c0"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
+        " ► 0x200b4 <_start>        ldr    r1, [pc, #0x28]     R1, [_target+36] =>"
+        " 0x200c0"
         " (_target) ◂— 0x102f04f\n"
         "   0x200b8 <_start+4>      add    pc, r1, #1                  <_target>\n"
         "    ↓\n"
@@ -223,7 +223,8 @@ def test_arm_implicit_branch(qemu_assembly_run):
         "   0x200c4 <_target+4>     mov.w  r2, #4              R2 => 4\n"
         "   0x200c8 <_target+8>     mov.w  r6, #3              R6 => 3\n"
         "   0x200cc <_target+12>    add.w  r1, r2, r3          R1 => 4 (4 + 0)\n"
-        "   0x200d0 <_target+16>    sub.w  r4, r5, r6          R4 => 0xfffffffd (0 - 3)\n"
+        "   0x200d0 <_target+16>    sub.w  r4, r5, r6          R4 => 0xfffffffd (0 -"
+        " 3)\n"
         "   0x200d4 <_target+20>    orr.w  r6, r6, r5          R6 => 3 (3 | 0)\n"
         "   0x200d8 <_target+24>    and.w  r2, r2, r5          R2 => 0 (4 & 0)\n"
         "   0x200dc <_target+28>    eor.w  r1, r2, r1          R1 => 4 (0 ^ 4)\n"
@@ -270,8 +271,10 @@ def test_arm_implicit_branch_next_instruction(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
-        " ► 0x200b4 <_start>        ldr    r1, [pc, #0x24]     R1, [_target+36] => 0x200bc"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
+        " ► 0x200b4 <_start>        ldr    r1, [pc, #0x24]     R1, [_target+36] =>"
+        " 0x200bc"
         " (_target) ◂— 0x103eb02\n"
         "   0x200b8 <_start+4>      add    pc, r1, #1                  <_target>\n"
         "    ↓\n"
@@ -315,7 +318,8 @@ def test_arm_implicit_branch_ldr(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>    ldr    pc, [pc, #0xc]              <end>\n"
         "    ↓\n"
         "   0x200bc <end>       mov    r0, #0                  R0 => 0\n"
@@ -339,7 +343,8 @@ def test_arm_implicit_branch_ldr(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         "   0x200b4 <_start>    ldr    pc, [pc, #0xc]              <end>\n"
         "    ↓\n"
         " ► 0x200bc <end>       mov    r0, #0                  R0 => 0\n"
@@ -366,7 +371,9 @@ def test_arm_mode_banner(qemu_assembly_run):
     out = gdb.execute("context disasm", to_string=True).split("\n")
 
     assert (
-        out[1] == "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────"
+        out[1]
+        == "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────"
     )
 
     gdb.execute("si 2")
@@ -374,7 +381,9 @@ def test_arm_mode_banner(qemu_assembly_run):
     out = gdb.execute("context disasm", to_string=True).split("\n")
 
     assert (
-        out[1] == "─────────────────[ DISASM / arm / thumb mode / set emulate on ]─────────────────"
+        out[1]
+        == "─────────────────[ DISASM / arm / thumb mode / set emulate on"
+        " ]─────────────────"
     )
 
 
@@ -414,7 +423,8 @@ def test_arm_stack_pointer_check(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>       mov    r0, #4                  R0 => 4\n"
         "   0x200b8 <_start+4>     mov    r1, #3                  R1 => 3\n"
         "   0x200bc <_start+8>     add    r2, r0, r1              R2 => 7 (4 + 3)\n"
@@ -423,7 +433,8 @@ def test_arm_stack_pointer_check(qemu_assembly_run):
         f"[{hex(pwndbg.aglib.regs.sp - 4)}] <= 5\n"
         "   0x200c8 <_start+20>    pop    {r4}\n"
         "   0x200cc <_start+24>    mul    r4, r2, r1              R4 => 21 (7 * 3)\n"
-        "   0x200d0 <_start+28>    add    r4, r4, #1              R4 => 22 (0x15 + 0x1)\n"
+        "   0x200d0 <_start+28>    add    r4, r4, #1              R4 => 22 (0x15 +"
+        " 0x1)\n"
         "   0x200d4 <end>          mov    r0, #0                  R0 => 0\n"
         "   0x200d8 <end+4>        mov    r7, #0xf8               R7 => 0xf8\n"
         "   0x200dc <end+8>        svc    #0 <SYS_exit_group>\n"
@@ -453,7 +464,8 @@ def test_arm_cmp_instructions(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>       mov    r0, #5     R0 => 5\n"
         "   0x200b8 <_start+4>     mov    r1, #5     R1 => 5\n"
         "   0x200bc <_start+8>     cmp    r0, r1     5 - 5     "
@@ -505,7 +517,8 @@ def test_arm_call_instructions(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>       nop    \n"
         "   0x200b8 <_start+4>     bl     func                        <func>\n"
         " \n"
@@ -559,11 +572,14 @@ def test_arm_exclusive_store(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200d4 <_start>       ldr    r0, [pc, #0x34]     "
         "R0, [_start+60] => 0x3011c (value1) ◂— 0\n"
-        "   0x200d8 <_start+4>     ldr    r1, [pc, #0x34]     R1, [_start+64] => 0x87654321\n"
-        "   0x200dc <_start+8>     ldr    r2, [pc, #0x34]     R2, [_start+68] => 0x12345678\n"
+        "   0x200d8 <_start+4>     ldr    r1, [pc, #0x34]     R1, [_start+64] =>"
+        " 0x87654321\n"
+        "   0x200dc <_start+8>     ldr    r2, [pc, #0x34]     R2, [_start+68] =>"
+        " 0x12345678\n"
         "   0x200e0 <_start+12>    str    r1, [r0]            [value1] <= 0x87654321\n"
         "   0x200e4 <_start+16>    strex  r3, r2, [r0]        [value1] <= 0x12345678\n"
         "   0x200e8 <_start+20>    str    r1, [r0], #1        [value1] <= 0x87654321\n"
@@ -606,18 +622,25 @@ def test_arm_logical_shifts(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200b4 <_start>       mov    r0, #3          R0 => 3\n"
         "   0x200b8 <_start+4>     mov    r1, #0xf000     R1 => 0xf000\n"
         "   0x200bc <_start+8>     movw   r2, #0x1234     R2 => 0x1234\n"
         "   0x200c0 <_start+12>    lsr    r3, r1, #4      R3 => 0xf00 (0xf000 >> 0x4)\n"
-        "   0x200c4 <_start+16>    lsr    r4, r1, r0      R4 => 0x1e00 (0xf000 >> 0x3)\n"
-        "   0x200c8 <_start+20>    lsl    r5, r4, #4      R5 => 0x1e000 (0x1e00 << 0x4)\n"
+        "   0x200c4 <_start+16>    lsr    r4, r1, r0      R4 => 0x1e00 (0xf000 >>"
+        " 0x3)\n"
+        "   0x200c8 <_start+20>    lsl    r5, r4, #4      R5 => 0x1e000 (0x1e00 <<"
+        " 0x4)\n"
         "   0x200cc <_start+24>    lsl    r6, r4, r2      R6 => 0 (0x1e00 << 0x1234)\n"
-        "   0x200d0 <_start+28>    asr    r6, r4, #4      R6 => 0x1e0 (0x1e00 >>s 0x4)\n"
-        "   0x200d4 <_start+32>    asr    r6, r4, r0      R6 => 0x3c0 (0x1e00 >>s 0x3)\n"
-        "   0x200d8 <_start+36>    ror    r6, r4, #4      R6 => 0x1e0 (0x1e00 >>r 0x4)\n"
-        "   0x200dc <_start+40>    ror    r6, r4, r0      R6 => 0x3c0 (0x1e00 >>r 0x3)\n"
+        "   0x200d0 <_start+28>    asr    r6, r4, #4      R6 => 0x1e0 (0x1e00 >>s"
+        " 0x4)\n"
+        "   0x200d4 <_start+32>    asr    r6, r4, r0      R6 => 0x3c0 (0x1e00 >>s"
+        " 0x3)\n"
+        "   0x200d8 <_start+36>    ror    r6, r4, #4      R6 => 0x1e0 (0x1e00 >>r"
+        " 0x4)\n"
+        "   0x200dc <_start+40>    ror    r6, r4, r0      R6 => 0x3c0 (0x1e00 >>r"
+        " 0x3)\n"
         "────────────────────────────────────────────────────────────────────────────────\n"
     )
 
@@ -657,12 +680,14 @@ def test_arm_negative_disponent(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200d4 <_start>       ldr    r1, [pc, #0x24]     "
         "R1, [_start+44] => 0x30104 (msg) ◂— 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!'\n"
         "   0x200d8 <_start+4>     add    r1, r1, #4          "
         "R1 => 0x30108 (msg+4) (0x30104 + 0x4)\n"
-        "   0x200dc <_start+8>     ldr    r0, [r1, #-4]       R0, [msg] => 0x44434241 ('ABCD')\n"
+        "   0x200dc <_start+8>     ldr    r0, [r1, #-4]       R0, [msg] => 0x44434241"
+        " ('ABCD')\n"
         "   0x200e0 <_start+12>    nop    \n"
         "   0x200e4 <_start+16>    nop    \n"
         "   0x200e8 <_start+20>    nop    \n"
@@ -717,7 +742,8 @@ def test_arm_negative_index_register(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
         " ► 0x200d4 <_start>       ldr    r1, [pc, #0x30]           "
         "R1, [_start+56] => 0x30110 (msg) ◂— 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!'\n"
         "   0x200d8 <_start+4>     add    r1, r1, #4                "
@@ -781,7 +807,8 @@ def test_arm_it_block(qemu_assembly_run):
 
     expected_1 = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────[ DISASM / arm / thumb mode / set emulate on ]─────────────────\n"
+        "─────────────────[ DISASM / arm / thumb mode / set emulate on"
+        " ]─────────────────\n"
         " ► 0x200bc <_start+8>     cmp    r0, #0     0x200bd - 0x0"
         "CPSR => 0x20000030 [ n z C v q j T e a i f ]\n"
         "   0x200be <_start+10>    ittte  eq\n"
@@ -809,7 +836,8 @@ def test_arm_it_block(qemu_assembly_run):
 
     expected_2 = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "─────────────────[ DISASM / arm / thumb mode / set emulate on ]─────────────────\n"
+        "─────────────────[ DISASM / arm / thumb mode / set emulate on"
+        " ]─────────────────\n"
         "   0x200bc <_start+8>     cmp    r0, #0     0x200bd - 0x0     "
         "CPSR => 0x20000030 [ n z C v q j T e a i f ]\n"
         "   0x200be <_start+10>    ittte  eq\n"
@@ -843,8 +871,10 @@ def test_arm_it_block_cached_thumb_mode(qemu_assembly_run):
 
     expected = (
         "LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA\n"
-        "──────────────────[ DISASM / arm / arm mode / set emulate on ]──────────────────\n"
-        " ► 0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9) (0x200bc + 0x1)\n"
+        "──────────────────[ DISASM / arm / arm mode / set emulate on"
+        " ]──────────────────\n"
+        " ► 0x200b4 <_start>       add    r0, pc, #1     R0 => 0x200bd (_start+9)"
+        " (0x200bc + 0x1)\n"
         "   0x200b8 <_start+4>     bx     r0                          <_start+8>\n"
         "    ↓\n"
         "   0x200bc <_start+8>     cmp    r0, #0         0x200bd - 0x0     "

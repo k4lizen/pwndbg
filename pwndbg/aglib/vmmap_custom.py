@@ -95,8 +95,9 @@ def explore(address_maybe: int) -> pwndbg.lib.memory.Page | None:
             if is_readable_addr:
                 print(
                     M.warn(
-                        f"Warning: Avoided exploring possible address {address_maybe:#x}.\n"
-                        f"You can explicitly explore it with `vmmap-explore {page_start:#x}`"
+                        "Warning: Avoided exploring possible address"
+                        f" {address_maybe:#x}.\nYou can explicitly explore it with"
+                        f" `vmmap-explore {page_start:#x}`"
                     )
                 )
         return None

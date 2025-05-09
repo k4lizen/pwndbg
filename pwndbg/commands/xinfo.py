@@ -24,12 +24,9 @@ def print_line(name, addr, first, second, op, width=20) -> None:
     if not isinstance(first, str):
         first_str = M.get(first)
     else:
-        first_str = first.ljust(len(hex(addr).rstrip('L')))
+        first_str = first.ljust(len(hex(addr).rstrip("L")))
 
-    print(
-        f"{name.rjust(width)} {M.get(addr)} = {first_str}"
-        f" {op} {second:#x}"
-    )
+    print(f"{name.rjust(width)} {M.get(addr)} = {first_str} {op} {second:#x}")
 
 
 def xinfo_stack(page: Page, addr: int) -> None:
@@ -52,7 +49,8 @@ def xinfo_stack(page: Page, addr: int) -> None:
     if canary_value is not None:
         all_canaries = list(
             pwndbg.search.search(
-                pwndbg.aglib.arch.pack(canary_value), mappings=pwndbg.aglib.stack.get().values()
+                pwndbg.aglib.arch.pack(canary_value),
+                mappings=pwndbg.aglib.stack.get().values(),
             )
         )
         follow_canaries = sorted(filter(lambda a: a > addr, all_canaries))
@@ -77,7 +75,9 @@ def xinfo_mmap_file(page: Page, addr: int) -> None:
     # find possible LOAD segments that designate memory and file backings
     containing_loads = [
         seg
-        for seg in pwndbg.aglib.elf.get_containing_segments(file_name, first.vaddr, addr)
+        for seg in pwndbg.aglib.elf.get_containing_segments(
+            file_name, first.vaddr, addr
+        )
         if seg["p_type"] == "PT_LOAD"
     ]
 
@@ -95,7 +95,9 @@ def xinfo_mmap_file(page: Page, addr: int) -> None:
     else:
         print(f"{'File (Disk)'.rjust(20)} {M.get(addr)} = [not file backed]")
 
-    containing_sections = pwndbg.aglib.elf.get_containing_sections(file_name, first.vaddr, addr)
+    containing_sections = pwndbg.aglib.elf.get_containing_sections(
+        file_name, first.vaddr, addr
+    )
     if len(containing_sections) > 0:
         print("\n Containing ELF sections:")
         for sec in containing_sections:

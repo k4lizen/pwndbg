@@ -12,7 +12,9 @@ parser = argparse.ArgumentParser(
     description="Converts a space-separated hex string to a little-endian address.",
 )
 parser.add_argument(
-    "hex_string", type=str, help="Hexadecimal string to convert (e.g., '00 70 75 c1 cd ef 59 00')."
+    "hex_string",
+    type=str,
+    help="Hexadecimal string to convert (e.g., '00 70 75 c1 cd ef 59 00').",
 )
 
 

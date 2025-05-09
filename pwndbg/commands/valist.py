@@ -9,7 +9,9 @@ from pwndbg.commands import CommandCategory
 
 parser = argparse.ArgumentParser(description="Dumps the arguments of a va_list.")
 parser.add_argument("addr", type=int, help="Address of the va_list")
-parser.add_argument("count", type=int, nargs="?", default=8, help="Number of arguments to dump")
+parser.add_argument(
+    "count", type=int, nargs="?", default=8, help="Number of arguments to dump"
+)
 
 
 @pwndbg.commands.Command(parser, category=CommandCategory.MISC)

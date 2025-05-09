@@ -30,7 +30,8 @@ def set_r2decompiler() -> None:
         return
     print(
         message.warn(
-            f"Invalid r2decompiler: `{r2decompiler.value}`, please select from radare2 or rizin"
+            f"Invalid r2decompiler: `{r2decompiler.value}`, please select from radare2"
+            " or rizin"
         )
     )
     r2decompiler.revert_default()
@@ -51,15 +52,21 @@ def decompile(func=None):
             # LD -> list supported decompilers (e cmd.pdc=?)
             # Outputs for example: pdc\npdg
             if "pdg" not in r2.cmd("LD").split("\n"):
-                raise Exception("radare2 plugin r2ghidra must be installed and available from r2")
+                raise Exception(
+                    "radare2 plugin r2ghidra must be installed and available from r2"
+                )
         else:
             assert r2decompiler == "rizin"
             r2 = pwndbg.rizin.rzpipe()
             # Lc -> list core plugins
             if "ghidra" not in r2.cmd("Lc"):
-                raise Exception("rizin plugin rzghidra must be installed and available from rz")
+                raise Exception(
+                    "rizin plugin rzghidra must be installed and available from rz"
+                )
     except ImportError:
-        raise Exception("r2pipe or rzpipe not available, but required for r2/rz->ghidra bridge")
+        raise Exception(
+            "r2pipe or rzpipe not available, but required for r2/rz->ghidra bridge"
+        )
 
     if not func:
         func = (
@@ -70,7 +77,9 @@ def decompile(func=None):
 
     src = r2.cmdj("pdgj @ " + func)
     if not src:
-        raise Exception(f"Decompile command failed, check if '{func}' is a valid target")
+        raise Exception(
+            f"Decompile command failed, check if '{func}' is a valid target"
+        )
 
     current_line_marker = "/*%%PWNDBG_CODE_MARKER%%*/"
     source = src.get("code", "")
@@ -102,10 +111,16 @@ def decompile(func=None):
         # highlighting depends on the file extension to guess the language, so try to get one...
         src_filename = None
         if pwndbg.dbg.is_gdblib_available():
-            src_filename = pwndbg.gdblib.symbol.selected_frame_source_absolute_filename()
+            src_filename = (
+                pwndbg.gdblib.symbol.selected_frame_source_absolute_filename()
+            )
         if not src_filename:
             filename = pwndbg.dbg.selected_inferior().main_module_name()
-            src_filename = filename + ".c" if os.path.basename(filename).find(".") < 0 else filename
+            src_filename = (
+                filename + ".c"
+                if os.path.basename(filename).find(".") < 0
+                else filename
+            )
         source = H.syntax_highlight(source, src_filename)
 
     # Replace code prefix marker after syntax highlighting

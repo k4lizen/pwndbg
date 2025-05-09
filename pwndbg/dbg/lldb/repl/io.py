@@ -338,7 +338,10 @@ def make_pty() -> Tuple[str, int] | None:
     except UnicodeDecodeError:
         # The name of the terminal device is nonsensical to us, so we can't use
         # this PTY. Warn the user that getting the PTY has failed.
-        print(f"warning: cannot interpret ptsname {name} as a string. not using a pseudo-terminal")
+        print(
+            f"warning: cannot interpret ptsname {name} as a string. not using a"
+            " pseudo-terminal"
+        )
         return None
 
     return name, pty
@@ -405,7 +408,8 @@ class IODriverPseudoTerminal(IODriver):
                 signal.signal(signal.SIGWINCH, handle_sigwinch)
             except FileNotFoundError:
                 print(
-                    "warning: no terminal device in /dev/tty, expect no support for terminal sizes"
+                    "warning: no terminal device in /dev/tty, expect no support for"
+                    " terminal sizes"
                 )
 
         self.stop_requested = threading.Event()

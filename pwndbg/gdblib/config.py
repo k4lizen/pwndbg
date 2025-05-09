@@ -118,7 +118,9 @@ class Parameter(gdb.Parameter):
 
     def get_show_string(self, svalue: str) -> str:
         """Handles the GDB `show <param>`"""
-        more_information_hint = f" See `help set {self.param.name}` for more information."
+        more_information_hint = (
+            f" See `help set {self.param.name}` for more information."
+        )
         return "{} is {!r}.{}".format(
             self.param.set_show_doc.capitalize(),
             svalue,
@@ -134,10 +136,15 @@ class Parameter(gdb.Parameter):
         elif value is None and CLASS_MAPPING[param_class] == gdb.PARAM_AUTO_BOOLEAN:
             # None for gdb.PARAM_AUTO_BOOLEAN means "auto".
             return "auto"
-        elif value == 0 and CLASS_MAPPING[param_class] in (gdb.PARAM_UINTEGER, gdb.PARAM_INTEGER):
+        elif value == 0 and CLASS_MAPPING[param_class] in (
+            gdb.PARAM_UINTEGER,
+            gdb.PARAM_INTEGER,
+        ):
             # 0 for gdb.PARAM_UINTEGER and gdb.PARAM_INTEGER means "unlimited".
             return "unlimited"
-        elif value == -1 and CLASS_MAPPING[param_class] == gdb.PARAM_ZUINTEGER_UNLIMITED:
+        elif (
+            value == -1 and CLASS_MAPPING[param_class] == gdb.PARAM_ZUINTEGER_UNLIMITED
+        ):
             # -1 for gdb.PARAM_ZUINTEGER_UNLIMITED means "unlimited".
             return "unlimited"
 
