@@ -25,10 +25,11 @@ jobs:
           export LLDB_DEBUGSERVER_PATH=/usr/lib/llvm-19/bin/lldb-server
           uv sync --extra lldb --group docs
           lldb -P
-
-      - name: Verify docs are up to date with source
-        run: |
           ./scripts/verify-docs.sh
+
+
+      # - name: Verify docs are up to date with source
+      #   run: |
 
       - name: Update docs/index.md with README.md
         # This can be a simple copy if https://github.com/github/markup/issues/994
