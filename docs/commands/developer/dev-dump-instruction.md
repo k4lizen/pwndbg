@@ -10,7 +10,7 @@
 usage: dev-dump-instruction [-h] [-e] [-n] [address]
 
 ```
-
+b
 Dump internal PwndbgInstruction attributes.
 ### Positional arguments
 
