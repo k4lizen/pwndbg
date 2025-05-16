@@ -21,15 +21,13 @@ jobs:
           # https://github.com/pwndbg/pwndbg/blob/dev/DEVELOPING.md#install-from-source-lldb
           sudo apt update
           sudo apt install -y gdb lldb-19 liblldb-19-dev
-          export PATH=/usr/lib/llvm-19/bin/:$PATH
-          export LLDB_DEBUGSERVER_PATH=/usr/lib/llvm-19/bin/lldb-server
+          echo "/usr/lib/llvm-19/bin/" >> $GITHUB_PATH
+          echo "/usr/lib/llvm-19/bin/lldb-server" >> $GITHUB_PATH
           uv sync --extra lldb --group docs
-          lldb -P
+
+      - name: Verify docs are up to date with source
+        run: |
           ./scripts/verify-docs.sh
-
-
-      # - name: Verify docs are up to date with source
-      #   run: |
 
       - name: Update docs/index.md with README.md
         # This can be a simple copy if https://github.com/github/markup/issues/994
