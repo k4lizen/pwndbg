@@ -29,7 +29,9 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.PROCESS)
+@pwndbg.commands.Command(
+    parser, category=CommandCategory.PROCESS, only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB}
+)
 @pwndbg.commands.OnlyWhenRunning
 def killthreads(thread_ids: List[int] | None = None, all: bool = False) -> None:
     if len(thread_ids) == 0 and not all:

@@ -42,7 +42,12 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(parser, command_name="break-if-taken", category=CommandCategory.BREAKPOINT)
+@pwndbg.commands.Command(
+    parser,
+    command_name="break-if-taken",
+    category=CommandCategory.BREAKPOINT,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 @pwndbg.commands.OnlyWhenRunning
 def break_if_taken(branch) -> None:
     install_breakpoint(branch, taken=True)
@@ -57,7 +62,10 @@ parser.add_argument(
 
 
 @pwndbg.commands.Command(
-    parser, command_name="break-if-not-taken", category=CommandCategory.BREAKPOINT
+    parser,
+    command_name="break-if-not-taken",
+    category=CommandCategory.BREAKPOINT,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWhenRunning
 def break_if_not_taken(branch) -> None:

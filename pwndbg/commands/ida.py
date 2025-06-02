@@ -19,7 +19,9 @@ from pwndbg.gdblib.functions import GdbFunction
 
 
 @pwndbg.commands.Command(
-    "Synchronize IDA's cursor with GDB.", category=CommandCategory.INTEGRATIONS
+    "Synchronize IDA's cursor with GDB.",
+    category=CommandCategory.INTEGRATIONS,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.dbg.event_handler(EventType.STOP)
@@ -41,7 +43,9 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.MISC)
+@pwndbg.commands.Command(
+    parser, category=CommandCategory.MISC, only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB}
+)
 @pwndbg.commands.OnlyWhenRunning
 def up(n=1) -> None:
     """
@@ -73,7 +77,12 @@ parser.add_argument(
 # These aliases ("do", "dow") are necessary to ensure consistency in the help system
 # and to pass the test_consistent_help test, which verifies that all commands and their
 # aliases are documented correctly. See issue #2961 for more details.
-@pwndbg.commands.Command(parser, category=CommandCategory.MISC, aliases=["do", "dow"])
+@pwndbg.commands.Command(
+    parser,
+    category=CommandCategory.MISC,
+    aliases=["do", "dow"],
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 @pwndbg.commands.OnlyWhenRunning
 def down(n=1) -> None:
     """
@@ -95,7 +104,11 @@ def down(n=1) -> None:
     j()
 
 
-@pwndbg.commands.Command("Save the ida database.", category=CommandCategory.INTEGRATIONS)
+@pwndbg.commands.Command(
+    "Save the ida database.",
+    category=CommandCategory.INTEGRATIONS,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 @pwndbg.integration.ida.withIDA
 def save_ida() -> None:
     """Save the IDA database"""

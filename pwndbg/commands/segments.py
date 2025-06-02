@@ -7,7 +7,9 @@ from pwndbg.commands import CommandCategory
 
 
 @pwndbg.commands.Command(
-    "Prints out the FS base address. See also $fsbase.", category=CommandCategory.REGISTER
+    "Prints out the FS base address. See also $fsbase.",
+    category=CommandCategory.REGISTER,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.aglib.proc.OnlyWithArch(["i386", "x86-64"])
@@ -19,7 +21,9 @@ def fsbase() -> None:
 
 
 @pwndbg.commands.Command(
-    "Prints out the GS base address. See also $gsbase.", category=CommandCategory.REGISTER
+    "Prints out the GS base address. See also $gsbase.",
+    category=CommandCategory.REGISTER,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWhenRunning
 @pwndbg.aglib.proc.OnlyWithArch(["i386", "x86-64"])

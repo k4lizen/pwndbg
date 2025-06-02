@@ -130,7 +130,11 @@ def find_pids(target, user, exact, all):
         return pids_exact_match_cmd or pids_partial_match_cmd or pids_partial_match_args
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.START)
+@pwndbg.commands.Command(
+    parser,
+    category=CommandCategory.START,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 def attachp(target, no_truncate, retry, exact, all, user=None) -> None:
     # As a default, the user may want to attach to a binary name taken from currently loaded file name
     if target is None:

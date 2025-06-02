@@ -36,6 +36,7 @@ pwndbg> ropper -- --search 'pop rdi; ret;'
 [INFO] File: /usr/bin/bash
 0x000000000001ee23: pop rdi; ret;
     """,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWithFile
 def ropper(argument) -> None:

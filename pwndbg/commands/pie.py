@@ -77,7 +77,12 @@ if pwndbg.dbg.is_gdblib_available():
         help="Module to choose as base. Defaults to the target executable.",
     )
 
-    @pwndbg.commands.Command(parser, aliases=["brva"], category=CommandCategory.BREAKPOINT)
+    @pwndbg.commands.Command(
+        parser,
+        aliases=["brva"],
+        category=CommandCategory.BREAKPOINT,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     @pwndbg.commands.OnlyWhenRunning
     def breakrva(offset=0, module=None) -> None:
         offset = int(offset)

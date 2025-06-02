@@ -96,7 +96,11 @@ status.add_argument(
 status.set_defaults(mode="status")
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.LINUX, command_name="track-got")
+@pwndbg.commands.Command(
+    parser,
+    category=CommandCategory.LINUX,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 @pwndbg.commands.OnlyWhenRunning
 def track_got(mode=None, soname=None, writable=False, fnname=None, address=None):
     if mode == "enable":

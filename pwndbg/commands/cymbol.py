@@ -303,7 +303,11 @@ parser.add_argument(
 )
 
 
-@pwndbg.commands.Command(parser, category=CommandCategory.MISC)
+@pwndbg.commands.Command(
+    parser,
+    category=CommandCategory.MISC,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+)
 def cymbol(add: str, file: str, remove: str, edit: str, load: str, show: str) -> None:
     if add:
         add_custom_structure(add)

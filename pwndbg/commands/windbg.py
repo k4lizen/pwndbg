@@ -357,7 +357,11 @@ def ds(address, max) -> None:
 
 if pwndbg.dbg.is_gdblib_available():
 
-    @pwndbg.commands.Command("List breakpoints.", category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        "List breakpoints.",
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def bl() -> None:
         """
         List breakpoints
@@ -369,7 +373,11 @@ if pwndbg.dbg.is_gdblib_available():
         "which", nargs="?", type=str, default="*", help="Index of the breakpoint to disable."
     )
 
-    @pwndbg.commands.Command(parser, category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        parser,
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def bd(which="*") -> None:
         """
         Disable the breakpoint with the specified index.
@@ -384,7 +392,11 @@ if pwndbg.dbg.is_gdblib_available():
         "which", nargs="?", type=str, default="*", help="Index of the breakpoint to enable."
     )
 
-    @pwndbg.commands.Command(parser, category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        parser,
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def be(which="*") -> None:
         """
         Enable the breakpoint with the specified index.
@@ -399,7 +411,11 @@ if pwndbg.dbg.is_gdblib_available():
         "which", nargs="?", type=str, default="*", help="Index of the breakpoint to clear."
     )
 
-    @pwndbg.commands.Command(parser, category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        parser,
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def bc(which="*") -> None:
         """
         Clear the breakpoint with the specified index.
@@ -412,11 +428,19 @@ if pwndbg.dbg.is_gdblib_available():
     parser = argparse.ArgumentParser(description="Set a breakpoint at the specified address.")
     parser.add_argument("where", type=int, help="The address to break at.")
 
-    @pwndbg.commands.Command(parser, category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        parser,
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def bp(where) -> None:
         gdb.execute(f"break *{where:#x}")
 
-    @pwndbg.commands.Command("Print a backtrace (alias 'bt').", category=CommandCategory.WINDBG)
+    @pwndbg.commands.Command(
+        "Print a backtrace (alias 'bt').",
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     @pwndbg.commands.OnlyWhenRunning
     def k() -> None:
         """
@@ -425,7 +449,9 @@ if pwndbg.dbg.is_gdblib_available():
         gdb.execute("bt")
 
     @pwndbg.commands.Command(
-        "Windbg compatibility alias for 'continue' command.", category=CommandCategory.WINDBG
+        "Windbg compatibility alias for 'continue' command.",
+        category=CommandCategory.WINDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
     )
     @pwndbg.commands.OnlyWhenRunning
     def go() -> None:

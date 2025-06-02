@@ -140,7 +140,11 @@ def theme(filter_pattern) -> None:
 
 if pwndbg.dbg.is_gdblib_available():
     # Register the configfile command
-    @pwndbg.commands.Command(configfile_parser, category=CommandCategory.PWNDBG)
+    @pwndbg.commands.Command(
+        configfile_parser,
+        category=CommandCategory.PWNDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def configfile(show_all=False) -> None:
         configfile_print_scope(Scope.config, show_all)
 
@@ -155,7 +159,11 @@ themefile_parser.add_argument(
 
 if pwndbg.dbg.is_gdblib_available():
     # Register the themefile command.
-    @pwndbg.commands.Command(themefile_parser, category=CommandCategory.PWNDBG)
+    @pwndbg.commands.Command(
+        themefile_parser,
+        category=CommandCategory.PWNDBG,
+        only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
+    )
     def themefile(show_all=False) -> None:
         configfile_print_scope(Scope.theme, show_all)
 

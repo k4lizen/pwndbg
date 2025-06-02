@@ -66,6 +66,7 @@ got puts
 got -p libc
 got -a
 """,
+    only_debuggers={pwndbg.dbg_mod.DebuggerType.GDB},
 )
 @pwndbg.commands.OnlyWhenRunning
 def got(path_filter: str, all_: bool, accept_readonly: bool, symbol_filter: str) -> None:
