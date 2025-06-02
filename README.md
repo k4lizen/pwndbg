@@ -10,11 +10,11 @@
 with a focus on features needed by low-level software developers, hardware hackers,
 reverse-engineers and exploit developers.
 
-It has a boatload of features, see our [Features page](https://pwndbg.re/pwndbg/latest/features/)
+It has a boatload of features, see our [Features page](https://pwndbg.re/pwndbg/stable/features/)
 and [CHEATSHEET][CHEATSHEET] (feel free to print it!). If you have any questions you may read the
-[documentation](https://pwndbg.re/pwndbg/latest/) or asks us in our [Discord server](https://discord.gg/x47DssnGwm).
+[documentation](https://pwndbg.re/pwndbg/stable/) or asks us in our [Discord server](https://discord.gg/x47DssnGwm).
 
-[CHEATSHEET]: https://pwndbg.re/pwndbg/latest/CHEATSHEET.pdf
+[CHEATSHEET]: https://pwndbg.re/pwndbg/stable/CHEATSHEET.pdf
 
 ## Why?
 
@@ -30,7 +30,7 @@ smoothing out rough edges and making them more user-friendly.
 
 ## Installation
 
-See [installation instructions](https://pwndbg.re/pwndbg/latest/setup).
+See [installation instructions](https://pwndbg.re/pwndbg/stable/setup).
 
 ## What about ...?
 
