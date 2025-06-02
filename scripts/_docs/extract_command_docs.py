@@ -25,11 +25,13 @@ import sys
 from typing import Tuple
 
 import pwndbg.commands
+import pwndbg.dbg
 from pwndbg.commands import CommandObj
 from scripts._docs.command_docs_common import BASE_PATH
 from scripts._docs.command_docs_common import ExtractedCommand
 from scripts._docs.command_docs_common import category_to_folder_name
 from scripts._docs.command_docs_common import extracted_filename
+from scripts._docs.gen_docs_generic import ALL_DEBUGGERS
 from scripts._docs.gen_docs_generic import get_debugger
 
 
@@ -132,6 +134,8 @@ def distill_sources(commandobjs: list[CommandObj]) -> list[ExtractedCommand]:
                 optionals.append((short_name, long_name, param_help))
                 used_actions[this_id] = True
 
+        supported_debuggers = sorted([d.name for d in cmdobj.supported_debuggers])
+
         # Construct and append the final result
         extracted.append(
             ExtractedCommand(
@@ -146,13 +150,26 @@ def distill_sources(commandobjs: list[CommandObj]) -> list[ExtractedCommand]:
                 usage,
                 positionals,
                 optionals,
+                supported_debuggers,
             )
         )
 
     return extracted
 
 
+def debugger_sanity_check():
+    # Although this is not really command-specific logic
+    # no need to run it three times, so we will only run it here.
+    extracted_dbg = [d.name.lower() for d in pwndbg.dbg_mod.DebuggerType]
+    assert (
+        extracted_dbg == ALL_DEBUGGERS
+        and "These two must match. Please update whichever one is outdated."
+    )
+
+
 def main():
+    debugger_sanity_check()
+
     print("\n== Extracting Commands ==")
 
     debugger = get_debugger()
@@ -178,4 +195,10 @@ def main():
 # Since lldb's `command script import ...` doesn't
 # actually run the file like gdb's `source ...`, we can't
 # use the __name__ == "__main__" guard.
-main()
+try:
+    main()
+except Exception:
+    import traceback
+
+    traceback.print_exc()
+    sys.exit(255)

@@ -12,6 +12,7 @@ which is hand-written.
 from __future__ import annotations
 
 import json
+import sys
 from dataclasses import asdict
 from typing import Dict
 
@@ -108,4 +109,10 @@ def main():
 
 
 # Not checking __name__ due to lldb.
-main()
+try:
+    main()
+except Exception:
+    import traceback
+
+    traceback.print_exc()
+    sys.exit(255)

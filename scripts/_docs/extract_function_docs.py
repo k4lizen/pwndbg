@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from dataclasses import asdict
 from inspect import getdoc
 from inspect import signature
@@ -81,4 +82,10 @@ def main():
 
 # Not checking __name__ due to lldb
 # (even though it doesn't support functions /shrug).
-main()
+try:
+    main()
+except Exception:
+    import traceback
+
+    traceback.print_exc()
+    sys.exit(255)

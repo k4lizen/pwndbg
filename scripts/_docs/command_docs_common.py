@@ -21,6 +21,10 @@ class ExtractedCommand:
     usage: str
     positionals: list[Tuple[str, str]]
     optionals: list[Tuple[str, str, str]]
+    # We specify this so contributors who don't
+    # have all debuggers installed can still attempt
+    # to generate docs.
+    supported_debuggers: list[str]
 
 
 def category_to_folder_name(category) -> str:

@@ -148,6 +148,7 @@ class CommandObj:
         aliases: List[str],
         examples: str,
         notes: str,
+        supported_debuggers: Set[pwndbg.dbg_mod.DebuggerType],
         /,  # All parameters must be passed in positionally
     ) -> None:
         assert function
@@ -176,6 +177,8 @@ class CommandObj:
         self.aliases = aliases
         self.examples = examples.strip()
         self.notes = notes.strip()
+
+        self.supported_debuggers = supported_debuggers
 
         assert parser
         self.parser = parser
@@ -405,8 +408,24 @@ class Command:
         self.aliases = aliases
         self.examples = examples
         self.notes = notes
+
+        assert not (only_debuggers and exclude_debuggers)
         self.only_debuggers = only_debuggers
-        self.exclude_debuggers = exclude_debuggers
+
+        # Convert exclude_debuggers to only_debuggers.
+        if exclude_debuggers:
+            assert self.only_debuggers is None
+            self.only_debuggers = set()
+            for dbg in pwndbg.dbg_mod.DebuggerType:
+                if dbg not in exclude_debuggers:
+                    self.only_debuggers.add(dbg)
+
+        # Say we "only" support all debuggers.
+        if self.only_debuggers is None:
+            self.only_debuggers = set(pwndbg.dbg_mod.DebuggerType)
+
+        # Make sure we didn't get passed a non-None empty set.
+        assert self.only_debuggers and "Command not available in any debuggers?"
 
     def __call__(self, function: Callable[..., Any]) -> CommandObj:
         # Since this is the __call__ of a parametrized decorator, it is
@@ -416,21 +435,12 @@ class Command:
         # If this command is not valid for this debugger, do not even
         # pass it to ComandObj to be registered with the debugger API.
         # Also make sure it raises an error if it is called from the code.
-        if self.only_debuggers is not None and pwndbg.dbg.name() not in self.only_debuggers:
+        if pwndbg.dbg.name() not in self.only_debuggers:
 
             def decorator(*args, **kwargs):
                 raise InvalidDebuggerError(
                     f"This command cannot be used in {pwndbg.dbg.name()}.\n"
                     f"It is only valid for {self.only_debuggers}."
-                )
-
-            return decorator  # type: ignore[return-value]
-        if self.exclude_debuggers is not None and pwndbg.dbg.name() in self.exclude_debuggers:
-
-            def decorator(*args, **kwargs):
-                raise InvalidDebuggerError(
-                    f"This command cannot be used in {pwndbg.dbg.name()}.\n"
-                    f"It is invalid for {self.exclude_debuggers}."
                 )
 
             return decorator  # type: ignore[return-value]
@@ -445,6 +455,7 @@ class Command:
             self.aliases,
             self.examples,
             self.notes,
+            self.only_debuggers,
         )
 
 

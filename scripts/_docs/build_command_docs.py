@@ -107,12 +107,34 @@ def convert_all_to_markdown(
         # command title
         markdown = f"# {cmd_variants[0][1].name}\n"
 
+        supported_debuggers = sorted([x.upper() for x in cmd_variants[0][1].supported_debuggers])
+        # The only thing debuggers aren't allowed to disagree on
+        # is the .supported_debuggers field.
+        for _, data in extracted:
+            if filename in data:
+                cur_sup = sorted([x.upper() for x in data[filename].supported_debuggers])
+                assert cur_sup == supported_debuggers
+
+        # If user ran doc gen with all debuggers...
+        if len(extracted) == len(ALL_DEBUGGERS):
+            # ...make sure that the commands that got loaded into each debugger
+            # are exactly the ones marked with only_debuggers/exclude_debuggers.
+            # In other words, make sure the load_commands() in pwndbg/commands/__init__.py
+            # matches the information passed to the pwndbg.commands.Command()
+            # decorator.
+            loaded_debuggers = sorted([x[0].upper() for x in cmd_variants])
+            if sorted(loaded_debuggers) != supported_debuggers:
+                print(f"Mismatch between load and decorator information for {filename}.")
+                print("Loaded: ", loaded_debuggers)
+                print("From decorator: ", supported_debuggers)
+                sys.exit(20)
+
         # Note about supported debuggers if the command isn't
         # available everywhere.
-        if len(cmd_variants) != len(ALL_DEBUGGERS):
-            supported_list = ", ".join([x[0].upper() for x in cmd_variants])
+        if len(cmd_variants[0][1].supported_debuggers) != len(ALL_DEBUGGERS):
+            supported_text = ", ".join(supported_debuggers)
             markdown += '<small style="color: lightgray;">'
-            markdown += f"(only in {supported_list})"
+            markdown += f"(only in {supported_text})"
             markdown += "</small>\n"
 
         debuggers_agree = all(x[1] == cmd_variants[0][1] for x in cmd_variants)
@@ -390,4 +412,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+
+        traceback.print_exc()
+        sys.exit(255)
