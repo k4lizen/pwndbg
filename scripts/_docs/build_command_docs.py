@@ -307,6 +307,10 @@ def read_extracted() -> list[Tuple[str, Dict[str, ExtractedCommand]]]:
         filepath = extracted_filename(debugger)
         print(f"Consuming {filepath}..")
 
+        if not os.path.exists(filepath):
+            print(f"Data for {debugger} does not exist. Skipping..")
+            continue
+
         with open(filepath, "r") as file:
             raw_data = json.loads(file.read())
 
