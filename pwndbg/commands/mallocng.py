@@ -282,7 +282,12 @@ def dump_group(group: mallocng.Group) -> str:
     return pp.dump()
 
 
-def dump_meta(meta: mallocng.Meta) -> str:
+def dump_meta(meta: mallocng.Meta, focus_slot: Optional[int] = None) -> str:
+    """
+    Arguments:
+        meta: the meta to dump
+        focus_slot: the index of the slot to highlight in the slot statuses list
+    """
     int_size = str(typeinfo.sint.sizeof * 8)
     avail_binary = "0b" + format(meta.avail_mask, f"0{int_size}b")
     freed_binary = "0b" + format(meta.freed_mask, f"0{int_size}b")
@@ -339,17 +344,35 @@ def dump_meta(meta: mallocng.Meta) -> str:
             print(message.error(f"Could not fetch parent group: {e}"))
         output += C.bold(".\n")
 
+    # Print the slot statuses.
+    slot_statuses = "\nSlot statuses: "
+    for i in range(meta.cnt):
+        this_slot = get_colored_slot_state(meta.slotstate_at_index(i), short=True)
+
+        if focus_slot is not None and i == focus_slot:
+            this_slot = "[" + this_slot + "]"
+
+        slot_statuses += this_slot
+
+    slot_statuses = C.bold(slot_statuses + "\n")
+    slot_statuses += (
+        f"  ({C.bold(C.green('U'))}: Inuse (allocated) / {C.bold(C.red('F'))}:"
+        f" Freed / {C.bold(C.blue('A'))}: Available)\n"
+    )
+
+    output += slot_statuses
+
     return output
 
 
-def get_colored_slot_state(ss: mallocng.SlotState) -> str:
+def get_colored_slot_state(ss: mallocng.SlotState, short: bool = False) -> str:
     match ss:
         case mallocng.SlotState.ALLOCATED:
-            return C.green(ss.value)
+            return C.green("U" if short else ss.value)
         case mallocng.SlotState.FREED:
-            return C.red(ss.value)
+            return C.red("F" if short else ss.value)
         case mallocng.SlotState.AVAIL:
-            return C.blue(ss.value)
+            return C.blue("A" if short else ss.value)
 
 
 def dump_grouped_slot(gslot: mallocng.GroupedSlot, all: bool) -> str:
@@ -381,7 +404,7 @@ def dump_grouped_slot(gslot: mallocng.GroupedSlot, all: bool) -> str:
 
     if all:
         output += dump_group(gslot.group)
-        output += dump_meta(gslot.meta)
+        output += dump_meta(gslot.meta, gslot.idx)
 
     return output
 
@@ -485,12 +508,13 @@ def dump_slot(
         # The grouped_slot will have accurate information on this,
         # no need for us to guess.
         output += C.bold(
-            "\nThe slot is (probably) " + get_colored_slot_state(slot.slot_state) + ".\n\n"
+            "\nThe slot is (probably) " + get_colored_slot_state(slot.slot_state) + ".\n"
         )
 
     if all:
+        output += "\n"
         output += dump_group(slot.group)
-        output += dump_meta(slot.meta)
+        output += dump_meta(slot.meta, slot.idx)
 
     return output
 
