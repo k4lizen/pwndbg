@@ -282,6 +282,16 @@ def dump_group(group: mallocng.Group) -> str:
     return pp.dump()
 
 
+def get_colored_slot_state(ss: mallocng.SlotState, short: bool = False) -> str:
+    match ss:
+        case mallocng.SlotState.ALLOCATED:
+            return C.blue("U" if short else ss.value)
+        case mallocng.SlotState.FREED:
+            return C.red("F" if short else ss.value)
+        case mallocng.SlotState.AVAIL:
+            return C.gray("A" if short else ss.value)
+
+
 def dump_meta(meta: mallocng.Meta, focus_slot: Optional[int] = None) -> str:
     """
     Arguments:
@@ -356,23 +366,14 @@ def dump_meta(meta: mallocng.Meta, focus_slot: Optional[int] = None) -> str:
 
     slot_statuses = C.bold(slot_statuses + "\n")
     slot_statuses += (
-        f"  ({C.bold(C.green('U'))}: Inuse (allocated) / {C.bold(C.red('F'))}:"
-        f" Freed / {C.bold(C.blue('A'))}: Available)\n"
+        f"  ({C.bold(get_colored_slot_state(mallocng.SlotState.ALLOCATED, True))}: Inuse (allocated)"
+        f" / {C.bold(get_colored_slot_state(mallocng.SlotState.FREED, True))}: Freed"
+        f" / {C.bold(get_colored_slot_state(mallocng.SlotState.AVAIL, True))}: Available)\n"
     )
 
     output += slot_statuses
 
     return output
-
-
-def get_colored_slot_state(ss: mallocng.SlotState, short: bool = False) -> str:
-    match ss:
-        case mallocng.SlotState.ALLOCATED:
-            return C.green("U" if short else ss.value)
-        case mallocng.SlotState.FREED:
-            return C.red("F" if short else ss.value)
-        case mallocng.SlotState.AVAIL:
-            return C.blue("A" if short else ss.value)
 
 
 def dump_grouped_slot(gslot: mallocng.GroupedSlot, all: bool) -> str:
