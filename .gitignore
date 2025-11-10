@@ -99,3 +99,6 @@ result*
 
 # Vim
 *.swp
+
+# lsp configurations
+pyrightconfig.json

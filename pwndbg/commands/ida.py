@@ -210,3 +210,11 @@ def ida(name: gdb.Value) -> int:
         raise ValueError("ida.LocByName(%r) == BADADDR" % name)
 
     return result
+
+
+
+@pwndbg.commands.Command(
+    "Install/update the Pwndbg IDA integration plugin.", category=CommandCategory.INTEGRATIONS
+)
+def install_ida_integration():
+    pass
