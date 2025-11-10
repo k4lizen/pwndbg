@@ -1,6 +1,10 @@
 # IDA
 
 ## Usage
+
+!!! note "You need IDA Pro"
+    You will need IDA Pro, because the free version does not allow scripting.
+
 Open the same binary with Pwndbg and IDA. Then inside IDA go to `File > Script file` and select the `ida_script.py` file from the Pwndbg root folder. This will start the XMLRPC server that Pwndbg queries for information.
 
 Inside the debugger, run `set integration-provider ida`. This will start the integration, you can run `set integration-provider none` to disable it.
