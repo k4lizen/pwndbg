@@ -6,6 +6,7 @@ from capstone import *  # noqa: F403
 
 import pwndbg
 import pwndbg.aglib.disasm.disassembly
+import pwndbg.aglib.memory
 import pwndbg.aglib.regs
 import pwndbg.aglib.strings
 import pwndbg.aglib.symbol
@@ -67,11 +68,11 @@ pwndbg.config.add_param("left-pad-disasm", True, "whether to left-pad disassembl
 show_args = pwndbg.config.add_param(
     "nearpc-show-args", True, "whether to show call arguments below instruction"
 )
-show_comments = pwndbg.config.add_param(
-    "nearpc-integration-comments",
-    True,
-    "whether to show comments from integration provider",
-)
+# show_comments = pwndbg.config.add_param(
+#     "nearpc-integration-comments",
+#     True,
+#     "whether to show comments from integration provider",
+# )
 show_opcode_bytes = pwndbg.config.add_param(
     "nearpc-num-opcode-bytes",
     0,
@@ -329,14 +330,15 @@ def nearpc(
         # mem_access was on this list, but not used due to the `and False` in the code that sets it above
         line = " ".join(filter(None, (prefix, address_str, opcodes, symbol, asm)))
 
-        if show_comments:
-            # Pull comments from integration if possible
-            result += [
-                " "
-                * (len(pwndbg.color.unstylize(line)) - len(pwndbg.color.unstylize(asm).lstrip()))
-                + c.integration_comments(x)
-                for x in pwndbg.integration.provider.get_comment_lines(instr.address)
-            ]
+        # FIXME(provider, integration): can we look into doing this on the decompiler side?
+        # if show_comments:
+        #     # Pull comments from integration if possible
+        #     result += [
+        #         " "
+        #         * (len(pwndbg.color.unstylize(line)) - len(pwndbg.color.unstylize(asm).lstrip()))
+        #         + c.integration_comments(x)
+        #         for x in pwndbg.integration.provider.get_comment_lines(instr.address)
+        #     ]
 
         # For Comment Function
         try:

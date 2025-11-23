@@ -24,6 +24,7 @@ import pwndbg.aglib.macho
 import pwndbg.aglib.memory
 import pwndbg.aglib.symbol
 import pwndbg.aglib.typeinfo
+import pwndbg.lib.functions
 from pwndbg.aglib.disasm.instruction import PwndbgInstruction
 from pwndbg.dbg import Type
 

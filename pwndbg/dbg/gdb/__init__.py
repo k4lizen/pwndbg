@@ -171,6 +171,28 @@ class GDBFrame(pwndbg.dbg_mod.Frame):
     def sp(self) -> int:
         return int(self.regs().by_name("sp"))
 
+    def start(self) -> Optional[int]:
+        # How is it possible that this isn't in the API?
+        # https://sourceware.org/gdb/current/onlinedocs/gdb.html/Frames-In-Python.html#Frames-In-Python
+        import pwndbg.aglib.arch
+
+        # It is possible that self.inner is not the frame selected in the debugger, so we will save
+        # the selected frame, move gdb to this frame, do `info frame`, and then restore the selected frame.
+        with selection(self.inner, lambda: gdb.selected_frame(), lambda f: f.select()):
+            try:
+                frame_txt: str = gdb.execute("info frame", to_string=True)
+                match = re.search(r"frame at (0x[0-9a-fA-F]+):", frame_txt)
+                if match:
+                    frame_addr = int(match.group(1), 16)
+                    # Happens often at the entry point
+                    if frame_addr == 0:
+                        return None
+                    # GDB for some reason returns one ptr past retaddr
+                    return frame_addr - pwndbg.aglib.arch.ptrsize
+                return None
+            except gdb.error as e:
+                raise pwndbg.dbg_mod.Error(e)
+
     @override
     def parent(self) -> pwndbg.dbg_mod.Frame | None:
         try:
@@ -1791,3 +1813,18 @@ class GDB(pwndbg.dbg_mod.Debugger):
             command = "set python print-stack message"
 
         gdb.execute(command, from_tty=True, to_string=True)
+
+    @override
+    def set_convenience_var(self, name: str, value: str, type: Optional[str]) -> None:
+        """
+        Set a convenience variable which will be accessible with $name in the
+        debugger.
+
+        Read the docstring in pwndbg.dbg.set_convenience_var()!!
+
+        Surround this function with try/catch.
+        """
+        if type is not None:
+            gdb.execute(f"set ${name} = (({type})({value}))")
+        else:
+            gdb.execute(f"set ${name} = ({value})")
