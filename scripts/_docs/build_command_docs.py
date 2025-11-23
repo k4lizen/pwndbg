@@ -201,6 +201,7 @@ def verify_files(filename_to_markdown: Dict[str, str]) -> str | None:
 
         if len(file_data) < (mkdlen + 3):
             return (
+                f"file:\n{file_data}\nbut should be:\n{markdown}"
                 f"File {filename} is too short. Expected {mkdlen + 3} lines, got {len(file_data)}."
             )
 
