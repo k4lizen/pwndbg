@@ -99,6 +99,7 @@ let
     "rpyc"
     "iniconfig"
     "decomp2dbg"
+    "filelock"
   ];
   pkgsNeedPoetry = [
     "pt"
