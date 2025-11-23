@@ -82,6 +82,7 @@ def verify_files_simple(filename_to_markdown: Dict[str, str], skip: list[str] = 
         with open(filename, "r") as file:
             file_data = file.read()
             if file_data != markdown:
+                print("file:\n", file_data, "should be:\n", markdown)
                 return f"File {filename} differs from auto-generated output."
 
     return None
