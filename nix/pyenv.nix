@@ -98,6 +98,7 @@ let
     "plumbum"
     "rpyc"
     "iniconfig"
+    "decomp2dbg"
   ];
   pkgsNeedPoetry = [
     "pt"
