@@ -8,6 +8,10 @@ import textwrap
 from typing import Dict
 from typing import Tuple
 
+import shutil
+
+shutil.get_terminal_size = lambda fallback=(80, 24): os.terminal_size((80, 24))
+
 from mdutils.mdutils import MdUtils
 
 from scripts._docs.command_docs_common import BASE_PATH

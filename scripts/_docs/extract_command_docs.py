@@ -85,7 +85,9 @@ def distill_sources(commandobjs: list[CommandObj]) -> list[ExtractedCommand]:
         parser = cmdobj.parser
         formatter = parser._get_formatter()
 
+        print("name: ", name)
         usage = parser.format_usage()
+        print("end")
 
         used_actions = {}
 

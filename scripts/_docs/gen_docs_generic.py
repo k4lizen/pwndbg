@@ -6,6 +6,10 @@ import re
 from typing import Dict
 from typing import Tuple
 
+import shutil
+
+shutil.get_terminal_size = lambda fallback=(80, 24): os.terminal_size((80, 24))
+
 ALL_DEBUGGERS = ["gdb", "lldb"]
 
 
