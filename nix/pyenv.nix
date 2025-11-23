@@ -80,6 +80,7 @@ let
     "pytest-cov"
     "mypy"
     "vermin"
+    "decomp2dbg"
   ];
   pkgsNeedFlitcore = [
     "typing-extensions"
