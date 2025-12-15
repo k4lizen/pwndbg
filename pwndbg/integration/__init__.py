@@ -1,7 +1,6 @@
 """
-Provides decompiler integration by leveraging
-
-https://github.com/mahaloz/decomp2dbg
+Provides decompiler integration by leveraging decomp2dbg (https://github.com/mahaloz/decomp2dbg).
+Some of the code found below is directly taken from or inspired by decomp2dbg found in the client and symbol mapper.
 """
 
 from __future__ import annotations
