@@ -67,7 +67,4 @@ fi
 # Checking minimum python version
 $UV_RUN_LINT vermin -vvv --no-tips -t=3.10- --eval-annotations --violations ${LINT_FILES}
 
-# mypy is run in a separate step on GitHub Actions
-if [[ -z "$GITHUB_ACTIONS" ]]; then
-    $UV_RUN_MYPY mypy pwndbg pwndbginit tests/host
-fi
+# `mypy --strict` is run in .github/workflows/lint.yml
